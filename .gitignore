@@ -45,3 +45,14 @@ $RECYCLE.BIN/
 Network Trash Folder
 Temporary Items
 .apdisk
+
+*.jar
+/bin
+/libs
+/eclipse
+/build
+/settings
+/.git
+/.gradle
+/gradle
+*.txt

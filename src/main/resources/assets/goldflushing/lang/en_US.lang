@@ -1,0 +1,45 @@
+tile.Iron.name=Iron Sand
+tile.Gold.name=Gold Sand
+tile.Tin.name=Tin Sand
+tile.Copper.name=Copper Sand
+tile.Lead.name=Lead Sand
+tile.Nickel.name=Nickel Sand
+tile.Platinum.name=Platinum Sand
+tile.Aluminium.name=Aluminium Sand
+tile.Osmium.name=Osmium Sand
+tile.GFSOWP.name=Sand Ore Washing Plant
+item.debugger.name=Debugger
+
+tile.TimeAccelerator2.0.name=Time Accelerator
+
+item.sandbucketIron.name=Bucket of Iron Sand
+item.sandbucketGold.name=Bucket of Gold Sand
+item.sandbucketTin.name=Bucket of Tin Sand
+item.sandbucketCopper.name=Bucket of Copper Sand
+item.sandbucketLead.name=Bucket of Lead Sand
+item.sandbucketNickel.name=Bucket of Nickel Sand
+item.sandbucketPlatinum.name=Bucket of Platinum Sand
+item.sandbucketAluminium.name=Bucket of Aluminium Sand
+item.sandbucketOsmium.name=Bucket of Osmium Sand
+
+item.dustIron.name=Iron Dust
+item.dustGold.name=Gold Dust
+item.dustTin.name=Tin Dust
+item.dustCopper.name=Copper Dust    
+item.dustLead.name=Lead Dust
+item.dustNickel.name=Nickel Dust
+item.dustPlatinum.name=Platinum Dust
+item.dustAluminium.name=Aluminium Dust
+item.dustOsmium.name=Osmium Dust
+
+itemGroup.gftab=Gold Flushing
+item.goldpan.name=Gold Pan
+item.goldpanfullIron.name=Gold Pan Full of Iron Sand
+item.goldpanfullGold.name=Gold Pan Full of Gold Sand
+item.goldpanfullTin.name=Gold Pan Full of Tin Sand
+item.goldpanfullCopper.name=Gold Pan Full of Copper Sand
+item.goldpanfullLead.name=Gold Pan Full of Lead Sand
+item.goldpanfullNickel.name=Gold Pan Full of Nickel Sand
+item.goldpanfullPlatinum.name=Gold Pan Full of Platinum Sand
+item.goldpanfullAluminium.name=Gold Pan Full of Aluminium Sand
+item.goldpanfullOsmium.name=Gold Pan Full of Osmium Sand

@@ -1,0 +1,245 @@
+package AAM.Client.Model;
+
+import net.minecraft.client.model.ModelBase;
+import net.minecraft.client.model.ModelRenderer;
+import net.minecraft.entity.Entity;
+import org.lwjgl.opengl.GL11;
+
+/**
+ * Alemental guard - Smashe Created using Tabula 4.1.1
+ */
+public class Elemental extends ModelBase
+{
+	public double[] modelScale = new double[] { 4.0D, 4.0D, 4.0D };
+	public ModelRenderer niz4;
+	public ModelRenderer Bodyosnovaleft;
+	public ModelRenderer niz1;
+	public ModelRenderer niz2;
+	public ModelRenderer niz3;
+	public ModelRenderer Bodyosnovaright;
+	public ModelRenderer OsnovaHead;
+	public ModelRenderer righthand2;
+	public ModelRenderer Bodymmmm1;
+	public ModelRenderer lefthand2;
+	public ModelRenderer lefthand;
+	public ModelRenderer righthand;
+	public ModelRenderer BodyosnovaCENTRE;
+	public ModelRenderer Bodyosnova;
+	public ModelRenderer OsnovaHead_1;
+	public ModelRenderer rebroright;
+	public ModelRenderer rebroleft;
+	public ModelRenderer rebroleft2;
+	public ModelRenderer rebroright2;
+	public ModelRenderer rebroright3;
+	public ModelRenderer rebroleft3;
+	public ModelRenderer rebroleft55;
+	public ModelRenderer righthandili1;
+	public ModelRenderer lefthandili2;
+	public ModelRenderer OsnovaHeadilinetikakoy;
+	public ModelRenderer OsnovaHeadilinet;
+	public ModelRenderer Osnovanaplechnik;
+	public ModelRenderer Osnovanaplechleft;
+	public ModelRenderer Osnovazad;
+	public ModelRenderer OsnovaHeadilinetkorona12;
+	public ModelRenderer OsnovaHeadilinetkorona32;
+	public ModelRenderer OsnovaHeadilinetkorona322;
+	public ModelRenderer OsnovaHeadilinetkorona122;
+	public ModelRenderer Bodyosnovavrode;
+	public ModelRenderer OsnovaHeadobruch;
+
+	public Elemental() {
+        this.textureWidth = 256;
+        this.textureHeight = 128;
+        this.OsnovaHead_1 = new ModelRenderer(this, 190, 101);
+        this.OsnovaHead_1.setRotationPoint(3.0F, 35.5F, -20.4F);
+        this.OsnovaHead_1.addBox(-8.0F, -10.5F, -8.0F, 13, 13, 13, 0.0F);
+        this.rebroleft2 = new ModelRenderer(this, 130, 79);
+        this.rebroleft2.setRotationPoint(3.6F, 46.8F, -2.7F);
+        this.rebroleft2.addBox(-8.0F, -10.5F, -8.0F, 3, 31, 3, 0.0F);
+        this.setRotateAngle(rebroleft2, 0.6373942428283291F, 0.0F, 0.0F);
+        this.rebroright2 = new ModelRenderer(this, 130, 79);
+        this.rebroright2.setRotationPoint(10.9F, 46.8F, -2.7F);
+        this.rebroright2.addBox(-8.0F, -10.5F, -8.0F, 3, 31, 3, 0.0F);
+        this.setRotateAngle(rebroright2, 0.6373942428283291F, 0.0F, 0.0F);
+        this.lefthand = new ModelRenderer(this, 150, 100);
+        this.lefthand.setRotationPoint(18.7F, 49.3F, -14.2F);
+        this.lefthand.addBox(-8.0F, -10.5F, -8.0F, 9, 18, 9, 0.0F);
+        this.setRotateAngle(lefthand, 0.18203784098300857F, 0.0F, -0.5918411493512771F);
+        this.OsnovaHeadilinetkorona12 = new ModelRenderer(this, 65, 60);
+        this.OsnovaHeadilinetkorona12.setRotationPoint(-7.3F, 38.4F, -30.4F);
+        this.OsnovaHeadilinetkorona12.addBox(-8.0F, -10.5F, -8.0F, 3, 3, 9, 0.0F);
+        this.setRotateAngle(OsnovaHeadilinetkorona12, -0.5009094953223726F, 1.5707963267948966F, 0.0F);
+        this.OsnovaHeadilinet = new ModelRenderer(this, 2, 29);
+        this.OsnovaHeadilinet.setRotationPoint(-0.1F, 40.7F, -22.2F);
+        this.OsnovaHeadilinet.addBox(-8.0F, -10.5F, -8.0F, 3, 3, 2, 0.0F);
+        this.setRotateAngle(OsnovaHeadilinet, 0.0F, 0.0F, 0.7740535232594852F);
+        this.righthand2 = new ModelRenderer(this, 100, 0);
+        this.righthand2.setRotationPoint(-18.3F, 64.0F, -21.2F);
+        this.righthand2.addBox(-8.0F, -10.5F, -8.0F, 9, 18, 9, 0.0F);
+        this.setRotateAngle(righthand2, -0.9560913642424937F, 0.0F, 0.5918411493512771F);
+        this.niz3 = new ModelRenderer(this, 0, 24);
+        this.niz3.setRotationPoint(2.0F, 79.5F, -10.1F);
+        this.niz3.addBox(-8.0F, -10.5F, -8.0F, 14, 9, 14, 0.0F);
+        this.setRotateAngle(niz3, 0.40980330836826856F, 0.0F, 0.0F);
+        this.rebroleft3 = new ModelRenderer(this, 51, 84);
+        this.rebroleft3.setRotationPoint(-5.6F, 50.4F, -1.7F);
+        this.rebroleft3.addBox(-8.0F, -10.5F, -8.0F, 3, 14, 3, 0.0F);
+        this.setRotateAngle(rebroleft3, 0.5009094953223726F, -0.136659280431156F, 0.5288347633542818F);
+        this.OsnovaHeadilinetkorona122 = new ModelRenderer(this, 100, 60);
+        this.OsnovaHeadilinetkorona122.setRotationPoint(1.6F, 22.1F, -30.4F);
+        this.OsnovaHeadilinetkorona122.addBox(-8.0F, -10.5F, -8.0F, 3, 3, 7, 0.0F);
+        this.setRotateAngle(OsnovaHeadilinetkorona122, 1.5707963267948966F, 1.5707963267948966F, 0.2071705822117269F);
+        this.Osnovanaplechnik = new ModelRenderer(this, 71, 78);
+        this.Osnovanaplechnik.setRotationPoint(10.0F, 50.7F, -17.4F);
+        this.Osnovanaplechnik.addBox(-8.0F, -10.5F, -8.0F, 13, 5, 13, 0.0F);
+        this.setRotateAngle(Osnovanaplechnik, 0.0F, -0.22759093446006054F, 0.8651597102135892F);
+        this.niz4 = new ModelRenderer(this, 1, 1);
+        this.niz4.setRotationPoint(3.0F, 83.4F, -6.4F);
+        this.niz4.addBox(-8.0F, -10.5F, -8.0F, 12, 9, 12, 0.0F);
+        this.setRotateAngle(niz4, 0.36425021489121656F, 0.0F, 0.0F);
+        this.Bodyosnova = new ModelRenderer(this, 0, 88);
+        this.Bodyosnova.setRotationPoint(1.0F, 50.4F, -19.1F);
+        this.Bodyosnova.addBox(-8.0F, -10.5F, -8.0F, 16, 23, 16, 0.0F);
+        this.setRotateAngle(Bodyosnova, 0.18203784098300857F, 0.0F, 0.0F);
+        this.Bodymmmm1 = new ModelRenderer(this, 185, 39);
+        this.Bodymmmm1.setRotationPoint(1.0F, 49.9F, -17.2F);
+        this.Bodymmmm1.addBox(-8.0F, -10.5F, -8.0F, 16, 12, 16, 0.0F);
+        this.setRotateAngle(Bodymmmm1, 0.27314402793711257F, 0.0F, 0.0F);
+        this.Osnovanaplechleft = new ModelRenderer(this, 131, 50);
+        this.Osnovanaplechleft.setRotationPoint(-6.2F, 48.4F, -18.1F);
+        this.Osnovanaplechleft.addBox(-8.0F, -10.5F, -8.0F, 13, 5, 13, 0.0F);
+        this.setRotateAngle(Osnovanaplechleft, 0.0F, 0.22759093446006054F, -0.8651597102135892F);
+        this.Osnovazad = new ModelRenderer(this, 149, 77);
+        this.Osnovazad.setRotationPoint(-0.8F, 44.3F, -2.8F);
+        this.Osnovazad.addBox(-8.0F, -10.5F, -8.0F, 13, 13, 3, 0.0F);
+        this.setRotateAngle(Osnovazad, 0.31869712141416456F, -0.31869712141416456F, 0.7476990515543708F);
+        this.OsnovaHeadilinetkorona32 = new ModelRenderer(this, 65, 60);
+        this.OsnovaHeadilinetkorona32.setRotationPoint(16.0F, 35.3F, -30.4F);
+        this.OsnovaHeadilinetkorona32.addBox(-8.0F, -10.5F, -8.0F, 3, 3, 9, 0.0F);
+        this.setRotateAngle(OsnovaHeadilinetkorona32, 0.5009094953223726F, 1.5707963267948966F, 0.0F);
+        this.OsnovaHead = new ModelRenderer(this, 200, 2);
+        this.OsnovaHead.setRotationPoint(5.5F, 44.6F, -16.7F);
+        this.OsnovaHead.addBox(-8.0F, -10.5F, -8.0F, 8, 8, 8, 0.0F);
+        this.rebroleft55 = new ModelRenderer(this, 189, 73);
+        this.rebroleft55.setRotationPoint(7.3F, 47.0F, -2.7F);
+        this.rebroleft55.addBox(-8.0F, -10.5F, -8.0F, 3, 35, 3, 0.0F);
+        this.setRotateAngle(rebroleft55, 0.5009094953223726F, 0.0F, 0.0F);
+        this.Bodyosnovavrode = new ModelRenderer(this, 208, 73);
+        this.Bodyosnovavrode.setRotationPoint(-1.0F, 56.0F, -20.2F);
+        this.Bodyosnovavrode.addBox(-8.0F, -10.5F, -8.0F, 20, 8, 1, 0.0F);
+        this.setRotateAngle(Bodyosnovavrode, 0.091106186954104F, 0.0F, 0.0F);
+        this.rebroright = new ModelRenderer(this, 237, 87);
+        this.rebroright.setRotationPoint(14.6F, 46.5F, -3.1F);
+        this.rebroright.addBox(-8.0F, -10.5F, -8.0F, 3, 22, 3, 0.0F);
+        this.setRotateAngle(rebroright, 0.7285004297824331F, 0.136659280431156F, 0.0F);
+        this.rebroleft = new ModelRenderer(this, 237, 87);
+        this.rebroleft.setRotationPoint(0.0F, 46.8F, -1.2F);
+        this.rebroleft.addBox(-8.0F, -10.5F, -8.0F, 3, 22, 3, 0.0F);
+        this.setRotateAngle(rebroleft, 0.7285004297824331F, -0.136659280431156F, 0.0F);
+        this.Bodyosnovaleft = new ModelRenderer(this, 50, 0);
+        this.Bodyosnovaleft.setRotationPoint(-4.5F, 50.4F, -15.8F);
+        this.Bodyosnovaleft.addBox(-8.0F, -10.5F, -8.0F, 13, 6, 11, 0.0F);
+        this.setRotateAngle(Bodyosnovaleft, 0.1869247628885927F, 0.12740903539558604F, 0.0F);
+        this.rebroright3 = new ModelRenderer(this, 51, 84);
+        this.rebroright3.setRotationPoint(17.9F, 44.0F, -3.1F);
+        this.rebroright3.addBox(-8.0F, -10.5F, -8.0F, 3, 14, 3, 0.0F);
+        this.setRotateAngle(rebroright3, 0.5009094953223726F, 0.136659280431156F, -0.5291838292046808F);
+        this.niz2 = new ModelRenderer(this, 59, 28);
+        this.niz2.setRotationPoint(1.0F, 75.3F, -13.7F);
+        this.niz2.addBox(-8.0F, -10.5F, -8.0F, 16, 9, 16, 0.0F);
+        this.setRotateAngle(niz2, 0.22759093446006054F, 0.0F, 0.0F);
+        this.niz1 = new ModelRenderer(this, 126, 18);
+        this.niz1.setRotationPoint(0.0F, 70.4F, -16.0F);
+        this.niz1.addBox(-8.0F, -10.5F, -8.0F, 18, 9, 18, 0.0F);
+        this.setRotateAngle(niz1, 0.22759093446006054F, 0.0F, 0.0F);
+        this.Bodyosnovaright = new ModelRenderer(this, 50, 0);
+        this.Bodyosnovaright.setRotationPoint(9.3F, 50.4F, -15.8F);
+        this.Bodyosnovaright.addBox(-8.0F, -10.5F, -8.0F, 13, 6, 11, 0.0F);
+        this.setRotateAngle(Bodyosnovaright, 0.1869247628885927F, -0.12740903539558604F, 0.0F);
+        this.righthand = new ModelRenderer(this, 150, 100);
+        this.righthand.setRotationPoint(-11.2F, 53.4F, -14.2F);
+        this.righthand.addBox(-8.0F, -10.5F, -8.0F, 9, 18, 9, 0.0F);
+        this.setRotateAngle(righthand, 0.18203784098300857F, 0.0F, 0.5918411493512771F);
+        this.OsnovaHeadilinetkorona322 = new ModelRenderer(this, 100, 60);
+        this.OsnovaHeadilinetkorona322.setRotationPoint(18.6F, 18.2F, -30.8F);
+        this.OsnovaHeadilinetkorona322.addBox(-8.4F, -10.5F, -8.0F, 3, 3, 7, 0.0F);
+        this.setRotateAngle(OsnovaHeadilinetkorona322, 1.5707963267948966F, 1.5707963267948966F, -0.2071705822117269F);
+        this.OsnovaHeadobruch = new ModelRenderer(this, 0, 56);
+        this.OsnovaHeadobruch.setRotationPoint(2.1F, 38.3F, -21.1F);
+        this.OsnovaHeadobruch.addBox(-8.0F, -10.5F, -8.0F, 15, 3, 15, 0.0F);
+        this.lefthandili2 = new ModelRenderer(this, 150, 0);
+        this.lefthandili2.setRotationPoint(26.3F, 63.0F, -28.2F);
+        this.lefthandili2.addBox(-8.0F, -10.5F, -8.0F, 11, 6, 11, 0.0F);
+        this.setRotateAngle(lefthandili2, -0.9560913642424937F, 0.0F, -0.5918411493512771F);
+        this.OsnovaHeadilinetikakoy = new ModelRenderer(this, 1, 85);
+        this.OsnovaHeadilinetikakoy.setRotationPoint(8.0F, 28.6F, -21.3F);
+        this.OsnovaHeadilinetikakoy.addBox(-8.0F, -10.5F, -8.0F, 3, 12, 3, 0.0F);
+        this.righthandili1 = new ModelRenderer(this, 150, 0);
+        this.righthandili1.setRotationPoint(-21.0F, 66.5F, -27.8F);
+        this.righthandili1.addBox(-8.0F, -10.5F, -8.0F, 11, 6, 11, 0.0F);
+        this.setRotateAngle(righthandili1, -0.9560913642424937F, 0.0F, 0.5918411493512771F);
+        this.BodyosnovaCENTRE = new ModelRenderer(this, 69, 100);
+        this.BodyosnovaCENTRE.setRotationPoint(-1.0F, 50.7F, -21.0F);
+        this.BodyosnovaCENTRE.addBox(-8.0F, -10.5F, -8.0F, 20, 11, 16, 0.0F);
+        this.setRotateAngle(BodyosnovaCENTRE, 0.091106186954104F, 0.0F, 0.0F);
+        this.lefthand2 = new ModelRenderer(this, 100, 0);
+        this.lefthand2.setRotationPoint(25.2F, 58.9F, -20.9F);
+        this.lefthand2.addBox(-8.0F, -10.5F, -8.0F, 9, 18, 9, 0.0F);
+        this.setRotateAngle(lefthand2, -0.9560913642424937F, 0.0F, -0.5918411493512771F);
+    }
+
+	@Override
+	public void render(Entity entity, float f, float f1, float f2, float f3, float f4, float f5)
+	{
+		GL11.glPushMatrix();
+		GL11.glScaled(5D / modelScale[0], 5D / modelScale[1], 5D / modelScale[2]);
+		GL11.glTranslated(0, -5, 0);
+		GL11.glRotated(90, 0, 1, 0);
+		this.OsnovaHead_1.render(f5);
+		this.rebroleft2.render(f5);
+		this.rebroright2.render(f5);
+		this.lefthand.render(f5);
+		this.OsnovaHeadilinetkorona12.render(f5);
+		this.OsnovaHeadilinet.render(f5);
+		this.righthand2.render(f5);
+		this.niz3.render(f5);
+		this.rebroleft3.render(f5);
+		this.OsnovaHeadilinetkorona122.render(f5);
+		this.Osnovanaplechnik.render(f5);
+		this.niz4.render(f5);
+		this.Bodyosnova.render(f5);
+		this.Bodymmmm1.render(f5);
+		this.Osnovanaplechleft.render(f5);
+		this.Osnovazad.render(f5);
+		this.OsnovaHeadilinetkorona32.render(f5);
+		this.OsnovaHead.render(f5);
+		this.rebroleft55.render(f5);
+		this.Bodyosnovavrode.render(f5);
+		this.rebroright.render(f5);
+		this.rebroleft.render(f5);
+		this.Bodyosnovaleft.render(f5);
+		this.rebroright3.render(f5);
+		this.niz2.render(f5);
+		this.niz1.render(f5);
+		this.Bodyosnovaright.render(f5);
+		this.righthand.render(f5);
+		this.OsnovaHeadilinetkorona322.render(f5);
+		this.OsnovaHeadobruch.render(f5);
+		this.lefthandili2.render(f5);
+		this.OsnovaHeadilinetikakoy.render(f5);
+		this.righthandili1.render(f5);
+		this.BodyosnovaCENTRE.render(f5);
+		this.lefthand2.render(f5);
+		GL11.glPopMatrix();
+	}
+
+	/**
+	 * This is a helper function from Tabula to set the rotation of model parts
+	 */
+	public void setRotateAngle(ModelRenderer modelRenderer, float x, float y, float z)
+	{
+		modelRenderer.rotateAngleX = x;
+		modelRenderer.rotateAngleY = y;
+		modelRenderer.rotateAngleZ = z;
+	}
+}

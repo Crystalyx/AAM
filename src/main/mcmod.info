@@ -1,0 +1,16 @@
+[
+{
+  "modid": "alchamagicr",
+  "name": "Alchemy And Magic Reloaded",
+  "description": "Rebirth of old mod Alchemy and Magic",
+  "version": "0.01a",
+  "mcversion": "1.7.10",
+  "url": "",
+  "updateUrl": "",
+  "authorList": ["Lord_Crystalyx"],
+  "credits": "Modbder by it's modding streams",
+  "logoFile": "",
+  "screenshots": [],
+  "dependencies": []
+}
+]

@@ -1,0 +1,222 @@
+tile.aam.shadowveil.name=Shadowveil Flower
+tile.aam.shroom.name=Magic Shroom
+tile.aam.wormwoodsapling.name=Wormwood Sapling
+tile.aam.wormwoodlog.name=Wormwood Log
+tile.aam.wormwoodleaves.name=Wormwood Leaves
+tile.aam.berryBushblackberry.name=Blackberry Bush
+tile.aam.berryBushblueberry.name=Blueberry Bush
+tile.aam.berryBushmortis.name=Mortisberry Bush
+tile.aam.berryBushraspberry.name=Raspberry Bush
+tile.aam.cauldron.name=Cauldron
+tile.aam.cauldron.creative.name=Creative Cauldron
+aam.berryblackberry.name=Blackberry
+aam.berryblueberry.name=Blueberry
+aam.berrymortis.name=Mortisberry
+aam.berryraspberry.name=Raspberry
+item.aam.MortarAndPestle.name=Mortar And Pestle
+item.aam.empty_phial.name=Empty Phial
+itemGroup.aam.Core=Alchemy And Magic Core
+itemGroup.aam.Potions=Alchemy And Magic Potions
+tile.aam.spelltable.name=Inscription table
+tile.aamcircleBase.name=CircleBase
+item.aam.rainbowsword.name=Rainbow Sword
+aam.scroll.name=Scroll
+aam.magicspell.dig.name=Spell: Dig
+
+item.aam.nullifier.name=Nullifier
+
+aam.chalk.circle_big.name=Chalk: Big Circle
+aam.chalk.circle_med.name=Chalk: Medium Circle
+aam.chalk.circle_small.name=Chalk: Small Circle
+aam.chalk.rect_big.name=Chalk: Big Rectangle
+aam.chalk.rect_med.name=Chalk: Medium Rectangle
+aam.chalk.rect_small.name=Chalk: Small Rectangle
+aam.chalk.triangle_big.name=Chalk: Big Triangle
+aam.chalk.triangle_med.name=Chalk: Medium Triangle
+aam.chalk.triangle_small.name=Chalk: Small Triangle
+aam.chalk.triangles_big.name=Chalk: Big Triangles
+aam.chalk.triangles_med.name=Chalk: Medium Triangles
+aam.chalk.triangles_small.name=Chalk: Small Triangles
+aam.chalk.flower_big.name=Chalk: Big Flower
+aam.chalk.flower_med.name=Chalk: Medium Flower
+aam.chalk.flower_small.name=Chalk: Small Flower
+
+aam.swdye.red.name=Sword Lens: Red
+aam.swdye.green.name=Sword Lens: Green
+aam.swdye.blue.name=Sword Lens: Blue
+aam.swdye.cyan.name=Sword Lens: Cyan
+aam.swdye.purple.name=Sword Lens: Purple
+aam.swdye.yellow.name=Sword Lens: Yellow
+aam.swdye.void.name=Sword Lens: Void
+aam.swdye.philo.name=Sword Lens: Philosopher
+aam.swdye.space.name=Sword Lens: Space
+
+aam.soul_sword.name=Soul Sword
+aam.excalibur.name=Excalibur
+aam.spear_light.name=Spear of Light
+aam.blade_evil.name=Evil Blade
+item.aam.structurer.name=Structurer
+item.aam.soulHelm.name=Soul Helmet
+item.aam.soulChest.name=Soul Chestplate
+item.aam.soulLeg.name=Soul Leggings
+item.aam.soulBoot.name=Soul Boots
+
+item.aam.excHelm.name=Excalibur Helmet
+item.aam.excChest.name=Excalibur Chestplate
+item.aam.excLeg.name=Excalibur Leggings
+item.aam.excBoot.name=Excalibur Boots
+aam.material_0.name=Upgrade: Blood
+aam.material_1.name=Upgrade: Cast
+aam.material_2.name=Upgrade: Moon
+aam.material_3.name=Empty Phial
+
+tile.aam.struct.name=Structure Block
+aam.storage_0.name=Light Ingot Block
+aam.storage_1.name=Normal Ingot Block
+aam.storage_2.name=Dark Ingot Block
+
+		//Blocks\\
+tile.rw.dleaves.name=Dark Wood Leaves
+tile.rw.dwood.name=Dark Wood Log
+tile.rw.dsapling.name=Dark Wood Sapling
+tile.rw.anvil.name=Modification Anvil
+tile.rw.abase.name=Altar Base
+tile.rw.pillar.name=Altar Base Pillar
+tile.rw.astairs.name=Altar Based Stairs
+tile.rw.dhead.name=Dark Wood Head
+tile.rw.dplank.name=Dark Wood Planks
+tile.rw.extractor.name=Dark Extractor
+tile.rw.oredark.name=Dark Ore
+tile.rw.oreatrillium.name=Atrillium Ore
+tile.rw.altersteelblock.name=Altersteel Block
+tile.rw.atrilliumblock.name=Atrillium Block
+tile.rw.grassclearer.name=Grass Clearer
+tile.rw.reactorcore.name=Reactor Core
+tile.rw.rglass.name=Dark Reactor Glass
+tile.rw.rcasing.name=Dark Reactor Casing
+tile.rw.rtcasing.name=Dark Reactor Tough Casing
+tile.rw.sinch.name=Dark Reactor Synchronizer
+tile.rw.etower.name=EnergyTower
+tile.rw.cstorage.name=Creative DU Storage
+tile.rw.deconstructor.name=Dark Deconstructor
+tile.rw.affixer.name=Affixer
+tile.rw.tuber.name=Tube
+tile.rw.voider.name=Void
+tile.rw.graviter.name=Graviter
+tile.rw.agraviter.name=Antigraviter
+tile.rw.tess.name=Tesselator Block
+tile.rw.marker.name=Marker
+tile.rw.nexus.name=Nexus Altar
+tile.rw.mframe.name=Machine Frame
+		//Items\\
+item.rw.ritebook.name=Book of Rites
+item.rw.darksword.name=Dark Sword
+item.rw.darkpick.name=Dark Pickaxe
+item.rw.darkaxe.name=Dark Axe
+item.rw.stea.name=Soothing Tea
+item.aam.dcrystal.name=Crystal of Darkness
+item.rw.atrilliumingot.name=AtrilliumIngot
+item.Wand.Atrillium.cap=Atrillium Capped
+item.Wand.Altersteel.rod=Altersteel
+item.rw.altersteelingot.name=Altersteel Ingot
+item.rw.elementalscale.name=Elemental Scale
+item.rw.altersteelrod.name=Altersteel Rod
+item.rw.atrilliumcap.name=Altersteel Cap
+item.rw.atrilliumarmor0.name=Atrillium Helmet
+item.rw.atrilliumarmor1.name=Atrillium Chestplate
+item.rw.atrilliumarmor2.name=Atrillium Leggings
+item.rw.atrilliumarmor3.name=Atrillium Boots
+item.rw.linkingrod.name=Linking Rod
+item.rw.boundsphere.name=BoundSphere
+item.rw.ducrystal.name=DU Crystal
+
+item.rw.metaitem=Meta Item
+
+item.RogueWorldRangeUpg.name=Range Upgrade
+item.RogueWorldSpeedUpg.name=Speed Upgrade
+item.altersteel_core_fragment.name=Altersteel Core Fragment
+item.atrilium_core_fragment.name=Atrillium Core Fragment
+item.dark_core_fragment.name=Dark Core Fragment
+item.iron_plate.name=Iron Plate
+item.magical_core.name=Magical Core
+item.dark_crystal_awak.name=Awakened Dark Crystal
+item.generator_speed_upg.name=Generator Speed Upgrade
+item.generator_output_upg.name=Generator Output Upgrade
+item.infernite.name=Infernite
+item.tenebrite.name=Tenebrite
+item.salisinfernus.name=Salis Infernus
+item.salistenebris.name=Salis Tenebris
+
+RogueWorldRangeUpg.name=Range Upgrade
+RogueWorldSpeedUpg.name=Speed Upgrade
+generator_speed_upg.name=Generator Speed Upgrade
+generator_output_upg.name=Generator Output Upgrade
+altersteel_core_fragment.name=Altersteel Core Fragment
+atrilium_core_fragment.name=Atrillium Core Fragment
+dark_core_fragment.name=Dark Core Fragment
+iron_plate.name=Iron Plate
+magical_core.name=Magical Core
+dark_crystal_awak.name=Awakened Dark Crystal
+infernite.name=Infernite
+tenebrite.name=Tenebrite
+salisinfernus.name=Salis Infernus
+salistenebris.name=Salis Tenebris
+
+item.FireFragment.name=Fire Fragment
+item.EarthFragment.name=Earth Fragment
+item.WaterFragment.name=Water Fragment
+item.PowerFragment.name=Power Fragment
+item.MagicFragment.name=Magic Fragment
+item.SkyFragment.name=Sky Fragment
+
+Fire Fragment.name=Fire Fragment
+Earth Fragment.name=Earth Fragment
+Water Fragment.name=Water Fragment
+Power Fragment.name=Power Fragment
+Magic Fragment.name=Magic Fragment
+Sky Fragment.name=Sky Fragment
+
+rw.chapter.name=The Origin
+rw.article.name=Darkness
+rw.page.darkness.text=Darkness is an absence of light.
+
+tc.research_name.RW.Atrillium=Atrillium
+tc.research_text.RW.Atrillium=Magic Evolved
+
+tc.research_name.RW.Altersteel=Altersteel
+tc.research_text.RW.Altersteel=Cooler than Steel!
+
+tc.research_name.RW.Crystald=Crystal of Darkness
+tc.research_text.RW.Crystald=Crystal infused with Darkness
+
+tc.research_name.CAP_Atrillium=Atrillium Cap
+tc.research_text.CAP_Atrillium=Wand Cap from non-magical metals
+
+tc.research_name.ROD_Altersteel=Altersteel Rod
+tc.research_text.ROD_Altersteel=Wand Rod from Super Magical Metal
+
+tc.research_category.RW.Category=Rogue World
+
+CAP_Atrillium.Descr= Atrillium is a Magic Metal that more powerful than Thaumium and have power of Crystal of Darkness and raw energy of Nether Star. It can be used in space-time devices that can transport object from one place to other. You would think that it must have magical abilities, but you don't see them.
+ROD_Altersteel.Descr= Like Atrillium, Altersteel have power of Nether Star, but have more pronounced magical abilities and can be used in magical devices and tools like swords, picks and everything else.
+RW.Crystald.Descr=
+
+rw.chapter.name=Darkness Knowlege
+rw.chapter2.name=Worldgen
+
+
+	    //Miscellaneous\\
+itemGroup.tabRogueWorld=Rogue World
+tc.aspect.ligilo=Contact, Bounds, Communication
+
+item.aam.eheart.name=Elemental Heart
+aam.eheart.descr0=Heart of the Elemental
+aam.eheart.descr1=that allows you to
+aam.eheart.descr2=resist ambient surroundings 
+item.aam.seashard.name=Shard of the Sea
+aam.seashard.descr0=Shard that gives you
+aam.seashard.descr1=power of the Sea
+
+
+
+
