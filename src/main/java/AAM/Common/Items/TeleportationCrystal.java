@@ -13,7 +13,7 @@ public class TeleportationCrystal extends Item
 {
 	public TeleportationCrystal()
 	{
-		this.setTextureName("aam:altersteelScale");
+		this.setTextureName("aam:altersteel_scale");
 	}
 
 	@Override

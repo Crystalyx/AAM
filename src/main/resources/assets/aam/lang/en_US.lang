@@ -40,7 +40,7 @@ aam.alchpotion.Poison.name=Poison
 aam.coin_0.name=Bronze Coin
 aam.coin_1.name=Silver Coin
 aam.coin_2.name=Gold Coin
-aam.coin_3.name=Diamond C
+aam.coin_3.name=Diamond Coin
 
 item.aam.ring_aura0.name=Void Aura Ring
 item.aam.ring_aura1.name=Fiery Aura Ring
@@ -91,7 +91,7 @@ item.aam.bloodbucket.name=Philosophers Stone
 item.aam.obol.name=Alchemical Obol
 item.aam.alch_clock.name=Silver Clock
 
-item.aam.nullifier.name=Nullifier
+item.aam.magicwand.name=Magic Wand
 
 aam.chalk.circle_big.name=Chalk: Big Circle
 aam.chalk.circle_medium.name=Chalk: Medium Circle
@@ -108,6 +108,12 @@ aam.chalk.triangles_small.name=Chalk: Small Triangles
 aam.chalk.flower_big.name=Chalk: Big Flower
 aam.chalk.flower_medium.name=Chalk: Medium Flower
 aam.chalk.flower_small.name=Chalk: Small Flower
+aam.chalk.troon_big.name=Chalk: Big Tree/Moon
+aam.chalk.troon_medium.name=Chalk: Medium Tree/Moon
+aam.chalk.troon_small.name=Chalk: Small Tree/Moon
+aam.chalk.shight_big.name=Chalk: Big Shield/Star
+aam.chalk.shight_medium.name=Chalk: Medium Shield/Star
+aam.chalk.shight_small.name=Chalk: Small Shield/Star
 
 aam.swdye.red.name=Sword Lens: Red
 aam.swdye.green.name=Sword Lens: Green
@@ -133,7 +139,7 @@ item.aam.soulgem0.name=Cast Gem
 item.aam.soulgem1.name=Blood Gem
 item.aam.soulgem2.name=Moon Stone
 item.aam.soulupg1.name=Cast Upgrade
-item.aam.soulupg2.name=Blood Upgrade
+item.aam.soulupg0.name=Blood Upgrade
 item.aam.soulupg3.name=Moon Upgrade
 
 tile.aam.struct.name=Structure Block

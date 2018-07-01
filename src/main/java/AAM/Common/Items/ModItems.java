@@ -22,7 +22,7 @@ import AAM.Common.Items.Artifacts.RessurectionStone;
 import AAM.Common.Items.Artifacts.SeaShard;
 import AAM.Common.Items.Debug.BoundSphere;
 import AAM.Common.Items.Debug.CliserActivator;
-import AAM.Common.Items.Debug.Nullifier;
+import AAM.Common.Items.Debug.MagicWand;
 import AAM.Common.Items.Debug.RedRadio;
 import AAM.Common.Items.Resources.Berry;
 import AAM.Common.Items.Resources.Coin;
@@ -66,7 +66,7 @@ public class ModItems
 	public static Item MassRessurectionStone = new MassRessurectionStone().setUnlocalizedName(idn + "massressstone");
 
 	// =======================Debug===========================
-	public static Item Nullifier = new Nullifier().setUnlocalizedName(idn + "nullifier");
+	public static Item MagicWand = new MagicWand().setUnlocalizedName(idn + "magicwand");
 	public static Item CliserActivator = new CliserActivator().setUnlocalizedName(idn + "cliser");
 	public static Item RedRadio = new RedRadio().setUnlocalizedName(idn + "redradio");
 	public static Item boundsph = new BoundSphere();
@@ -126,7 +126,7 @@ public class ModItems
 		registerItem(MassRessurectionStone, misc);
 
 		// =======================Debug===========================
-		registerItem(Nullifier, misc);
+		registerItem(MagicWand, misc);
 		registerItem(boundsph, misc);
 		registerItem(CliserActivator, misc);
 		registerItem(RedRadio, misc);

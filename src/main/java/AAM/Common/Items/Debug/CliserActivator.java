@@ -31,7 +31,7 @@ public class CliserActivator extends Item
 			if (w.getTileEntity(x, y, z) instanceof IStructureCore)
 			{
 				IStructureCore core = (IStructureCore) w.getTileEntity(x, y, z);
-				core.getStructure().printStructure(w, new Wec3(x, y, z).add(core.getOffset()));
+				core.getStructure().printStructure(w, new Wec3(x, y, z).sub(core.getOffset()));
 			}
 		}
 		return true;

@@ -19,7 +19,6 @@ import AAM.Common.Event.PlayerBlockEvent;
 import AAM.Common.Event.PlayerDataEventHandler;
 import AAM.Common.Event.PotionEventHandler;
 import AAM.Common.Event.SoulEvent;
-import AAM.Common.Event.WorldTracker;
 import AAM.Common.Items.ModItems;
 import AAM.Common.Potions.Ingridients;
 import AAM.Common.Potions.ModPotions;
@@ -50,7 +49,6 @@ import amerifrance.guideapi.pages.PageText;
 import amerifrance.guideapi.pages.reciperenderers.ShapedOreRecipeRenderer;
 import amerifrance.guideapi.pages.reciperenderers.ShapelessOreRecipeRenderer;
 import cpw.mods.fml.client.registry.ClientRegistry;
-import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.Mod.EventHandler;
 import cpw.mods.fml.common.Mod.Instance;
@@ -111,7 +109,6 @@ public class AAMCore
 		MinecraftForge.EVENT_BUS.register(new PlayerDataEventHandler());
 		MinecraftForge.EVENT_BUS.register(new ClientRenderHelper());
 		MinecraftForge.EVENT_BUS.register(new PlayerBlockEvent());
-		FMLCommonHandler.instance().bus().register(new WorldTracker());
 
 		ModTiles.load();
 		ModBlocks.load();

@@ -135,7 +135,7 @@ public class Wec3
 	public static Wec3 random(double sizex, double sizey, double sizez)
 	{
 		Random r = new Random();
-		Wec3 ret = new Wec3(sizex * r.nextDouble() * MiscUtils.boolToNum(), sizey * r.nextDouble() * MiscUtils.boolToNum(), sizez * r.nextDouble() * MiscUtils.boolToNum());
+		Wec3 ret = new Wec3(sizex * r.nextDouble() * MiscUtils.boolToNum(1, -1), sizey * r.nextDouble() * MiscUtils.boolToNum(1, -1), sizez * r.nextDouble() * MiscUtils.boolToNum(1, -1));
 		return ret;
 	}
 
@@ -282,6 +282,7 @@ public class Wec3
 		return new int[] { this.ix, this.iy, this.iz };
 	}
 
+	@Override
 	public String toString()
 	{
 		return "{" + this.x + ";" + this.y + ";" + this.z + "}";

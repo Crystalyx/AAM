@@ -144,7 +144,7 @@ public class Structure
 			Block b = GameRegistry.findBlock(name.substring(0, name.indexOf(':')), name.substring(name.indexOf(':') + 1));
 			int data = Integer.parseInt(meta);
 
-			if (w.getBlock(cx, cy, cz) != b || w.getBlockMetadata(cx, cy, cz) != data)
+			if (w.getBlock(cx, cy, cz) != b || (w.getBlockMetadata(cx, cy, cz) != data && data != -1))
 			{
 				ret = false;
 				break;
@@ -181,8 +181,10 @@ public class Structure
 
 			Block b = GameRegistry.findBlock(name.substring(0, name.indexOf(':')), name.substring(name.indexOf(':') + 1));
 			int data = Integer.parseInt(meta);
+			if (data == -1)
+				data = 0;
 
-			w.setBlock(cx, cy, cz, b);
+			w.setBlock(cx, cy, cz, b, data, 2);
 		}
 
 		return ret;

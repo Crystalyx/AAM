@@ -16,7 +16,6 @@ import AAM.Core.AAMConfig;
 import AAM.Core.AAMCore;
 import AAM.Network.Packages.AlchemicalDispatcher;
 import AAM.Network.Packages.PlayerSyncMessage;
-import AAM.Utils.Logger;
 import AAM.Utils.MiscUtils;
 import AAM.Utils.PlayerDataHandler;
 import AAM.Utils.Wec3;
@@ -219,7 +218,6 @@ public class SoulEvent
 				{
 					if (is.hasTagCompound())
 					{
-						Logger.info(ph.bloodUpg);
 						if (ph.bloodUpg != 0 && e.target instanceof EntityLivingBase)
 						{
 							EntityLivingBase l = (EntityLivingBase) e.target;
@@ -228,6 +226,14 @@ public class SoulEvent
 
 							float regen = (float) (f * 0.1F * ph.bloodUpg);
 							ep.heal(regen);
+						}
+						if (ph.moonUpg != 0 && e.target instanceof EntityLivingBase)
+						{
+							EntityLivingBase l = (EntityLivingBase) e.target;
+
+							double f = Math.rint(l.getMaxHealth() * 100) / 100;
+							float dmg = ph.soulDamage * (25 + 4 * (ph.soulLevel - 1) * ph.player.worldObj.getCurrentMoonPhaseFactor()) / 100f;
+							e.target.attackEntityFrom(new SoulDamageSource(ph).causePlayerDamage(ph.player), dmg);
 						}
 						e.target.attackEntityFrom(new SoulDamageSource(ph).causePlayerDamage(ph.player), ph.soulDamage);
 

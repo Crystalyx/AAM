@@ -90,15 +90,15 @@ public class TransCircle extends BlockContainer
 
 	public static final int range = 32;
 
-	public void outputCircle(List<Circle> l)
+	public static String outputCircle(List<Circle> l)
 	{
-		Logger.info(l.size());
-		String out = "[";
+		String out = "S: " + l.size() + " C:[";
 		for (Circle c : l)
 		{
 			out += ModCircles.getCodeStr(c);
 		}
-		Logger.info(out + "]");
+		out += "]";
+		return out;
 	}
 
 	/**
@@ -360,6 +360,7 @@ public class TransCircle extends BlockContainer
 		return false;
 	}
 
+	@Override
 	public boolean isNormalCube()
 	{
 		return false;

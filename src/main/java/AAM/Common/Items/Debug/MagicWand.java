@@ -1,17 +1,17 @@
 
 package AAM.Common.Items.Debug;
 
-import AAM.Utils.StructureApi;
-import AAM.Utils.Structures;
-import AAM.Utils.Wec3;
+import AAM.Common.Blocks.Circles.TransCircle;
+import AAM.Common.Tiles.TETransCircle;
+import AAM.Utils.Logger;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 
-public class Nullifier extends Item
+public class MagicWand extends Item
 {
-	public Nullifier()
+	public MagicWand()
 	{
 		this.setTextureName("aam:tools/nullfier");
 	}
@@ -20,6 +20,7 @@ public class Nullifier extends Item
 	 * Called whenever this item is equipped and the right mouse button is
 	 * pressed. Args: itemStack, world, entityPlayer
 	 */
+	@Override
 	public ItemStack onItemRightClick(ItemStack is, World w, EntityPlayer p)
 	{
 		return is;
@@ -28,10 +29,15 @@ public class Nullifier extends Item
 	@Override
 	public boolean onItemUse(ItemStack is, EntityPlayer p, World w, int x, int y, int z, int side, float hx, float hy, float hz)
 	{
-		// PlayerDataHandler.get(p).replenishSoul();
 
-//		Structures.soulAltar.printStructure(w, new Wec3(x, y, z));
-		StructureApi.print(x, y, z, Structures.soulAltar.strtag, w);
+		if (w.getTileEntity(x, y, z) != null)
+		{
+			if (w.getTileEntity(x, y, z) instanceof TETransCircle)
+			{
+				TETransCircle te = (TETransCircle) w.getTileEntity(x, y, z);
+				Logger.info(TransCircle.outputCircle(te.circle));
+			}
+		}
 		return true;
 	}
 }

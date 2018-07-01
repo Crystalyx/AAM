@@ -1,14 +1,15 @@
 package AAM.Network;
 
-import AAM.Client.Gui.GuiParty;
 import AAM.Client.Gui.GuiArmoury;
 import AAM.Client.Gui.GuiInspectionTerm;
+import AAM.Client.Gui.GuiParty;
 import AAM.Client.Gui.GuiSoulAltar;
 import AAM.Client.Gui.GuiSpellTable;
 import AAM.Client.Gui.SkillsGui;
 import AAM.Client.Renderer.Block.ArmouryItemRenderer;
 import AAM.Client.Renderer.Block.BloodAltarRenderer;
 import AAM.Client.Renderer.Block.BushRenderer;
+import AAM.Client.Renderer.Block.BushSproutRenderer;
 import AAM.Client.Renderer.Block.CauldronItemRenderer;
 import AAM.Client.Renderer.Block.CreativeCauldronItemRenderer;
 import AAM.Client.Renderer.Block.CrystalItemRenderer;
@@ -132,6 +133,8 @@ public class ClientProxy extends CommonProxy
 		RenderingRegistry.registerBlockHandler(new ModificationAnvilItemRender());
 		// 137
 		RenderingRegistry.registerBlockHandler(new BloodAltarRenderer());
+		// 138
+		RenderingRegistry.registerBlockHandler(new BushSproutRenderer());
 
 		ClientRegistry.bindTileEntitySpecialRenderer(TECauldron.class, new CauldronRenderer());
 		ClientRegistry.bindTileEntitySpecialRenderer(TECreativeCauldron.class, new CreativeCauldronRenderer());

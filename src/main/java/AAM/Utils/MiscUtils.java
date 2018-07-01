@@ -1388,6 +1388,7 @@ public class MiscUtils
 					EntityItem et = new EntityItem(w, x, y, z, is);
 					et.setVelocity(w.rand.nextDouble() * 0.1 - 0.05, w.rand.nextDouble() * 0.1 - 0.05, w.rand.nextDouble() * 0.1 - 0.05);
 					w.spawnEntityInWorld(et);
+					et.onCollideWithPlayer(p);
 				}
 			}
 		}

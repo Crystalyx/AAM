@@ -4,6 +4,7 @@
 package AAM.Common.Blocks.Mechanical;
 
 import net.minecraft.block.Block;
+import net.minecraft.block.BlockBush;
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
@@ -35,8 +36,8 @@ public class GrassClearer extends Block
 			{
 				for (int j = -rad; j < rad + 1; j++)
 				{
-					if (w.getBlock(x + i, y + l, z + j) == Blocks.tallgrass || w.getBlock(x + i, y + l, z + j) == Blocks.double_plant || w.getBlock(x + i, y + l, z + j) == Blocks.yellow_flower
-							|| w.getBlock(x + i, y + l, z + j) == Blocks.red_flower)
+					if (w.getBlock(x + i, y + l, z + j) instanceof BlockBush || w.getBlock(x + i, y + l, z + j) == Blocks.tallgrass || w.getBlock(x + i, y + l, z + j) == Blocks.double_plant
+							|| w.getBlock(x + i, y + l, z + j) == Blocks.yellow_flower || w.getBlock(x + i, y + l, z + j) == Blocks.red_flower)
 					{
 						flag = true;
 						w.setBlockToAir(x + i, y + l, z + j);

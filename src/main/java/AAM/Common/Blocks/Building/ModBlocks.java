@@ -17,6 +17,7 @@ import AAM.Common.Blocks.Mechanical.ModificationAnvil;
 import AAM.Common.Blocks.Mechanical.SoulAltar;
 import AAM.Common.Blocks.Mechanical.SpellTable;
 import AAM.Common.Blocks.Plants.BerryBush;
+import AAM.Common.Blocks.Plants.BushSprout;
 import AAM.Common.Blocks.Plants.ModLeaves;
 import AAM.Common.Blocks.Plants.ModLog;
 import AAM.Common.Blocks.Plants.ModPlank;
@@ -26,6 +27,7 @@ import AAM.Common.Blocks.Plants.ShadowveilPlant;
 import AAM.Common.Blocks.Plants.ShroomPlant;
 import AAM.Common.Items.AAMItemBlock;
 import AAM.Common.Items.BushItemBlock;
+import AAM.Common.Items.BushSproutItemBlock;
 import AAM.Common.Items.ModItems;
 import AAM.Common.Tabs.AlchemyTab;
 import AAM.Common.Tabs.MiscTab;
@@ -60,6 +62,7 @@ public class ModBlocks
 	public static Block ShadowveilPlant = (new ShadowveilPlant(-1)).setBlockName(modid + "shadowveil");
 	public static Block ShroomPlant = (new ShroomPlant()).setBlockName(modid + "shroom");
 	public static Block BerryBush = (new BerryBush(Material.leaves)).setBlockName(modid + "berryBush");
+	public static Block BushSprout = (new BushSprout(Material.leaves)).setBlockName(modid + "bushSprout");
 
 	// =======================Potions==========================
 	public static Block Cauldron = (new Cauldron(Material.iron)).setBlockName(modid + "cauldron");
@@ -123,6 +126,7 @@ public class ModBlocks
 		registerBlock(ShadowveilPlant, misc);
 		registerBlock(ShroomPlant, misc);
 		registerBlock(BerryBush, misc, BushItemBlock.class);
+		registerBlock(BushSprout, misc, BushSproutItemBlock.class);
 
 		// =======================Potions==========================
 		registerBlock(Cauldron, misc);

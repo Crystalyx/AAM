@@ -5,8 +5,6 @@ import java.util.Random;
 
 import AAM.Common.Blocks.Building.ModBlocks;
 import AAM.Common.Items.ModItems;
-import AAM.Utils.MiscUtils;
-import AAM.Utils.Wec3;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.block.Block;
@@ -14,19 +12,15 @@ import net.minecraft.block.IGrowable;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.creativetab.CreativeTabs;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.IIcon;
+import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 
-public class BerryBush extends Block implements IGrowable
+public class BushSprout extends Block implements IGrowable
 {
-
-	public static String[] names = new String[] { "blackberry", "blueberry", "mortis", "raspberry", "wormwoodberry" };
-
-	public BerryBush(Material mat)
+	public BushSprout(Material mat)
 	{
 		super(mat);
 		this.setBlockTextureName("aam:bush");
@@ -41,27 +35,13 @@ public class BerryBush extends Block implements IGrowable
 	@Override
 	public int damageDropped(int meta)
 	{
-		return Math.floorDiv(meta, 2) * 2;
+		return Math.floorDiv(meta, 4);
 	}
 
 	@Override
 	public Item getItemDropped(int p_149650_1_, Random p_149650_2_, int p_149650_3_)
 	{
-		return Item.getItemFromBlock(this);
-	}
-
-	@Override
-	public void breakBlock(World w, int x, int y, int z, Block b, int hz)
-	{
-		super.breakBlock(w, x, y, z, b, hz);
-		int meta = Math.floorDiv(w.getBlockMetadata(x, y, z), 2);
-		int beta = Math.floorMod(w.getBlockMetadata(x, y, z), 2);
-
-		if (beta == 1)
-		{
-			ItemStack berry = new ItemStack(ModItems.Berry, w.rand.nextInt(3) + 1, meta);
-			MiscUtils.dropStack(w, x, y, z, berry);
-		}
+		return ModItems.Berry;
 	}
 
 	/**
@@ -73,13 +53,9 @@ public class BerryBush extends Block implements IGrowable
 	public void getSubBlocks(Item i, CreativeTabs tab, List l)
 	{
 		l.add(new ItemStack(i, 1, 0));
-		l.add(new ItemStack(i, 1, 1));
-		l.add(new ItemStack(i, 1, 2));
-		l.add(new ItemStack(i, 1, 3));
 		l.add(new ItemStack(i, 1, 4));
-		l.add(new ItemStack(i, 1, 5));
-		l.add(new ItemStack(i, 1, 6));
-		l.add(new ItemStack(i, 1, 7));
+		l.add(new ItemStack(i, 1, 8));
+		l.add(new ItemStack(i, 1, 12));
 	}
 
 	public static IIcon[] berries = new IIcon[5];
@@ -95,7 +71,7 @@ public class BerryBush extends Block implements IGrowable
 	@Override
 	public int getRenderType()
 	{
-		return 125;
+		return 138;
 	}
 
 	/**
@@ -109,29 +85,12 @@ public class BerryBush extends Block implements IGrowable
 		return false;
 	}
 
-	/**
-	 * Called upon block activation (right click on the block.)
-	 */
 	@Override
-	public boolean onBlockActivated(World w, int x, int y, int z, EntityPlayer p, int side, float px, float py, float pz)
+	public void setBlockBoundsBasedOnState(IBlockAccess w, int x, int y, int z)
 	{
-		int meta = Math.floorDiv(w.getBlockMetadata(x, y, z), 2);
-		int beta = Math.floorMod(w.getBlockMetadata(x, y, z), 2);
-
-		if (beta == 1)
-		{
-			if (p.getCurrentEquippedItem() == null)
-			{
-				w.setBlockMetadataWithNotify(x, y, z, meta * 2, 2);
-				ItemStack berry = new ItemStack(ModItems.Berry, w.rand.nextInt(4), meta);
-				MiscUtils.dropStackToPlayer(w, x, y, z, berry, p);
-				return true;
-			}
-			else
-				return false;
-		}
-		else
-			return false;
+		int i = Math.floorMod(w.getBlockMetadata(x, y, z), 4) * 2;
+		int m = i == 0 ? 5 : 0;
+		this.setBlockBounds(0.1F + 0.05F * (5 - i), 0.F, 0.1F + 0.05F * (5 - i), 0.9F - 0.05F * (5 - i), 0.9F - 0.05F * (5 + m - i), 0.9F - 0.05F * (5 - i));
 	}
 
 	/**
@@ -140,30 +99,24 @@ public class BerryBush extends Block implements IGrowable
 	@Override
 	public void updateTick(World w, int x, int y, int z, Random r)
 	{
-		if (Math.floorMod(w.getBlockMetadata(x, y, z), 2) == 0)
+		if (Math.floorMod(w.getBlockMetadata(x, y, z), 4) <= 3)
 		{
 			if (!w.isRemote)
 			{
 				if (w.getBlockLightValue(x, y + 1, z) >= 9 && r.nextInt(3) == 0)
 				{
-					grow(w, r, x, y, z);
+					if (Math.floorMod(w.getBlockMetadata(x, y, z), 4) < 3)
+					{
+						grow(w, r, x, y, z);
+					}
+					if (Math.floorMod(w.getBlockMetadata(x, y, z), 4) == 3)
+					{
+						w.setBlock(x, y, z, ModBlocks.BerryBush, Math.floorDiv(w.getBlockMetadata(x, y, z), 4) * 2, 2);
+					}
 				}
 			}
 		}
 
-		if (MiscUtils.randWPercent(40))
-		{
-			Wec3 sp = Wec3.random(5, 5, 5);
-			sp = sp.add(new Wec3(x, y, z));
-			int h = MiscUtils.getLowerHighBlock(w, sp.ix, sp.iy + 11, sp.iz);
-			if (w.isAirBlock(sp.ix, h + 1, sp.iz))
-			{
-				if (w.getBlock(sp.ix, h, sp.iz) == Blocks.grass)
-				{
-					w.setBlock(sp.ix, h + 1, sp.iz, ModBlocks.BushSprout, Math.floorDiv(w.getBlockMetadata(x, y, z), 2) * 4, 2);
-				}
-			}
-		}
 	}
 
 	@Override
@@ -181,25 +134,16 @@ public class BerryBush extends Block implements IGrowable
 	@Override
 	public void func_149853_b(World w, Random r, int x, int y, int z)
 	{
-		if (Math.floorMod(w.getBlockMetadata(x, y, z), 2) == 0)
+		if (Math.floorMod(w.getBlockMetadata(x, y, z), 4) < 3)
 		{
 			if (!w.isRemote)
 			{
 				grow(w, r, x, y, z);
 			}
 		}
-		if (MiscUtils.randWPercent(40))
+		if (Math.floorMod(w.getBlockMetadata(x, y, z), 4) == 3)
 		{
-			Wec3 sp = Wec3.random(5, 5, 5);
-			sp = sp.add(new Wec3(x, y, z));
-			int h = MiscUtils.getLowerHighBlock(w, sp.ix, sp.iy + 11, sp.iz);
-			if (w.isAirBlock(sp.ix, h + 1, sp.iz))
-			{
-				if (w.getBlock(sp.ix, h, sp.iz) == Blocks.grass)
-				{
-					w.setBlock(sp.ix, h + 1, sp.iz, ModBlocks.BushSprout, Math.floorDiv(w.getBlockMetadata(x, y, z), 2) * 4, 2);
-				}
-			}
+			w.setBlock(x, y, z, ModBlocks.BerryBush, Math.floorDiv(w.getBlockMetadata(x, y, z), 4) * 2, 2);
 		}
 	}
 

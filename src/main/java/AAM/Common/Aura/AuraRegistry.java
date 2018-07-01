@@ -3,7 +3,6 @@ package AAM.Common.Aura;
 import java.util.ArrayList;
 import java.util.List;
 
-import AAM.Utils.MiscUtils;
 import AAM.Utils.Wec3;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
@@ -44,6 +43,7 @@ public class AuraRegistry
 
 	public static AuraBase vacuum = new AuraBase("void", 1.5F, new ResourceLocation("aam:textures/misc/void.png"))
 	{
+		@Override
 		public void startTick(Entity p)
 		{
 			double radius = this.size + 1.5;
@@ -87,6 +87,7 @@ public class AuraRegistry
 
 	public static AuraBase flame = new AuraBase("fire", 1.5F, new ResourceLocation("aam:textures/misc/flame.png"))
 	{
+		@Override
 		public void startTick(Entity p)
 		{
 			double radius = this.size + 0.5;
@@ -104,20 +105,23 @@ public class AuraRegistry
 
 	public static AuraBase air = new AuraBase("air", 1.5F, new ResourceLocation("aam:textures/misc/air.png"))
 	{
+		@Override
 		public void startTick(Entity p)
 		{
-			double radius = this.size + 0.5;
-			List<EntityLivingBase> ents = p.worldObj.getEntitiesWithinAABB(EntityLivingBase.class, (new Wec3(p)).toAABB().expand(this.size, this.size * 2, this.size));
-			for (EntityLivingBase entl : ents)
+			if (!p.isSneaking())
 			{
-				if (entl != p)
+				float radius = this.size + 2.5f;
+				List<EntityLivingBase> ents = p.worldObj.getEntitiesWithinAABB(EntityLivingBase.class, (new Wec3(p)).extendBoth(radius, radius * 2, radius));
+				for (EntityLivingBase entl : ents)
 				{
-					Wec3 pPos = new Wec3(p);
-					Wec3 ePos = new Wec3(entl);
+					if (entl != p)
+					{
+						Wec3 pPos = new Wec3(p);
+						Wec3 ePos = new Wec3(entl);
 
-					Wec3 vec = ePos.sub(pPos);
-
-					entl.setVelocity(6 / vec.x, 6 / vec.y, 6 / vec.z);
+						Wec3 vec = ePos.sub(pPos);
+						vec.div(6).ptm(entl);
+					}
 				}
 			}
 		}
@@ -125,6 +129,7 @@ public class AuraRegistry
 
 	public static AuraBase earth = new AuraBase("earth", 1.5F, new ResourceLocation("aam:textures/misc/earth.png"))
 	{
+		@Override
 		public void startTick(Entity p)
 		{
 			double radius = this.size + 0.5;
@@ -146,6 +151,7 @@ public class AuraRegistry
 
 	public static AuraBase water = new AuraBase("water", 1.5F, new ResourceLocation("aam:textures/misc/water.png"))
 	{
+		@Override
 		public void startTick(Entity p)
 		{
 			p.extinguish();

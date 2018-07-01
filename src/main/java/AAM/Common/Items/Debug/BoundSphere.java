@@ -7,7 +7,6 @@ import AAM.Core.AAMCore;
 import AAM.Utils.Logger;
 import AAM.Utils.Structure;
 import AAM.Utils.StructureApi;
-import AAM.Utils.Structures;
 import AAM.Utils.Wec3;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
@@ -46,13 +45,15 @@ public class BoundSphere extends Item
 		this.blue = ir.registerIcon(AAMCore.modid + ":sphere_blue");
 	}
 
+	@Override
 	public void getSubItems(Item i, CreativeTabs tab, List l)
 	{
 		l.add(new ItemStack(i, 1, 0));
-		l.add(new ItemStack(i, 1, 1));
-		l.add(new ItemStack(i, 1, 2));
+		// l.add(new ItemStack(i, 1, 1));
+		// l.add(new ItemStack(i, 1, 2));
 	}
 
+	@Override
 	public IIcon getIconFromDamage(int meta)
 	{
 		if (meta == 1)
@@ -62,6 +63,7 @@ public class BoundSphere extends Item
 		return this.blue;
 	}
 
+	@Override
 	public ItemStack onItemRightClick(ItemStack i, World w, EntityPlayer p)
 	{
 		if (!p.isSneaking())
@@ -81,6 +83,7 @@ public class BoundSphere extends Item
 		return i;
 	}
 
+	@Override
 	public boolean onItemUse(ItemStack is, EntityPlayer p, World w, int x, int y, int z, int side, float px, float py, float pz)
 	{
 		if (!p.isSneaking())
@@ -101,8 +104,8 @@ public class BoundSphere extends Item
 				{
 					if (is.getTagCompound() != null)
 					{
-						NBTTagCompound tag = StructureApi.readStructure(w, new Wec3(x, y, z),
-								new Wec3(is.getTagCompound().getInteger("BlockX") + 1, is.getTagCompound().getInteger("BlockY"), is.getTagCompound().getInteger("BlockZ") + 1), Blocks.bedrock, ModBlocks.Bricks, ModBlocks.StructureBlock);
+						NBTTagCompound tag = StructureApi.readStructure(w, new Wec3(x, y, z), new Wec3(is.getTagCompound().getInteger("BlockX") + 1, is.getTagCompound().getInteger("BlockY"), is.getTagCompound().getInteger("BlockZ") + 1),
+								Blocks.bedrock, ModBlocks.Bricks, ModBlocks.StructureBlock);
 						is.getTagCompound().removeTag("BlockX");
 						is.getTagCompound().removeTag("BlockY");
 						is.getTagCompound().removeTag("BlockZ");
@@ -132,6 +135,7 @@ public class BoundSphere extends Item
 		return true;
 	}
 
+	@Override
 	public void onUpdate(ItemStack i, World w, Entity e, int interesting, boolean isInHand)
 	{
 		if (i.getTagCompound() == null)
@@ -150,6 +154,7 @@ public class BoundSphere extends Item
 		}
 	}
 
+	@Override
 	public void addInformation(ItemStack i, EntityPlayer p, List l, boolean in)
 	{
 		if (i.hasTagCompound())
