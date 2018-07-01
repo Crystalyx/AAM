@@ -15,7 +15,7 @@ public abstract class StructureCore extends TileEntity implements IStructureCore
 		if (this.worldObj.getWorldTime() % 200 == 5)
 		{
 			boolean f = this.formed;
-			this.formed = this.getStructure().checkStructure(this.worldObj, new Wec3(this).subtruct(this.getOffset()));
+			this.formed = this.getStructure().checkStructure(this.worldObj, new Wec3(this).sub(this.getOffset()));
 			if (f != this.formed)
 			{
 				if (this.formed)

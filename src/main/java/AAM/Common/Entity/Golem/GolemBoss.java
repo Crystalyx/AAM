@@ -107,7 +107,7 @@ public class GolemBoss extends EntityMob implements IBossDisplayData, IRangedAtt
 			this.rotationPitch = 1.0F;
 			Wec3 elem = new Wec3(this);
 			Wec3 ewp = new Wec3(e);
-			Wec3 vec = elem.subtruct(ewp);
+			Wec3 vec = elem.sub(ewp);
 			vec.normalize();
 			this.rotationYaw = (float) Math.toDegrees(Math.atan2(vec.z, vec.x));
 		}

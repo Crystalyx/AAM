@@ -62,7 +62,7 @@ public class ActTransm extends TransAction
 						Wec3 ip = new Wec3(ei);
 						Wec3 vec = MiscUtils.getPosBy3DAngle(j * Math.PI / 6d, 0, 0.2);
 						vec.normalize();
-						vec = vec.multiply(0.06);
+						vec = vec.mult(0.06);
 						w.spawnParticle("smoke", ip.x, ip.y, ip.z, vec.x, vec.y, vec.z);
 					}
 				}
@@ -104,9 +104,9 @@ public class ActTransm extends TransAction
 					{
 						Wec3 vec1 = MiscUtils.getPosBy3DAngle(i * Math.PI / 6d, 0, 0.4);
 						Wec3 vec2 = MiscUtils.getPosBy3DAngle((i + 1) * Math.PI / 6d, 0, 0.3);
-						Wec3 vec = vec2.subtruct(vec1);
+						Wec3 vec = vec2.sub(vec1);
 						vec.normalize();
-						vec = vec.multiply(0.055);
+						vec = vec.mult(0.055);
 						w.spawnParticle("flame", tile.x + vec1.x, tile.y + vec1.y, tile.z + vec1.z, vec.x, vec.y, vec.z);
 					}
 				}

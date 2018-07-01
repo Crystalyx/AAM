@@ -35,7 +35,7 @@ public class VectorWorld
 
 	public void translate(Wec3 pos)
 	{
-		this.origin = this.origin.add(this.basX.multiply(pos.x).add(this.basY.multiply(pos.y).add(this.basZ.multiply(pos.z))));
+		this.origin = this.origin.add(this.basX.mult(pos.x).add(this.basY.mult(pos.y).add(this.basZ.mult(pos.z))));
 	}
 
 	public void applyRotation(WorldRotation pos)
@@ -65,16 +65,16 @@ public class VectorWorld
 	 */
 	public List getEntitiesWithinAABBExcludingEntity(Entity e, AxisAlignedBB aabb)
 	{
-		Wec3 S = origin.add(this.basX.multiply(aabb.minX).add(this.basY.multiply(aabb.minY).add(this.basZ.multiply(aabb.minZ))));
-		Wec3 T = origin.add(this.basX.multiply(aabb.maxX).add(this.basY.multiply(aabb.maxY).add(this.basZ.multiply(aabb.maxZ))));
+		Wec3 S = origin.add(this.basX.mult(aabb.minX).add(this.basY.mult(aabb.minY).add(this.basZ.mult(aabb.minZ))));
+		Wec3 T = origin.add(this.basX.mult(aabb.maxX).add(this.basY.mult(aabb.maxY).add(this.basZ.mult(aabb.maxZ))));
 
 		return this.w.getEntitiesWithinAABBExcludingEntity(e, S.extendTo(T), (IEntitySelector) null);
 	}
 
 	public List getEntitiesWithinAABBExcludingEntity(Entity e, AxisAlignedBB aabb, IEntitySelector sel)
 	{
-		Wec3 S = origin.add(this.basX.multiply(aabb.minX).add(this.basY.multiply(aabb.minY).add(this.basZ.multiply(aabb.minZ))));
-		Wec3 T = origin.add(this.basX.multiply(aabb.maxX).add(this.basY.multiply(aabb.maxY).add(this.basZ.multiply(aabb.maxZ))));
+		Wec3 S = origin.add(this.basX.mult(aabb.minX).add(this.basY.mult(aabb.minY).add(this.basZ.mult(aabb.minZ))));
+		Wec3 T = origin.add(this.basX.mult(aabb.maxX).add(this.basY.mult(aabb.maxY).add(this.basZ.mult(aabb.maxZ))));
 
 		return this.w.getEntitiesWithinAABBExcludingEntity(e, S.extendTo(T), sel);
 	}
@@ -84,7 +84,7 @@ public class VectorWorld
 	 */
 	public boolean isBlockFreezable(Wec3 pos)
 	{
-		Wec3 Wp = origin.add(this.basX.multiply(pos.x).add(this.basY.multiply(pos.y).add(this.basZ.multiply(pos.z))));
+		Wec3 Wp = origin.add(this.basX.mult(pos.x).add(this.basY.mult(pos.y).add(this.basZ.mult(pos.z))));
 
 		return this.w.isBlockFreezable((int) Wp.x, (int) Wp.y, (int) Wp.z);
 	}
@@ -95,7 +95,7 @@ public class VectorWorld
 	 */
 	public boolean isBlockFreezableNaturally(Wec3 pos)
 	{
-		Wec3 Wp = origin.add(this.basX.multiply(pos.x).add(this.basY.multiply(pos.y).add(this.basZ.multiply(pos.z))));
+		Wec3 Wp = origin.add(this.basX.mult(pos.x).add(this.basY.mult(pos.y).add(this.basZ.mult(pos.z))));
 
 		return this.w.isBlockFreezableNaturally((int) Wp.x, (int) Wp.y, (int) Wp.z);
 	}
@@ -107,14 +107,14 @@ public class VectorWorld
 	 */
 	public boolean canBlockFreeze(Wec3 pos, boolean p_72834_4_)
 	{
-		Wec3 Wp = origin.add(this.basX.multiply(pos.x).add(this.basY.multiply(pos.y).add(this.basZ.multiply(pos.z))));
+		Wec3 Wp = origin.add(this.basX.mult(pos.x).add(this.basY.mult(pos.y).add(this.basZ.mult(pos.z))));
 
 		return this.w.canBlockFreeze((int) Wp.x, (int) Wp.y, (int) Wp.z, p_72834_4_);
 	}
 
 	public boolean canBlockFreezeBody(Wec3 pos, boolean liquid)
 	{
-		Wec3 Wp = origin.add(this.basX.multiply(pos.x).add(this.basY.multiply(pos.y).add(this.basZ.multiply(pos.z))));
+		Wec3 Wp = origin.add(this.basX.mult(pos.x).add(this.basY.mult(pos.y).add(this.basZ.mult(pos.z))));
 		return this.w.canBlockFreeze((int) Wp.x, (int) Wp.y, (int) Wp.z, liquid);
 	}
 
@@ -123,7 +123,7 @@ public class VectorWorld
 	 */
 	public Explosion createExplosion(Entity e, Wec3 pos, float strength, boolean griefing)
 	{
-		Wec3 Wp = origin.add(this.basX.multiply(pos.x).add(this.basY.multiply(pos.y).add(this.basZ.multiply(pos.z))));
+		Wec3 Wp = origin.add(this.basX.mult(pos.x).add(this.basY.mult(pos.y).add(this.basZ.mult(pos.z))));
 
 		return this.newExplosion(e, Wp, strength, false, griefing);
 	}
@@ -134,7 +134,7 @@ public class VectorWorld
 	 */
 	public Explosion newExplosion(Entity e, Wec3 pos, float strength, boolean p_72885_9_, boolean p_72885_10_)
 	{
-		Wec3 Wp = origin.add(this.basX.multiply(pos.x).add(this.basY.multiply(pos.y).add(this.basZ.multiply(pos.z))));
+		Wec3 Wp = origin.add(this.basX.mult(pos.x).add(this.basY.mult(pos.y).add(this.basZ.mult(pos.z))));
 
 		return this.w.newExplosion(e, (int) Wp.x, (int) Wp.y, (int) Wp.z, strength, p_72885_9_, p_72885_10_);
 	}
@@ -144,8 +144,8 @@ public class VectorWorld
 	 */
 	public void spawnParticle(String name, Wec3 pos, Wec3 vel)
 	{
-		Wec3 Wp = origin.add(this.basX.multiply(pos.x).add(this.basY.multiply(pos.y).add(this.basZ.multiply(pos.z))));
-		Wec3 Vp = origin.add(this.basX.multiply(vel.x).add(this.basY.multiply(vel.y).add(this.basZ.multiply(vel.z))));
+		Wec3 Wp = origin.add(this.basX.mult(pos.x).add(this.basY.mult(pos.y).add(this.basZ.mult(pos.z))));
+		Wec3 Vp = origin.add(this.basX.mult(vel.x).add(this.basY.mult(vel.y).add(this.basZ.mult(vel.z))));
 		this.w.spawnParticle(name, (int) Wp.x, (int) Wp.y, (int) Wp.z, (int) Vp.x, (int) Vp.y, (int) Vp.z);
 	}
 
@@ -173,7 +173,7 @@ public class VectorWorld
 	 */
 	public int getBlockLightValue(Wec3 pos)
 	{
-		Wec3 Wp = origin.add(this.basX.multiply(pos.x).add(this.basY.multiply(pos.y).add(this.basZ.multiply(pos.z))));
+		Wec3 Wp = origin.add(this.basX.mult(pos.x).add(this.basY.mult(pos.y).add(this.basZ.mult(pos.z))));
 		return this.w.getBlockLightValue((int) Wp.x, (int) Wp.y, (int) Wp.z);
 	}
 
@@ -183,7 +183,7 @@ public class VectorWorld
 	 */
 	public int getFullBlockLightValue(Wec3 pos)
 	{
-		Wec3 Wp = origin.add(this.basX.multiply(pos.x).add(this.basY.multiply(pos.y).add(this.basZ.multiply(pos.z))));
+		Wec3 Wp = origin.add(this.basX.mult(pos.x).add(this.basY.mult(pos.y).add(this.basZ.mult(pos.z))));
 		return this.w.getFullBlockLightValue((int) Wp.x, (int) Wp.y, (int) Wp.z);
 	}
 
@@ -193,7 +193,7 @@ public class VectorWorld
 	 */
 	public boolean setBlockToAir(Wec3 pos)
 	{
-		Wec3 Wp = origin.add(this.basX.multiply(pos.x).add(this.basY.multiply(pos.y).add(this.basZ.multiply(pos.z))));
+		Wec3 Wp = origin.add(this.basX.mult(pos.x).add(this.basY.mult(pos.y).add(this.basZ.mult(pos.z))));
 		return this.setBlock(Wp, Blocks.air, 0, 3);
 	}
 
@@ -206,7 +206,7 @@ public class VectorWorld
 	 */
 	public boolean setBlock(Wec3 pos, Block b, int meta, int flag)
 	{
-		Wec3 Wp = origin.add(this.basX.multiply(pos.x).add(this.basY.multiply(pos.y).add(this.basZ.multiply(pos.z))));
+		Wec3 Wp = origin.add(this.basX.mult(pos.x).add(this.basY.mult(pos.y).add(this.basZ.mult(pos.z))));
 		return this.w.setBlock((int) Wp.x, (int) Wp.y, (int) Wp.z, b, meta, flag);
 	}
 
@@ -215,7 +215,7 @@ public class VectorWorld
 	 */
 	public boolean isAirBlock(Wec3 pos)
 	{
-		Wec3 Wp = origin.add(this.basX.multiply(pos.x).add(this.basY.multiply(pos.y).add(this.basZ.multiply(pos.z))));
+		Wec3 Wp = origin.add(this.basX.mult(pos.x).add(this.basY.mult(pos.y).add(this.basZ.mult(pos.z))));
 		Block block = this.getBlock(Wp);
 		return block.isAir(this.w, (int) Wp.x, (int) Wp.y, (int) Wp.z);
 	}
@@ -225,58 +225,58 @@ public class VectorWorld
 	 */
 	public boolean blockExists(Wec3 pos)
 	{
-		Wec3 Wp = origin.add(this.basX.multiply(pos.x).add(this.basY.multiply(pos.y).add(this.basZ.multiply(pos.z))));
+		Wec3 Wp = origin.add(this.basX.mult(pos.x).add(this.basY.mult(pos.y).add(this.basZ.mult(pos.z))));
 		return this.w.blockExists((int) Wp.x, (int) Wp.y, (int) Wp.z);
 	}
 
 	public void setBlock(Wec3 pos, Block b)
 	{
-		Wec3 Wp = origin.add(this.basX.multiply(pos.x).add(this.basY.multiply(pos.y).add(this.basZ.multiply(pos.z))));
+		Wec3 Wp = origin.add(this.basX.mult(pos.x).add(this.basY.mult(pos.y).add(this.basZ.mult(pos.z))));
 		w.setBlock((int) Wp.x, (int) Wp.y, (int) Wp.z, b);
 	}
 
 	public Block getBlock(Wec3 pos)
 	{
-		Wec3 Wp = origin.add(this.basX.multiply(pos.x).add(this.basY.multiply(pos.y).add(this.basZ.multiply(pos.z))));
+		Wec3 Wp = origin.add(this.basX.mult(pos.x).add(this.basY.mult(pos.y).add(this.basZ.mult(pos.z))));
 		return w.getBlock((int) Wp.x, (int) Wp.y, (int) Wp.z);
 	}
 
 	public TileEntity getTile(Wec3 pos)
 	{
-		Wec3 Wp = origin.add(this.basX.multiply(pos.x).add(this.basY.multiply(pos.y).add(this.basZ.multiply(pos.z))));
+		Wec3 Wp = origin.add(this.basX.mult(pos.x).add(this.basY.mult(pos.y).add(this.basZ.mult(pos.z))));
 		return w.getTileEntity((int) Wp.x, (int) Wp.y, (int) Wp.z);
 	}
 
 	public int getBlockMetadata(Wec3 pos)
 	{
-		Wec3 Wp = origin.add(this.basX.multiply(pos.x).add(this.basY.multiply(pos.y).add(this.basZ.multiply(pos.z))));
+		Wec3 Wp = origin.add(this.basX.mult(pos.x).add(this.basY.mult(pos.y).add(this.basZ.mult(pos.z))));
 		return w.getBlockMetadata((int) Wp.x, (int) Wp.y, (int) Wp.z);
 	}
 
 	public void setBlock(int x, int y, int z, Block b)
 	{
-		Wec3 Wp = origin.add(this.basX.multiply(x).add(this.basY.multiply(y).add(this.basZ.multiply(z))));
+		Wec3 Wp = origin.add(this.basX.mult(x).add(this.basY.mult(y).add(this.basZ.mult(z))));
 		w.setBlock((int) Wp.x, (int) Wp.y, (int) Wp.z, b);
 	}
 
 	public void setBlockMetadataWithNotify(int x, int y, int z, int meta, int flag)
 	{
-		Wec3 Wp = origin.add(this.basX.multiply(x).add(this.basY.multiply(y).add(this.basZ.multiply(z))));
+		Wec3 Wp = origin.add(this.basX.mult(x).add(this.basY.mult(y).add(this.basZ.mult(z))));
 		w.setBlockMetadataWithNotify((int) Wp.x, (int) Wp.y, (int) Wp.z, meta, flag);
 	}
 
 	public List getEntitiesWithinAABB(Class ent, Wec3 s, Wec3 t)
 	{
-		Wec3 S = origin.add(this.basX.multiply(s.x).add(this.basY.multiply(s.y).add(this.basZ.multiply(s.z))));
-		Wec3 T = origin.add(this.basX.multiply(t.x).add(this.basY.multiply(t.y).add(this.basZ.multiply(t.z))));
+		Wec3 S = origin.add(this.basX.mult(s.x).add(this.basY.mult(s.y).add(this.basZ.mult(s.z))));
+		Wec3 T = origin.add(this.basX.mult(t.x).add(this.basY.mult(t.y).add(this.basZ.mult(t.z))));
 
 		return w.getEntitiesWithinAABB(ent, S.extendTo(T));
 	}
 
 	public List getEntitiesWithinAABB(Class ent, AxisAlignedBB aabb)
 	{
-		Wec3 S = origin.add(this.basX.multiply(aabb.minX).add(this.basY.multiply(aabb.minY).add(this.basZ.multiply(aabb.minZ))));
-		Wec3 T = origin.add(this.basX.multiply(aabb.maxX).add(this.basY.multiply(aabb.maxY).add(this.basZ.multiply(aabb.maxZ))));
+		Wec3 S = origin.add(this.basX.mult(aabb.minX).add(this.basY.mult(aabb.minY).add(this.basZ.mult(aabb.minZ))));
+		Wec3 T = origin.add(this.basX.mult(aabb.maxX).add(this.basY.mult(aabb.maxY).add(this.basZ.mult(aabb.maxZ))));
 
 		return w.getEntitiesWithinAABB(ent, S.extendTo(T));
 	}

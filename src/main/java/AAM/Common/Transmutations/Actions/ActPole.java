@@ -28,7 +28,7 @@ public class ActPole extends TransAction
 		int d = (int) potency / 2;
 		int hg = (int) potency + 3;
 		VectorWorld pw = new VectorWorld(w);
-		pw.translate(tile.subtruct(new Wec3(dir)));
+		pw.translate(tile.sub(new Wec3(dir)));
 
 		if (dir.offsetX != 0)
 		{

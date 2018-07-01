@@ -63,7 +63,7 @@ public class PotionEffs extends Potion
 		if (id == ModPotions.ice.id)
 		{
 			Wec3 p = new Wec3(e);
-			p = p.subtruct(new Wec3(0, 0, 0));
+			p = p.sub(new Wec3(0, 0, 0));
 			if (e.worldObj.getBlock(p.ix, p.iy - 1, p.iz).isBlockSolid(e.worldObj, p.ix, p.iy - 1, p.iz, 1) && e.worldObj.isAirBlock(p.ix, p.iy, p.iz))
 			{
 				e.worldObj.setBlock(p.ix, p.iy, p.iz, Blocks.snow_layer);
@@ -102,7 +102,7 @@ public class PotionEffs extends Potion
 
 		{
 			Wec3 p = new Wec3(e);
-			p = p.subtruct(new Wec3(0, 0, +1));
+			p = p.sub(new Wec3(0, 0, +1));
 			if (e.worldObj.getBlock(p.ix, p.iy - 1, p.iz).isBlockSolid(e.worldObj, p.ix, p.iy - 1, p.iz, 1) && e.worldObj.isAirBlock(p.ix, p.iy, p.iz))
 			{
 				e.worldObj.setBlock(p.ix, p.iy, p.iz, Blocks.fire);

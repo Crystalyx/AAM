@@ -130,7 +130,7 @@ public class SoulEvent
 									SoulCharge s = new SoulCharge(p.worldObj, p);
 									double sp = 0.5;
 									s.setLife(500);
-									Wec3 look = new Wec3(p.getLookVec()).multiply(2);
+									Wec3 look = new Wec3(p.getLookVec()).mult(2);
 									look.ptm(s);
 									p.worldObj.spawnEntityInWorld(s);
 								}

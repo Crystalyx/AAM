@@ -86,7 +86,7 @@ public class Wec3
 	 */
 	public AxisAlignedBB extendBoth(Wec3 b)
 	{
-		Wec3 p = b.subtruct(this);
+		Wec3 p = b.sub(this);
 		return AxisAlignedBB.getBoundingBox(this.x - p.x, this.y - p.y, this.z - p.z, this.x + p.x, this.y + p.y, this.z + p.z);
 	}
 
@@ -231,7 +231,7 @@ public class Wec3
 		return this;
 	}
 
-	public Wec3 subtruct(Wec3 what)
+	public Wec3 sub(Wec3 what)
 	{
 		Wec3 ret = new Wec3(this.x - what.x, this.y - what.y, this.z - what.z);
 		return ret;
@@ -249,19 +249,19 @@ public class Wec3
 		return ret;
 	}
 
-	public Wec3 multiply(double what)
+	public Wec3 mult(double what)
 	{
 		Wec3 ret = new Wec3(this.x * what, this.y * what, this.z * what);
 		return ret;
 	}
 
-	public Wec3 divide(double what)
+	public Wec3 div(double what)
 	{
 		Wec3 ret = new Wec3(this.x / what, this.y / what, this.z / what);
 		return ret;
 	}
 
-	public Wec3 power(double what)
+	public Wec3 pow(double what)
 	{
 		Wec3 ret = new Wec3(this.x != 0 ? Math.pow(this.x, what) : 0, this.y != 0 ? Math.pow(this.y, what) : 0, this.z != 0 ? Math.pow(this.z, what) : 0);
 		return ret;

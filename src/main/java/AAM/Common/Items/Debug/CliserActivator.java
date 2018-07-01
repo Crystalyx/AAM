@@ -1,6 +1,8 @@
 package AAM.Common.Items.Debug;
 
+import AAM.API.IStructureCore;
 import AAM.Utils.PlayerDataHandler;
+import AAM.Utils.Wec3;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -24,6 +26,14 @@ public class CliserActivator extends Item
 	@Override
 	public boolean onItemUse(ItemStack is, EntityPlayer p, World w, int x, int y, int z, int side, float p_77648_8_, float p_77648_9_, float p_77648_10_)
 	{
+		if (w.getTileEntity(x, y, z) != null)
+		{
+			if (w.getTileEntity(x, y, z) instanceof IStructureCore)
+			{
+				IStructureCore core = (IStructureCore) w.getTileEntity(x, y, z);
+				core.getStructure().printStructure(w, new Wec3(x, y, z).add(core.getOffset()));
+			}
+		}
 		return true;
 	}
 }

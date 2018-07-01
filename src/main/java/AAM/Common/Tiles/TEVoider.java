@@ -59,7 +59,7 @@ public class TEVoider extends TileEntity
 			for (Entity e : es)
 			{
 				Wec3 ep = new Wec3(e);
-				Wec3 vec = pp.subtruct(ep);
+				Wec3 vec = pp.sub(ep);
 				vec.ptm(e);
 			}
 		}

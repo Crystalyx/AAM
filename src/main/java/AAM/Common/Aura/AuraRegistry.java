@@ -57,7 +57,7 @@ public class AuraRegistry
 					Wec3 pPos = new Wec3(p);
 					Wec3 ePos = new Wec3(entl);
 
-					Wec3 vec = pPos.subtruct(ePos);
+					Wec3 vec = pPos.sub(ePos);
 
 					entl.setVelocity(vec.x / 6, vec.y / 6, vec.z / 6);
 				}
@@ -68,7 +68,7 @@ public class AuraRegistry
 				Wec3 pPos = new Wec3(p);
 				Wec3 ePos = new Wec3(entl);
 
-				Wec3 vec = pPos.subtruct(ePos);
+				Wec3 vec = pPos.sub(ePos);
 
 				if (vec.length() <= 0.5)
 				{
@@ -115,7 +115,7 @@ public class AuraRegistry
 					Wec3 pPos = new Wec3(p);
 					Wec3 ePos = new Wec3(entl);
 
-					Wec3 vec = ePos.subtruct(pPos);
+					Wec3 vec = ePos.sub(pPos);
 
 					entl.setVelocity(6 / vec.x, 6 / vec.y, 6 / vec.z);
 				}

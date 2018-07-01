@@ -31,8 +31,8 @@ public class KingsStone extends ItemArtifact
 		{
 			// e.setVelocity(0.0, 0.0, 0.0);
 			Wec3 ep = new Wec3(e);
-			Wec3 vec = ep.subtruct(pp);
-			vec = vec.power(-1).multiply(1);
+			Wec3 vec = ep.sub(pp);
+			vec = vec.pow(-1).mult(1);
 			vec.ptm(e);
 
 		}
@@ -50,8 +50,8 @@ public class KingsStone extends ItemArtifact
 		{
 			// e.setVelocity(0.0, 0.0, 0.0);
 			Wec3 ep = new Wec3(e);
-			Wec3 vec = ep.subtruct(pp);
-			vec = vec.power(-1).multiply(8);
+			Wec3 vec = ep.sub(pp);
+			vec = vec.pow(-1).mult(8);
 			vec = vec.add(new Wec3(0, 0.5, 0));
 			vec.ptm(e);
 

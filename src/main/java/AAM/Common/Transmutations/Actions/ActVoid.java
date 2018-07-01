@@ -31,8 +31,8 @@ public class ActVoid extends TransAction
 		for (Entity e : es)
 		{
 			Wec3 ep = new Wec3(e);
-			Wec3 vec = pp.subtruct(ep);
-			vec = vec.power(1).multiply(0.1f);
+			Wec3 vec = pp.sub(ep);
+			vec = vec.pow(1).mult(0.1f);
 			vec.ptm(e);
 		}
 		if (te.completeTimer > 400)

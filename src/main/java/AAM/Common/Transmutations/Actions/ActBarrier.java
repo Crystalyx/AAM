@@ -56,9 +56,9 @@ public class ActBarrier extends TransAction
 			if (MiscUtils.isInLimit(ep.distanceTo(tile), r, r + dr) && MiscUtils.isInLimit(pep.distanceTo(tile), r, r + dr))
 			{
 				double dd = ep.distanceTo(tile) - r;
-				Wec3 vec = ep.subtruct(tile);
+				Wec3 vec = ep.sub(tile);
 				vec.normalize();
-				vec = vec.multiply(dr - dd);
+				vec = vec.mult(dr - dd);
 				vec.ptm(e);
 			}
 			else
@@ -67,9 +67,9 @@ public class ActBarrier extends TransAction
 				{
 					double dd = -ep.distanceTo(tile) + r;
 
-					Wec3 vec = tile.subtruct(ep);
+					Wec3 vec = tile.sub(ep);
 					vec.normalize();
-					vec = vec.multiply(0.25);
+					vec = vec.mult(0.25);
 					vec.ptm(e);
 				}
 			}
@@ -77,18 +77,18 @@ public class ActBarrier extends TransAction
 			{
 				double dd = ep.distanceTo(tile) - r;
 
-				Wec3 vec = ep.subtruct(tile);
+				Wec3 vec = ep.sub(tile);
 				vec.normalize();
-				vec = vec.multiply(dr - dd);
+				vec = vec.mult(dr - dd);
 				vec.ptm(e);
 			}
 			if (MiscUtils.isInLimit(ep.distanceTo(tile), r - dr, r) && !MiscUtils.isInLimit(pep.distanceTo(tile), r - dr, r))
 			{
 				double dd = -ep.distanceTo(tile) + r;
 
-				Wec3 vec = tile.subtruct(ep);
+				Wec3 vec = tile.sub(ep);
 				vec.normalize();
-				vec = vec.multiply(0.15);
+				vec = vec.mult(0.15);
 				vec.ptm(e);
 			}
 		}

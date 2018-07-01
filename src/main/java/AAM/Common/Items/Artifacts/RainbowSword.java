@@ -96,7 +96,7 @@ public class RainbowSword extends ItemSword
 							tag.setInteger("Exp", 0);
 							i.setTagCompound(tag);
 						}
-						Wec3 vec = new Wec3(el.getLookVec()).multiply(3);
+						Wec3 vec = new Wec3(el.getLookVec()).mult(3);
 						el.moveEntity(vec.x, vec.y, vec.z);
 						el.fallDistance = -100;
 

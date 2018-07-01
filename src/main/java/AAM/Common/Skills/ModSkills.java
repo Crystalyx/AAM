@@ -116,7 +116,7 @@ public class ModSkills
 				if (ph.consumeSoul(15))
 				{
 					Wec3 pp = new Wec3(p);
-					Wec3 look = new Wec3(p.getLookVec()).multiply(10);
+					Wec3 look = new Wec3(p.getLookVec()).mult(10);
 
 					pp.add(look).ptp(p);
 				}
