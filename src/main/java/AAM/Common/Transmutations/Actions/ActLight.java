@@ -21,7 +21,7 @@ public class ActLight extends TransAction
 			{
 				for (int k = -n; k <= n; k++)
 				{
-					if (w.getBlockLightValue((int) tile.x + i, (int) tile.y + j, (int) tile.z + k) < 7 && w.isAirBlock((int) tile.x + i, (int) tile.y + j, (int) tile.z + k))
+					if (w.getBlockLightValue((int) tile.x + i, (int) tile.y + j, (int) tile.z + k) < 9 && w.isAirBlock((int) tile.x + i, (int) tile.y + j, (int) tile.z + k))
 					{
 						w.setBlock((int) tile.x + i, (int) tile.y + j, (int) tile.z + k, ModBlocks.LightBlock);
 					}

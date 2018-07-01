@@ -16,7 +16,10 @@ import AAM.Common.Transmutations.Actions.ActGrowth;
 import AAM.Common.Transmutations.Actions.ActLight;
 import AAM.Common.Transmutations.Actions.ActPhilo;
 import AAM.Common.Transmutations.Actions.ActPole;
+import AAM.Common.Transmutations.Actions.ActRainy;
 import AAM.Common.Transmutations.Actions.ActShield;
+import AAM.Common.Transmutations.Actions.ActSunny;
+import AAM.Common.Transmutations.Actions.ActThunder;
 import AAM.Common.Transmutations.Actions.ActTransm;
 import AAM.Common.Transmutations.Actions.ActVoid;
 import AAM.Utils.Color;
@@ -35,44 +38,44 @@ public class ModCircles
 	public static final float K = 200;
 
 	// C
-	public static CirclePart circle_big = new CirclePart("C1", "circle_big", "circle_big", "circle_big");
-	public static CirclePart circle_med = new CirclePart("C2", "circle_medium", "circle_medium", "circle_medium");
-	public static CirclePart circle_small = new CirclePart("C3", "circle_small", "circle_small", "circle_small");
+	public static CirclePart circle_big = new CirclePart("circle_big", "circle_big", "circle_big");
+	public static CirclePart circle_med = new CirclePart("circle_medium", "circle_medium", "circle_medium");
+	public static CirclePart circle_small = new CirclePart("circle_small", "circle_small", "circle_small");
 
 	// R
-	public static CirclePart rect_big = new CirclePart("R1", "rect_big", "rhomb_big", "rect_big");
-	public static CirclePart rect_med = new CirclePart("R2", "rect_medium", "rhomb_medium", "rect_medium");
-	public static CirclePart rect_small = new CirclePart("R3", "rect_small", "rhomb_small", "rect_small");
+	public static CirclePart rect_big = new CirclePart("rect_big", "rhomb_big", "rect_big");
+	public static CirclePart rect_med = new CirclePart("rect_medium", "rhomb_medium", "rect_medium");
+	public static CirclePart rect_small = new CirclePart("rect_small", "rhomb_small", "rect_small");
 
 	// T
-	public static CirclePart triangle_big = new CirclePart("T1", "triangle_big", "triangle_rev_big", "triangle_big");
-	public static CirclePart triangle_med = new CirclePart("T2", "triangle_medium", "triangle_rev_medium", "triangle_medium");
-	public static CirclePart triangle_small = new CirclePart("T3", "triangle_small", "triangle_rev_small", "triangle_small");
+	public static CirclePart triangle_big = new CirclePart("triangle_big", "triangle_rev_big", "triangle_big");
+	public static CirclePart triangle_med = new CirclePart("triangle_medium", "triangle_rev_medium", "triangle_medium");
+	public static CirclePart triangle_small = new CirclePart("triangle_small", "triangle_rev_small", "triangle_small");
 
 	// S
-	public static CirclePart triangles_big = new CirclePart("S1", "triangles_big", "triangles_rev_big", "triangles_big");
-	public static CirclePart triangles_medium = new CirclePart("S2", "triangles_medium", "triangles_rev_medium", "triangles_medium");
-	public static CirclePart triangles_small = new CirclePart("S3", "triangles_small", "triangles_rev_small", "triangles_small");
+	public static CirclePart triangles_big = new CirclePart("triangles_big", "triangles_rev_big", "triangles_big");
+	public static CirclePart triangles_medium = new CirclePart("triangles_medium", "triangles_rev_medium", "triangles_medium");
+	public static CirclePart triangles_small = new CirclePart("triangles_small", "triangles_rev_small", "triangles_small");
 
 	// F
-	public static CirclePart flower_big = new CirclePart("F1", "flower_big", "flower_big", "flower_big");
-	public static CirclePart flower_medium = new CirclePart("F2", "flower_medium", "flower_medium", "flower_medium");
-	public static CirclePart flower_small = new CirclePart("F3", "flower_small", "flower_small", "flower_small");
+	public static CirclePart flower_big = new CirclePart("flower_big", "flower_big", "flower_big");
+	public static CirclePart flower_medium = new CirclePart("flower_medium", "flower_medium", "flower_medium");
+	public static CirclePart flower_small = new CirclePart("flower_small", "flower_small", "flower_small");
 
 	// M
-	public static CirclePart troon_big = new CirclePart("M1", "moon_big", "tree_big", "troon_big");
-	public static CirclePart troon_medium = new CirclePart("M2", "moon_medium", "tree_medium", "troon_medium");
-	public static CirclePart troon_small = new CirclePart("M3", "moon_small", "tree_small", "troon_small");
+	public static CirclePart troon_big = new CirclePart("moon_big", "tree_big", "troon_big");
+	public static CirclePart troon_medium = new CirclePart("moon_medium", "tree_medium", "troon_medium");
+	public static CirclePart troon_small = new CirclePart("moon_small", "tree_small", "troon_small");
 
 	// L
-	public static CirclePart shight_big = new CirclePart("L1", "shield_big", "light_big", "shight_big");
-	public static CirclePart shight_medium = new CirclePart("L2", "shield_medium", "light_medium", "shight_medium");
-	public static CirclePart shight_small = new CirclePart("L3", "shield_small", "light_small", "shight_small");
+	public static CirclePart shight_big = new CirclePart("shield_big", "light_big", "shight_big");
+	public static CirclePart shight_medium = new CirclePart("shield_medium", "light_medium", "shight_medium");
+	public static CirclePart shight_small = new CirclePart("shield_small", "light_small", "shight_small");
 
 	// E - extended
-	public static CirclePart extTransm = new CirclePart("E1", "transm", "transm", true);
-	public static CirclePart extPhilo = new CirclePart("E2", "philo", "philo", true);
-	public static CirclePart extBlood = new CirclePart("E3", "blood", "blood", true);
+	public static CirclePart extTransm = new CirclePart("transm", "transm", true);
+	public static CirclePart extPhilo = new CirclePart("philo", "philo", true);
+	public static CirclePart extBlood = new CirclePart("blood", "blood", true);
 
 	public static int nextInt(int next)
 	{
@@ -88,37 +91,37 @@ public class ModCircles
 
 	public static void loadChalks()
 	{
-		// addPart(circle_big, "C1");
-		// addPart(circle_med, "C2");// C
-		// addPart(circle_small, "C3");
-		//
-		// addPart(rect_big, "R1");
-		// addPart(rect_med, "R2");// R
-		// addPart(rect_small, "R3");
+		addPart(circle_big, "C1");
+		addPart(circle_med, "C2");// C
+		addPart(circle_small, "C3");
 
-		// addPart(triangle_big, "T1");
-		// addPart(triangle_med, "T2");// T
-		// addPart(triangle_small, "T3");
-		//
-		// addPart(triangles_big, "S1");
-		// addPart(triangles_medium, "S2");// S
-		// addPart(triangles_small, "S3");
+		addPart(rect_big, "R1");
+		addPart(rect_med, "R2");// R
+		addPart(rect_small, "R3");
 
-		// addPart(flower_big, "F1");
-		// addPart(flower_medium, "F2");// F
-		// addPart(flower_small, "F3");
-		//
-		// addPart(troon_big, "M1");
-		// addPart(troon_medium, "M2");// M
-		// addPart(troon_small, "M3");
+		addPart(triangle_big, "T1");
+		addPart(triangle_med, "T2");// T
+		addPart(triangle_small, "T3");
 
-		// addPart(shight_big, "L1");
-		// addPart(shight_medium, "L2");// L
-		// addPart(shight_small, "L3");
-		//
-		// addPart(extTransm, "E1");// E - extended
-		// addPart(extPhilo, "E2");
-		// addPart(extBlood, "E3");
+		addPart(triangles_big, "S1");
+		addPart(triangles_medium, "S2");// S
+		addPart(triangles_small, "S3");
+
+		addPart(flower_big, "F1");
+		addPart(flower_medium, "F2");// F
+		addPart(flower_small, "F3");
+
+		addPart(troon_big, "M1");
+		addPart(troon_medium, "M2");// M
+		addPart(troon_small, "M3");
+
+		addPart(shight_big, "L1");
+		addPart(shight_medium, "L2");// L
+		addPart(shight_small, "L3");
+
+		addPart(extTransm, "E1");// E - extended
+		addPart(extPhilo, "E2");
+		addPart(extBlood, "E3");
 	}
 
 	public static void loadCircles()
@@ -151,6 +154,11 @@ public class ModCircles
 		addCircle("ext_philo", "E21n", new ActPhilo(), new Color(204, 5, 54), new Color(204, 5, 54));
 
 		addCircle("ext_blood", "E31n", new ActBlood(), new Color(152, 11, 11), new Color(152, 11, 11));
+
+		addForReversed("sunny", "C11nL11rS11nS11rC31n", new ActSunny(), "C11n");
+		addForReversed("rainy", "C11nS11nS11rM11n", new ActRainy(), "C11n", "C31n");
+		addForReversed("thunder", "C11nL11rM11nC31n", new ActThunder(), "C11n", "C31n");
+
 	}
 
 	public static void loadExtensions()
@@ -322,6 +330,7 @@ public class ModCircles
 	public static void addPart(CirclePart p, String code)
 	{
 		parts.add(p);
+		p.ptId = code;
 		partsr.add(code);
 		if (!p.extended)
 			count += 1;

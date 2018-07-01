@@ -17,9 +17,9 @@ public class ActExplosions extends TransAction
 	@Override
 	public boolean actTick(World w, Wec3 tile, TETransCircle te, EntityPlayer p, int time, double potency, ForgeDirection dir)
 	{
-		int n = (int) (12 + (Math.log(potency + 1) / Math.log(1.4)));
+		int n = (int) (12 + (potency + 1) * (Math.log(potency + 1) / Math.log(1.4)));
 		int t = Math.floorDiv(time, n);
-		if (t >= n * 2)
+		if (t >= n * 2 || time > 400)
 		{
 			return false;
 		}

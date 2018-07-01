@@ -17,9 +17,8 @@ public class CirclePart
 	public String name;
 	public boolean extended = false;
 
-	public CirclePart(String ptId, String block, String blockRev, String name)
+	public CirclePart(String block, String blockRev, String name)
 	{
-		this.ptId = ptId;
 		String id = AAMCore.modid;
 		this.block = new ResourceLocation(id, bw + block + ext);
 		this.item = new ResourceLocation(id, iw + block);
@@ -28,9 +27,8 @@ public class CirclePart
 		this.itemRev = new ResourceLocation(id, iw + blockRev);
 	}
 
-	public CirclePart(String ptId, String block, String name)
+	public CirclePart(String block, String name)
 	{
-		this.ptId = ptId;
 		String id = AAMCore.modid;
 		this.block = new ResourceLocation(id, bw + block + ext);
 		this.item = new ResourceLocation(id, iw + block);
@@ -39,9 +37,8 @@ public class CirclePart
 		this.itemRev = this.item;
 	}
 
-	public CirclePart(String ptId, String block, String blockRev, String name, boolean extended)
+	public CirclePart(String block, String blockRev, String name, boolean extended)
 	{
-		this.ptId = ptId;
 		String id = AAMCore.modid;
 		if (extended)
 		{
@@ -55,9 +52,8 @@ public class CirclePart
 		this.extended = extended;
 	}
 
-	public CirclePart(String ptId, String block, String name, boolean extended)
+	public CirclePart(String block, String name, boolean extended)
 	{
-		this.ptId = ptId;
 		String id = AAMCore.modid;
 		if (extended)
 		{

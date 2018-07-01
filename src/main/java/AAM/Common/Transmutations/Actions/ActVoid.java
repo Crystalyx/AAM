@@ -23,16 +23,16 @@ public class ActVoid extends TransAction
 	@Override
 	public boolean actTick(World w, Wec3 tile, TETransCircle te, EntityPlayer p, int time, double potency, ForgeDirection dir)
 	{
-		Wec3 pp = tile.centralize().add(ForgeDirection.UP);
-		float r = (float) ((MiscUtils.limit(time - 40, 0, 200) / 3d) * Math.log(potency + 1) / Math.log(3.4));
-		AxisAlignedBB aabb = pp.extend(r);
+		Wec3 pp = tile.centralize().add(dir);
+		float r = (float) ((MiscUtils.limit(time - 40, 0, 200) / 5d));
+		AxisAlignedBB aabb = pp.extendBoth(r);
 
 		List<Entity> es = w.getEntitiesWithinAABB(Entity.class, aabb);
 		for (Entity e : es)
 		{
 			Wec3 ep = new Wec3(e);
 			Wec3 vec = pp.sub(ep);
-			vec = vec.pow(1).mult(0.1f);
+			vec = vec.pow(1).mult(0.1f * (1 + potency));
 			vec.ptm(e);
 		}
 		if (te.completeTimer > 400)
