@@ -11,6 +11,9 @@ import net.minecraft.util.ResourceLocation;
 
 public class SpellTableRenderer extends TileEntitySpecialRenderer
 {
+	public static final ResourceLocation texture = new ResourceLocation("aam", "textures/misc/SpellTable-texture.png");
+	public static final ResourceLocation book = new ResourceLocation("textures/entity/enchanting_table_book.png");
+
 	@Override
 	public void renderTileEntityAt(TileEntity tile, double x, double y, double z, float f)
 	{
@@ -23,12 +26,11 @@ public class SpellTableRenderer extends TileEntitySpecialRenderer
 		int meta = tile.getWorldObj().getBlockMetadata(tile.xCoord, tile.yCoord, tile.zCoord);
 		GL11.glRotated(meta * 90, 0, 1, 0);
 
-		ResourceLocation texture = new ResourceLocation("aam", "textures/misc/SpellTable-texture.png");
 		Minecraft.getMinecraft().getTextureManager().bindTexture(texture);
 
 		SpellTable model = new SpellTable();
 		model.render(null, 0.0F, 0.0F, 0.0F, 1.0F, 1.0F, 1.0F);
-
+		
 		GL11.glPopMatrix();
 
 		GL11.glPushMatrix();
@@ -39,8 +41,6 @@ public class SpellTableRenderer extends TileEntitySpecialRenderer
 		GL11.glRotated(meta * 90 + 90, 0, 1, 0);
 
 		GL11.glRotated(-70, 0.0, 0.0, 1.0);
-
-		ResourceLocation book = new ResourceLocation("textures/entity/enchanting_table_book.png");
 		Minecraft.getMinecraft().getTextureManager().bindTexture(book);
 
 		ModelBook bookMod = new ModelBook();

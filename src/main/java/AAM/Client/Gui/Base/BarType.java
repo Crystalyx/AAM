@@ -18,6 +18,7 @@ public class BarType extends ObjType
 
 	public void render(int k, int l, int x, int y, GuiBar bar)
 	{
+		// TODO
 		int val = bar.lastValue;
 		int mval = bar.lastMaxValue;
 

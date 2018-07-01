@@ -6,7 +6,7 @@ import java.util.List;
 import AAM.Common.Entity.SoulCharge;
 import AAM.Utils.MiscUtils;
 import AAM.Utils.PlayerDataHandler;
-import AAM.Utils.WorldPos;
+import AAM.Utils.Wec3;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
@@ -16,7 +16,8 @@ public class ModSkills
 	public static List<SkillBase> skillbases = new ArrayList<SkillBase>();
 	public static List<Skill> skills = new ArrayList<Skill>();
 
-	public static void register()
+	// TODO
+	public static void load()
 	{
 		SkillAction act = new SkillAction()
 		{
@@ -31,7 +32,7 @@ public class ModSkills
 						double a = Math.toRadians(i * 6);
 						SoulCharge s = new SoulCharge(p.worldObj, p);
 						s.setLife(500);
-						WorldPos look = MiscUtils.getPosBy3DAngle(a, 0, 1);
+						Wec3 look = MiscUtils.getPosBy3DAngle(a, 0, 1);
 						look.ptm(s);
 						if (!p.worldObj.isRemote)
 						{
@@ -53,7 +54,7 @@ public class ModSkills
 					SoulCharge s = new SoulCharge(p.worldObj, p);
 					s.setLife(50);
 					s.effs += "DF";
-					WorldPos look = new WorldPos(p.getLookVec());
+					Wec3 look = new Wec3(p.getLookVec());
 					look.ptm(s);
 					if (!p.worldObj.isRemote)
 					{
@@ -74,7 +75,7 @@ public class ModSkills
 					SoulCharge s = new SoulCharge(p.worldObj, p);
 					s.setLife(50);
 					s.effs += "DP";
-					WorldPos look = new WorldPos(p.getLookVec());
+					Wec3 look = new Wec3(p.getLookVec());
 					look.ptm(s);
 					if (!p.worldObj.isRemote)
 					{
@@ -95,7 +96,7 @@ public class ModSkills
 					SoulCharge s = new SoulCharge(p.worldObj, p);
 					s.setLife(50);
 					s.effs += "DK";
-					WorldPos look = new WorldPos(p.getLookVec());
+					Wec3 look = new Wec3(p.getLookVec());
 					look.ptm(s);
 					if (!p.worldObj.isRemote)
 					{
@@ -114,8 +115,8 @@ public class ModSkills
 				PlayerDataHandler ph = PlayerDataHandler.get(p);
 				if (ph.consumeSoul(15))
 				{
-					WorldPos pp = new WorldPos(p);
-					WorldPos look = new WorldPos(p.getLookVec()).modify(10);
+					Wec3 pp = new Wec3(p);
+					Wec3 look = new Wec3(p.getLookVec()).multiply(10);
 
 					pp.add(look).ptp(p);
 				}
@@ -140,7 +141,7 @@ public class ModSkills
 	{
 		for (SkillBase sb : skillbases)
 		{
-			if (sb.name == name)
+			if (sb.name.equals(name))
 				return sb;
 		}
 		return null;

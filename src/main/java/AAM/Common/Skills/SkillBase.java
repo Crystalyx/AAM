@@ -1,6 +1,6 @@
 package AAM.Common.Skills;
 
-import AAM.Utils.Soul;
+import AAM.Common.Soul.Soul;
 import net.minecraft.util.ResourceLocation;
 
 public class SkillBase

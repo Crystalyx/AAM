@@ -5,15 +5,14 @@ import net.minecraft.client.model.ModelRenderer;
 import net.minecraft.entity.Entity;
 import org.lwjgl.opengl.GL11;
 
-import AAM.Common.Tiles.CauldronTileEntity;
+import AAM.Common.Tiles.TECauldron;
 
 /**
  * Cauldron - Lord_Crystalyx Created using Tabula 4.1.1
  */
 public class Cauldron extends ModelBase
 {
-	public double[] modelScale = new double[]
-	{ 2.0D, 2.0D, 2.0D };
+	public double[] modelScale = new double[] { 2.0D, 2.0D, 2.0D };
 	public ModelRenderer Leg1;
 	public ModelRenderer Leg2;
 	public ModelRenderer Leg3;

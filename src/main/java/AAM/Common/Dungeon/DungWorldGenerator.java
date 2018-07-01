@@ -1,9 +1,8 @@
 package AAM.Common.Dungeon;
 
-import AAM.Common.Blocks.ModBlocks;
+import AAM.Common.Blocks.Building.ModBlocks;
 import net.minecraft.block.Block;
 import net.minecraft.world.World;
-import net.minecraft.world.chunk.Chunk;
 import net.minecraft.world.chunk.IChunkProvider;
 import net.minecraft.world.gen.MapGenBase;
 

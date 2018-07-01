@@ -39,7 +39,8 @@ public class PotionRenderer implements IItemRenderer
 			GL11.glRotated(180, 1.0, 0.0, 0.0);
 			GL11.glRotated(180, 0.0, 1.0, 0.0);
 			GL11.glTranslated(-1.0, -1.0, 0.0);
-		} else
+		}
+		else
 		{
 			if (type == ItemRenderType.ENTITY && !item.isOnItemFrame())
 			{
@@ -60,7 +61,7 @@ public class PotionRenderer implements IItemRenderer
 		}
 		Minecraft.getMinecraft().getTextureManager().bindTexture(new ResourceLocation("aam", way + ".png"));
 		Tessellator tess = Tessellator.instance;
-		RenderUtils.renderItemIn2D(tess, 0.0F, -1.0F, -1.0F, 0.0F, 64, 64, 0.05F);
+		RenderUtils.renderTextureIn2D(tess, 0.0F, 0.0F, -1.0F, -1.0F, 64, 64, 0.05F);
 		GL11.glPopMatrix();
 
 		if (item.hasTagCompound())
@@ -79,7 +80,8 @@ public class PotionRenderer implements IItemRenderer
 				GL11.glRotated(180, 1.0, 0.0, 0.0);
 				GL11.glRotated(180, 0.0, 1.0, 0.0);
 				GL11.glTranslated(-1.0, -1.0, 0.0);
-			} else
+			}
+			else
 			{
 				if (type == ItemRenderType.ENTITY && !item.isOnItemFrame())
 				{
@@ -101,7 +103,7 @@ public class PotionRenderer implements IItemRenderer
 			GL11.glTranslated(0.015625, 0, 0);
 
 			Minecraft.getMinecraft().getTextureManager().bindTexture(new ResourceLocation("aam", way + ".png"));
-			RenderUtils.renderItemIn2DwithColor(tess, 0.0F, -1.0, 1.0F, 0.0, 64, 64, 0.05F, col.add(new Color(col.red + 70, col.green + 70, col.blue + 70)));
+			RenderUtils.renderTextureIn2DwithColor(tess, 0.0F, 0.0, 1.0F, -1.0, 64, 64, 0.05F, col.add(new Color(col.red + 70, col.green + 70, col.blue + 70)));
 			GL11.glPopMatrix();
 		}
 	}

@@ -1,7 +1,7 @@
 package AAM.Common.Blocks.Mechanical;
 
 import AAM.Client.Renderer.Tile.ArmouryRenderer;
-import AAM.Common.Tiles.TileArmoury;
+import AAM.Common.Tiles.TEArmoury;
 import AAM.Core.AAMCore;
 import net.minecraft.block.BlockContainer;
 import net.minecraft.block.material.Material;
@@ -22,7 +22,7 @@ public class Armoury extends BlockContainer
 	@Override
 	public TileEntity createNewTileEntity(World w, int meta)
 	{
-		return new TileArmoury();
+		return new TEArmoury();
 	}
 
 	@Override
@@ -30,12 +30,6 @@ public class Armoury extends BlockContainer
 	{
 		p.openGui(AAMCore.instance, 2, w, x, y, z);
 		return true;
-	}
-
-	@Override
-	public void onBlockPlacedBy(World w, int x, int y, int z, EntityLivingBase p, ItemStack is)
-	{
-		super.onBlockPlacedBy(w, x, y, z, p, is);
 	}
 
 	public boolean isOpaqueCube()

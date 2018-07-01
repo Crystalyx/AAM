@@ -6,6 +6,7 @@ import net.minecraft.item.ItemStack;
 
 public class Booster extends Ingridient
 {
+	// TODO
 	public Booster(Item i, int meta, Color col, int id, int boost)
 	{
 		super(i, meta, col, id);

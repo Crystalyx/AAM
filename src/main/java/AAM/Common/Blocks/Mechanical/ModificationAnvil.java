@@ -21,14 +21,15 @@ import net.minecraft.world.World;
 public class ModificationAnvil extends BlockContainer
 {
 
-	public ModificationAnvil(Material mat)
+	public ModificationAnvil()
 	{
-		super(mat);
+		super(Material.iron);
 		this.setBlockBounds(0.0F, 0.0F, 0.0F, 1.0F, 0.625F, 1.0F);
 		this.setHardness(2.0F);
 		this.setBlockTextureName("aam:null");
 	}
 
+	@Override
 	public void breakBlock(World w, int x, int y, int z, Block b, int meta)
 	{
 		EntityItem entity;
@@ -39,24 +40,19 @@ public class ModificationAnvil extends BlockContainer
 			{
 				if (tile.inventory[i] != null)
 				{
-					entity = new EntityItem(w, x, y, z, tile.inventory[i]);
-					entity.motionX = w.rand.nextDouble() / 2;
-					entity.motionY = w.rand.nextDouble() / 2;
-					entity.motionZ = w.rand.nextDouble() / 2;
-					w.spawnEntityInWorld(entity);
+					MiscUtils.dropInventory(w, x, y, z, tile);
 				}
 			}
 		}
 	}
 
 	@Override
-	public TileEntity createNewTileEntity(World p_149915_1_, int p_149915_2_)
+	public TileEntity createNewTileEntity(World w, int meta)
 	{
 		return new TEModificationAnvil();
 	}
 
-	public boolean isCursed = false;
-
+	@Override
 	public boolean onBlockActivated(World w, int x, int y, int z, EntityPlayer p, int p_149727_6_, float px, float py, float pz)
 	{
 		if (w.getTileEntity(x, y, z) != null)
@@ -69,14 +65,12 @@ public class ModificationAnvil extends BlockContainer
 					{
 						if (p.getCurrentEquippedItem().getItem() != ModItems.RiteBook)
 						{
-							ItemStack item = p.getCurrentEquippedItem().copy();
-							item.stackSize = 1;
-							for (int i = 0; i < 7; i++)
+							ItemStack item = p.inventory.decrStackSize(p.inventory.currentItem, 1);
+							for (int i = 0; i < tile.getSizeInventory(); i++)
 							{
 								if (tile.getStackInSlot(i) == null)
 								{
 									tile.setInventorySlotContents(i, item);
-									p.inventory.decrStackSize(p.inventory.currentItem, 1);
 									break;
 								}
 							}
@@ -85,12 +79,9 @@ public class ModificationAnvil extends BlockContainer
 						{
 							if (p.getCurrentEquippedItem().getItem() == ModItems.RiteBook)
 							{
-								// if (!w.isRemote)
+								if (!tile.isCrafting)
 								{
-									if (!tile.isCrafting)
-									{
-										tile.startCrafting();
-									}
+									tile.startCrafting();
 								}
 							}
 						}
@@ -98,41 +89,33 @@ public class ModificationAnvil extends BlockContainer
 				}
 				else
 				{
-					if (p.isSneaking())
+					for (int i = 6; i >= 0; i--)
 					{
-						for (int i = 6; i >= 0; i--)
+						if (tile.getStackInSlot(i) != null)
 						{
-							if (tile.getStackInSlot(i) != null)
-							{
-								MiscUtils.addItemStack(p, tile.getStackInSlot(i));
-								tile.setInventorySlotContents(i, null);
-								break;
-							}
+							MiscUtils.addItemStack(p, tile.decrStackSize(i, 1));
+							tile.setInventorySlotContents(i, null);
+							break;
 						}
 					}
 				}
-				if (p.getCurrentEquippedItem() != null)
-				{
-					if (p.getCurrentEquippedItem().getItem() != ModItems.RiteBook)
-					{
-						this.isCursed = true;
-					}
-				}
-
 			}
 		return true;
 	}
 
+	@Override
 	public boolean isOpaqueCube()
 	{
 		return false;
 	}
 
+	@Override
 	public int getRenderType()
 	{
 		return 136;
 	}
 
+	@Override
 	public boolean isNormalCube()
 	{
 		return false;

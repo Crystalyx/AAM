@@ -15,43 +15,51 @@ public class Logger
 		FMLLog.log("AlchemyAndMagic", logLevel, String.valueOf(object));
 	}
 
-	public static void all(Object object)
+	public static void all(Object... object)
 	{
-		log(Level.ALL, object);
+		String s = MiscUtils.compact(object);
+		log(Level.ALL, s);
 	}
 
-	public static void debug(Object object)
+	public static void debug(Object... object)
 	{
-		log(Level.DEBUG, object);
+		String s = MiscUtils.compact(object);
+		log(Level.DEBUG, s);
 	}
 
-	public static void error(Object object)
+	public static void error(Object... object)
 	{
-		log(Level.ERROR, object);
+		String s = MiscUtils.compact(object);
+		log(Level.ERROR, s);
 	}
 
-	public static void fatal(Object object)
+	public static void fatal(Object... object)
 	{
-		log(Level.FATAL, object);
+		String s = MiscUtils.compact(object);
+		log(Level.FATAL, s);
 	}
 
-	public static void info(Object object)
+	public static void info(Object... object)
 	{
-		log(Level.INFO, object);
+		String s = MiscUtils.compact(object);
+		log(Level.INFO, s);
 	}
 
-	public static void off(Object object)
+	public static void off(Object... object)
 	{
-		log(Level.OFF, object);
+		String s = MiscUtils.compact(object);
+		log(Level.OFF, s);
 	}
 
-	public static void trace(Object object)
+	public static void trace(Object... object)
 	{
-		log(Level.TRACE, object);
+		String s = MiscUtils.compact(object);
+		log(Level.TRACE, s);
 	}
 
-	public static void warn(Object object)
+	public static void warn(Object... object)
 	{
-		log(Level.WARN, object);
+		String s = MiscUtils.compact(object);
+		log(Level.WARN, s);
 	}
 }

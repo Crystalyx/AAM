@@ -2,7 +2,7 @@ package AAM.Client.Renderer.Block;
 
 import org.lwjgl.opengl.GL11;
 
-import AAM.Common.Blocks.BerryBush;
+import AAM.Common.Blocks.Plants.BerryBush;
 import AAM.Network.ClientProxy;
 import cpw.mods.fml.client.registry.ISimpleBlockRenderingHandler;
 import net.minecraft.block.Block;

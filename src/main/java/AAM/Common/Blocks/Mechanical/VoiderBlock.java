@@ -1,6 +1,6 @@
 package AAM.Common.Blocks.Mechanical;
 
-import AAM.Common.Tiles.VoiderTileEntity;
+import AAM.Common.Tiles.TEVoider;
 import net.minecraft.block.BlockContainer;
 import net.minecraft.block.material.Material;
 import net.minecraft.tileentity.TileEntity;
@@ -15,7 +15,7 @@ public class VoiderBlock extends BlockContainer
 
 	public VoiderBlock()
 	{
-		super(Material.dragonEgg);
+		super(Material.iron);
 		this.setBlockTextureName("aam:null");
 		this.setBlockName("aam.voider");
 		this.setResistance(10.0F);
@@ -34,7 +34,7 @@ public class VoiderBlock extends BlockContainer
 	@Override
 	public TileEntity createNewTileEntity(World p_149915_1_, int p_149915_2_)
 	{
-		return new VoiderTileEntity();
+		return new TEVoider();
 	}
 
 }

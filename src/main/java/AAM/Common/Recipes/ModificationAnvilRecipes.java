@@ -16,7 +16,7 @@ public class ModificationAnvilRecipes
 
 	public static void registerRecipes()
 	{
-
+		// TODO
 	}
 
 	public static void registerRecipe(ModificationAnvilRecipe rec)

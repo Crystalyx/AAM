@@ -11,8 +11,7 @@ import org.lwjgl.opengl.GL11;
  */
 public class Armoury extends ModelBase
 {
-	public double[] modelScale = new double[]
-	{ 4.0D, 4.0D, 4.0D };
+	public double[] modelScale = new double[] { 4.0D, 4.0D, 4.0D };
 	public ModelRenderer shape1;
 	public ModelRenderer shape2;
 	public ModelRenderer shape3;

@@ -2,7 +2,7 @@ package AAM.Client.Renderer.Entity;
 
 import org.lwjgl.opengl.GL11;
 
-import AAM.Common.Entity.EntityBloodball;
+import AAM.Common.Entity.Elemental.EntityBloodball;
 import AAM.Utils.MiscUtils;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.entity.Render;

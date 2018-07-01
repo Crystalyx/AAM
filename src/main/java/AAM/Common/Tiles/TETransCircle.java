@@ -3,13 +3,18 @@ package AAM.Common.Tiles;
 import java.util.ArrayList;
 import java.util.List;
 
+import AAM.API.ICatalyst;
 import AAM.Common.Transmutations.Circle;
+import AAM.Common.Transmutations.EnergyType;
+import AAM.Common.Transmutations.Extension;
 import AAM.Common.Transmutations.ModCircles;
 import AAM.Common.Transmutations.Transmutation;
 import AAM.Utils.Color;
 import AAM.Utils.MiscUtils;
-import AAM.Utils.WorldPos;
+import AAM.Utils.Wec3;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.inventory.IInventory;
+import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraft.network.NetworkManager;
@@ -19,16 +24,20 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraftforge.common.util.ForgeDirection;
 
-public class TETransCircle extends TileEntity // implements IInventory
+public class TETransCircle extends TileEntity implements IInventory
 {
-	// private ItemStack[] inv = new ItemStack[100];
 	public List<Circle> circle = new ArrayList<Circle>();
 	private String name = "circle";
 	public boolean isLink = false;
 	int ticktime = 0;
 
 	public EntityPlayer alchemist;
-	public Transmutation last;
+	public Transmutation transm;
+	public ItemStack is;
+
+	public double energy = 0;
+	public EnergyType energyType = EnergyType.Unknown;
+
 	public double potency = 1;
 	public Color prepCol = new Color(60, 40, 255);
 	public Color actCol = new Color(160, 140, 255);
@@ -36,6 +45,14 @@ public class TETransCircle extends TileEntity // implements IInventory
 	public enum State
 	{
 		idle, active, complete;
+	}
+
+	public void extend()
+	{
+		for (Extension ex : ModCircles.extensions)
+		{
+			ex.work(this.worldObj, new Wec3(this));
+		}
 	}
 
 	public List<String> modify(List<String> l, double mod)
@@ -65,6 +82,12 @@ public class TETransCircle extends TileEntity // implements IInventory
 		return min;
 	}
 
+	public void clearEnergy()
+	{
+		this.energy = 0;
+		this.energyType = EnergyType.Unknown;
+	}
+
 	public void check()
 	{
 		double scale = getMinScale(this.circle);
@@ -72,22 +95,22 @@ public class TETransCircle extends TileEntity // implements IInventory
 		{
 			if (MiscUtils.containsOnly(ModCircles.getCodeStr(this.circle), modify(tr.parts, scale)))
 			{
-				this.last = tr;
+				this.transm = tr;
 				this.potency = scale;
 				this.prepCol = tr.prepCol;
 				this.actCol = tr.actCol;
 				return;
 			}
 			else
-				this.last = null;
+				this.transm = null;
 		}
 	}
 
 	public void transmute()
 	{
 		check();
-		if (this.last != null)
-			this.last.action.act(this.worldObj, new WorldPos(this), this, this.alchemist, this.potency, ForgeDirection.getOrientation(this.worldObj.getBlockMetadata(this.xCoord, this.yCoord, this.zCoord)));
+		if (this.transm != null)
+			this.transm.action.act(this.worldObj, new Wec3(this), this, this.alchemist, this.potency, ForgeDirection.getOrientation(this.worldObj.getBlockMetadata(this.xCoord, this.yCoord, this.zCoord)));
 		else
 			this.state = State.idle;
 	}
@@ -114,11 +137,11 @@ public class TETransCircle extends TileEntity // implements IInventory
 			}
 		}
 
-		if (this.last != null)
+		if (this.transm != null)
 		{
 			if (this.state.equals(State.active))
 			{
-				if (this.completeTimer < this.last.prepTime)
+				if (this.completeTimer < this.transm.prepTime)
 				{
 					++this.completeTimer;
 				}
@@ -131,9 +154,27 @@ public class TETransCircle extends TileEntity // implements IInventory
 			}
 			if (this.state.equals(State.complete))
 			{
-				boolean ticks = this.last.action.actTick(this.worldObj, new WorldPos(this), this, this.alchemist, this.ticktime, this.potency,
+				int dpot = 0;
+
+//				for (int i = 0; i < 9; i++)
+//				{
+//					for (int j = 0; j < 4; j++)
+//					{
+//						ItemStack is = this.alchemist.inventory.getStackInSlot(i + j * 9);
+//						if (is != null)
+//						{
+//							if (is.getItem() instanceof ICatalyst)
+//							{
+//								if (((ICatalyst) is.getItem()).getPotency(is) > dpot)
+//									dpot = ((ICatalyst) is.getItem()).getPotency(is);
+//							}
+//						}
+//					}
+//				}
+
+				boolean ticks = this.transm.action.actTick(this.worldObj, new Wec3(this), this, this.alchemist, this.ticktime, this.potency + dpot,
 						ForgeDirection.getOrientation(this.worldObj.getBlockMetadata(this.xCoord, this.yCoord, this.zCoord)));
-				if (this.completeTimer > this.last.prepTime + this.last.actTime && !ticks)
+				if (this.completeTimer > this.transm.prepTime + this.transm.actTime && !ticks)
 				{
 					this.completeTimer = 0;
 					this.state = State.idle;
@@ -151,10 +192,18 @@ public class TETransCircle extends TileEntity // implements IInventory
 		}
 		else
 			this.state = State.idle;
+
+		if (this.energy <= 0)
+		{
+			this.energy = 0;
+			this.energyType = EnergyType.Unknown;
+		}
 	}
 
 	public State state = State.idle;
 	public int completeTimer = 0;
+	public double esize = -1;
+	public boolean extended = false;
 
 	@Override
 	public Packet getDescriptionPacket()
@@ -176,32 +225,24 @@ public class TETransCircle extends TileEntity // implements IInventory
 	public void readFromNBT(NBTTagCompound tag)
 	{
 		super.readFromNBT(tag);
-		// NBTTagList nbttaglist = tag.getTagList("Items", 10);
-		// this.inv = new ItemStack[this.getSizeInventory()];
 
-		// for (int i = 0; i < nbttaglist.tagCount(); ++i)
-		// {
-		// NBTTagCompound nbttagcompound1 = (NBTTagCompound)
-		// nbttaglist.getCompoundTagAt(i);
-		// int j = nbttagcompound1.getByte("Slot") & 255;
-		//
-		// if (j >= 0 && j < this.inv.length)
-		// {
-		// this.inv[j] = ItemStack.loadItemStackFromNBT(nbttagcompound1);
-		// }
-		// }
+		MiscUtils.readInventory(this, tag);
 
 		NBTTagList circles = tag.getTagList("Circles", 10);
 
-		for (int i = 0; i < circles.tagCount(); i++)
-		{
-			NBTTagCompound part = circles.getCompoundTagAt(i);
-			int id = part.getInteger("Part");
-			boolean rev = part.getBoolean("Reversed");
-			double scale = part.getDouble("Scale");
+		this.energy = tag.getDouble("TrEnergy");
+		this.extended = tag.getBoolean("Ext-d");
+		if (this.extended)
+			this.esize = tag.getDouble("ExtSize");
 
-			this.circle.add(new Circle(ModCircles.parts.get(id), scale, rev));
+		int size = tag.getInteger("CircleSize");
+		List<String> codes = new ArrayList<String>();
+		for (int i = 0; i < size; i++)
+		{
+			codes.add(tag.getString("Part" + i));
 		}
+
+		this.circle = ModCircles.getCircles(codes);
 
 		this.state = State.values()[tag.getInteger("State")];
 
@@ -217,38 +258,25 @@ public class TETransCircle extends TileEntity // implements IInventory
 	public void writeToNBT(NBTTagCompound tag)
 	{
 		super.writeToNBT(tag);
-		// NBTTagList items = new NBTTagList();
 
-		// for (int i = 0; i < this.inv.length; ++i)
-		// {
-		// if (this.inv[i] != null)
-		// {
-		// NBTTagCompound nbttagcompound1 = new NBTTagCompound();
-		// nbttagcompound1.setByte("Slot", (byte) i);
-		// this.inv[i].writeToNBT(nbttagcompound1);
-		// nbttaglist.appendTag(nbttagcompound1);
-		// }
-		// }
+		MiscUtils.saveInventory(this, tag);
 
-		// tag.setTag("Items", items);
+		tag.setDouble("TrEnergy", this.energy);
 
-		NBTTagList circles = new NBTTagList();
+		tag.setBoolean("Ext-d", this.extended);
+		if (this.extended)
+			tag.setDouble("ExtSize", this.esize);
 
+		List<String> codes = ModCircles.getCodeStr(this.circle);
 		for (int i = 0; i < this.circle.size(); i++)
 		{
-			NBTTagCompound part = new NBTTagCompound();
-			part.setInteger("Part", ModCircles.parts.indexOf(this.circle.get(i).pt));
-			part.setBoolean("Reversed", this.circle.get(i).rev);
-			part.setDouble("Scale", this.circle.get(i).scale);
-
-			circles.appendTag(part);
+			tag.setInteger("CircleSize", codes.size());
+			tag.setString("Part" + i, codes.get(i));
 		}
 
 		tag.setInteger("State", this.state.ordinal());
 
-		tag.setTag("Circles", circles);
-
-		if (this.name != "")
+		if (!this.name.equals(""))
 		{
 			tag.setString("CustomName", this.name);
 		}
@@ -258,5 +286,77 @@ public class TETransCircle extends TileEntity // implements IInventory
 	public AxisAlignedBB getRenderBoundingBox()
 	{
 		return this.INFINITE_EXTENT_AABB;
+	}
+
+	@Override
+	public int getSizeInventory()
+	{
+		return 1;
+	}
+
+	@Override
+	public ItemStack getStackInSlot(int slot)
+	{
+		return is;
+	}
+
+	@Override
+	public ItemStack decrStackSize(int slot, int count)
+	{
+		return null;
+	}
+
+	@Override
+	public ItemStack getStackInSlotOnClosing(int slot)
+	{
+		return null;
+	}
+
+	@Override
+	public void setInventorySlotContents(int slot, ItemStack i)
+	{
+		is = i;
+	}
+
+	@Override
+	public String getInventoryName()
+	{
+		return "tetranscircle";
+	}
+
+	@Override
+	public boolean hasCustomInventoryName()
+	{
+		return false;
+	}
+
+	@Override
+	public int getInventoryStackLimit()
+	{
+		return 1;
+	}
+
+	@Override
+	public boolean isUseableByPlayer(EntityPlayer p_70300_1_)
+	{
+		return false;
+	}
+
+	@Override
+	public void openInventory()
+	{
+
+	}
+
+	@Override
+	public void closeInventory()
+	{
+
+	}
+
+	@Override
+	public boolean isItemValidForSlot(int p_94041_1_, ItemStack p_94041_2_)
+	{
+		return true;
 	}
 }

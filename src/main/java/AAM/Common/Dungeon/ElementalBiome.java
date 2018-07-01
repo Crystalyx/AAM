@@ -2,7 +2,7 @@ package AAM.Common.Dungeon;
 
 import java.util.Random;
 
-import AAM.Common.Blocks.ModBlocks;
+import AAM.Common.Blocks.Building.ModBlocks;
 import net.minecraft.init.Blocks;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.BiomeGenBase;

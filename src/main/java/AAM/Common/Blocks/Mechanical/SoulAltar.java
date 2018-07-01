@@ -1,11 +1,11 @@
 package AAM.Common.Blocks.Mechanical;
 
 import AAM.API.IStructureCore;
-import AAM.Common.Tiles.TileSoulAltar;
+import AAM.Common.Tiles.TESoulAltar;
 import AAM.Core.AAMCore;
 import AAM.Utils.Structure;
 import AAM.Utils.Structures;
-import AAM.Utils.WorldPos;
+import AAM.Utils.Wec3;
 import net.minecraft.block.BlockContainer;
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.player.EntityPlayer;
@@ -23,7 +23,7 @@ public class SoulAltar extends BlockContainer
 	@Override
 	public TileEntity createNewTileEntity(World w, int meta)
 	{
-		return new TileSoulAltar();
+		return new TESoulAltar();
 	}
 
 	@Override

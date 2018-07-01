@@ -68,7 +68,7 @@ public class Material extends Item
 	@Override
 	public String getUnlocalizedName(ItemStack is)
 	{
-		return "aam.material_" + is.getItemDamage();
+		return this.getUnlocalizedName() + is.getItemDamage();
 	}
 
 	/**

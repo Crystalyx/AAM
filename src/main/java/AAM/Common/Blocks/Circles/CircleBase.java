@@ -9,7 +9,9 @@ public class CircleBase extends Block
 	{
 		super(Material.rock);
 		this.setBlockTextureName("aam:circles/base");
-		this.setBlockName("aamcircleBase");
+		this.setHardness(2.0f);
+		this.setResistance(5.0f);
+		this.setStepSound(soundTypeWood);
 	}
 
 }

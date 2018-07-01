@@ -7,9 +7,7 @@ import AAM.Core.AAMConfig;
 import AAM.Core.AAMCore;
 import AAM.Utils.Color;
 import DummyCore.Utils.MiscUtils;
-import net.minecraft.item.ItemStack;
 import net.minecraft.potion.Potion;
-import AAM.Common.Potions.Ingridients.*;
 
 public class ModPotions
 {
@@ -38,14 +36,14 @@ public class ModPotions
 		lavaResistance = (new PotionEffs(6 + AAMCore.cfg.genericPID, false)).setPotionName("alchamagicr.lavaResistance");
 		poison = (new PotionEffs(7 + AAMCore.cfg.genericPID, true)).setPotionName("alchamagicr.poison");
 
-		addPotion(200, "Heal", new Color(239, 0, 0), Ingridients.raspberry, Ingridients.ender_pearl, Ingridients.raspberry, Ingridients.diamond, Ingridients.red_flower);
-		addPotion(10, "Antidote", new Color(30, 200, 85), Ingridients.spider_eye, Ingridients.ghast_tear, Ingridients.nether_wart, Ingridients.ender_eye, Ingridients.cactus);
-		addPotion(200, "Flame", new Color(215, 130, 15), Ingridients.ender_pearl, Ingridients.mortisberry, Ingridients.wormwood, Ingridients.diamond, Ingridients.magma_cream, Ingridients.speckled_melon);
-		addPotion(200, "Flight", new Color(0, 250, 220), Ingridients.feather, Ingridients.feather, Ingridients.blackberry, Ingridients.ender_pearl, Ingridients.diamond, Ingridients.diamond, Ingridients.golden_apple, Ingridients.ghast_tear,
+		addPotion(200, "Heal", new Color(239, 0, 0), Ingridients.raspberry, Ingridients.shroom, Ingridients.raspberry, Ingridients.red_flower);
+		addPotion(10, "Antidote", new Color(30, 200, 85), Ingridients.spider_eye, Ingridients.ghast_tear, Ingridients.nether_wart, Ingridients.cactus);
+		addPotion(200, "Flame", new Color(215, 130, 15), Ingridients.ender_pearl, Ingridients.mortisberry, Ingridients.wormwood, Ingridients.diamond, Ingridients.magma_cream);
+		addPotion(1000, "Flight", new Color(0, 250, 220), Ingridients.feather, Ingridients.feather, Ingridients.blackberry, Ingridients.ender_pearl, Ingridients.diamond, Ingridients.emerald, Ingridients.golden_apple, Ingridients.ghast_tear,
 				Ingridients.fermented_spider_eye, Ingridients.magma_cream, Ingridients.snowball, Ingridients.nether_star, Ingridients.shadowveil, Ingridients.nether_wart);
 		addPotion(200, "Ice", new Color(10, 215, 170), Ingridients.snowball, Ingridients.snowball, Ingridients.ender_pearl, Ingridients.blueberry, Ingridients.wormwood, Ingridients.diamond);
 		addPotion(200, "Invincibility", new Color(250, 195, 0), Ingridients.ender_pearl, Ingridients.blackberry, Ingridients.diamond, Ingridients.diamond, Ingridients.golden_apple, Ingridients.bone, Ingridients.blaze_powder);
-		addPotion(200, "LavaResistance", new Color(140, 30, 30), Ingridients.nether_wart, Ingridients.shadowveil, Ingridients.emerald, Ingridients.ender_eye, Ingridients.magma_cream);
+		addPotion(600, "LavaResistance", new Color(140, 30, 30), Ingridients.nether_wart, Ingridients.shadowveil, Ingridients.diamond, Ingridients.ender_eye, Ingridients.magma_cream);
 		addPotion(200, "Poison", new Color(130, 210, 10), Ingridients.spider_eye, Ingridients.spider_eye, Ingridients.fermented_spider_eye, Ingridients.shadowveil, Ingridients.poisonous_potato);
 
 		// TODO 3 potions

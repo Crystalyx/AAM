@@ -14,7 +14,7 @@ public class BlockState
 		this.meta = 0;
 	}
 
-	public BlockState(Block b, WorldPos wp, int meta)
+	public BlockState(Block b, Wec3 wp, int meta)
 	{
 		this.b = b;
 		this.x = (int) wp.x;
@@ -23,7 +23,7 @@ public class BlockState
 		this.meta = meta;
 	}
 
-	public BlockState(Block b, WorldPos wp)
+	public BlockState(Block b, Wec3 wp)
 	{
 		this.b = b;
 		this.x = (int) wp.x;
@@ -46,7 +46,8 @@ public class BlockState
 		w.setBlock(this.x, this.y, this.z, this.b);
 		w.setBlockMetadataWithNotify(this.x, this.y, this.z, this.meta, 2);
 	}
-	public void print(PositionedWorld w)
+
+	public void print(VectorWorld w)
 	{
 		w.setBlock(this.x, this.y, this.z, this.b);
 		w.setBlockMetadataWithNotify(this.x, this.y, this.z, this.meta, 2);

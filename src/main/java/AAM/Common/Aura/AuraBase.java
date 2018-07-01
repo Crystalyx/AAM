@@ -36,9 +36,15 @@ public class AuraBase
 
 	public void startTick(Entity p)
 	{
+
 	}
 
 	public void endTick(Entity p)
+	{
+
+	}
+
+	public void renderTick(Entity p)
 	{
 
 	}
@@ -68,6 +74,8 @@ public class AuraBase
 		double range = this.size / 2;
 		Cube cub = new Cube(0, 0, 0, 2048, 1, 2048, (float) this.size, 2048);
 		cub.render((ResourceLocation) text);
+
+		this.renderTick(p);
 		GL11.glPopMatrix();
 		RenderHelper.enableStandardItemLighting();
 	}

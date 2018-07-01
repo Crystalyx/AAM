@@ -1,6 +1,6 @@
 package AAM.Common.Blocks.Mechanical;
 
-import AAM.Common.Blocks.ModBlocks;
+import AAM.Common.Blocks.Building.ModBlocks;
 import AAM.Common.Tiles.TECrystal;
 import net.minecraft.block.BlockContainer;
 import net.minecraft.block.material.Material;
@@ -19,7 +19,6 @@ public class CrystalBlock extends BlockContainer
 		this.setHardness(1.5F);
 		this.setResistance(10.0F);
 		this.setLightLevel(2F);
-		this.setBlockName("aamcrystal");
 		this.setBlockBounds(1 / 8F, 0, 1 / 8F, 1 - 1 / 8F, 1, 1 - 1 / 8F);
 	}
 
@@ -28,7 +27,7 @@ public class CrystalBlock extends BlockContainer
 	{
 		return 134;
 	}
-	
+
 	public static IIcon[] icons = new IIcon[2];
 
 	@Override
@@ -53,7 +52,7 @@ public class CrystalBlock extends BlockContainer
 	{
 		return false;
 	}
-	
+
 	@Override
 	public boolean isOpaqueCube()
 	{
@@ -65,11 +64,11 @@ public class CrystalBlock extends BlockContainer
 	{
 		return new TECrystal();
 	}
-	
+
 	@Override
 	public void onBlockAdded(World w, int x, int y, int z)
 	{
-		w.setBlock(x, y+1, z, ModBlocks.PHBlock);
+		w.setBlock(x, y + 1, z, ModBlocks.PHBlock);
 	}
 
 }

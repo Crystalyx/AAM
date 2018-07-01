@@ -1,9 +1,7 @@
 package AAM.Common.Container;
 
-import AAM.Client.Gui.Base.BarSlag;
 import AAM.Client.Gui.Base.GuiBar;
-import AAM.Client.Gui.Base.GuiPicture;
-import AAM.Common.Tiles.TileSoulAltar;
+import AAM.Common.Tiles.TESoulAltar;
 import AAM.Utils.Color;
 import AAM.Utils.PlayerDataHandler;
 import net.minecraft.client.Minecraft;
@@ -31,7 +29,7 @@ public class SoulAltarContainer extends ContainerBase
 			public int getLength()
 			{
 				PlayerDataHandler ph = PlayerDataHandler.get(Minecraft.getMinecraft().thePlayer);
-				return (int) (((TileSoulAltar) this.gui.cont.tile).value / ((TileSoulAltar) this.gui.cont.tile).maxValue * this.sizey);
+				return (int) (((TESoulAltar) this.gui.cont.tile).value / ((TESoulAltar) this.gui.cont.tile).maxValue * this.sizey);
 			}
 		};
 		this.add(soul);
@@ -52,19 +50,6 @@ public class SoulAltarContainer extends ContainerBase
 
 		this.addHiddenText("Owner:", 50, -8, 140, 12, true, true);
 		this.addHiddenSlot(10, tile, 130, 30, true);
-		this.add(new BarSlag(150, 28, 20, 82, 1, 97, 9, 255).setHidden(true));
-
-		GuiPicture gp = new GuiPicture(116, 8, 32, 32, 4, new Color());
-		// gp.setHidden(true);
-		gp.scale = 0.35f;
-		this.add(gp);
-
-		GuiPicture gp1 = new GuiPicture(220, 18, 32, 32, 5, new Color());
-		// gp.setHidden(true);
-		gp1.scale = 0.6f;
-		this.add(gp1);
-
-		this.addTooltip(220, 18, 236, 34, "Text");
 
 		this.addPlayerSlots();
 	}

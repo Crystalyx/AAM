@@ -2,7 +2,7 @@ package AAM.Common.Items.Resources;
 
 import java.util.List;
 
-import AAM.Common.Blocks.BerryBush;
+import AAM.Common.Blocks.Plants.BerryBush;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.client.renderer.texture.IIconRegister;
@@ -32,10 +32,11 @@ public class Berry extends ItemFood
 		l.add(new ItemStack(i, 1, 1));
 		l.add(new ItemStack(i, 1, 2));
 		l.add(new ItemStack(i, 1, 3));
+		l.add(new ItemStack(i, 1, 4));
 
 	}
 
-	public IIcon[] icons = new IIcon[4];
+	public IIcon[] icons = new IIcon[5];
 
 	@Override
 	@SideOnly(Side.CLIENT)
@@ -45,6 +46,7 @@ public class Berry extends ItemFood
 		icons[1] = ir.registerIcon("aam:ingredients/blueberry");
 		icons[2] = ir.registerIcon("aam:ingredients/mortisberry");
 		icons[3] = ir.registerIcon("aam:ingredients/raspberry");
+		icons[4] = ir.registerIcon("aam:ingredients/wormwoodberry");
 	}
 
 	/**
@@ -61,6 +63,7 @@ public class Berry extends ItemFood
 	/**
 	 * Gets an icon index based on an item's damage value
 	 */
+	@Override
 	@SideOnly(Side.CLIENT)
 	public IIcon getIconFromDamage(int meta)
 	{

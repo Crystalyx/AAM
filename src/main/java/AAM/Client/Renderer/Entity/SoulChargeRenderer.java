@@ -3,11 +3,10 @@ package AAM.Client.Renderer.Entity;
 import org.lwjgl.opengl.GL11;
 
 import AAM.Common.Entity.SoulCharge;
-import AAM.Common.Items.SoulSword;
+import AAM.Common.Items.Soul.SoulSword;
 import AAM.Utils.Color;
 import AAM.Utils.PlayerDataHandler;
 import AAM.Utils.Render.Cube;
-import AAM.Utils.Render.RenderUtils;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.entity.Render;
 import net.minecraft.entity.Entity;
@@ -35,9 +34,6 @@ public class SoulChargeRenderer extends Render
 				Color clr = SoulSword.getcPhColor(ph);
 				GL11.glColor4d(clr.red / 255d, clr.green / 255d, clr.blue / 255d, clr.alpha / 255d);
 			}
-			// RenderUtils.renderSphere(new
-			// ResourceLocation("aam:textures/blocks/altar_base.png"), 0, 0, 0,
-			// 0.1);
 			c.render(new ResourceLocation("aam:textures/blocks/altar_base.png"));
 			GL11.glDisable(GL11.GL_BLEND);
 			GL11.glPopMatrix();

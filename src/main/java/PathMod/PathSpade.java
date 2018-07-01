@@ -26,7 +26,7 @@ public class PathSpade extends ItemSpade
 		else
 			if (w.getBlock(x, y, z) == Blocks.dirt || w.getBlock(x, y, z) == Blocks.grass)
 			{
-				w.setBlock(x, y, z, PathMod.path,0,2);
+				w.setBlock(x, y, z, PathMod.path, 0, 2);
 			}
 
 		if (w.getBlock(x, y, z) == PathMod.path && w.getBlockMetadata(x, y, z) == 1)
@@ -36,7 +36,7 @@ public class PathSpade extends ItemSpade
 		else
 			if (w.getBlock(x, y, z) == Blocks.gravel)
 			{
-				w.setBlock(x, y, z, PathMod.path,1,2);
+				w.setBlock(x, y, z, PathMod.path, 1, 2);
 			}
 
 		if (w.getBlock(x, y, z) == PathMod.path && w.getBlockMetadata(x, y, z) == 2)
@@ -46,7 +46,7 @@ public class PathSpade extends ItemSpade
 		else
 			if (w.getBlock(x, y, z) == Blocks.sand)
 			{
-				w.setBlock(x, y, z, PathMod.path,2,2);
+				w.setBlock(x, y, z, PathMod.path, 2, 2);
 			}
 		return super.onItemUse(i, p, w, x, y, z, side, fx, fy, fz);
 	}

@@ -29,8 +29,7 @@ public class AuraRing extends Item implements IBauble
 		}
 	}
 
-	public static Color[] rings = new Color[]
-	{ new Color(58, 17, 186), new Color(212, 44, 5), new Color(255, 242, 53), new Color(19, 160, 10), new Color(3, 67, 194) };
+	public static Color[] rings = new Color[] { new Color(58, 17, 186), new Color(212, 44, 5), new Color(255, 242, 53), new Color(19, 160, 10), new Color(3, 67, 194) };
 
 	@Override
 	public int getColorFromItemStack(ItemStack i, int pass)
@@ -53,7 +52,7 @@ public class AuraRing extends Item implements IBauble
 	@Override
 	public void onWornTick(ItemStack i, EntityLivingBase e)
 	{
-		AuraRegistry.auras[i.getItemDamage()].startTick(e);
+		AuraRegistry.auras.get(i.getItemDamage()).startTick(e);
 	}
 
 	@Override

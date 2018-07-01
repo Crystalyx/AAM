@@ -11,21 +11,25 @@ import org.lwjgl.opengl.GL11;
 public class ElementalGuard extends ModelBase
 {
 	public double[] modelScale = new double[] { 4.0D, 4.0D, 4.0D };
-	public ModelRenderer bot4;
-	public ModelRenderer baseleft;
 	public ModelRenderer bot1;
 	public ModelRenderer bot2;
 	public ModelRenderer bot3;
+	public ModelRenderer bot4;
+
+	public ModelRenderer baseleft;
 	public ModelRenderer baseright;
+
+	public ModelRenderer headbase1;
 	public ModelRenderer headbase;
-	public ModelRenderer righthand2;
-	public ModelRenderer body1;
-	public ModelRenderer lefthand2;
-	public ModelRenderer lefthand;
-	public ModelRenderer righthand;
+
+	public ModelRenderer body;
 	public ModelRenderer bodybasecenter;
 	public ModelRenderer bodybase;
-	public ModelRenderer headbase1;
+
+	public ModelRenderer righthand2;
+	public ModelRenderer righthand;
+	public ModelRenderer lefthand2;
+	public ModelRenderer lefthand;
 
 	public ElementalGuard()
 	{
@@ -35,10 +39,10 @@ public class ElementalGuard extends ModelBase
 		this.bodybasecenter.setRotationPoint(-1.0F, 50.7F, -21.0F);
 		this.bodybasecenter.addBox(-8.0F, -10.5F, -8.0F, 20, 11, 16, 0.0F);
 		this.setRotateAngle(bodybasecenter, 0.091106186954104F, 0.0F, 0.0F);
-		this.body1 = new ModelRenderer(this, 191, 99);
-		this.body1.setRotationPoint(1.0F, 49.9F, -17.2F);
-		this.body1.addBox(-8.0F, -10.5F, -8.0F, 16, 12, 16, 0.0F);
-		this.setRotateAngle(body1, 0.27314402793711257F, 0.0F, 0.0F);
+		this.body = new ModelRenderer(this, 191, 99);
+		this.body.setRotationPoint(1.0F, 49.9F, -17.2F);
+		this.body.addBox(-8.0F, -10.5F, -8.0F, 16, 12, 16, 0.0F);
+		this.setRotateAngle(body, 0.27314402793711257F, 0.0F, 0.0F);
 		this.bot3 = new ModelRenderer(this, 55, 31);
 		this.bot3.setRotationPoint(2.0F, 79.5F, -10.1F);
 		this.bot3.addBox(-8.0F, -10.5F, -8.0F, 14, 9, 14, 0.0F);
@@ -98,7 +102,7 @@ public class ElementalGuard extends ModelBase
 		GL11.glScaled(4D / modelScale[0], 4D / modelScale[1], 4D / modelScale[2]);
 		GL11.glTranslated(0, -4, 0);
 		this.bodybasecenter.render(f5);
-		this.body1.render(f5);
+		this.body.render(f5);
 		this.bot3.render(f5);
 		this.baseright.render(f5);
 		this.bodybase.render(f5);

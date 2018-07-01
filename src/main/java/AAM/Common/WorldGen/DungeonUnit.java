@@ -1,10 +1,8 @@
 package AAM.Common.WorldGen;
 
-import AAM.Utils.MiscUtils;
 import AAM.Utils.Structure;
 import AAM.Utils.StructureApi;
 import net.minecraft.world.World;
-import net.minecraftforge.common.util.ForgeDirection;
 
 public class DungeonUnit
 {

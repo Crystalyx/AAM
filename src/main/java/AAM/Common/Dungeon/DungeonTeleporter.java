@@ -2,10 +2,10 @@ package AAM.Common.Dungeon;
 
 import java.lang.reflect.Field;
 
-import AAM.Common.Blocks.ModBlocks;
+import AAM.Common.Blocks.Building.ModBlocks;
 import AAM.Utils.MiscUtils;
 import AAM.Utils.PlayerDataHandler;
-import AAM.Utils.WorldPos;
+import AAM.Utils.Wec3;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.world.Teleporter;
@@ -30,17 +30,20 @@ public class DungeonTeleporter extends Teleporter
 			EntityPlayer p = (EntityPlayer) e;
 			try
 			{
-				Class clazz = Class.forName("AAM.Common.Dungeon.DungeonRegistry");
-				int dung = PlayerDataHandler.get(p).dung;
+				Class clazz = Class.forName("AAM.Common.Dungeon.DungeonRegistry");// reflection
+																					// cause
+																					// I'm
+																					// lazy
+				int dung = PlayerDataHandler.get(p).dungLevel;
 				Field ms = clazz.getField("PDung" + dung);
 				if (ms != null)
 				{
 					if (ms.getName().startsWith("P"))
 					{
-						if (ms.getType().equals(WorldPos.class))
+						if (ms.getType().equals(Wec3.class))
 						{
-							WorldPos wp = (WorldPos) ms.get(null);
-							e.setPosition((int) wp.x + MiscUtils.r.nextDouble() * 2, (int) wp.y+2, (int) wp.z + MiscUtils.r.nextDouble() * 2);
+							Wec3 wp = (Wec3) ms.get(null);
+							e.setPosition((int) wp.x + MiscUtils.r.nextDouble() * 2, (int) wp.y + 2, (int) wp.z + MiscUtils.r.nextDouble() * 2);
 
 						}
 					}
@@ -62,15 +65,15 @@ public class DungeonTeleporter extends Teleporter
 			try
 			{
 				Class clazz = Class.forName("AAM.Common.Dungeon.DungeonRegistry");
-				int dung = PlayerDataHandler.get(p).dung;
+				int dung = PlayerDataHandler.get(p).dungLevel;
 				Field ms = clazz.getField("PDung" + dung);
 				if (ms != null)
 				{
 					if (ms.getName().startsWith("P"))
 					{
-						if (ms.getType().equals(WorldPos.class))
+						if (ms.getType().equals(Wec3.class))
 						{
-							WorldPos wp = (WorldPos) ms.get(null);
+							Wec3 wp = (Wec3) ms.get(null);
 							e.worldObj.setBlock((int) wp.x, (int) wp.y, (int) wp.z, ModBlocks.BlockTeleporter);
 						}
 					}

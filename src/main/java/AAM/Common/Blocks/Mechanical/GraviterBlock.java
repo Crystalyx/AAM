@@ -1,6 +1,6 @@
 package AAM.Common.Blocks.Mechanical;
 
-import AAM.Common.Tiles.GraviterTileEntity;
+import AAM.Common.Tiles.TEGraviter;
 import net.minecraft.block.BlockContainer;
 import net.minecraft.block.material.Material;
 import net.minecraft.tileentity.TileEntity;
@@ -15,7 +15,7 @@ public class GraviterBlock extends BlockContainer
 
 	public GraviterBlock()
 	{
-		super(Material.dragonEgg);
+		super(Material.iron);
 		this.setBlockTextureName("aam:null");
 		this.setBlockName("aam.graviter");
 		this.setResistance(10.0F);
@@ -34,7 +34,7 @@ public class GraviterBlock extends BlockContainer
 	@Override
 	public TileEntity createNewTileEntity(World p_149915_1_, int p_149915_2_)
 	{
-		return new GraviterTileEntity();
+		return new TEGraviter();
 	}
 
 	public int getRenderType()

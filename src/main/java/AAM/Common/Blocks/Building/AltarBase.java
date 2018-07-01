@@ -3,7 +3,6 @@
  */
 package AAM.Common.Blocks.Building;
 
-import AAM.Common.Blocks.ModBlocks;
 import AAM.Common.Blocks.Mechanical.ModificationAnvil;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
@@ -26,14 +25,4 @@ public class AltarBase extends Block
 	{
 		return false;
 	}
-
-	public void breakBlock(World w, int x, int y, int z, Block b, int meta)
-	{
-		if (w.getBlock(x, y + 1, z) == ModBlocks.ModAnvil)
-		{
-			ModificationAnvil anv = (ModificationAnvil) w.getBlock(x, y + 1, z);
-			anv.breakBlock(w, x, y, z, b, meta);
-		}
-	}
-
 }

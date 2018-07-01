@@ -32,13 +32,15 @@ public class RSwordRenderer implements IItemRenderer
 			GL11.glRotated(180, 1.0, 0.0, 0.0);
 			GL11.glRotated(180, 0.0, 1.0, 0.0);
 			GL11.glTranslated(-1.0, -1.0, 0.0);
-		} else
+		}
+		else
 		{
 			if (type == ItemRenderType.EQUIPPED || type == ItemRenderType.EQUIPPED_FIRST_PERSON)
 			{
 				GL11.glRotated(90, 0.0, 0.0, 1.0);
 				GL11.glTranslated(0.15, -0.85, 0.0);
-			} else
+			}
+			else
 			{
 				if (type == ItemRenderType.ENTITY && !item.isOnItemFrame())
 				{
@@ -64,7 +66,7 @@ public class RSwordRenderer implements IItemRenderer
 		GL11.glScaled(1.0, 1.0, 1.0);
 		Minecraft.getMinecraft().getTextureManager().bindTexture(new ResourceLocation("aam", way + ".png"));
 		Tessellator tess = Tessellator.instance;
-		RenderUtils.renderItemIn2D(tess, 0.0F, -1.0F, -1.0F, 0.0F, 2048, 2048, 0.05F);
+		RenderUtils.renderTextureIn2D(tess, 0.0F, 0.0F, 1.0F, -1.0F, 2048, 2048, 0.05F);
 
 		GL11.glPopMatrix();
 

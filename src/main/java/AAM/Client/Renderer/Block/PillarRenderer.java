@@ -26,7 +26,7 @@ public class PillarRenderer implements ISimpleBlockRenderingHandler
 		b.setBlockBounds(0.025f, 0, 0.1f, 0.975f, 0.2f, 0.9f);
 		renderer.setRenderBoundsFromBlock(b);
 		RenderUtils.drawSides(renderer, b, MiscUtils.getIconArray(b, meta), true);
-		
+
 		b.setBlockBounds(0.1f, 0.8f, 0.025f, 0.9f, 1f, 0.975f);
 		renderer.setRenderBoundsFromBlock(b);
 		RenderUtils.drawSides(renderer, b, MiscUtils.getIconArray(b, meta), true);
@@ -34,7 +34,7 @@ public class PillarRenderer implements ISimpleBlockRenderingHandler
 		b.setBlockBounds(0.025f, 0.8f, 0.1f, 0.975f, 1f, 0.9f);
 		renderer.setRenderBoundsFromBlock(b);
 		RenderUtils.drawSides(renderer, b, MiscUtils.getIconArray(b, meta), true);
-		
+
 		b.setBlockBounds(1 / 8F, 0, 1 / 8F, 1 - 1 / 8F, 1, 1 - 1 / 8F);
 	}
 

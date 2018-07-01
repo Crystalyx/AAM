@@ -199,73 +199,75 @@ public class ContainerBase extends Container
 	 * Called when a player shift-clicks on a slot. You must override this or
 	 * you will crash when someone does that.
 	 */
-	public ItemStack transferStackInSlot(EntityPlayer p_82846_1_, int p_82846_2_)
+	@Override
+	public ItemStack transferStackInSlot(EntityPlayer p, int slotid)
 	{
 		ItemStack itemstack = null;
-		Slot slot = (Slot) this.inventorySlots.get(p_82846_2_);
-
-		if (slot != null && slot.getHasStack())
-		{
-			ItemStack itemstack1 = slot.getStack();
-			itemstack = itemstack1.copy();
-
-			if ((p_82846_2_ < 0 || p_82846_2_ > 2) && p_82846_2_ != 3)
-			{
-				if (!this.getSlot(1).getHasStack() && this.getSlot(1).isItemValid(itemstack1))
-				{
-					if (!this.mergeItemStack(itemstack1, 3, 4, false))
-					{
-						return null;
-					}
-				}
-				else
-					if (p_82846_2_ >= 4 && p_82846_2_ < 31)
-					{
-						if (!this.mergeItemStack(itemstack1, 31, 40, false))
-						{
-							return null;
-						}
-					}
-					else
-						if (p_82846_2_ >= 31 && p_82846_2_ < 40)
-						{
-							if (!this.mergeItemStack(itemstack1, 4, 31, false))
-							{
-								return null;
-							}
-						}
-						else
-							if (!this.mergeItemStack(itemstack1, 4, 40, false))
-							{
-								return null;
-							}
-			}
-			else
-			{
-				if (!this.mergeItemStack(itemstack1, 4, 40, true))
-				{
-					return null;
-				}
-
-				slot.onSlotChange(itemstack1, itemstack);
-			}
-
-			if (itemstack1.stackSize == 0)
-			{
-				slot.putStack((ItemStack) null);
-			}
-			else
-			{
-				slot.onSlotChanged();
-			}
-
-			if (itemstack1.stackSize == itemstack.stackSize)
-			{
-				return null;
-			}
-
-			slot.onPickupFromSlot(p_82846_1_, itemstack1);
-		}
+		Slot slot = (Slot) this.inventorySlots.get(slotid);
+		//
+		// if (slot != null && slot.getHasStack())
+		// {
+		ItemStack itemstack1 = slot.getStack();
+		itemstack = itemstack1.copy();
+		//
+		// if ((slotid < 0 || slotid > 2) && slotid != 3)
+		// {
+		// if (!this.getSlot(1).getHasStack() &&
+		// this.getSlot(1).isItemValid(itemstack1))
+		// {
+		// if (!this.mergeItemStack(itemstack1, 3, 4, false))
+		// {
+		// return null;
+		// }
+		// }
+		// else
+		// if (slotid >= 4 && slotid < 31)
+		// {
+		// if (!this.mergeItemStack(itemstack1, 31, 40, false))
+		// {
+		// return null;
+		// }
+		// }
+		// else
+		// if (slotid >= 31 && slotid < 40)
+		// {
+		// if (!this.mergeItemStack(itemstack1, 4, 31, false))
+		// {
+		// return null;
+		// }
+		// }
+		// else
+		// if (!this.mergeItemStack(itemstack1, 4, 40, false))
+		// {
+		// return null;
+		// }
+		// }
+		// else
+		// {
+		// if (!this.mergeItemStack(itemstack1, 4, 40, true))
+		// {
+		// return null;
+		// }
+		//
+		// slot.onSlotChange(itemstack1, itemstack);
+		// }
+		//
+		// if (itemstack1.stackSize == 0)
+		// {
+		// slot.putStack((ItemStack) null);
+		// }
+		// else
+		// {
+		// slot.onSlotChanged();
+		// }
+		//
+		// if (itemstack1.stackSize == itemstack.stackSize)
+		// {
+		// return null;
+		// }
+		//
+		// slot.onPickupFromSlot(p, itemstack1);
+		// }
 
 		return itemstack;
 	}

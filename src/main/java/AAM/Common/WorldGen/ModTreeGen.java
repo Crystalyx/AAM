@@ -2,7 +2,7 @@ package AAM.Common.WorldGen;
 
 import java.util.Random;
 
-import AAM.Common.Blocks.ModBlocks;
+import AAM.Common.Blocks.Building.ModBlocks;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockSapling;
 import net.minecraft.world.World;

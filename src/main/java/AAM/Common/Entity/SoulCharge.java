@@ -2,9 +2,9 @@ package AAM.Common.Entity;
 
 import java.util.List;
 
+import AAM.Common.Soul.SoulDamageSource;
 import AAM.Utils.PlayerDataHandler;
-import AAM.Utils.SoulDamageSource;
-import AAM.Utils.WorldPos;
+import AAM.Utils.Wec3;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.EntityLivingBase;
@@ -45,7 +45,7 @@ public class SoulCharge extends EntityThrowable
 	protected void onImpact(MovingObjectPosition mop)
 	{
 		if (this.ph != null)
-			this.handleAttacks(new WorldPos(mop));
+			this.handleAttacks(new Wec3(mop));
 	}
 
 	public PlayerDataHandler ph;
@@ -62,13 +62,13 @@ public class SoulCharge extends EntityThrowable
 		else
 			this.life += 1;
 		if (this.ph != null)
-			this.handleAttacks(new WorldPos(this));
+			this.handleAttacks(new Wec3(this));
 	}
 
-	public void handleAttacks(WorldPos wp)
+	public void handleAttacks(Wec3 wp)
 	{
 		float r = 0.5f * ph.castUpg;
-		List<Entity> l = this.worldObj.getEntitiesWithinAABB(Entity.class, wp.getAABB(2f + r));
+		List<Entity> l = this.worldObj.getEntitiesWithinAABB(Entity.class, wp.extend(2f + r));
 		l.remove(this.ph.player);
 		int victims = 0;
 		for (Entity e : l)
@@ -90,7 +90,7 @@ public class SoulCharge extends EntityThrowable
 				}
 				if (this.effs.contains("K"))
 				{
-					WorldPos vec = new WorldPos(0, Math.min(Math.sqrt(this.ph.getSoulLevel()) / 3, 10), 0).add(new WorldPos(this.motionX, this.motionY, this.motionZ));
+					Wec3 vec = new Wec3(0, Math.min(Math.sqrt(this.ph.getSoulLevel()) / 3, 10), 0).add(new Wec3(this.motionX, this.motionY, this.motionZ));
 					vec.ptm(e);
 				}
 				if (victims > 2)
@@ -121,7 +121,7 @@ public class SoulCharge extends EntityThrowable
 	@Override
 	public AxisAlignedBB getCollisionBox(Entity e)
 	{
-		return new WorldPos(e).getAABB(1);
+		return new Wec3(e).extend(1);
 	}
 
 }

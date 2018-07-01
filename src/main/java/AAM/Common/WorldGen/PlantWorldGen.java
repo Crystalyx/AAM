@@ -2,7 +2,7 @@ package AAM.Common.WorldGen;
 
 import java.util.Random;
 
-import AAM.Common.Blocks.ModBlocks;
+import AAM.Common.Blocks.Building.ModBlocks;
 import AAM.Utils.MiscUtils;
 import cpw.mods.fml.common.IWorldGenerator;
 import net.minecraft.init.Blocks;
@@ -12,18 +12,18 @@ import net.minecraft.world.chunk.IChunkProvider;
 public class PlantWorldGen implements IWorldGenerator
 {
 	@Override
-	public void generate(Random random, int chunkX, int chunkZ, World w, IChunkProvider chunkGenerator, IChunkProvider chunkProvider)
+	public void generate(Random r, int chunkX, int chunkZ, World w, IChunkProvider chunkGenerator, IChunkProvider chunkProvider)
 	{
-		int x = chunkX * 16 + random.nextInt(16);
-		int z = chunkZ * 16 + random.nextInt(16);
+		int x = chunkX * 16 + r.nextInt(16);
+		int z = chunkZ * 16 + r.nextInt(16);
 
-		int generatorId = random.nextInt(3);
+		int generatorId = r.nextInt(3);
 		if (generatorId == 0)
 		{
 			int y = MiscUtils.gethighestBlock(w, x, z);
 			if (w.getBlock(x, y, z) == Blocks.grass)
 			{
-				w.setBlock(x, y + 1, z, ModBlocks.BerryBush, w.rand.nextInt(8), 2);
+				w.setBlock(x, y + 1, z, ModBlocks.BerryBush, r.nextInt(8), 2);
 			}
 		}
 		if (generatorId == 1)

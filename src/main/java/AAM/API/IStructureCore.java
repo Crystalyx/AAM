@@ -1,7 +1,7 @@
 package AAM.API;
 
 import AAM.Utils.Structure;
-import AAM.Utils.WorldPos;
+import AAM.Utils.Wec3;
 
 /**
  * Class used to create objects that can represent Structure cores
@@ -17,6 +17,6 @@ public interface IStructureCore
 	/**
 	 * @return Vector from structure side to the core
 	 */
-	public WorldPos getOffset();
+	public Wec3 getOffset();
 
 }

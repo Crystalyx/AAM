@@ -9,8 +9,6 @@ import cpw.mods.fml.common.network.simpleimpl.IMessage;
 import cpw.mods.fml.common.network.simpleimpl.IMessageHandler;
 import cpw.mods.fml.common.network.simpleimpl.SimpleNetworkWrapper;
 import cpw.mods.fml.relauncher.Side;
-import net.minecraft.client.entity.EntityClientPlayerMP;
-import net.minecraft.client.entity.EntityPlayerSP;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 
@@ -30,7 +28,6 @@ public class AlchemicalDispatcher
 	 */
 	public static final void registerPackets()
 	{
-		// Packets handled on CLIENT
 		registerMessage(PlayerSyncMessage.class);
 		registerMessage(MultiInvSyncMessage.class);
 		registerMessage(SkillPackage.class);
@@ -44,18 +41,18 @@ public class AlchemicalDispatcher
 	{
 		if (AlchemicalClientPackage.class.isAssignableFrom(clazz))
 		{
-			// Will be registered on client
 			AlchemicalDispatcher.dispatcher.registerMessage(clazz, clazz, packetId++, Side.CLIENT);
-		} else if (AlchemicalServerPackage.class.isAssignableFrom(clazz))
-		{
-			// Will be registered on server
-			AlchemicalDispatcher.dispatcher.registerMessage(clazz, clazz, packetId++, Side.SERVER);
-		} else
-		{
-			// Will be registered on both sides
-			AlchemicalDispatcher.dispatcher.registerMessage(clazz, clazz, packetId, Side.CLIENT);
-			AlchemicalDispatcher.dispatcher.registerMessage(clazz, clazz, packetId++, Side.SERVER);
 		}
+		else
+			if (AlchemicalServerPackage.class.isAssignableFrom(clazz))
+			{
+				AlchemicalDispatcher.dispatcher.registerMessage(clazz, clazz, packetId++, Side.SERVER);
+			}
+			else
+			{
+				AlchemicalDispatcher.dispatcher.registerMessage(clazz, clazz, packetId, Side.CLIENT);
+				AlchemicalDispatcher.dispatcher.registerMessage(clazz, clazz, packetId++, Side.SERVER);
+			}
 	}
 
 	// ========================================================//

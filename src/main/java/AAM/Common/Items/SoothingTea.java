@@ -22,7 +22,7 @@ public class SoothingTea extends ItemFood
 	{
 		super(2, 5F, true);
 		this.setTextureName("aam:dark_tea");
-		this.setUnlocalizedName("rw.stea");
+		this.setUnlocalizedName("aam.stea");
 		this.setAlwaysEdible();
 	}
 

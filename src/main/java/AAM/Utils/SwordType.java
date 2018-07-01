@@ -2,5 +2,5 @@ package AAM.Utils;
 
 public enum SwordType
 {
-	broad, rapier, saber;
-}	
+	Broad, Rapier, Saber, Long;
+}

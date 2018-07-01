@@ -7,7 +7,8 @@ import java.util.Random;
 import org.lwjgl.opengl.GL11;
 
 import AAM.Client.Model.Armoury;
-import AAM.Common.Tiles.TileArmoury;
+import AAM.Common.Tiles.TEArmoury;
+import AAM.Utils.MiscUtils;
 import DummyCore.Utils.DrawUtils;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.RenderHelper;
@@ -20,6 +21,8 @@ import net.minecraftforge.client.MinecraftForgeClient;
 
 public class ArmouryRenderer extends TileEntitySpecialRenderer
 {
+	public static final ResourceLocation texture = new ResourceLocation("aam", "textures/misc/Armoury-texture.png");
+
 	@Override
 	public void renderTileEntityAt(TileEntity tile, double x, double y, double z, float f)
 	{
@@ -31,9 +34,9 @@ public class ArmouryRenderer extends TileEntitySpecialRenderer
 		{
 			Random r = tile.getWorldObj().rand;
 
-			if (tile instanceof TileArmoury)
+			if (tile instanceof TEArmoury)
 			{
-				TileArmoury t = (TileArmoury) tile;
+				TEArmoury t = (TEArmoury) tile;
 				List<Integer> ids = new ArrayList<Integer>();
 				for (int i = 0; i < 27; i++)
 				{
@@ -45,7 +48,7 @@ public class ArmouryRenderer extends TileEntitySpecialRenderer
 				float angle = (float) Math.toRadians(360F / ids.size());
 				for (int i = 0; i < ids.size(); i++)
 				{
-					int time2 = (int) (t.getWorldObj().getWorldTime() % 360);
+					int time2 = (int) MiscUtils.getTimedAngle(1);
 					float px = (float) Math.cos(angle * i + Math.toRadians(time2));
 					float pz = (float) Math.sin(angle * i + Math.toRadians(time2));
 
@@ -61,7 +64,8 @@ public class ArmouryRenderer extends TileEntitySpecialRenderer
 						DrawUtils.renderItemStack_Full(is, 0, 0, 0, 0, 0, 0, 0, 135, 1, 1, 1, px + 0.125f, -1F, pz, true);
 						GL11.glPopMatrix();
 
-					} else
+					}
+					else
 					{
 						GL11.glPushMatrix();
 						px = (float) Math.cos(angle * i + Math.toRadians(time2)) / 1.8F;
@@ -85,7 +89,6 @@ public class ArmouryRenderer extends TileEntitySpecialRenderer
 		GL11.glScaled(0.125, 0.125, 0.125);
 		GL11.glRotated(180, 1.0, 0, 0);
 
-		ResourceLocation texture = new ResourceLocation("aam", "textures/misc/Armoury-texture.png");
 		Minecraft.getMinecraft().getTextureManager().bindTexture(texture);
 
 		Armoury model = new Armoury();

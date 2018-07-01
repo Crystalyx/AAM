@@ -1,6 +1,6 @@
 package AAM.Common.Items;
 
-import AAM.Common.Blocks.BerryBush;
+import AAM.Common.Blocks.Plants.BerryBush;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.block.Block;

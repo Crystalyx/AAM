@@ -1,11 +1,13 @@
 package AAM.Network;
 
 import AAM.Common.Container.ContainerArmoury;
+import AAM.Common.Container.ContainerInspectionTerm;
 import AAM.Common.Container.SoulAltarContainer;
 import AAM.Common.Container.SpellTableContainer;
-import AAM.Common.Tiles.TileArmoury;
-import AAM.Common.Tiles.TileSoulAltar;
-import AAM.Common.Tiles.TileSpellTable;
+import AAM.Common.Tiles.MultiInventory;
+import AAM.Common.Tiles.TEArmoury;
+import AAM.Common.Tiles.TESoulAltar;
+import AAM.Common.Tiles.TESpellTable;
 import cpw.mods.fml.common.network.IGuiHandler;
 import net.minecraft.client.particle.EntityFX;
 import net.minecraft.entity.player.EntityPlayer;
@@ -20,11 +22,13 @@ public class CommonProxy implements IGuiHandler
 		switch (ID)
 		{
 		case (0):
-			return new SpellTableContainer(p.inventory, (TileSpellTable) w.getTileEntity(x, y, z));
+			return new SpellTableContainer(p.inventory, (TESpellTable) w.getTileEntity(x, y, z));
 		case (1):
-			return new SoulAltarContainer(p.inventory, (TileSoulAltar) w.getTileEntity(x, y, z));
+			return new SoulAltarContainer(p.inventory, (TESoulAltar) w.getTileEntity(x, y, z));
 		case (2):
-			return new ContainerArmoury(p.inventory, (TileArmoury) w.getTileEntity(x, y, z));
+			return new ContainerArmoury(p.inventory, (TEArmoury) w.getTileEntity(x, y, z));
+		case (3):
+			return new ContainerInspectionTerm(p.inventory, (MultiInventory) w.getTileEntity(x, y, z));
 		}
 		return null;
 	}

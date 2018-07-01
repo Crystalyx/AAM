@@ -13,7 +13,7 @@ public class TeleportationCrystal extends Item
 {
 	public TeleportationCrystal()
 	{
-		this.setTextureName("aam:linkobol");
+		this.setTextureName("aam:altersteelScale");
 	}
 
 	@Override

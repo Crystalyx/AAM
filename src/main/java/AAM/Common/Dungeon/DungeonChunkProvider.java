@@ -3,6 +3,8 @@ package AAM.Common.Dungeon;
 import java.util.List;
 import java.util.Random;
 
+import AAM.Common.WorldGen.DungGenerator;
+import AAM.Utils.MiscUtils;
 import net.minecraft.block.Block;
 import net.minecraft.entity.EnumCreatureType;
 import net.minecraft.util.IProgressUpdate;
@@ -17,7 +19,7 @@ import net.minecraft.world.gen.NoiseGeneratorPerlin;
 
 public class DungeonChunkProvider implements IChunkProvider
 {
-	public static Random r;
+	public Random r;
 	public NoiseGeneratorOctaves sound1;
 	public NoiseGeneratorOctaves sound2;
 	public NoiseGeneratorOctaves sound3;
@@ -64,7 +66,6 @@ public class DungeonChunkProvider implements IChunkProvider
 	{
 		this.r.setSeed((long) x * 341873128712L + (long) z * 132897987541L);
 		Block[] ablock = new Block[65536];
-		Byte[] abyte = new Byte[65536];
 
 		// Generators work here
 		this.generator.func_151539_a(this, this.w, x, z, ablock);
@@ -133,9 +134,10 @@ public class DungeonChunkProvider implements IChunkProvider
 	}
 
 	@Override
-	public void recreateStructures(int x, int y)
+	public void recreateStructures(int x, int z)
 	{
-		// TODO
+		DungGenerator dg = new DungGenerator();
+		dg.generate(MiscUtils.r, x, z, this.w, this, this);
 	}
 
 	@Override

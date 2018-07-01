@@ -3,8 +3,6 @@ package AAM.Client.Renderer.Tile;
 import org.lwjgl.opengl.GL11;
 
 import AAM.Common.Items.ModItems;
-import AAM.Common.Items.SoulSword;
-import AAM.Utils.Color;
 import AAM.Utils.MiscUtils;
 import AAM.Utils.PlayerDataHandler;
 import DummyCore.Utils.DrawUtils;
@@ -41,7 +39,7 @@ public class TeleporterRenderer extends TileEntitySpecialRenderer
 			double v = 12;
 			double time = -(Minecraft.getSystemTime() % (360 * v)) / v;
 			GL11.glRotated(time, 0, 1, 0);
-			GL11.glTranslated(0, Math.sin(time / 50) * 0.2+1.5, 0);
+			GL11.glTranslated(0, Math.sin(time / 50) * 0.2 + 1.5, 0);
 			GL11.glScaled(2, 2, 2);
 			ItemStack is = new ItemStack(ModItems.Artifact, 1, ph.stype.ordinal());
 			DrawUtils.renderItemStack_Full(is, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 0, -0.25F, 0, true);

@@ -1,12 +1,10 @@
 package AAM.Common.Blocks.Circles;
 
 import AAM.Common.Items.ModItems;
-import AAM.Common.Tiles.MechanicalBaseTE;
-import AAM.Common.Tiles.TETransCircle;
+import AAM.Common.Tiles.TEMechanicalBase;
 import AAM.Common.Transmutations.Circle;
-import AAM.Common.Transmutations.CirclePart;
 import AAM.Common.Transmutations.ModCircles;
-import net.minecraft.block.Block;
+import AAM.Utils.MiscUtils;
 import net.minecraft.block.BlockContainer;
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.player.EntityPlayer;
@@ -20,12 +18,15 @@ public class MechanicalBase extends BlockContainer
 	{
 		super(mat);
 		this.setBlockTextureName("aam:circles/mechanical_base");
+		this.setHardness(5.0f);
+		this.setResistance(15.0f);
+		this.setStepSound(soundTypeMetal);
 	}
 
 	@Override
 	public boolean onBlockActivated(World w, int x, int y, int z, EntityPlayer p, int side, float fx, float fy, float fz)
 	{
-		MechanicalBaseTE te = (MechanicalBaseTE) w.getTileEntity(x, y, z);
+		TEMechanicalBase te = (TEMechanicalBase) w.getTileEntity(x, y, z);
 
 		if (p.getCurrentEquippedItem() != null)
 		{
@@ -52,23 +53,26 @@ public class MechanicalBase extends BlockContainer
 				{
 					if (p.getCurrentEquippedItem().getItemDamage() == 1)
 					{
-						NBTTagCompound tag = p.getCurrentEquippedItem().getTagCompound();
-
-						int count = tag.getInteger("Size");
-						if (count > 0)
+						if (MiscUtils.contains(p.inventory, ModItems.ItemChalk))
 						{
-							for (int i = 0; i < count; i++)
+							NBTTagCompound tag = p.getCurrentEquippedItem().getTagCompound();
+
+							int count = tag.getInteger("Size");
+							if (count > 0)
 							{
-								String code = tag.getString("Part_" + i);
-								boolean rev = tag.getBoolean("rev_" + i);
-								if (p.isSneaking())
+								for (int i = 0; i < count; i++)
 								{
-									rev = !rev;
+									String code = tag.getString("Part_" + i);
+									boolean rev = tag.getBoolean("rev_" + i);
+									if (p.isSneaking())
+									{
+										rev = !rev;
+									}
+									double scale = tag.getDouble("Scale_" + i);
+									Circle c = new Circle(ModCircles.getprtsr(code), scale, rev);
+									if (!te.circle.contains(c))
+										te.circle.add(c);
 								}
-								double scale = tag.getDouble("Scale_" + i);
-								Circle c = new Circle(ModCircles.getprtsr(code), scale, rev);
-								if (!te.circle.contains(c))
-									te.circle.add(c);
 							}
 						}
 					}
@@ -88,6 +92,6 @@ public class MechanicalBase extends BlockContainer
 	@Override
 	public TileEntity createNewTileEntity(World p_149915_1_, int p_149915_2_)
 	{
-		return new MechanicalBaseTE();
+		return new TEMechanicalBase();
 	}
 }

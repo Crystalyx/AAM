@@ -5,7 +5,8 @@ package AAM.Common.Tiles;
 
 import AAM.Common.Recipes.ModificationAnvilRecipe;
 import AAM.Common.Recipes.ModificationAnvilRecipes;
-import AAM.Utils.WorldPos;
+import AAM.Utils.MiscUtils;
+import AAM.Utils.Wec3;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
@@ -22,11 +23,6 @@ import net.minecraft.util.AxisAlignedBB;
  */
 public class TEModificationAnvil extends TileEntity implements IInventory
 {
-
-	public TEModificationAnvil()
-	{
-	}
-
 	public ItemStack[] inventory = new ItemStack[7];
 
 	@Override
@@ -97,33 +93,29 @@ public class TEModificationAnvil extends TileEntity implements IInventory
 		super.updateEntity();
 		if (this.isCrafting)
 		{
-			// if (!this.worldObj.isRemote)
+			if (this.currrec == null)
 			{
-				if (this.currrec == null)
+				this.isCrafting = false;
+				return;
+			}
+
+			if (this.craftTime > 0)
+			{
+				if (this.currrec == ModificationAnvilRecipes.findRecipeFor(this))
+				{
+					--this.craftTime;
+				}
+				else
 				{
 					this.isCrafting = false;
 					return;
 				}
-
-				if (this.craftTime > 0)
-				{
-					if (this.currrec == ModificationAnvilRecipes.findRecipeFor(this))
-					{
-						--this.craftTime;
-					}
-					else
-					{
-						this.isCrafting = false;
-						return;
-					}
-				}
-				if (this.craftTime <= 0)
-				{
-
-					clearInv();
-					this.inventory[0] = this.currrec.output;
-					this.isCrafting = false;
-				}
+			}
+			if (this.craftTime <= 0)
+			{
+				clearInv();
+				this.inventory[0] = this.currrec.output;
+				this.isCrafting = false;
 			}
 		}
 
@@ -156,7 +148,8 @@ public class TEModificationAnvil extends TileEntity implements IInventory
 			}
 			else
 			{
-				ItemStack ret = new ItemStack(this.inventory[slot].getItem(), count, this.inventory[slot].getItemDamage());
+				ItemStack ret = this.inventory[slot].copy();
+				ret.stackSize = count;
 				this.inventory[slot].stackSize -= count;
 				return ret;
 			}
@@ -236,45 +229,19 @@ public class TEModificationAnvil extends TileEntity implements IInventory
 	public void readFromNBT(NBTTagCompound tag)
 	{
 		super.readFromNBT(tag);
-
-		NBTTagList nbttaglist = tag.getTagList("Items", 10);
-		this.inventory = new ItemStack[this.getSizeInventory()];
-
-		for (int i = 0; i < nbttaglist.tagCount(); ++i)
-		{
-			NBTTagCompound nbttagcompound1 = nbttaglist.getCompoundTagAt(i);
-			byte b0 = nbttagcompound1.getByte("Slot");
-
-			if (b0 >= 0 && b0 < this.inventory.length)
-			{
-				this.inventory[b0] = ItemStack.loadItemStackFromNBT(nbttagcompound1);
-			}
-		}
+		MiscUtils.readInventory(this, tag);
 	}
 
 	public void writeToNBT(NBTTagCompound tag)
 	{
 		super.writeToNBT(tag);
-		NBTTagList nbttaglist = new NBTTagList();
-
-		for (int i = 0; i < this.inventory.length; ++i)
-		{
-			if (this.inventory[i] != null)
-			{
-				NBTTagCompound nbttagcompound1 = new NBTTagCompound();
-				nbttagcompound1.setByte("Slot", (byte) i);
-				this.inventory[i].writeToNBT(nbttagcompound1);
-				nbttaglist.appendTag(nbttagcompound1);
-			}
-		}
-
-		tag.setTag("Items", nbttaglist);
+		MiscUtils.saveInventory(this, tag);
 	}
 
 	@Override
 	public AxisAlignedBB getRenderBoundingBox()
 	{
-		return new WorldPos(this).getAABB(3);
+		return new Wec3(this).extend(3);
 	}
 
 }

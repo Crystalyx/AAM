@@ -23,7 +23,9 @@ public class PotionEventHandler
 			if (p.getActivePotionEffect(ModPotions.flight) != null)
 			{
 				p.capabilities.allowFlying = true;
-			} else
+				p.fallDistance = 0;
+			}
+			else
 			{
 				if (!p.capabilities.isCreativeMode)
 				{
@@ -31,10 +33,6 @@ public class PotionEventHandler
 					p.capabilities.allowFlying = false;
 				}
 			}
-//			if (p.getActivePotionEffect(ModPotions.mana) != null)
-//			{
-//				p.getActivePotionEffects().remove(p.getActivePotionEffect(ModPotions.mana));
-//			}
 		}
 	}
 

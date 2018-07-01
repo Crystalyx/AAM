@@ -49,7 +49,7 @@ public class CrystalItemRenderer implements ISimpleBlockRenderingHandler
 
 		CrystalRenderer cr = new CrystalRenderer();
 		cr.renderTileEntityAt(null, -0.5, -0.5, -0.5, 1);
-		
+
 		b.setBlockBounds(1 / 8F, 0, 1 / 8F, 1 - 1 / 8F, 1, 1 - 1 / 8F);
 	}
 

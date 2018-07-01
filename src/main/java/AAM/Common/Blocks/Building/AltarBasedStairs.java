@@ -3,7 +3,6 @@
  */
 package AAM.Common.Blocks.Building;
 
-import AAM.Common.Blocks.ModBlocks;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockStairs;
 

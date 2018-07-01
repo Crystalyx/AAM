@@ -1,11 +1,13 @@
 package AAM.Network;
 
-import AAM.Client.Gui.GuiAddMember;
+import AAM.Client.Gui.GuiParty;
 import AAM.Client.Gui.GuiArmoury;
+import AAM.Client.Gui.GuiInspectionTerm;
 import AAM.Client.Gui.GuiSoulAltar;
 import AAM.Client.Gui.GuiSpellTable;
 import AAM.Client.Gui.SkillsGui;
 import AAM.Client.Renderer.Block.ArmouryItemRenderer;
+import AAM.Client.Renderer.Block.BloodAltarRenderer;
 import AAM.Client.Renderer.Block.BushRenderer;
 import AAM.Client.Renderer.Block.CauldronItemRenderer;
 import AAM.Client.Renderer.Block.CreativeCauldronItemRenderer;
@@ -20,6 +22,7 @@ import AAM.Client.Renderer.Block.UnrenderableBlock;
 import AAM.Client.Renderer.Entity.BloodballRenderer;
 import AAM.Client.Renderer.Entity.ElemGuardRenderer;
 import AAM.Client.Renderer.Entity.ElementalRenderer;
+import AAM.Client.Renderer.Entity.GolemRenderer;
 import AAM.Client.Renderer.Entity.SoulChargeRenderer;
 import AAM.Client.Renderer.Entity.SubwerRenderer;
 import AAM.Client.Renderer.Entity.WastelandRenderer;
@@ -33,24 +36,27 @@ import AAM.Client.Renderer.Tile.SpellTableRenderer;
 import AAM.Client.Renderer.Tile.TeleporterRenderer;
 import AAM.Client.Renderer.Tile.TransCircleRenderer;
 import AAM.Common.Container.ContainerArmoury;
+import AAM.Common.Container.ContainerInspectionTerm;
 import AAM.Common.Container.SoulAltarContainer;
 import AAM.Common.Container.SpellTableContainer;
-import AAM.Common.Entity.Elemental;
-import AAM.Common.Entity.ElementalGuard;
-import AAM.Common.Entity.EntityBloodball;
 import AAM.Common.Entity.SoulCharge;
-import AAM.Common.Entity.Subwer;
-import AAM.Common.Entity.WastelandCreature;
-import AAM.Common.Tiles.CauldronTileEntity;
-import AAM.Common.Tiles.CreativeCauldronTileEntity;
-import AAM.Common.Tiles.GraviterTileEntity;
+import AAM.Common.Entity.Elemental.ElementalBoss;
+import AAM.Common.Entity.Elemental.ElementalGuard;
+import AAM.Common.Entity.Elemental.EntityBloodball;
+import AAM.Common.Entity.Elemental.Subwer;
+import AAM.Common.Entity.Elemental.WastelandCreature;
+import AAM.Common.Entity.Golem.GolemBoss;
+import AAM.Common.Tiles.MultiInventory;
+import AAM.Common.Tiles.TEArmoury;
+import AAM.Common.Tiles.TECauldron;
+import AAM.Common.Tiles.TECreativeCauldron;
 import AAM.Common.Tiles.TECrystal;
+import AAM.Common.Tiles.TEGraviter;
 import AAM.Common.Tiles.TEModificationAnvil;
+import AAM.Common.Tiles.TESoulAltar;
+import AAM.Common.Tiles.TESpellTable;
+import AAM.Common.Tiles.TETeleporter;
 import AAM.Common.Tiles.TETransCircle;
-import AAM.Common.Tiles.TeleporterTileEntity;
-import AAM.Common.Tiles.TileArmoury;
-import AAM.Common.Tiles.TileSoulAltar;
-import AAM.Common.Tiles.TileSpellTable;
 import cpw.mods.fml.client.registry.ClientRegistry;
 import cpw.mods.fml.client.registry.RenderingRegistry;
 import net.minecraft.client.Minecraft;
@@ -67,12 +73,13 @@ public class ClientProxy extends CommonProxy
 		switch (ID)
 		{
 		case (0):
-			return new GuiSpellTable(new SpellTableContainer(p.inventory, (TileSpellTable) w.getTileEntity(x, y, z)));
+			return new GuiSpellTable(new SpellTableContainer(p.inventory, (TESpellTable) w.getTileEntity(x, y, z)));
 		case (1):
-			return new GuiSoulAltar(new SoulAltarContainer(p.inventory, (TileSoulAltar) w.getTileEntity(x, y, z)));
+			return new GuiSoulAltar(new SoulAltarContainer(p.inventory, (TESoulAltar) w.getTileEntity(x, y, z)));
 		case (2):
-			return new GuiArmoury(new ContainerArmoury(p.inventory, (TileArmoury) w.getTileEntity(x, y, z)));
-
+			return new GuiArmoury(new ContainerArmoury(p.inventory, (TEArmoury) w.getTileEntity(x, y, z)));
+		case (3):
+			return new GuiInspectionTerm(new ContainerInspectionTerm(p.inventory, (MultiInventory) w.getTileEntity(x, y, z)));
 		}
 		return null;
 
@@ -81,7 +88,7 @@ public class ClientProxy extends CommonProxy
 	@Override
 	public void addMember()
 	{
-		Minecraft.getMinecraft().displayGuiScreen(new GuiAddMember());
+		Minecraft.getMinecraft().displayGuiScreen(new GuiParty());
 	}
 
 	@Override
@@ -123,25 +130,29 @@ public class ClientProxy extends CommonProxy
 		RenderingRegistry.registerBlockHandler(new TeleporterItemRenderer());
 		// 136
 		RenderingRegistry.registerBlockHandler(new ModificationAnvilItemRender());
+		// 137
+		RenderingRegistry.registerBlockHandler(new BloodAltarRenderer());
 
-		ClientRegistry.bindTileEntitySpecialRenderer(CauldronTileEntity.class, new CauldronRenderer());
-		ClientRegistry.bindTileEntitySpecialRenderer(CreativeCauldronTileEntity.class, new CreativeCauldronRenderer());
-		ClientRegistry.bindTileEntitySpecialRenderer(TileSpellTable.class, new SpellTableRenderer());
+		ClientRegistry.bindTileEntitySpecialRenderer(TECauldron.class, new CauldronRenderer());
+		ClientRegistry.bindTileEntitySpecialRenderer(TECreativeCauldron.class, new CreativeCauldronRenderer());
+		ClientRegistry.bindTileEntitySpecialRenderer(TESpellTable.class, new SpellTableRenderer());
 		ClientRegistry.bindTileEntitySpecialRenderer(TEModificationAnvil.class, new ModificationAnvilRender());
 
 		ClientRegistry.bindTileEntitySpecialRenderer(TETransCircle.class, new TransCircleRenderer());
-		ClientRegistry.bindTileEntitySpecialRenderer(TileSoulAltar.class, new SoulAltarRenderer());
-		ClientRegistry.bindTileEntitySpecialRenderer(TileArmoury.class, new ArmouryRenderer());
+		ClientRegistry.bindTileEntitySpecialRenderer(TESoulAltar.class, new SoulAltarRenderer());
+		ClientRegistry.bindTileEntitySpecialRenderer(TEArmoury.class, new ArmouryRenderer());
 		ClientRegistry.bindTileEntitySpecialRenderer(TECrystal.class, new CrystalRenderer());
-		ClientRegistry.bindTileEntitySpecialRenderer(GraviterTileEntity.class, new AAM.Client.Renderer.Tile.GraviterRender());
-		ClientRegistry.bindTileEntitySpecialRenderer(TeleporterTileEntity.class, new TeleporterRenderer());
+		ClientRegistry.bindTileEntitySpecialRenderer(TEGraviter.class, new AAM.Client.Renderer.Tile.GraviterRender());
+		ClientRegistry.bindTileEntitySpecialRenderer(TETeleporter.class, new TeleporterRenderer());
 
 		RenderingRegistry.registerEntityRenderingHandler(SoulCharge.class, new SoulChargeRenderer());
-		RenderingRegistry.registerEntityRenderingHandler(Elemental.class, new ElementalRenderer());
+		RenderingRegistry.registerEntityRenderingHandler(ElementalBoss.class, new ElementalRenderer());
 		RenderingRegistry.registerEntityRenderingHandler(ElementalGuard.class, new ElemGuardRenderer());
 		RenderingRegistry.registerEntityRenderingHandler(EntityBloodball.class, new BloodballRenderer());
 		RenderingRegistry.registerEntityRenderingHandler(WastelandCreature.class, new WastelandRenderer());
 		RenderingRegistry.registerEntityRenderingHandler(Subwer.class, new SubwerRenderer());
+
+		RenderingRegistry.registerEntityRenderingHandler(GolemBoss.class, new GolemRenderer());
 
 	}
 
@@ -151,6 +162,7 @@ public class ClientProxy extends CommonProxy
 		Minecraft.getMinecraft().effectRenderer.addEffect(e);
 	}
 
+	@Override
 	public World getClientWorld()
 	{
 		return Minecraft.getMinecraft().theWorld;

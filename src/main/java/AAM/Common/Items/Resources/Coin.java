@@ -1,6 +1,5 @@
 package AAM.Common.Items.Resources;
 
-import net.minecraft.client.Minecraft;
 import net.minecraft.item.ItemStack;
 
 public class Coin extends Material

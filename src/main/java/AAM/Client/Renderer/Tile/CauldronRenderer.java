@@ -3,7 +3,7 @@ package AAM.Client.Renderer.Tile;
 import org.lwjgl.opengl.GL11;
 
 import AAM.Client.Model.Cauldron;
-import AAM.Common.Tiles.CauldronTileEntity;
+import AAM.Common.Tiles.TECauldron;
 import AAM.Utils.Color;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.Tessellator;
@@ -13,6 +13,9 @@ import net.minecraft.util.ResourceLocation;
 
 public class CauldronRenderer extends TileEntitySpecialRenderer
 {
+	public static final ResourceLocation texture = new ResourceLocation("aam:textures/misc/Cauldron-texture.png");
+	public static final ResourceLocation fluid = new ResourceLocation("aam:textures/misc/fluid.png");
+
 	@Override
 	public void renderTileEntityAt(TileEntity tile, double x, double y, double z, float p_147500_8_)
 	{
@@ -22,8 +25,7 @@ public class CauldronRenderer extends TileEntitySpecialRenderer
 		GL11.glScaled(0.0625D, 0.0625D, 0.0625D);
 		GL11.glRotated(180, 1, 0, 0);
 
-		ResourceLocation txt = new ResourceLocation("aam:textures/misc/Cauldron-texture.png");
-		Minecraft.getMinecraft().getTextureManager().bindTexture(txt);
+		Minecraft.getMinecraft().getTextureManager().bindTexture(texture);
 
 		Cauldron model = new Cauldron();
 		model.render(null, 0.0F, 0.0F, 0.0F, 1.0F, 1.0F, 1.0F);
@@ -31,16 +33,15 @@ public class CauldronRenderer extends TileEntitySpecialRenderer
 
 		if (tile != null)
 		{
-			if (tile instanceof CauldronTileEntity)
+			if (tile instanceof TECauldron)
 			{
-				CauldronTileEntity cauld = (CauldronTileEntity) tile;
+				TECauldron cauld = (TECauldron) tile;
 				double n = (((double) cauld.fluid.amount) / 1700) + 0.065;
 				Tessellator tess = Tessellator.instance;
 				GL11.glPushMatrix();
 				GL11.glTranslated(x, y + 1D + n, z + 1);
 				GL11.glScaled(1, 1, 1);
 				GL11.glRotated(180, 1, 0, 0);
-				ResourceLocation fluid = new ResourceLocation("aam:textures/misc/fluid.png");
 				Minecraft.getMinecraft().getTextureManager().bindTexture(fluid);
 
 				Color col = cauld.color;

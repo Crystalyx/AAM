@@ -15,8 +15,7 @@ import net.minecraft.util.ResourceLocation;
  */
 public class GraviterRender extends TileEntitySpecialRenderer
 {
-	public ResourceLocation texture = new ResourceLocation("aam:textures/models/graviter.png");
-	public Graviter model = new Graviter();
+	public static final ResourceLocation texture = new ResourceLocation("aam:textures/models/graviter.png");
 
 	@Override
 	public void renderTileEntityAt(TileEntity tile, double x, double y, double z, float p_147500_8_)
@@ -24,11 +23,12 @@ public class GraviterRender extends TileEntitySpecialRenderer
 		RenderHelper.disableStandardItemLighting();
 
 		GL11.glPushMatrix();
-		GL11.glTranslatef((float) x + 0.5F, (float) y - 0.5F, (float) z + 0.5F);
-		float scale = 0.0625F;
-		GL11.glScalef(scale, scale, scale);
+		GL11.glTranslated(x + 0.5, y - 0.5, z + 0.5);
+		double scale = 0.0625;
+		GL11.glScaled(scale, scale, scale);
+		Graviter model = new Graviter();
 		Minecraft.getMinecraft().renderEngine.bindTexture(texture);
-		this.model.render((Entity) null, 0.0F, 0.0F, 0.0F, 1.0F, 1.0F, 1.0F);
+		model.render((Entity) null, 0.0F, 0.0F, 0.0F, 1.0F, 1.0F, 1.0F);
 
 		GL11.glPopMatrix();
 

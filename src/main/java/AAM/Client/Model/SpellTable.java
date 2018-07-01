@@ -10,8 +10,7 @@ import org.lwjgl.opengl.GL11;
  */
 public class SpellTable extends ModelBase
 {
-	public double[] modelScale = new double[]
-	{ 2.0D, 2.0D, 2.0D };
+	public double[] modelScale = new double[] { 2.0D, 2.0D, 2.0D };
 	public ModelRenderer shape1;
 	public ModelRenderer shape2;
 	public ModelRenderer shape3;

@@ -58,11 +58,9 @@ public class DungeonBase
 				}
 				else
 				{
-					Logger.info(this.units[x + 1 + sx][z + sz] == null);
 					if (this.units[x + 1 + sx][z + sz] == null)
 					{
 						ret[px] = MiscUtils.randWPercent(perc) || (x == 0 && z == 0);
-						Logger.info(ret[px]);
 					}
 					else
 					{
@@ -78,11 +76,9 @@ public class DungeonBase
 				}
 				else
 				{
-					Logger.info(this.units[x - 1 + sx][z + sz] == null);
 					if (this.units[x - 1 + sx][z + sz] == null)
 					{
 						ret[nx] = MiscUtils.randWPercent(perc) || (x == 0 && z == 0);
-						Logger.info(ret[nx]);
 					}
 					else
 					{
@@ -98,11 +94,9 @@ public class DungeonBase
 				}
 				else
 				{
-					Logger.info(this.units[x + sx][z + 1 + sz] == null);
 					if (this.units[x + sx][z + 1 + sz] == null)
 					{
 						ret[pz] = MiscUtils.randWPercent(perc) || (x == 0 && z == 0);
-						Logger.info(ret[pz]);
 					}
 					else
 					{
@@ -118,11 +112,9 @@ public class DungeonBase
 				}
 				else
 				{
-					Logger.info(this.units[x + sx][z - 1 + sz] == null);
 					if (this.units[x + sx][z - 1 + sz] == null)
 					{
 						ret[nz] = MiscUtils.randWPercent(perc) || (x == 0 && z == 0);
-						Logger.info(ret[nz]);
 					}
 					else
 					{
@@ -131,10 +123,9 @@ public class DungeonBase
 				}
 			}
 			}
-			perc -= 9*i;
+			perc -= 9 * i;
 		}
 
-		Logger.info("Map Generation Ended");
 		return ret;
 	}
 }

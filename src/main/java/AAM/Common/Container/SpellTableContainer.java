@@ -1,7 +1,7 @@
 package AAM.Common.Container;
 
 import AAM.Client.Gui.Base.GuiBar;
-import AAM.Common.Tiles.TileSpellTable;
+import AAM.Common.Tiles.TESpellTable;
 import AAM.Utils.Color;
 import AAM.Utils.PlayerDataHandler;
 import net.minecraft.client.Minecraft;
@@ -9,10 +9,10 @@ import net.minecraft.entity.player.InventoryPlayer;
 
 public class SpellTableContainer extends ContainerBase
 {
-	public TileSpellTable tile;
+	public TESpellTable tile;
 	public InventoryPlayer p;
 
-	public SpellTableContainer(InventoryPlayer p, TileSpellTable tile)
+	public SpellTableContainer(InventoryPlayer p, TESpellTable tile)
 	{
 		super(p, tile);
 		this.tile = tile;

@@ -3,6 +3,7 @@ package AAM.Common.Tiles;
 import java.util.ArrayList;
 import java.util.List;
 
+import AAM.Utils.Logger;
 import AAM.Utils.MiscUtils;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
@@ -16,7 +17,13 @@ import net.minecraft.tileentity.TileEntity;
 public abstract class MultiInventory extends TileEntity implements IInventory
 {
 	public List<ItemStack> mltinv = new ArrayList<ItemStack>();
+	public ItemStack[] projection;
 	public int line = 0;
+
+	public MultiInventory()
+	{
+		this.projection = new ItemStack[getProjectionSize()];
+	}
 
 	public void clearInventory()
 	{
@@ -34,10 +41,23 @@ public abstract class MultiInventory extends TileEntity implements IInventory
 		return 81;
 	}
 
+	public int getProjectionSize()
+	{
+		return 81;
+	}
+
+	public void fillProjection()
+	{
+		for (int i = 0; i < getProjectionSize(); i++)
+		{
+			this.projection[i] = this.mltinv.get(i + line * 9);
+		}
+	}
+
 	@Override
 	public ItemStack getStackInSlot(int slot)
 	{
-		if (slot < 27)
+		if (slot < getMultiSizeInventory())
 		{
 			int mslot = this.line * 9 + slot;
 			if (mslot < this.mltinv.size())
@@ -48,45 +68,48 @@ public abstract class MultiInventory extends TileEntity implements IInventory
 		}
 		else
 		{
-			return this.inv[slot - 27];
+			return this.inv[slot - getMultiSizeInventory()];
 		}
 	}
 
 	@Override
 	public ItemStack decrStackSize(int slot, int ct)
 	{
-		if (slot < 27)
+		int am = ct > 64 ? 64 : ct;
+
+		if (slot < getMultiSizeInventory())
 		{
 			/**
 			 * Easy slot disabling
 			 */
+
 			int mslot = this.line * 9 + slot;
 			if (mslot < this.mltinv.size())
 			{
 				ItemStack is = this.mltinv.get(mslot).copy();
-				is.stackSize = ct;
+				is.stackSize = am;
 
-				if (this.mltinv.get(mslot).stackSize - ct <= 0)
+				if (this.mltinv.get(mslot).stackSize - am == 0)
 				{
 					this.mltinv.remove(mslot);
 				}
 				else
-					this.mltinv.get(mslot).stackSize -= ct;
+					this.mltinv.get(mslot).stackSize -= am;
 				return is;
 			}
 			return null;
 		}
 		else
 		{
-			ItemStack is = this.inv[slot - 27].copy();
-			is.stackSize = ct;
+			ItemStack is = this.inv[slot - getMultiSizeInventory()].copy();
+			is.stackSize = am;
 
-			if (this.inv[slot - 27].stackSize - ct <= 0)
+			if (this.inv[slot - getMultiSizeInventory()].stackSize - am == 0)
 			{
-				this.inv[slot - 27] = null;
+				this.inv[slot - getMultiSizeInventory()] = null;
 			}
 			else
-				this.inv[slot - 27].stackSize -= ct;
+				this.inv[slot - getMultiSizeInventory()].stackSize -= am;
 			return is;
 		}
 	}
@@ -109,7 +132,8 @@ public abstract class MultiInventory extends TileEntity implements IInventory
 	{
 		if (slot < this.getMultiSizeInventory())
 		{
-			MiscUtils.dropStack(this.worldObj, this.xCoord, this.yCoord, this.zCoord, is);
+			// MiscUtils.dropStack(this.worldObj, this.xCoord, this.yCoord,
+			// this.zCoord, is);
 			/**
 			 * Easy slot disabling
 			 */
@@ -121,9 +145,11 @@ public abstract class MultiInventory extends TileEntity implements IInventory
 			// {
 			// this.mltinv.remove(mslot);
 			// }
-			// } else
+			// }
+			// else
 			// {
-			// this.mltinv.add(is);
+			addMultiInventoryContent(is);
+			Logger.info(is);
 			// }
 		}
 		else
@@ -153,7 +179,18 @@ public abstract class MultiInventory extends TileEntity implements IInventory
 	{
 		if (is != null)
 		{
-			this.mltinv.add(is);
+			boolean f = false;
+			for (int i = 0; i < this.mltinv.size(); i++)
+			{
+				if (is.getItem().equals(this.mltinv.get(i).getItem()) && ItemStack.areItemStackTagsEqual(is, this.mltinv.get(i)))
+				{
+					f = true;
+					this.mltinv.get(i).stackSize += is.stackSize;
+					break;
+				}
+			}
+			if (!f)
+				this.mltinv.add(is);
 		}
 	}
 
@@ -169,13 +206,13 @@ public abstract class MultiInventory extends TileEntity implements IInventory
 	@Override
 	public int getInventoryStackLimit()
 	{
-		return 64;
+		return Integer.MAX_VALUE - 100000;
 	}
 
 	@Override
 	public boolean isUseableByPlayer(EntityPlayer p)
 	{
-		return false;
+		return true;
 	}
 
 	@Override
@@ -210,13 +247,14 @@ public abstract class MultiInventory extends TileEntity implements IInventory
 		readFromNBT(pkt.func_148857_g());
 	}
 
+	@Override
 	public void readFromNBT(NBTTagCompound tag)
 	{
 		super.readFromNBT(tag);
 		MiscUtils.readMultiInventory(this, tag);
-
 	}
 
+	@Override
 	public void writeToNBT(NBTTagCompound tag)
 	{
 		super.writeToNBT(tag);

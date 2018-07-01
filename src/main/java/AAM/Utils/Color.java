@@ -75,4 +75,18 @@ public class Color
 	{
 		return this.red + "|" + this.green + "|" + this.blue;
 	}
+
+	public static final Color White = new Color(255, 255, 255);
+	public static final Color Black = new Color(0, 0, 0);
+	public static final Color Cobalt = new Color(40, 60, 255);
+	public static final Color Mithril = new Color(95, 207, 215);
+	public static final Color Red = new Color(194, 0, 0);
+	public static final Color Yellow = new Color(247, 215, 0);
+	public static final Color Green = new Color(0, 200, 0);
+	public static final Color Cyan = new Color(0, 220, 255);
+	public static final Color Blue = new Color(0, 68, 198);
+	public static final Color LightBlue = new Color(88, 171, 255);
+	public static final Color Purple = new Color(133, 0, 255);
+	public static final Color Void = new Color(68, 57, 193);
+	public static final Color Gold = new Color(255, 199, 62);
 }

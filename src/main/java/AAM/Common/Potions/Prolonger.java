@@ -6,6 +6,7 @@ import net.minecraft.item.ItemStack;
 
 public class Prolonger extends Ingridient
 {
+	// TODO
 	public Prolonger(Item i, int meta, Color col, int id, int time)
 	{
 		super(i, meta, col, id);

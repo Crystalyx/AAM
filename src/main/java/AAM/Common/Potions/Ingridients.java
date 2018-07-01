@@ -3,7 +3,7 @@ package AAM.Common.Potions;
 import java.util.ArrayList;
 import java.util.List;
 
-import AAM.Common.Blocks.ModBlocks;
+import AAM.Common.Blocks.Building.ModBlocks;
 import AAM.Common.Items.ModItems;
 import AAM.Utils.Color;
 import net.minecraft.block.Block;
@@ -22,6 +22,7 @@ public class Ingridients
 	public static final Ingridient blueberry = new Ingridient(ModItems.Berry, 1, new Color(92, 62, 194), 4);
 	public static final Ingridient mortisberry = new Ingridient(ModItems.Berry, 2, new Color(255, 174, 0), 5);
 	public static final Ingridient raspberry = new Ingridient(ModItems.Berry, 3, new Color(255, 0, 115), 6);
+	public static final Ingridient wormwoodberry = new Ingridient(ModItems.Berry, 4, new Color(164, 1, 1), 29);
 	public static final Ingridient wormwood = new Ingridient(Item.getItemFromBlock(ModBlocks.ModSaplings[0]), 0, new Color(200, 0, 200), 7);
 	public static final Ingridient diamond = new Ingridient(Items.diamond, 0, new Color(0, 242, 255), 8);
 	public static final Ingridient red_flower = new Colorer(Item.getItemFromBlock(Blocks.red_flower), 0, new Color(255, 0, 0), 9);
@@ -54,6 +55,7 @@ public class Ingridients
 		ings.add(blueberry);// 4
 		ings.add(mortisberry);// 5
 		ings.add(raspberry);// 6
+		ings.add(wormwoodberry);// 29
 		ings.add(wormwood);// 7
 		ings.add(diamond);// 8
 		ings.add(red_flower);// 9

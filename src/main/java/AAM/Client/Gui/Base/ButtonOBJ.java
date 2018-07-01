@@ -2,6 +2,7 @@ package AAM.Client.Gui.Base;
 
 import org.lwjgl.opengl.GL11;
 
+import AAM.Utils.MiscUtils;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.util.ResourceLocation;
@@ -32,17 +33,18 @@ public class ButtonOBJ extends GuiButton
 	public int rotation = 0;
 
 	@Override
-	public void drawButton(Minecraft m, int x, int y)
+	public void drawButton(Minecraft m, int mx, int my)
 	{
 		GL11.glPushMatrix();
 		GL11.glRotated(90 * this.rotation, 0, 0, 1);
 		this.bindTexture();
+		this.field_146123_n = MiscUtils.isInLimit(mx, this.xPosition, this.xPosition + this.width) && MiscUtils.isInLimit(my, this.yPosition, this.yPosition + this.height);
 		int k = this.getHoverState(this.field_146123_n);
 		if (this.disabled)
 			k = 0;
 		this.drawTexturedModalRect(this.xPosition, this.yPosition, 24, 196 + k * 20, this.width / 2, this.height);
 		GL11.glPopMatrix();
-		this.mouseDragged(m, x, y);
+		this.mouseDragged(m, mx, my);
 	}
 
 	@Override
@@ -106,7 +108,8 @@ public class ButtonOBJ extends GuiButton
 		if (this.custText)
 		{
 			Minecraft.getMinecraft().getTextureManager().bindTexture(this.CustomTexture);
-		} else
+		}
+		else
 		{
 			Minecraft.getMinecraft().getTextureManager().bindTexture(baseTexture);
 		}

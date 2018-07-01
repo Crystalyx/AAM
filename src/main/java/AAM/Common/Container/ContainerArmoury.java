@@ -1,8 +1,8 @@
 package AAM.Common.Container;
 
 import AAM.Client.Gui.Base.GuiBar;
-import AAM.Common.Items.SoulSword;
-import AAM.Common.Tiles.TileArmoury;
+import AAM.Common.Items.Soul.SoulSword;
+import AAM.Common.Tiles.TEArmoury;
 import AAM.Utils.PlayerDataHandler;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.IInventory;
@@ -23,8 +23,8 @@ public class ContainerArmoury extends ContainerBase
 			public int getLength()
 			{
 				this.lastMaxValue = 100;
-				this.lastValue = ((TileArmoury) this.gui.cont.tile).cons;
-				return (int) (((double) ((TileArmoury) this.gui.cont.tile).cons) / ((double) 100) * this.sizey);
+				this.lastValue = ((TEArmoury) this.gui.cont.tile).cons;
+				return (int) (((double) ((TEArmoury) this.gui.cont.tile).cons) / ((double) 100) * this.sizey);
 			}
 		};
 		this.add(b);
@@ -36,11 +36,11 @@ public class ContainerArmoury extends ContainerBase
 			}
 		}
 
-		this.addText("Swords:", -120, -10, 50, 50, false);
-		for (int i = 0; i < ph.swords.size(); i++)
-		{
-			this.addText(ph.swords.get(i).getItemStackDisplayName(new ItemStack(ph.swords.get(i))), -120, 10 * i, 50, 50, false);
-		}
+//		this.addText("Swords:", -120, -10, 50, 50, false);
+//		for (int i = 0; i < ph.swords.size(); i++)
+//		{
+//			this.addText(ph.swords.get(i).getItemStackDisplayName(new ItemStack(ph.swords.get(i))), -120, 10 * i, 50, 50, false);
+//		}
 		this.addPlayerSlots();
 	}
 

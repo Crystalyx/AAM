@@ -64,7 +64,8 @@ public abstract class AlchemicalPackage<T extends AlchemicalPackage<T>> implemen
 		try
 		{
 			read(new PacketBuffer(buffer));
-		} catch (IOException e)
+		}
+		catch (IOException e)
 		{
 			throw Throwables.propagate(e);
 		}
@@ -76,29 +77,21 @@ public abstract class AlchemicalPackage<T extends AlchemicalPackage<T>> implemen
 		try
 		{
 			write(new PacketBuffer(buffer));
-		} catch (IOException e)
+		}
+		catch (IOException e)
 		{
 			throw Throwables.propagate(e);
 		}
 	}
 
-	/*
-	 * Make the implementation final so child classes don't need to bother with
-	 * it, since the message class shouldn't have anything to do with the
-	 * handler. This is simply to avoid having to have:
-	 * 
-	 * public static class Handler extends GenericMessageHandler<OpenGuiMessage>
-	 * {}
-	 * 
-	 * in every single message class for the sole purpose of registration.
-	 */
 	@Override
 	public final IMessage onMessage(T msg, MessageContext ctx)
 	{
 		if (!msg.isValidOnSide(ctx.side))
 		{
 			throw new RuntimeException("Invalid side " + ctx.side.name() + " for " + msg.getClass().getSimpleName());
-		} else
+		}
+		else
 		{
 			msg.process(ctx.side.isClient() ? Minecraft.getMinecraft().thePlayer : ctx.getServerHandler().playerEntity, ctx.side);
 		}

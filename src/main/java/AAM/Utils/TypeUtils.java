@@ -161,6 +161,74 @@ public class TypeUtils
 	}
 
 	/**
+	 * @param s
+	 *            String
+	 * @param index
+	 *            start index
+	 * @return
+	 */
+	public static int indexOfWord(String s, int index)
+	{
+		for (int i = index; i < s.length(); i++)
+		{
+			String Char = s.substring(i, i + 1);
+			if (alphUC.contains(Char) || alphLC.contains(Char))
+				return i;
+		}
+		return -1;
+	}
+
+	/**
+	 * @param s
+	 *            String
+	 * @return
+	 */
+	public static int indexOfWord(String s)
+	{
+		for (int i = 0; i < s.length(); i++)
+		{
+			String Char = s.substring(i, i + 1);
+			if (alphUC.contains(Char) || alphLC.contains(Char))
+				return i;
+		}
+		return -1;
+	}
+
+	/**
+	 * @param s
+	 *            String
+	 * @param index
+	 *            start index
+	 * @return
+	 */
+	public static int indexOfNum(String s, int index)
+	{
+		for (int i = index; i < s.length(); i++)
+		{
+			String Char = s.substring(i, i + 1);
+			if (num.contains(Char))
+				return i;
+		}
+		return -1;
+	}
+
+	/**
+	 * @param s
+	 *            String
+	 * @return
+	 */
+	public static int indexOfNum(String s)
+	{
+		for (int i = 0; i < s.length(); i++)
+		{
+			String Char = s.substring(i, i + 1);
+			if (num.contains(Char))
+				return i;
+		}
+		return -1;
+	}
+
+	/**
 	 * 
 	 * @param s
 	 *            String

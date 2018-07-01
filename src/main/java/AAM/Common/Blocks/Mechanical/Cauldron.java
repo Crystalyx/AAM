@@ -6,11 +6,10 @@ import java.util.Random;
 
 import AAM.Common.Items.ModItems;
 import AAM.Common.Potions.Booster;
-import AAM.Common.Potions.ModPotions;
 import AAM.Common.Potions.Ingridient;
+import AAM.Common.Potions.ModPotions;
 import AAM.Common.Potions.Prolonger;
-import AAM.Common.Tiles.CauldronTileEntity;
-import AAM.Utils.MiscUtils;
+import AAM.Common.Tiles.TECauldron;
 import net.minecraft.block.BlockContainer;
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.Entity;
@@ -35,6 +34,7 @@ public class Cauldron extends BlockContainer
 		this.setBlockBounds(0.0525F, 0.0F, 0.0525F, 0.9475F, 0.8875F, 0.9475F);
 	}
 
+	@Override
 	public Item getItemDropped(int p_149650_1_, Random p_149650_2_, int p_149650_3_)
 	{
 		return Item.getItemFromBlock(this);
@@ -75,8 +75,10 @@ public class Cauldron extends BlockContainer
 	@Override
 	public TileEntity createNewTileEntity(World w, int meta)
 	{
-		return new CauldronTileEntity();
+		return new TECauldron();
 	}
+
+	public static final int phialMeta = 3;
 
 	/**
 	 * Called upon block activation (right click on the block.)
@@ -88,9 +90,9 @@ public class Cauldron extends BlockContainer
 		if (w.getTileEntity(x, y, z) != null)
 		{
 			TileEntity tile = w.getTileEntity(x, y, z);
-			if (tile instanceof CauldronTileEntity)
+			if (tile instanceof TECauldron)
 			{
-				CauldronTileEntity cauld = (CauldronTileEntity) tile;
+				TECauldron cauld = (TECauldron) tile;
 				if (p.getCurrentEquippedItem() != null)
 				{
 					// ==================================Fuel==================================
@@ -98,12 +100,7 @@ public class Cauldron extends BlockContainer
 					{
 						if (!p.capabilities.isCreativeMode)
 							p.inventory.mainInventory[p.inventory.currentItem].stackSize--;
-						if (w.isRemote)
-							p.addChatComponentMessage(new ChatComponentText(cauld.burnTime + ""));
 						flag = true;
-					} else if (w.isRemote)
-					{
-						p.addChatComponentMessage(new ChatComponentText("Current Item is not fuel"));
 					}
 					// ==================================Fire==================================
 					if (p.getCurrentEquippedItem().getItem() == Items.flint_and_steel)
@@ -111,12 +108,7 @@ public class Cauldron extends BlockContainer
 						if (!p.capabilities.isCreativeMode)
 							p.inventory.mainInventory[p.inventory.currentItem].damageItem(1, p);
 						cauld.isBurning = cauld.burnTime > 0;
-						if (w.isRemote)
-							p.addChatComponentMessage(new ChatComponentText(cauld.isBurning + ""));
 						flag = true;
-					} else if (w.isRemote)
-					{
-						p.addChatComponentMessage(new ChatComponentText("Current Item is not fuel"));
 					}
 					// ==================================Water==================================
 					if (p.getCurrentEquippedItem().getItem() == Items.water_bucket)
@@ -124,16 +116,10 @@ public class Cauldron extends BlockContainer
 						if (!p.capabilities.isCreativeMode)
 							p.inventory.mainInventory[p.inventory.currentItem] = new ItemStack(Items.bucket);
 						cauld.fluid.amount = 1000;
-						if (w.isRemote)
-							p.addChatComponentMessage(new ChatComponentText(cauld.fluid.amount + "mB"));
 						flag = true;
-					} else if (w.isRemote)
-					{
-						p.addChatComponentMessage(new ChatComponentText("Current Item is not Water"));
 					}
-
 					// ==================================Potion===============================
-					if (p.getCurrentEquippedItem().getItem() == ModItems.materials && p.getCurrentEquippedItem().getItemDamage() == 3)
+					if (p.getCurrentEquippedItem().getItem() == ModItems.materials && p.getCurrentEquippedItem().getItemDamage() == phialMeta)
 					{
 						int id = 0;
 						boolean brewed = false;
@@ -155,23 +141,24 @@ public class Cauldron extends BlockContainer
 							}
 
 						}
-						p.addChatComponentMessage(new ChatComponentText("Couldn't brew"));
 						if (brewed)
 						{
 							ItemStack ret = new ItemStack(ModItems.Potion, 3);
 							NBTTagCompound tag = new NBTTagCompound();
 							tag.setInteger("PotionID", id);
+							tag.setInteger("PotionDur", ModPotions.pots[id].duration);
+
 							for (int i = 0; i < cauld.ingrs.size(); i++)
 							{
 								if (cauld.ingrs.get(i) instanceof Booster)
 								{
-									tag.setInteger("PotionDur", tag.getInteger("PotionDur") + 1);
+									tag.setInteger("PotionDur", tag.getInteger("PotionDur") + ((Booster) cauld.ingrs.get(i)).boost);
 									cauld.ingrs.remove(i);
 								}
 
 								if (cauld.ingrs.get(i) instanceof Prolonger)
 								{
-									tag.setInteger("PotionAmpl", tag.getInteger("PotionAmpl") + 1);
+									tag.setInteger("PotionAmpl", tag.getInteger("PotionAmpl") + ((Prolonger) cauld.ingrs.get(i)).time);
 									cauld.ingrs.remove(i);
 								}
 							}
@@ -184,16 +171,10 @@ public class Cauldron extends BlockContainer
 								e.setVelocity(w.rand.nextDouble() * 0.8, w.rand.nextDouble() * 0.8, w.rand.nextDouble() * 0.8);
 								w.spawnEntityInWorld(e);
 							}
-						} else
-						{
-							p.addChatComponentMessage(new ChatComponentText("Current ingridients are not Addedable"));
-
 						}
-					} else if (w.isRemote)
-					{
-						p.addChatComponentMessage(new ChatComponentText("Current Item is not Phial"));
 					}
-				} else
+				}
+				else
 				{
 					if (!p.isSneaking())
 					{
@@ -201,18 +182,21 @@ public class Cauldron extends BlockContainer
 						{
 							p.addChatComponentMessage(new ChatComponentText("Ingidients IDs:"));
 							for (int i = 0; i < cauld.ingrs.size(); i++)
-								p.addChatComponentMessage(
-										new ChatComponentText(new ItemStack(cauld.ingrs.get(i).item, 1, cauld.ingrs.get(i).meta).getDisplayName() + " : " + cauld.ingrs.get(i).id));
+								p.addChatComponentMessage(new ChatComponentText(new ItemStack(cauld.ingrs.get(i).item, 1, cauld.ingrs.get(i).meta).getDisplayName() + " : " + cauld.ingrs.get(i).id));
 						}
-					} else
+					}
+					else
 					{
-						cauld.ingrs = new ArrayList<Ingridient>();
+						if (cauld.isBurning)
+						{
+							cauld.isBurning = !cauld.isBurning;
+						}
+						else
+							cauld.ingrs = new ArrayList<Ingridient>();
 					}
 				}
-			} else if (w.isRemote)
-				p.addChatComponentMessage(new ChatComponentText("There is no CauldronTileEntity"));
-		} else if (w.isRemote)
-			p.addChatComponentMessage(new ChatComponentText("There is no TileEntity"));
+			}
+		}
 
 		return flag;
 	}
@@ -222,11 +206,13 @@ public class Cauldron extends BlockContainer
 	 * or not to render the shared face of two adjacent blocks and also whether
 	 * the player can attach torches, redstone wire, etc to this block.
 	 */
+	@Override
 	public boolean isOpaqueCube()
 	{
 		return false;
 	}
 
+	@Override
 	public boolean isNormalCube()
 	{
 		return false;

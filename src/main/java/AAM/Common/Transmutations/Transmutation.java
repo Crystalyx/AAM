@@ -7,7 +7,7 @@ import AAM.Utils.Color;
 
 public class Transmutation
 {
-	public Transmutation(String name, String l, long price, TransAction action)
+	public Transmutation(String name, String l, TransAction action)
 	{
 		this.name = name;
 		for (int i = 0; i < l.length() / 4; i++)
@@ -15,7 +15,6 @@ public class Transmutation
 			this.parts.add(l.substring(i * 4, (i + 1) * 4));
 		}
 		this.action = action;
-		this.price = price;
 	}
 
 	public Transmutation setTick(boolean tick)
@@ -56,6 +55,5 @@ public class Transmutation
 	public List<String> parts = new ArrayList<String>();
 	public TransAction action;
 	public boolean needTick = false;
-	public long price;
 
 }

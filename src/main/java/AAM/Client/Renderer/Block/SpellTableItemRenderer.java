@@ -3,7 +3,7 @@ package AAM.Client.Renderer.Block;
 import org.lwjgl.opengl.GL11;
 
 import AAM.Client.Model.SpellTable;
-import AAM.Common.Tiles.TileSpellTable;
+import AAM.Common.Tiles.TESpellTable;
 import AAM.Network.ClientProxy;
 import cpw.mods.fml.client.registry.ISimpleBlockRenderingHandler;
 import net.minecraft.block.Block;

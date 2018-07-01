@@ -1,7 +1,7 @@
 package AAM.Common.Tiles;
 
-import AAM.Common.Blocks.PillarBlock;
-import AAM.Utils.WorldPos;
+import AAM.Common.Blocks.Building.PillarBlock;
+import AAM.Utils.Wec3;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.NetworkManager;
 import net.minecraft.network.Packet;
@@ -11,7 +11,7 @@ import net.minecraftforge.common.util.ForgeDirection;
 
 public class TECrystal extends TileEntity
 {
-
+	// TODO
 	public int soulValue = 0;
 	public int packetSizeB = 6;
 	public int packetSize = 6;
@@ -30,14 +30,14 @@ public class TECrystal extends TileEntity
 
 	public boolean checkStructure()
 	{
-		WorldPos cp = new WorldPos(this);
-		boolean ret=true;
-		for(int i=0;i<4;i++)
+		Wec3 cp = new Wec3(this);
+		boolean ret = true;
+		for (int i = 0; i < 4; i++)
 		{
 			cp = cp.add(ForgeDirection.DOWN);
 			ret = ret && (cp.getBlock(this.worldObj) instanceof PillarBlock);
 		}
-		
+
 		return ret;
 	}
 
@@ -67,8 +67,8 @@ public class TECrystal extends TileEntity
 	public void writeToNBT(NBTTagCompound tag)
 	{
 		super.writeToNBT(tag);
-		
-		tag.setInteger("SoulValue",this.soulValue);
+
+		tag.setInteger("SoulValue", this.soulValue);
 	}
 
 	@Override
