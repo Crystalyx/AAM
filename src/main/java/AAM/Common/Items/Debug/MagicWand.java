@@ -4,6 +4,7 @@ package AAM.Common.Items.Debug;
 import AAM.Common.Blocks.Circles.TransCircle;
 import AAM.Common.Tiles.TETransCircle;
 import AAM.Utils.Logger;
+import AAM.Utils.PlayerDataHandler;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -23,6 +24,7 @@ public class MagicWand extends Item
 	@Override
 	public ItemStack onItemRightClick(ItemStack is, World w, EntityPlayer p)
 	{
+		PlayerDataHandler.get(p).soulLevel = 3;
 		return is;
 	}
 

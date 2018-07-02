@@ -29,16 +29,16 @@ public class SoulAltarContainer extends ContainerBase
 			public int getLength()
 			{
 				PlayerDataHandler ph = PlayerDataHandler.get(Minecraft.getMinecraft().thePlayer);
-				return (int) (((TESoulAltar) this.gui.cont.tile).value / ((TESoulAltar) this.gui.cont.tile).maxValue * this.sizey);
+				return ((TESoulAltar) this.gui.cont.tile).value / ((TESoulAltar) this.gui.cont.tile).maxValue * this.sizey;
 			}
 		};
 		this.add(soul);
 
 		this.addSlot(0, 4, tile, 100, 10);
 
-		this.addHiddenSlot(1, tile, 70, 70, true);
+		this.addHiddenSlot(1, tile, 76, 68, true);
 		this.addHiddenSlot(2, tile, 100, 80, true);
-		this.addHiddenSlot(3, tile, 130, 70, true);
+		this.addHiddenSlot(3, tile, 124, 68, true);
 
 		this.addHiddenSlot(4, tile, 10, 20, true);
 		this.addHiddenSlot(5, tile, 10, 45, true);
@@ -49,7 +49,8 @@ public class SoulAltarContainer extends ContainerBase
 		this.addHiddenSlot(9, tile, 190, 70, true);
 
 		this.addHiddenText("Owner:", 50, -8, 140, 12, true, true);
-		this.addHiddenSlot(10, tile, 130, 30, true);
+		this.addHiddenSlot(10, tile, 100, 56, true);
+		this.addHiddenSlot(11, tile, 100, 36, true);
 
 		this.addPlayerSlots();
 	}

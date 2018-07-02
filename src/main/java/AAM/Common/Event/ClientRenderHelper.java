@@ -9,6 +9,7 @@ import AAM.Common.Items.ModItems;
 import AAM.Common.Items.Artifacts.CrystalBow;
 import AAM.Common.Items.Soul.Artifact;
 import AAM.Common.Items.Soul.SoulSword;
+import AAM.Common.Soul.Soul;
 import AAM.Utils.Color;
 import AAM.Utils.MiscUtils;
 import AAM.Utils.PlayerDataHandler;
@@ -215,13 +216,31 @@ public class ClientRenderHelper
 				t.addVertexWithUV(32.0D + k, l + 10 + lgt * lt, 0.0D, 1D, ls + lgt * v);
 				t.addVertexWithUV(k, l + 10 + lgt * lt, 0.0D, 0.5D, ls + lgt * v);
 				t.draw();
-
-				String dam = ph.soulDamage + "";
+				double dm = ph.soulDamage;
+				int level = ph.soulLevel;
+				if (ph.stype.equals(Soul.Blood))
+				{
+					dm += ph.soulDamage * (25 + 2 * (level - 1)) / 100d;
+				}
+				if (ph.stype.equals(Soul.Lunar))
+				{
+					dm += ph.soulDamage * (15 + 2 * (level - 1)) / 100d;
+					dm += ph.soulDamage * (25 + 4 * (level - 1) * ph.player.worldObj.getCurrentMoonPhaseFactor()) / 100d;
+				}
+				if (ph.stype.equals(Soul.Plant))
+				{
+					dm += ph.soulDamage * (15 + 2 * (level - 1)) / 100d;
+				}
+				if (ph.moonUpg != 0)
+				{
+					dm += ph.soulDamage * (25f + ph.moonUpg * 4 * (ph.soulLevel - 1) * ph.player.worldObj.getCurrentMoonPhaseFactor()) / 100f;
+				}
+				String dam = dm + "";
 				dam = dam.substring(0, dam.indexOf(".") + 2);
 
 				f.drawString("Soul: " + ph.getCurrentSoul() + "/" + ph.getMaxSoul(), k + 32, l + 5, new Color(255, 255, 255).hex);
 				f.drawString("Level: " + ph.getSoulLevel(), k + 32, l + 15, new Color(255, 255, 255).hex);
-				f.drawString("Expirience: " + ((int) ph.soulxp) + "/" + (100 * ph.soulLevel), k + 32, l + 25, new Color(255, 255, 255).hex);
+				f.drawString("Expirience: " + (ph.soulxp) + "/" + (100 * ph.soulLevel), k + 32, l + 25, new Color(255, 255, 255).hex);
 				f.drawString("Damage: " + dam, k + 32, l + 35, new Color(255, 255, 255).hex);
 
 				MovingObjectPosition mop = Minecraft.getMinecraft().objectMouseOver;

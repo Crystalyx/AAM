@@ -20,8 +20,6 @@ public class PlayerSyncMessage extends AlchemicalPackage
 	{
 		data = new NBTTagCompound();
 		PlayerDataHandler.get(player).saveNBTData(data);
-		PlayerDataHandler.get(player).saveSoulNBTData(data);
-
 	}
 
 	@Override
@@ -41,7 +39,6 @@ public class PlayerSyncMessage extends AlchemicalPackage
 	{
 		// Logger.info("Synchronizing Player Data data on CLIENT");
 		PlayerDataHandler.get(player).loadNBTData(data);
-		PlayerDataHandler.get(player).loadSoulNBTData(data);
 
 	}
 

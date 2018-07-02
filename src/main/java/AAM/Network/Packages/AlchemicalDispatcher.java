@@ -31,7 +31,6 @@ public class AlchemicalDispatcher
 		registerMessage(PlayerSyncMessage.class);
 		registerMessage(MultiInvSyncMessage.class);
 		registerMessage(SkillPackage.class);
-
 	}
 
 	/**

@@ -8,7 +8,6 @@ import AAM.Common.Soul.Soul;
 import AAM.Common.Soul.WarriorType;
 import AAM.Network.Packages.AlchemicalDispatcher;
 import AAM.Network.Packages.PlayerSyncMessage;
-import AAM.Network.Packages.SoulSyncMessage;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
@@ -47,7 +46,7 @@ public class PlayerDataHandler implements IExtendedEntityProperties
 	public int deficit = 0;
 
 	public int soulLevel = 1;
-	public double soulxp = 0.0;
+	public int soulxp = 0;
 
 	public List<ItemSword> swords = new ArrayList<ItemSword>();
 	public int partType = -1;
@@ -92,7 +91,7 @@ public class PlayerDataHandler implements IExtendedEntityProperties
 		this.stype = Soul.Normal;
 		this.sword = SwordType.Broad;
 		this.warrior = WarriorType.NotSelected;
-		this.soulxp = 0.0;
+		this.soulxp = 0;
 		this.castUpg = 0;
 		this.bloodUpg = 0;
 		this.moonUpg = 0;
@@ -152,22 +151,6 @@ public class PlayerDataHandler implements IExtendedEntityProperties
 		this.art = props.art;
 	}
 
-	public final void saveSoulNBTData(NBTTagCompound compound)
-	{
-		NBTTagCompound tag = new NBTTagCompound();
-
-		tag.setInteger("CurrentSoul", player.getDataWatcher().getWatchableObjectInt(SoulWatcherId));
-		tag.setFloat("SoulDamage", this.soulDamage);
-		tag.setInteger("SoulCharge", this.soul);
-		tag.setInteger("SoulLevel", this.soulLevel);
-		tag.setInteger("SoulRegenTimer", this.soulRegenTimer);
-		tag.setDouble("SoulXp", this.soulxp);
-		tag.setInteger("DeficitSoul", this.deficit);
-		tag.setInteger("SoulType", this.stype.ordinal());
-
-		compound.setTag(ExtendedSoulDataId, tag);
-	}
-
 	@Override
 	public final void saveNBTData(NBTTagCompound compound)
 	{
@@ -178,6 +161,15 @@ public class PlayerDataHandler implements IExtendedEntityProperties
 
 		// Write everything to our new tag:
 		// inventory.writeToNBT(properties);
+
+		properties.setInteger("CurrentSoul", player.getDataWatcher().getWatchableObjectInt(SoulWatcherId));
+		properties.setFloat("SoulDamage", this.soulDamage);
+		properties.setInteger("SoulCharge", this.soul);
+		properties.setInteger("SoulLevel", this.soulLevel);
+		properties.setInteger("SoulRegenTimer", this.soulRegenTimer);
+		properties.setInteger("SoulXp", this.soulxp);
+		properties.setInteger("DeficitSoul", this.deficit);
+		properties.setInteger("SoulType", this.stype.ordinal());
 
 		properties.setTag("NBT", this.soulTag);
 		properties.setInteger("Size", this.swords.size());
@@ -209,9 +201,13 @@ public class PlayerDataHandler implements IExtendedEntityProperties
 		compound.setTag(ExtendedDataId, properties);
 	}
 
-	public final void loadSoulNBTData(NBTTagCompound compound)
+	@Override
+	public final void loadNBTData(NBTTagCompound compound)
 	{
-		NBTTagCompound tag = (NBTTagCompound) compound.getTag(ExtendedSoulDataId);
+		// Pretty much the reverse of saveNBTData - get our
+		// unique tag and then load everything from it:
+		NBTTagCompound tag = (NBTTagCompound) compound.getTag(ExtendedDataId);
+		// inventory.readFromNBT(properties);
 
 		player.getDataWatcher().updateObject(SoulWatcherId, tag.getInteger("CurrentSoul"));
 		this.soulDamage = tag.getFloat("SoulDamage");
@@ -220,19 +216,10 @@ public class PlayerDataHandler implements IExtendedEntityProperties
 		this.soulRegenTimer = tag.getInteger("SoulRegenTimer");
 		this.maxSoul = Math.max(1, this.soulLevel * 100);
 
-		this.soulxp = tag.getDouble("SoulXp");
+		this.soulxp = tag.getInteger("SoulXp");
 		this.deficit = tag.getInteger("DeficitSoul");
 		this.stype = Soul.values()[tag.getInteger("SoulType")];
 
-	}
-
-	@Override
-	public final void loadNBTData(NBTTagCompound compound)
-	{
-		// Pretty much the reverse of saveNBTData - get our
-		// unique tag and then load everything from it:
-		NBTTagCompound tag = (NBTTagCompound) compound.getTag(ExtendedDataId);
-		// inventory.readFromNBT(properties);
 		this.soulTag = tag.getCompoundTag("NBT");
 
 		this.swords.clear();
@@ -294,18 +281,8 @@ public class PlayerDataHandler implements IExtendedEntityProperties
 	 */
 	public void onUpdate()
 	{
-		// Logger.info("assf");
-		// this.clearProperties(true);
-
-		// crearing party
-		for (int i = 0; i < this.party.size(); i++)
-		{
-			if (this.party.get(i).equals(""))
-			{
-				this.party.remove(i);
-			}
-		}
-
+		this.maxSoul = this.soulLevel * 100;
+		this.soulDamage = Math.max(this.soulLevel + 4, this.soulDamage);
 		// checking levelup (maxSoul is needed xp)
 		if (this.soulxp >= this.maxSoul && this.soulxp != 0)
 		{
@@ -405,14 +382,22 @@ public class PlayerDataHandler implements IExtendedEntityProperties
 		if (soulRegenTimer > 0)
 		{
 			--soulRegenTimer;
+			int l = 0;
 			if (this.player.isBlocking())
 			{
 				soulRegenTimer -= 6;
+				l += 1;
 			}
 			if (this.player.isSneaking())
 			{
 				soulRegenTimer -= 5;
+				l += 1;
 			}
+			if (l > 0)
+			{
+				soulRegenTimer -= 4;
+			}
+
 		}
 		if (soulRegenTimer <= 0)
 		{
@@ -476,20 +461,6 @@ public class PlayerDataHandler implements IExtendedEntityProperties
 	public final int getSoulLevel()
 	{
 		return soulLevel;
-	}
-
-	/**
-	 * Sets max Soul to amount or 0 if amount is less than 0
-	 */
-	public final void setMaxSoul(int amount)
-	{
-		maxSoul = (amount > 0 ? amount : 0);
-		// if your extended properties contains a lot of data, it would be
-		// better
-		// to make an individual packet for maxSoul, rather than sending all of
-		// the data each time max Soul changes...
-
-		AlchemicalDispatcher.sendToClient(new SoulSyncMessage(player), player);
 	}
 
 	public int getPermission()

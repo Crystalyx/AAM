@@ -13,7 +13,6 @@ public class ModTiles
 		GameRegistry.registerTileEntity(TESpellTable.class, id + "spelltable");
 		GameRegistry.registerTileEntity(TETransCircle.class, id + "transcircle");
 		GameRegistry.registerTileEntity(TESoulAltar.class, id + "soulaltar");
-		GameRegistry.registerTileEntity(TEArmoury.class, id + "armoury");
 		GameRegistry.registerTileEntity(TEModificationAnvil.class, id + "modanvil");
 		GameRegistry.registerTileEntity(TEVoider.class, id + "voider");
 		GameRegistry.registerTileEntity(TEAGraviter.class, id + "agraviter");

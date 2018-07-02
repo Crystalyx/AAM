@@ -140,7 +140,7 @@ item.aam.soulgem1.name=Blood Gem
 item.aam.soulgem2.name=Moon Stone
 item.aam.soulupg1.name=Cast Upgrade
 item.aam.soulupg0.name=Blood Upgrade
-item.aam.soulupg3.name=Moon Upgrade
+item.aam.soulupg2.name=Moon Upgrade
 
 tile.aam.struct.name=Structure Block
 

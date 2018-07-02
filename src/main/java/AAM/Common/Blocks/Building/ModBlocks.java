@@ -5,7 +5,6 @@ import AAM.Common.Blocks.Circles.BloodBlock;
 import AAM.Common.Blocks.Circles.CircleBase;
 import AAM.Common.Blocks.Circles.MechanicalBase;
 import AAM.Common.Blocks.Circles.TransCircle;
-import AAM.Common.Blocks.Mechanical.Armoury;
 import AAM.Common.Blocks.Mechanical.BlockTeleporter;
 import AAM.Common.Blocks.Mechanical.Cauldron;
 import AAM.Common.Blocks.Mechanical.CreativeCauldron;
@@ -95,7 +94,6 @@ public class ModBlocks
 
 	// =======================Soul==========================
 	public static Block SoulAltar = new SoulAltar().setBlockName(modid + "soulaltar");
-	public static Block Armoury = new Armoury().setBlockName(modid + "armoury");
 	public static Block crystal = new CrystalBlock().setBlockName(modid + "crystal");
 	public static Block PHBlock = new URBlock().setBlockName(modid + "placeholder");
 	public static Block pillar = new PillarBlock().setBlockName(modid + "pillar");
@@ -151,7 +149,6 @@ public class ModBlocks
 
 		// =======================Soul==========================
 		registerBlock(SoulAltar, soul);
-		registerBlock(Armoury, soul);
 		registerBlock(PHBlock);
 		registerBlock(altar_base, soul);
 		registerBlock(altar_based_stairs, soul);

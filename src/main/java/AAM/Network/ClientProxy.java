@@ -1,12 +1,9 @@
 package AAM.Network;
 
-import AAM.Client.Gui.GuiArmoury;
-import AAM.Client.Gui.GuiInspectionTerm;
 import AAM.Client.Gui.GuiParty;
 import AAM.Client.Gui.GuiSoulAltar;
 import AAM.Client.Gui.GuiSpellTable;
 import AAM.Client.Gui.SkillsGui;
-import AAM.Client.Renderer.Block.ArmouryItemRenderer;
 import AAM.Client.Renderer.Block.BloodAltarRenderer;
 import AAM.Client.Renderer.Block.BushRenderer;
 import AAM.Client.Renderer.Block.BushSproutRenderer;
@@ -27,7 +24,6 @@ import AAM.Client.Renderer.Entity.GolemRenderer;
 import AAM.Client.Renderer.Entity.SoulChargeRenderer;
 import AAM.Client.Renderer.Entity.SubwerRenderer;
 import AAM.Client.Renderer.Entity.WastelandRenderer;
-import AAM.Client.Renderer.Tile.ArmouryRenderer;
 import AAM.Client.Renderer.Tile.CauldronRenderer;
 import AAM.Client.Renderer.Tile.CreativeCauldronRenderer;
 import AAM.Client.Renderer.Tile.CrystalRenderer;
@@ -36,8 +32,6 @@ import AAM.Client.Renderer.Tile.SoulAltarRenderer;
 import AAM.Client.Renderer.Tile.SpellTableRenderer;
 import AAM.Client.Renderer.Tile.TeleporterRenderer;
 import AAM.Client.Renderer.Tile.TransCircleRenderer;
-import AAM.Common.Container.ContainerArmoury;
-import AAM.Common.Container.ContainerInspectionTerm;
 import AAM.Common.Container.SoulAltarContainer;
 import AAM.Common.Container.SpellTableContainer;
 import AAM.Common.Entity.SoulCharge;
@@ -47,8 +41,6 @@ import AAM.Common.Entity.Elemental.EntityBloodball;
 import AAM.Common.Entity.Elemental.Subwer;
 import AAM.Common.Entity.Elemental.WastelandCreature;
 import AAM.Common.Entity.Golem.GolemBoss;
-import AAM.Common.Tiles.MultiInventory;
-import AAM.Common.Tiles.TEArmoury;
 import AAM.Common.Tiles.TECauldron;
 import AAM.Common.Tiles.TECreativeCauldron;
 import AAM.Common.Tiles.TECrystal;
@@ -77,10 +69,6 @@ public class ClientProxy extends CommonProxy
 			return new GuiSpellTable(new SpellTableContainer(p.inventory, (TESpellTable) w.getTileEntity(x, y, z)));
 		case (1):
 			return new GuiSoulAltar(new SoulAltarContainer(p.inventory, (TESoulAltar) w.getTileEntity(x, y, z)));
-		case (2):
-			return new GuiArmoury(new ContainerArmoury(p.inventory, (TEArmoury) w.getTileEntity(x, y, z)));
-		case (3):
-			return new GuiInspectionTerm(new ContainerInspectionTerm(p.inventory, (MultiInventory) w.getTileEntity(x, y, z)));
 		}
 		return null;
 
@@ -116,7 +104,8 @@ public class ClientProxy extends CommonProxy
 		// 128
 		RenderingRegistry.registerBlockHandler(new SpellTableItemRenderer());
 		// 129
-		RenderingRegistry.registerBlockHandler(new ArmouryItemRenderer());
+		getNextRenderId();
+		// RenderingRegistry.registerBlockHandler(new ArmouryItemRenderer());
 		// 130
 		RenderingRegistry.registerBlockHandler(new UnrenderableBlock());
 		// 131
@@ -143,7 +132,6 @@ public class ClientProxy extends CommonProxy
 
 		ClientRegistry.bindTileEntitySpecialRenderer(TETransCircle.class, new TransCircleRenderer());
 		ClientRegistry.bindTileEntitySpecialRenderer(TESoulAltar.class, new SoulAltarRenderer());
-		ClientRegistry.bindTileEntitySpecialRenderer(TEArmoury.class, new ArmouryRenderer());
 		ClientRegistry.bindTileEntitySpecialRenderer(TECrystal.class, new CrystalRenderer());
 		ClientRegistry.bindTileEntitySpecialRenderer(TEGraviter.class, new AAM.Client.Renderer.Tile.GraviterRender());
 		ClientRegistry.bindTileEntitySpecialRenderer(TETeleporter.class, new TeleporterRenderer());

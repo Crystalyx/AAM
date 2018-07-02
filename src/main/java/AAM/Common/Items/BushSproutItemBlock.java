@@ -40,7 +40,7 @@ public class BushSproutItemBlock extends ItemBlock
 	{
 		icons[0] = ir.registerIcon("aam:seeds_blackberry");
 		icons[1] = ir.registerIcon("aam:seeds_blueberry");
-		icons[2] = ir.registerIcon("aam:seeds_mortis");
+		icons[2] = ir.registerIcon("aam:seeds_mortisberry");
 		icons[3] = ir.registerIcon("aam:seeds_raspberry");
 	}
 

@@ -151,7 +151,7 @@ public class BerryBush extends Block implements IGrowable
 			}
 		}
 
-		if (MiscUtils.randWPercent(40))
+		if (MiscUtils.randWPercent(20))
 		{
 			Wec3 sp = Wec3.random(5, 5, 5);
 			sp = sp.add(new Wec3(x, y, z));
@@ -188,7 +188,7 @@ public class BerryBush extends Block implements IGrowable
 				grow(w, r, x, y, z);
 			}
 		}
-		if (MiscUtils.randWPercent(40))
+		if (MiscUtils.randWPercent(20))
 		{
 			Wec3 sp = Wec3.random(5, 5, 5);
 			sp = sp.add(new Wec3(x, y, z));

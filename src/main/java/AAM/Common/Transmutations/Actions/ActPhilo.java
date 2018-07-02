@@ -76,10 +76,21 @@ public class ActPhilo extends TransAction
 
 			if (l.isEmpty() && te.energy > 0)
 			{
-				ItemStack isk = new ItemStack(ModItems.PhilosophersStone);
-				((PhilosophersStone) isk.getItem()).chargeBypass(isk, te.energy);
-				te.clearEnergy();
-				te.is = isk;
+				if (te.is == null)
+				{
+					ItemStack isk = new ItemStack(ModItems.PhilosophersStone);
+					((PhilosophersStone) isk.getItem()).chargeBypass(isk, te.energy);
+					te.clearEnergy();
+					te.is = isk;
+				}
+				else
+				{
+					if (te.is.getItem() == ModItems.PhilosophersStone)
+					{
+						((PhilosophersStone) te.is.getItem()).chargeBypass(te.is, te.energy);
+						te.clearEnergy();
+					}
+				}
 			}
 			if (l.isEmpty())
 				return false;

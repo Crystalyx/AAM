@@ -31,7 +31,6 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.EnumCreatureAttribute;
 import net.minecraft.entity.item.EntityItem;
-import net.minecraft.entity.monster.EntityMob;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.potion.Potion;
@@ -218,42 +217,38 @@ public class SoulEvent
 				{
 					if (is.hasTagCompound())
 					{
-						if (ph.bloodUpg != 0 && e.target instanceof EntityLivingBase)
-						{
-							EntityLivingBase l = (EntityLivingBase) e.target;
-
-							double f = Math.rint(l.getMaxHealth() * 100) / 100;
-
-							float regen = (float) (f * 0.1F * ph.bloodUpg);
-							ep.heal(regen);
-						}
-						if (ph.moonUpg != 0 && e.target instanceof EntityLivingBase)
-						{
-							EntityLivingBase l = (EntityLivingBase) e.target;
-
-							double f = Math.rint(l.getMaxHealth() * 100) / 100;
-							float dmg = ph.soulDamage * (25 + 4 * (ph.soulLevel - 1) * ph.player.worldObj.getCurrentMoonPhaseFactor()) / 100f;
-							e.target.attackEntityFrom(new SoulDamageSource(ph).causePlayerDamage(ph.player), dmg);
-						}
-						e.target.attackEntityFrom(new SoulDamageSource(ph).causePlayerDamage(ph.player), ph.soulDamage);
-
+						SoulDamageSource src = new SoulDamageSource(ph);
+						float dmg = ph.soulDamage;
 						if (e.target instanceof EntityLivingBase)
 						{
 							EntityLivingBase l = (EntityLivingBase) e.target;
 
-							if (l instanceof EntityMob && ph.stype.equals(Soul.Light))
+							if (ph.bloodUpg != 0)
 							{
-								l.attackEntityFrom(new SoulDamageSource(ph).causePlayerDamage(ph.player), ph.soulDamage * (20 + 2 * (ph.soulLevel - 1)) / 100f);
+
+								double f = Math.rint(l.getMaxHealth() * 100) / 100;
+
+								float regen = (float) (f * 0.1F * ph.bloodUpg);
+								ep.heal(regen);
+							}
+							if (ph.moonUpg != 0)
+							{
+								double f = Math.rint(l.getMaxHealth() * 100f) / 100f;
+								dmg += ph.soulDamage * (25f + ph.moonUpg * 4 * (ph.soulLevel - 1) * ph.player.worldObj.getCurrentMoonPhaseFactor()) / 100f;
+							}
+							if (ph.stype.equals(Soul.Light))
+							{
+								dmg += ph.soulDamage * (20f + 2 * (ph.soulLevel - 1)) / 100f;
 								if (l.getCreatureAttribute().equals(EnumCreatureAttribute.UNDEAD))
 								{
-									l.attackEntityFrom(new SoulDamageSource(ph).causePlayerDamage(ph.player), ph.soulDamage * (15 + 2 * (ph.soulLevel - 1)) / 100f);
+									dmg += ph.soulDamage * (15f + 2 * (ph.soulLevel - 1)) / 100f;
 								}
 							}
-							if (l instanceof EntityMob && ph.stype.equals(Soul.Normal))
+							if (ph.stype.equals(Soul.Normal))
 							{
 								if (l.getCreatureAttribute().equals(EnumCreatureAttribute.UNDEFINED))
 								{
-									l.attackEntityFrom(new SoulDamageSource(ph).causePlayerDamage(ph.player), ph.soulDamage * (35 + 2 * (ph.soulLevel - 1)) / 100f);
+									dmg += ph.soulDamage * (35f + 2 * (ph.soulLevel - 1)) / 100f;
 								}
 							}
 
@@ -261,28 +256,28 @@ public class SoulEvent
 							{
 								if (ph.consumeSoul(1))
 								{
-									l.attackEntityFrom(new SoulDamageSource(ph).causePlayerDamage(ph.player), ph.soulDamage * (25 + 2 * (ph.soulLevel - 1)) / 100f);
+									dmg += ph.soulDamage * (25f + 2 * (ph.soulLevel - 1)) / 100f;
 									if (l instanceof EntityPlayer)
 									{
-										l.attackEntityFrom(new SoulDamageSource(ph).causePlayerDamage(ph.player), ph.soulDamage * (25 + 2 * (ph.soulLevel - 1)) / 100f);
+										dmg += ph.soulDamage * (25f + 2 * (ph.soulLevel - 1)) / 100f;
 									}
 								}
 							}
 							if (ph.stype.equals(Soul.Lunar))
 							{
-								l.attackEntityFrom(new SoulDamageSource(ph).causePlayerDamage(ph.player), ph.soulDamage * (15 + 2 * (ph.soulLevel - 1)) / 100f);
-								l.attackEntityFrom(new SoulDamageSource(ph).causePlayerDamage(ph.player), ph.soulDamage * (25 + 4 * (ph.soulLevel - 1) * ph.player.worldObj.getCurrentMoonPhaseFactor()) / 100f);
+								dmg += ph.soulDamage * (40f + (ph.soulLevel - 1) * (2 + 4 * ph.player.worldObj.getCurrentMoonPhaseFactor())) / 100f;
 							}
 							if (ph.stype.equals(Soul.Plant))
 							{
-								l.attackEntityFrom(new SoulDamageSource(ph).causePlayerDamage(ph.player), ph.soulDamage * (15 + 2 * (ph.soulLevel - 1)) / 100f);
+								dmg += ph.soulDamage * (15f + 2 * (ph.soulLevel - 1)) / 100f;
 								if (MiscUtils.randWPercent(25 + 2 * (ph.soulLevel - 1)))
 									l.addPotionEffect(new PotionEffect(Potion.poison.id, 150, 2));
 							}
+							e.target.attackEntityFrom(src, dmg);
 						}
 						else
 						{
-							e.target.attackEntityFrom(new SoulDamageSource(ph).causePlayerDamage(ph.player), 5.0F);
+							e.target.attackEntityFrom(src, 5.0F);
 						}
 					}
 					Random r = new Random();
@@ -380,12 +375,12 @@ public class SoulEvent
 	{
 		if (e.source.damageType == SoulDamageSource.id)
 		{
-			((SoulDamageSource) e.source).ph.soulxp += (e.entityLiving.getMaxHealth() - (e.entityLiving.getMaxHealth() / ((SoulDamageSource) e.source).ph.soulLevel));
-			((SoulDamageSource) e.source).ph.soulxp = Math.rint(((SoulDamageSource) e.source).ph.soulxp * 100) / 100;
+			PlayerDataHandler ph = ((SoulDamageSource) e.source).ph;
+			ph.soulxp += (int) (e.entityLiving.getMaxHealth() - (e.entityLiving.getMaxHealth() / (ph.soulLevel + 1)));
 			if (!e.entityLiving.worldObj.isRemote)
 			{
-				PlayerSyncMessage psm = new PlayerSyncMessage(((SoulDamageSource) e.source).ph.player);
-				AlchemicalDispatcher.sendToClient(psm, ((SoulDamageSource) e.source).ph.player);
+				PlayerSyncMessage psm = new PlayerSyncMessage(ph.player);
+				AlchemicalDispatcher.sendToClient(psm, ph.player);
 			}
 		}
 	}

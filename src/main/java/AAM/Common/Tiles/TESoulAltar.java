@@ -24,7 +24,7 @@ import net.minecraft.network.play.server.S35PacketUpdateTileEntity;
 
 public class TESoulAltar extends StructureCore implements IInventory
 {
-	public ItemStack[] inv = new ItemStack[11];
+	public ItemStack[] inv = new ItemStack[12];
 	public int value = 0;
 	public int maxValue = 1000;
 
@@ -279,6 +279,7 @@ public class TESoulAltar extends StructureCore implements IInventory
 				}
 			}
 		}
+		this.markDirty();
 	}
 
 	@Override
