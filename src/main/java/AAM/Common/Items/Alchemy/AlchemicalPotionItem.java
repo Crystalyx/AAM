@@ -97,9 +97,8 @@ public class AlchemicalPotionItem extends ItemFood
 	@SideOnly(Side.CLIENT)
 	public void registerIcons(IIconRegister ir)
 	{
-		String wp = "aam:potions/";
-		icon[0] = ir.registerIcon("aam:emptyphial");
-		icon[1] = ir.registerIcon(wp + "potionoffset");
+		icon[0] = ir.registerIcon("aam:potions/emptyphial");
+		icon[1] = ir.registerIcon("aam:potions/potionoffset");
 	}
 
 	/**

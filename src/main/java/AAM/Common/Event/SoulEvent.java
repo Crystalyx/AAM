@@ -40,6 +40,7 @@ import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.util.MovingObjectPosition.MovingObjectType;
 import net.minecraft.world.World;
 import net.minecraftforge.event.entity.living.LivingDeathEvent;
+import net.minecraftforge.event.entity.living.LivingDropsEvent;
 import net.minecraftforge.event.entity.living.LivingEvent.LivingUpdateEvent;
 import net.minecraftforge.event.entity.living.LivingHurtEvent;
 import net.minecraftforge.event.entity.player.AttackEntityEvent;
@@ -123,7 +124,7 @@ public class SoulEvent
 						{
 							if (ph.bow && MiscUtils.randWPercent(40 + ph.castUpg * 5 + 60))
 							{
-								if (ph.consumeSoul(1) && !p.worldObj.isRemote)
+								if (ph.consumeSoul(ph.soulLevel) && !p.worldObj.isRemote)
 								{
 									SoulCharge s = new SoulCharge(p.worldObj, p);
 									double sp = 0.5;
@@ -401,4 +402,10 @@ public class SoulEvent
 		}
 
 	}
+
+	@SubscribeEvent(priority = EventPriority.HIGHEST)
+	public void harvestDrops(LivingDropsEvent event)
+	{
+	}
+
 }

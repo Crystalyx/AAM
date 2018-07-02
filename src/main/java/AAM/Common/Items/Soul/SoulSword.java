@@ -51,7 +51,7 @@ public class SoulSword extends ItemSword
 	}
 
 	@Override
-	public boolean doesContainerItemLeaveCraftingGrid(ItemStack p_77630_1_)
+	public boolean doesContainerItemLeaveCraftingGrid(ItemStack is)
 	{
 		return false;
 	}

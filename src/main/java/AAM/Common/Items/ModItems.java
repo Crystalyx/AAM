@@ -2,6 +2,7 @@ package AAM.Common.Items;
 
 import AAM.Common.Blocks.Building.ModBlocks;
 import AAM.Common.Items.Alchemy.AlchPaper;
+import AAM.Common.Items.Alchemy.AlchemicalConcentrateItem;
 import AAM.Common.Items.Alchemy.AlchemicalPotionItem;
 import AAM.Common.Items.Alchemy.BloodBucket;
 import AAM.Common.Items.Alchemy.ChalkPattern;
@@ -98,6 +99,9 @@ public class ModItems
 	public static Item PhilosophersStone = new PhilosophersStone().setUnlocalizedName(idn + "philostone");
 	public static Item BloodBucket = new BloodBucket().setUnlocalizedName(idn + "bloodbucket");
 	public static Item SilverClock = new SilverClock();
+	public static Item smallConcentrate = new AlchemicalConcentrateItem(0).setUnlocalizedName(idn + "alchconcentrate0");
+	public static Item mediumConcentrate = new AlchemicalConcentrateItem(1).setUnlocalizedName(idn + "alchconcentrate1");
+	public static Item bigConcentrate = new AlchemicalConcentrateItem(2).setUnlocalizedName(idn + "alchconcentrate2");
 
 	public static void load()
 	{
@@ -143,6 +147,9 @@ public class ModItems
 		registerItem(BloodBucket, alchemy);
 		registerItem(LinkObol, alchemy);
 		registerItem(SilverClock, alchemy);
+		registerItem(smallConcentrate, alchemy);
+		registerItem(mediumConcentrate, alchemy);
+		registerItem(bigConcentrate, alchemy);
 
 		// =======================Soul===========================
 		registerItem(Shield, soul);
@@ -150,7 +157,7 @@ public class ModItems
 		materials.addMaterial("atrillium_ingot");
 		materials.addMaterial("brass_ingot");
 		materials.addMaterial("altersteel_ingot");
-		materials.addMaterial("emptyphial");
+		materials.addMaterial("potions/emptyphial");
 		materials.addMaterial("atrillium_scale");
 		materials.addMaterial("brass_scale");
 		materials.addMaterial("altersteel_scale");

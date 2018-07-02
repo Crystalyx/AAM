@@ -281,6 +281,7 @@ public class PlayerDataHandler implements IExtendedEntityProperties
 	 */
 	public void onUpdate()
 	{
+		this.soulTag.removeTag("ench");
 		this.maxSoul = this.soulLevel * 100;
 		this.soulDamage = Math.max(this.soulLevel + 4, this.soulDamage);
 		// checking levelup (maxSoul is needed xp)
@@ -383,7 +384,7 @@ public class PlayerDataHandler implements IExtendedEntityProperties
 		{
 			--soulRegenTimer;
 			int l = 0;
-			if (this.player.isBlocking())
+			if (this.player.isBlocking() && !this.bow)
 			{
 				soulRegenTimer -= 6;
 				l += 1;
@@ -401,7 +402,7 @@ public class PlayerDataHandler implements IExtendedEntityProperties
 		}
 		if (soulRegenTimer <= 0)
 		{
-			soulRegenTimer = getCurrentSoul() < getMaxSoul() ? 20 : 0;
+			soulRegenTimer = getCurrentSoul() < getMaxSoul() ? 40 - 30 / this.soulLevel : 0;
 			return true;
 		}
 
@@ -487,7 +488,7 @@ public class PlayerDataHandler implements IExtendedEntityProperties
 		this.soulTag.setString("Owner", this.player.getGameProfile().getName());
 		ItemStack sword = new ItemStack(ModItems.SoulSword, 1, meta);
 		sword.setTagCompound(PlayerDataHandler.get(this.player).soulTag);
-		return sword;
+		return sword.copy();
 	}
 
 }

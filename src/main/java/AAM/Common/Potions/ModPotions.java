@@ -6,12 +6,17 @@ import java.util.List;
 import AAM.Core.AAMConfig;
 import AAM.Core.AAMCore;
 import AAM.Utils.Color;
+import AAM.Utils.PlayerDataHandler;
 import DummyCore.Utils.MiscUtils;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.potion.Potion;
+import net.minecraft.world.World;
 
 public class ModPotions
 {
 	public static AlchemicalPotion[] pots = new AlchemicalPotion[0];
+	public static List<Concentrate> concentrates = new ArrayList<Concentrate>();
+
 	private static int lastId;
 
 	public static Potion heal;
@@ -49,12 +54,38 @@ public class ModPotions
 		addPotion(200, "Poison", new Color(130, 210, 10), Ingridients.spider_eye, Ingridients.spider_eye, Ingridients.fermented_spider_eye, Ingridients.shadowveil, Ingridients.poisonous_potato);
 		addPotion(200, "Soul", new Color(65, 42, 167), Ingridients.apple, Ingridients.blackberry, Ingridients.blackberry, Ingridients.diamond, Ingridients.ender_pearl, Ingridients.shroom, Ingridients.shadowveil);
 
+		ConcentrAction act = new ConcentrAction()
+		{
+			@Override
+			public void act(World w, EntityPlayer p, int level, int size)
+			{
+				p.heal(5F * (size * 2 + level * 1.5f));
+			}
+		};
+		addConcentrate("Heal", new Color(239, 0, 0), act, pots[0]);
+
+		act = new ConcentrAction()
+		{
+			@Override
+			public void act(World w, EntityPlayer p, int level, int size)
+			{
+				PlayerDataHandler ph = PlayerDataHandler.get(p);
+				ph.addSoul((int) ((size * 5 + level * 1.5f + 1) * 40));
+			}
+		};
+		addConcentrate("Soul", new Color(65, 42, 167), act, pots[8]);
+
 		// TODO 3 potions
 	}
 
 	public static Ingridient get(int id)
 	{
 		return Ingridients.get(id);
+	}
+
+	public static void addConcentrate(String name, Color color, ConcentrAction act, AlchemicalPotion potion)
+	{
+		concentrates.add(new Concentrate(name, color, act, potion));
 	}
 
 	public static void addPotion(int duration, String name, Color color, int... ings)

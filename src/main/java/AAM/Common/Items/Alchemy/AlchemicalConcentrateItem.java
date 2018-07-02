@@ -2,9 +2,8 @@ package AAM.Common.Items.Alchemy;
 
 import java.util.List;
 
-import AAM.Common.Potions.AlchemicalPotion;
+import AAM.Common.Potions.Concentrate;
 import AAM.Common.Potions.ModPotions;
-import AAM.Core.AAMCore;
 import AAM.Utils.MiscUtils;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
@@ -17,17 +16,19 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemFood;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.IIcon;
 import net.minecraft.world.World;
 
 public class AlchemicalConcentrateItem extends ItemFood
 {
-	public AlchemicalConcentrateItem()
+	public int size = 1;
+
+	public AlchemicalConcentrateItem(int size)
 	{
 		super(0, 0, false);
 		this.setAlwaysEdible();
 		this.setHasSubtypes(true);
+		this.size = size;
 	}
 
 	@Override
@@ -35,27 +36,9 @@ public class AlchemicalConcentrateItem extends ItemFood
 	{
 		if (i.hasTagCompound())
 		{
-			int id = i.getTagCompound().getInteger("PotionID");
-			if (id < ModPotions.pots.length)
-			{
-				PotionEffect eff = new PotionEffect(AAMCore.cfg.genericPID + id, i.getTagCompound().getInteger("PotionDur") * 20, i.getTagCompound().getInteger("PotionAmpl"));
-				p.addPotionEffect(eff);
-				ItemStack item = new ItemStack(i.getItem(), i.stackSize - 1);
-				item.setTagCompound(i.getTagCompound());
-				return item;
-			}
-			else
-			{
-				if (id >= ModPotions.pots.length)
-				{
-					PotionEffect eff = new PotionEffect(id, i.getTagCompound().getInteger("PotionDur"), i.getTagCompound().getInteger("PotionAmpl"));
-					p.addPotionEffect(eff);
-					ItemStack item = new ItemStack(i.getItem(), i.stackSize - 1);
-					item.setTagCompound(i.getTagCompound());
-					return item;
-				}
-			}
-
+			int level = i.getTagCompound().getInteger("potionLevel");
+			ModPotions.concentrates.get(i.getItemDamage()).action.act(w, p, level, size);
+			MiscUtils.decrPlayerStack(p, 1);
 		}
 		return i;
 	}
@@ -65,8 +48,7 @@ public class AlchemicalConcentrateItem extends ItemFood
 	{
 		if (i.hasTagCompound())
 		{
-			l.add("Duration: " + i.getTagCompound().getInteger("PotionDur"));
-			l.add("Power: " + (i.getTagCompound().getInteger("PotionAmpl") + 1));
+			l.add("Level: " + i.getTagCompound().getInteger("potionLevel"));
 		}
 	}
 
@@ -91,15 +73,16 @@ public class AlchemicalConcentrateItem extends ItemFood
 		return is;
 	}
 
-	public static IIcon[] icon = new IIcon[2];
+	public static final String[] sizes = new String[] { "small", "medium", "big" };
+	public IIcon[] icon = new IIcon[2];
 
 	@Override
 	@SideOnly(Side.CLIENT)
 	public void registerIcons(IIconRegister ir)
 	{
 		String wp = "aam:potions/";
-		icon[0] = ir.registerIcon("aam:emptyphial");
-		icon[1] = ir.registerIcon(wp + "potionoffset");
+		icon[0] = ir.registerIcon(wp + sizes[this.size] + "_concentrate");
+		icon[1] = ir.registerIcon(wp + sizes[this.size] + "_concentrate_offset");
 	}
 
 	/**
@@ -112,12 +95,11 @@ public class AlchemicalConcentrateItem extends ItemFood
 	{
 		if (i.hasTagCompound())
 		{
-			int id = i.getTagCompound().getInteger("PotionID");
-			String name = ModPotions.pots[id].name;
-			return "aam.alchpotion." + name;
+			String name = ModPotions.concentrates.get(i.getItemDamage()).name;
+			return "aam.alchconcentrate." + name + this.size;
 		}
 		else
-			return "aam.alchpotion.null";
+			return "aam.alchconcentrate.null" + this.size;
 	}
 
 	@Override
@@ -151,12 +133,17 @@ public class AlchemicalConcentrateItem extends ItemFood
 		{
 			if (is.hasTagCompound())
 			{
-				int beta = is.getTagCompound().getInteger("PotionID");
-				AlchemicalPotion spell = ModPotions.pots[Math.min(beta, ModPotions.pots.length - 1)];
-				return MiscUtils.rgbToHex(spell.col.red, spell.col.green, spell.col.blue);
+				Concentrate conc = ModPotions.concentrates.get(is.getItemDamage());
+				return MiscUtils.rgbToHex(conc.color.red, conc.color.green, conc.color.blue);
 			}
 		}
 		return 16777215;
+	}
+
+	@Override
+	public int getMaxItemUseDuration(ItemStack is)
+	{
+		return 4 + this.size * 8;
 	}
 
 	/**
@@ -167,13 +154,11 @@ public class AlchemicalConcentrateItem extends ItemFood
 	@SideOnly(Side.CLIENT)
 	public void getSubItems(Item is, CreativeTabs tab, List l)
 	{
-		for (int i = 0; i < ModPotions.pots.length; i++)
+		for (int i = 0; i < ModPotions.concentrates.size(); i++)
 		{
 			NBTTagCompound tag = new NBTTagCompound();
-			tag.setInteger("PotionID", ModPotions.pots[i].id);
-			tag.setInteger("PotionDur", ModPotions.pots[i].duration);
-			tag.setInteger("PotionAmpl", 0);
-			ItemStack item = new ItemStack(is, 1, 0);
+			tag.setInteger("potionLevel", 1);
+			ItemStack item = new ItemStack(is, 1, i);
 			item.setTagCompound(tag);
 			l.add(item);
 		}
