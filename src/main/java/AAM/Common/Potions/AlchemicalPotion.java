@@ -6,9 +6,9 @@ import AAM.Utils.Color;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.potion.PotionEffect;
 
-public class AlchemPotion
+public class AlchemicalPotion
 {
-	public AlchemPotion(int pot, int duration, int id, List<Ingridient> ingrs, String name, Color col)
+	public AlchemicalPotion(int pot, int duration, int id, List<Ingridient> ingrs, String name, Color col)
 	{
 		this.potion = pot;
 		this.duration = duration;

@@ -217,7 +217,7 @@ public class TECauldron extends TileEntity
 	public boolean isBurning = false;
 	public int burnTime = 0;
 	public FluidStack fluid = new FluidStack(FluidRegistry.WATER, 0);
-	public Color color = new Color(0, 123, 254);
+	public Color color = new Color(0, 136, 254);
 	public List<Ingridient> ingrs = new ArrayList<Ingridient>();
 	public int lastid = 0;
 

@@ -1,5 +1,7 @@
 package AAM.Client.Model;
 
+import org.lwjgl.opengl.GL11;
+
 import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.model.ModelRenderer;
 import net.minecraft.entity.Entity;
@@ -89,10 +91,13 @@ public class Subwer extends ModelBase
 	@Override
 	public void render(Entity entity, float f, float f1, float f2, float f3, float f4, float f5)
 	{
+		GL11.glPushMatrix();
+		GL11.glTranslated(0, 0.75, -0.5);
 		this.wing1right.render(f5);
 		this.head.render(f5);
 		this.wing1left.render(f5);
 		this.body2.render(f5);
+		GL11.glPopMatrix();
 	}
 
 	/**

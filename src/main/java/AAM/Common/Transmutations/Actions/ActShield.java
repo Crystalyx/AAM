@@ -18,7 +18,7 @@ public class ActShield extends TransAction
 	@Override
 	public void act(World w, Wec3 tile, TETransCircle te, EntityPlayer p, double potency, ForgeDirection dir)
 	{
-		p.setAbsorptionAmount(15f);
+		p.setAbsorptionAmount((float) (10f + 5 * potency));
 	}
 
 }

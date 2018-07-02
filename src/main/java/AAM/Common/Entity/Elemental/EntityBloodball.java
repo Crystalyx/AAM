@@ -37,28 +37,28 @@ public class EntityBloodball extends EntityThrowable
 		super(w, x, y, z);
 	}
 
-	public EntityBloodball(World p_i1755_1_, EntityLivingBase p_i1755_2_, EntityLivingBase p_i1755_3_, float p_i1755_4_, float p_i1755_5_)
+	public EntityBloodball(World p_i1755_1_, EntityLivingBase archer, EntityLivingBase p_i1755_3_, float p_i1755_4_, float p_i1755_5_)
 	{
 		super(p_i1755_1_);
 		this.renderDistanceWeight = 10.0D;
-		this.shootingEntity = p_i1755_2_;
+		this.shootingEntity = archer;
 
-		this.posY = p_i1755_2_.posY + (double) p_i1755_2_.getEyeHeight() - 0.10000000149011612D;
-		double d0 = p_i1755_3_.posX - p_i1755_2_.posX;
-		double d1 = p_i1755_3_.boundingBox.minY + (double) (p_i1755_3_.height / 3.0F) - this.posY - 1;
-		double d2 = p_i1755_3_.posZ - p_i1755_2_.posZ;
-		double d3 = (double) MathHelper.sqrt_double(d0 * d0 + d2 * d2);
+		this.posY = archer.posY + archer.getEyeHeight() - 0.10000000149011612D;
+		double d0 = p_i1755_3_.posX - archer.posX;
+		double d1 = p_i1755_3_.boundingBox.minY + p_i1755_3_.height / 3.0F - this.posY - 2;
+		double d2 = p_i1755_3_.posZ - archer.posZ;
+		double d3 = MathHelper.sqrt_double(d0 * d0 + d2 * d2);
 
 		if (d3 >= 1.0E-7D)
 		{
 			float f2 = (float) (Math.atan2(d2, d0) * 180.0D / Math.PI) - 90.0F;
 			float f3 = (float) (-(Math.atan2(d1, d3) * 180.0D / Math.PI));
-			double d4 = d0 / d3;
-			double d5 = d2 / d3;
-			this.setLocationAndAngles(p_i1755_2_.posX + d4, this.posY, p_i1755_2_.posZ + d5, f2, f3);
+			double d4 = 2 * d0 / d3;
+			double d5 = 2 * d2 / d3;
+			this.setLocationAndAngles(archer.posX + d4, this.posY, archer.posZ + d5, f2, f3);
 			this.yOffset = 0.0F;
 			float f4 = (float) d3 * 0.2F;
-			this.setThrowableHeading(d0, d1 + (double) f4, d2, p_i1755_4_, p_i1755_5_);
+			this.setThrowableHeading(d0, d1 + f4, d2, p_i1755_4_, p_i1755_5_);
 		}
 	}
 

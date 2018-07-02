@@ -2,13 +2,10 @@ package AAM.Client.Gui;
 
 import AAM.Client.Gui.Base.GuiBar;
 import AAM.Client.Gui.Base.GuiBase;
-import AAM.Client.Gui.Base.GuiPicture;
 import AAM.Client.Gui.Base.GuiText;
 import AAM.Common.Container.SoulAltarContainer;
 import AAM.Common.Items.Soul.SoulSword;
 import AAM.Common.Tiles.TESoulAltar;
-import AAM.Utils.PlayerDataHandler;
-import net.minecraft.client.Minecraft;
 import net.minecraft.item.ItemStack;
 
 public class GuiSoulAltar extends GuiBase
@@ -30,9 +27,10 @@ public class GuiSoulAltar extends GuiBase
 
 		boolean b = ((TESoulAltar) this.cont.tile).formed && this.cont.tile.getStackInSlot(0) != null && this.cont.tile.getStackInSlot(0).getItem() instanceof SoulSword;
 
-		for (int i = 4; i < 13; i++)
+		for (int i = 4; i < 16; i++)
 		{
-			this.cont.objs.get(i).setHidden(!b);
+			if (i != 13)
+				this.cont.objs.get(i).setHidden(!b);
 		}
 		this.cont.objs.get(14).setHidden(!b);
 		ItemStack is = this.cont.tile.getStackInSlot(0);

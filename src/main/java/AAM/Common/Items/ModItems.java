@@ -2,7 +2,7 @@ package AAM.Common.Items;
 
 import AAM.Common.Blocks.Building.ModBlocks;
 import AAM.Common.Items.Alchemy.AlchPaper;
-import AAM.Common.Items.Alchemy.AlchPotion;
+import AAM.Common.Items.Alchemy.AlchemicalPotionItem;
 import AAM.Common.Items.Alchemy.BloodBucket;
 import AAM.Common.Items.Alchemy.ChalkPattern;
 import AAM.Common.Items.Alchemy.CircleDust;
@@ -74,7 +74,7 @@ public class ModItems
 	// =======================Potions===========================
 	public static Item Berry = new Berry().setHasSubtypes(true).setUnlocalizedName(idn + "berry");
 	public static Item MortarAndPestle = new MortarAndPestle().setUnlocalizedName(idn + "MortarAndPestle");
-	public static Item Potion = new AlchPotion().setUnlocalizedName(idn + "alchpotion");
+	public static Item Potion = new AlchemicalPotionItem().setUnlocalizedName(idn + "alchpotion");
 
 	// =======================Soul===========================
 	public static Item Artifact = new Artifact().setUnlocalizedName(idn + "artifact");

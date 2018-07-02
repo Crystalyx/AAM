@@ -8,6 +8,7 @@ import AAM.Common.Tiles.TETransCircle;
 import AAM.Common.Transmutations.EnergyType;
 import AAM.Common.Transmutations.ModCircles;
 import AAM.Common.Transmutations.TransAction;
+import AAM.Utils.PlayerDataHandler;
 import AAM.Utils.Wec3;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
@@ -20,6 +21,9 @@ public class ActBlood extends TransAction
 	@Override
 	public boolean actTick(World w, Wec3 tile, TETransCircle te, EntityPlayer p, int time, double potency, ForgeDirection dir)
 	{
+		if (w.getWorldTime() % 2 == 1)
+			if (!PlayerDataHandler.get(p).consumeSoul(1))
+				return false;
 		if ((te.energyType.equals(EnergyType.Unknown) || te.energyType.equals(EnergyType.Blood)))
 		{
 			List<EntityLivingBase> lst = w.getEntitiesWithinAABB(EntityLivingBase.class, tile.centralize().extendBoth(15f, 20f, 15f));
@@ -27,8 +31,6 @@ public class ActBlood extends TransAction
 			for (int i = 0; i < lst.size(); i++)
 			{
 				EntityLivingBase ei = lst.get(i);
-				// if (ei instanceof EntityVillager || (ei instanceof
-				// EntityPlayer && ei != te.alchemist))
 				if (ei != te.alchemist)
 				{
 					l.add(ei);

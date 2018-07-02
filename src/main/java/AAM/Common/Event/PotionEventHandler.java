@@ -3,6 +3,7 @@ package AAM.Common.Event;
 import java.util.Collection;
 
 import AAM.Common.Potions.ModPotions;
+import AAM.Utils.PlayerDataHandler;
 import cpw.mods.fml.common.eventhandler.EventPriority;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import net.minecraft.entity.player.EntityPlayer;
@@ -32,6 +33,13 @@ public class PotionEventHandler
 					p.capabilities.isFlying = false;
 					p.capabilities.allowFlying = false;
 				}
+			}
+			if (p.getActivePotionEffect(ModPotions.soul) != null)
+			{
+				int snk = p.isSneaking() ? 2 : 0;
+				int blk = p.isBlocking() ? 2 : 0;
+				PlayerDataHandler ph = PlayerDataHandler.get(p);
+				ph.addSoul((p.getActivePotionEffect(ModPotions.soul).getAmplifier() + 1) * 2 + snk + blk);
 			}
 		}
 	}

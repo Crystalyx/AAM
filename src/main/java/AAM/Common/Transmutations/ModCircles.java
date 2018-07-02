@@ -9,6 +9,7 @@ import AAM.Common.Transmutations.Actions.ActBarrier;
 import AAM.Common.Transmutations.Actions.ActBlood;
 import AAM.Common.Transmutations.Actions.ActCreateObol;
 import AAM.Common.Transmutations.Actions.ActDark;
+import AAM.Common.Transmutations.Actions.ActDeath;
 import AAM.Common.Transmutations.Actions.ActExplosions;
 import AAM.Common.Transmutations.Actions.ActExtinguish;
 import AAM.Common.Transmutations.Actions.ActFire;
@@ -140,6 +141,7 @@ public class ModCircles
 		addForReversed("void", "C11nC21nT11nT11rS11nS11r", new ActVoid(), new Color(71, 0, 156), new Color(171, 100, 255), "C11n", "C31n");
 
 		addForReversed("growth", "C11nM11rC21n", new ActGrowth(), new Color(40, 255, 60), new Color(140, 255, 160), "C11n", "C21n");
+		addForReversed("death", "C11nM11rC21nT11n", new ActDeath(), new Color(100, 100, 100), new Color(0, 0, 0), "C11n", "C21n");
 
 		addForReversed("shield", "L21nC11nC21n", new ActShield(), new Color(105, 105, 105), new Color(205, 205, 205), "C11n", "C21n");
 

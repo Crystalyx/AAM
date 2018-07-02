@@ -2,7 +2,7 @@ package AAM.Common.Items.Alchemy;
 
 import java.util.List;
 
-import AAM.Common.Potions.AlchemPotion;
+import AAM.Common.Potions.AlchemicalPotion;
 import AAM.Common.Potions.ModPotions;
 import AAM.Core.AAMCore;
 import AAM.Utils.MiscUtils;
@@ -21,9 +21,9 @@ import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.IIcon;
 import net.minecraft.world.World;
 
-public class AlchPotion extends ItemFood
+public class AlchemicalPotionItem extends ItemFood
 {
-	public AlchPotion()
+	public AlchemicalPotionItem()
 	{
 		super(0, 0, false);
 		this.setAlwaysEdible();
@@ -152,7 +152,7 @@ public class AlchPotion extends ItemFood
 			if (is.hasTagCompound())
 			{
 				int beta = is.getTagCompound().getInteger("PotionID");
-				AlchemPotion spell = ModPotions.pots[Math.min(beta, ModPotions.pots.length - 1)];
+				AlchemicalPotion spell = ModPotions.pots[Math.min(beta, ModPotions.pots.length - 1)];
 				return MiscUtils.rgbToHex(spell.col.red, spell.col.green, spell.col.blue);
 			}
 		}

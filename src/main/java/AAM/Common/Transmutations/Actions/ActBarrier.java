@@ -7,6 +7,7 @@ import org.lwjgl.opengl.GL11;
 import AAM.Common.Tiles.TETransCircle;
 import AAM.Common.Transmutations.TransAction;
 import AAM.Utils.MiscUtils;
+import AAM.Utils.PlayerDataHandler;
 import AAM.Utils.Wec3;
 import AAM.Utils.Functions.CylFunction;
 import AAM.Utils.Render.RenderUtils;
@@ -39,6 +40,10 @@ public class ActBarrier extends TransAction
 	@Override
 	public boolean actTick(World w, Wec3 tile, TETransCircle te, EntityPlayer p, int time, double potency, ForgeDirection dir)
 	{
+		PlayerDataHandler ph = PlayerDataHandler.get(p);
+		if (w.getWorldTime() % 20 == 1)
+			if (!ph.consumeSoul((int) Math.sqrt(potency)))
+				return false;
 		tile.centralize();
 		List<Entity> l = w.getEntitiesWithinAABB(Entity.class, tile.extendBoth((float) potency * 2, 6, (float) potency * 2));
 		double r = potency / 1.84;

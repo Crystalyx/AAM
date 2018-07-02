@@ -27,9 +27,10 @@ public class WastelandCreature extends EntityMob
 		this.tasks.addTask(4, new EntityAIAttackOnCollide(this, EntityPlayer.class, 1.2D, false));
 		this.targetTasks.addTask(1, new EntityAIHurtByTarget(this, false));
 		this.targetTasks.addTask(2, new EntityAINearestAttackableTarget(this, EntityPlayer.class, 0, true));
-		this.setSize(0.8F, 1.8F);
+		this.setSize(0.8F, 2F);
 	}
 
+	@Override
 	public void applyEntityAttributes()
 	{
 		super.applyEntityAttributes();
@@ -39,6 +40,7 @@ public class WastelandCreature extends EntityMob
 		this.getEntityAttribute(SharedMonsterAttributes.maxHealth).setBaseValue(40.0D);
 	}
 
+	@Override
 	public void entityInit()
 	{
 		super.entityInit();
@@ -51,6 +53,7 @@ public class WastelandCreature extends EntityMob
 	 * Returns the current armor value as determined by a call to
 	 * InventoryPlayer.getTotalArmorValue
 	 */
+	@Override
 	public int getTotalArmorValue()
 	{
 		// TODO
@@ -67,16 +70,19 @@ public class WastelandCreature extends EntityMob
 	/**
 	 * Returns true if the newer Entity AI code should be run
 	 */
+	@Override
 	protected boolean isAIEnabled()
 	{
 		return true;
 	}
 
+	@Override
 	protected Item getDropItem()
 	{
 		return Items.rotten_flesh;
 	}
 
+	@Override
 	protected void dropRareDrop(int p_70600_1_)
 	{
 		// TODO
@@ -98,6 +104,7 @@ public class WastelandCreature extends EntityMob
 	 * has recently been hit by a player. @param par2 - Level of Looting used to
 	 * kill this mob.
 	 */
+	@Override
 	protected void dropFewItems(boolean p_70628_1_, int p_70628_2_)
 	{
 		int j;
@@ -116,6 +123,7 @@ public class WastelandCreature extends EntityMob
 	/**
 	 * Returns the sound this mob makes while it's alive.
 	 */
+	@Override
 	protected String getLivingSound()
 	{
 		return "mob.skeleton.say";
@@ -124,6 +132,7 @@ public class WastelandCreature extends EntityMob
 	/**
 	 * Returns the sound this mob makes when it is hurt.
 	 */
+	@Override
 	protected String getHurtSound()
 	{
 		return "mob.skeleton.hurt";
@@ -132,11 +141,13 @@ public class WastelandCreature extends EntityMob
 	/**
 	 * Returns the sound this mob makes on death.
 	 */
+	@Override
 	protected String getDeathSound()
 	{
 		return "mob.skeleton.death";
 	}
 
+	@Override
 	protected void func_145780_a(int p_145780_1_, int p_145780_2_, int p_145780_3_, Block p_145780_4_)
 	{
 		this.playSound("mob.skeleton.step", 0.15F, 1.0F);

@@ -1,9 +1,10 @@
 package AAM.Client.Model;
 
+import org.lwjgl.opengl.GL11;
+
 import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.model.ModelRenderer;
 import net.minecraft.entity.Entity;
-import org.lwjgl.opengl.GL11;
 
 /**
  * Alemental guard - Smashe Created using Tabula 4.1.1
@@ -100,7 +101,7 @@ public class ElementalGuard extends ModelBase
 	{
 		GL11.glPushMatrix();
 		GL11.glScaled(4D / modelScale[0], 4D / modelScale[1], 4D / modelScale[2]);
-		GL11.glTranslated(0, -4, 0);
+		GL11.glTranslated(0, -4, 1);
 		this.bodybasecenter.render(f5);
 		this.body.render(f5);
 		this.bot3.render(f5);

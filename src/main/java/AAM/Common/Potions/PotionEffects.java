@@ -15,10 +15,10 @@ import net.minecraft.util.DamageSource;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fluids.BlockFluidClassic;
 
-public class PotionEffs extends Potion
+public class PotionEffects extends Potion
 {
 
-	public PotionEffs(int id, boolean bad)
+	public PotionEffects(int id, boolean bad)
 	{
 		super(id, bad, 0xffffff);
 		int a = Math.floorMod(id - AAMConfig.genericPID, 14);

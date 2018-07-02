@@ -95,8 +95,25 @@ public class TETransCircle extends TileEntity implements IInventory
 		{
 			if (MiscUtils.containsOnly(ModCircles.getCodeStr(this.circle), modify(tr.parts, scale)))
 			{
+				int maxLevel = 0;
+				if (this.alchemist != null)
+				{
+					for (int i = 0; i < this.alchemist.inventory.getSizeInventory(); i++)
+					{
+						if (this.alchemist.inventory.getStackInSlot(i) != null)
+						{
+							if (this.alchemist.inventory.getStackInSlot(i).getItem() instanceof ICatalyst)
+							{
+								if (maxLevel < ((ICatalyst) this.alchemist.inventory.getStackInSlot(i).getItem()).getPotency(this.alchemist.inventory.getStackInSlot(i)))
+								{
+									maxLevel = ((ICatalyst) this.alchemist.inventory.getStackInSlot(i).getItem()).getPotency(this.alchemist.inventory.getStackInSlot(i));
+								}
+							}
+						}
+					}
+				}
 				this.transm = tr;
-				this.potency = scale;
+				this.potency = scale + maxLevel;
 				this.prepCol = tr.prepCol;
 				this.actCol = tr.actCol;
 				return;
@@ -156,21 +173,22 @@ public class TETransCircle extends TileEntity implements IInventory
 			{
 				int dpot = 0;
 
-//				for (int i = 0; i < 9; i++)
-//				{
-//					for (int j = 0; j < 4; j++)
-//					{
-//						ItemStack is = this.alchemist.inventory.getStackInSlot(i + j * 9);
-//						if (is != null)
-//						{
-//							if (is.getItem() instanceof ICatalyst)
-//							{
-//								if (((ICatalyst) is.getItem()).getPotency(is) > dpot)
-//									dpot = ((ICatalyst) is.getItem()).getPotency(is);
-//							}
-//						}
-//					}
-//				}
+				// for (int i = 0; i < 9; i++)
+				// {
+				// for (int j = 0; j < 4; j++)
+				// {
+				// ItemStack is = this.alchemist.inventory.getStackInSlot(i + j
+				// * 9);
+				// if (is != null)
+				// {
+				// if (is.getItem() instanceof ICatalyst)
+				// {
+				// if (((ICatalyst) is.getItem()).getPotency(is) > dpot)
+				// dpot = ((ICatalyst) is.getItem()).getPotency(is);
+				// }
+				// }
+				// }
+				// }
 
 				boolean ticks = this.transm.action.actTick(this.worldObj, new Wec3(this), this, this.alchemist, this.ticktime, this.potency + dpot,
 						ForgeDirection.getOrientation(this.worldObj.getBlockMetadata(this.xCoord, this.yCoord, this.zCoord)));
@@ -222,6 +240,7 @@ public class TETransCircle extends TileEntity implements IInventory
 	/**
 	 * Reads a tile entity from NBT.
 	 */
+	@Override
 	public void readFromNBT(NBTTagCompound tag)
 	{
 		super.readFromNBT(tag);
@@ -255,6 +274,7 @@ public class TETransCircle extends TileEntity implements IInventory
 	/**
 	 * Writes a tile entity to NBT.
 	 */
+	@Override
 	public void writeToNBT(NBTTagCompound tag)
 	{
 		super.writeToNBT(tag);

@@ -186,7 +186,7 @@ public class AAMCore
 
 		entries.add(new EntryBase(plants, "aam.plants.name"));
 
-		for (int k = 0; k < 8; k++)
+		for (int k = 0; k < 9; k++)
 		{
 			ArrayList<IPage> potion = new ArrayList<IPage>();
 			potion.add(new PageText("aam.p" + (k + 2) + ".txt1", 0));

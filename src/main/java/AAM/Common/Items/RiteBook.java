@@ -3,6 +3,7 @@
  */
 package AAM.Common.Items;
 
+import AAM.Utils.PlayerDataHandler;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.client.renderer.texture.IIconRegister;
@@ -25,6 +26,8 @@ public class RiteBook extends Item
 	@Override
 	public ItemStack onItemRightClick(ItemStack i, World w, EntityPlayer p)
 	{
+		PlayerDataHandler ph = PlayerDataHandler.get(p);
+		ph.replenishSoul();
 		return i;
 	}
 

@@ -26,6 +26,7 @@ public class ElementalGuard extends EntityMob implements IRangedAttackMob
 	public ElementalGuard(World w)
 	{
 		super(w);
+		this.setSize(1.6f, 4f);
 		this.getNavigator().setSpeed(1);
 		this.tasks.addTask(8, new EntityAIWander(this, 1.0D));
 		this.tasks.addTask(4, new EntityAIWatchClosest(this, EntityPlayer.class, 8.0F));
@@ -36,6 +37,7 @@ public class ElementalGuard extends EntityMob implements IRangedAttackMob
 
 	}
 
+	@Override
 	public void applyEntityAttributes()
 	{
 		super.applyEntityAttributes();
@@ -45,6 +47,7 @@ public class ElementalGuard extends EntityMob implements IRangedAttackMob
 		this.getEntityAttribute(SharedMonsterAttributes.maxHealth).setBaseValue(40.0D);
 	}
 
+	@Override
 	public void entityInit()
 	{
 		super.entityInit();
@@ -57,6 +60,7 @@ public class ElementalGuard extends EntityMob implements IRangedAttackMob
 	 * Returns the current armor value as determined by a call to
 	 * InventoryPlayer.getTotalArmorValue
 	 */
+	@Override
 	public int getTotalArmorValue()
 	{
 		// TODO
@@ -73,16 +77,19 @@ public class ElementalGuard extends EntityMob implements IRangedAttackMob
 	/**
 	 * Returns true if the newer Entity AI code should be run
 	 */
+	@Override
 	protected boolean isAIEnabled()
 	{
 		return true;
 	}
 
+	@Override
 	protected Item getDropItem()
 	{
 		return Items.rotten_flesh;
 	}
 
+	@Override
 	protected void dropRareDrop(int p_70600_1_)
 	{
 		// TODO
@@ -104,6 +111,7 @@ public class ElementalGuard extends EntityMob implements IRangedAttackMob
 	 * has recently been hit by a player. @param par2 - Level of Looting used to
 	 * kill this mob.
 	 */
+	@Override
 	protected void dropFewItems(boolean p_70628_1_, int p_70628_2_)
 	{
 		int j;
@@ -122,6 +130,7 @@ public class ElementalGuard extends EntityMob implements IRangedAttackMob
 	/**
 	 * Returns the sound this mob makes while it's alive.
 	 */
+	@Override
 	protected String getLivingSound()
 	{
 		return "mob.skeleton.say";
@@ -130,6 +139,7 @@ public class ElementalGuard extends EntityMob implements IRangedAttackMob
 	/**
 	 * Returns the sound this mob makes when it is hurt.
 	 */
+	@Override
 	protected String getHurtSound()
 	{
 		return "mob.skeleton.hurt";
@@ -138,11 +148,13 @@ public class ElementalGuard extends EntityMob implements IRangedAttackMob
 	/**
 	 * Returns the sound this mob makes on death.
 	 */
+	@Override
 	protected String getDeathSound()
 	{
 		return "mob.skeleton.death";
 	}
 
+	@Override
 	protected void func_145780_a(int p_145780_1_, int p_145780_2_, int p_145780_3_, Block p_145780_4_)
 	{
 		this.playSound("mob.skeleton.step", 0.15F, 1.0F);
@@ -151,9 +163,10 @@ public class ElementalGuard extends EntityMob implements IRangedAttackMob
 	/**
 	 * Attack the specified entity using a ranged attack.
 	 */
+	@Override
 	public void attackEntityWithRangedAttack(EntityLivingBase p_82196_1_, float p_82196_2_)
 	{
-		EntityBloodball ball = new EntityBloodball(this.worldObj, this, p_82196_1_, 1.6F, (float) (14 - this.worldObj.difficultySetting.getDifficultyId() * 4));
+		EntityBloodball ball = new EntityBloodball(this.worldObj, this, p_82196_1_, 1.6F, 14 - this.worldObj.difficultySetting.getDifficultyId() * 4);
 
 		this.playSound("random.bow", 1.0F, 1.0F / (this.getRNG().nextFloat() * 0.4F + 0.8F));
 		this.worldObj.spawnEntityInWorld(ball);

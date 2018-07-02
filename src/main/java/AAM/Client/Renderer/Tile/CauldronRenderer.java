@@ -2,7 +2,6 @@ package AAM.Client.Renderer.Tile;
 
 import org.lwjgl.opengl.GL11;
 
-import AAM.Client.Model.Cauldron;
 import AAM.Common.Tiles.TECauldron;
 import AAM.Utils.Color;
 import net.minecraft.client.Minecraft;
@@ -19,24 +18,12 @@ public class CauldronRenderer extends TileEntitySpecialRenderer
 	@Override
 	public void renderTileEntityAt(TileEntity tile, double x, double y, double z, float p_147500_8_)
 	{
-		GL11.glPushMatrix();
-
-		GL11.glTranslated(x + 0.5D, y + 1.5D, z + 0.5D);
-		GL11.glScaled(0.0625D, 0.0625D, 0.0625D);
-		GL11.glRotated(180, 1, 0, 0);
-
-		Minecraft.getMinecraft().getTextureManager().bindTexture(texture);
-
-		Cauldron model = new Cauldron();
-		model.render(null, 0.0F, 0.0F, 0.0F, 1.0F, 1.0F, 1.0F);
-		GL11.glPopMatrix();
-
 		if (tile != null)
 		{
 			if (tile instanceof TECauldron)
 			{
 				TECauldron cauld = (TECauldron) tile;
-				double n = (((double) cauld.fluid.amount) / 1700) + 0.065;
+				double n = (((double) cauld.fluid.amount) / 2000) + 0.05;
 				Tessellator tess = Tessellator.instance;
 				GL11.glPushMatrix();
 				GL11.glTranslated(x, y + 1D + n, z + 1);
