@@ -38,7 +38,8 @@ public class AlchemicalConcentrateItem extends ItemFood
 		{
 			int level = i.getTagCompound().getInteger("potionLevel");
 			ModPotions.concentrates.get(i.getItemDamage()).action.act(w, p, level, size);
-			MiscUtils.decrPlayerStack(p, 1);
+			if (!p.capabilities.isCreativeMode)
+				MiscUtils.decrPlayerStack(p, 1);
 		}
 		return i;
 	}

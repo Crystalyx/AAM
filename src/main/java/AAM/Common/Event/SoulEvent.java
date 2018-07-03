@@ -11,6 +11,7 @@ import AAM.Common.Items.Soul.SoulSword;
 import AAM.Common.Soul.ArtifactTooltips;
 import AAM.Common.Soul.Soul;
 import AAM.Common.Soul.SoulDamageSource;
+import AAM.Common.Soul.SoulUpgrade;
 import AAM.Common.Transmutations.EnergyProvider;
 import AAM.Core.AAMConfig;
 import AAM.Core.AAMCore;
@@ -29,18 +30,15 @@ import cpw.mods.fml.common.gameevent.PlayerEvent.ItemCraftedEvent;
 import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.EnumCreatureAttribute;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
-import net.minecraft.potion.Potion;
-import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.EnumChatFormatting;
 import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.util.MovingObjectPosition.MovingObjectType;
 import net.minecraft.world.World;
+import net.minecraftforge.event.entity.living.EnderTeleportEvent;
 import net.minecraftforge.event.entity.living.LivingDeathEvent;
-import net.minecraftforge.event.entity.living.LivingDropsEvent;
 import net.minecraftforge.event.entity.living.LivingEvent.LivingUpdateEvent;
 import net.minecraftforge.event.entity.living.LivingHurtEvent;
 import net.minecraftforge.event.entity.player.AttackEntityEvent;
@@ -58,56 +56,28 @@ public class SoulEvent
 			EntityPlayer p = (EntityPlayer) e.entityLiving;
 			PlayerDataHandler ph = PlayerDataHandler.get(p);
 
+			int soul = 0;
 			if (AAMCore.soul.getIsKeyPressed() && FMLClientHandler.instance().getClient().inGameHasFocus)
 			{
-				int mana = 0;
-				int c = 0;
-				for (int i = 0; i < 36; i++)
+				for (int i = 0; i < p.inventory.getSizeInventory(); i++)
 				{
-					if (p.inventory.mainInventory[i] != null)
+					if (p.inventory.getStackInSlot(i) != null)
 					{
-						if (p.inventory.mainInventory[i].getItem() == ModItems.SoulSword)
+						if (p.inventory.getStackInSlot(i).getItem() == ModItems.SoulSword)
 						{
-							if (p.inventory.mainInventory[i].hasTagCompound())
+							if (p.inventory.getStackInSlot(i).hasTagCompound())
 							{
-								if (p.inventory.mainInventory[i].getTagCompound().getString("Owner").equals(p.getGameProfile().getName()))
+								if (p.inventory.getStackInSlot(i).getTagCompound().getString("Owner").equals(p.getGameProfile().getName()))
 								{
-									mana += 15;
-									c += 1;
+									soul += 15;
+									p.inventory.setInventorySlotContents(i, null);
 								}
 							}
 						}
 					}
 				}
-				int count = (mana % 15) + 1;
-				c = 0;
-				mana -= 15;
-				if (ph.consumeSoul(-mana))
-				{
-					for (int i = 0; i < 36; i++)
-					{
-						if (p.inventory.mainInventory[i] != null)
-						{
-							if (p.inventory.mainInventory[i].getItem() == ModItems.SoulSword)
-							{
-								if (p.inventory.mainInventory[i].hasTagCompound())
-								{
-									if (p.inventory.mainInventory[i].getTagCompound().getString("Owner").equals(p.getGameProfile().getName()))
-									{
-										if (c >= count)
-										{
-											PlayerDataHandler.get(p).soulTag = p.inventory.mainInventory[i].getTagCompound();
-
-										}
-										p.inventory.mainInventory[i] = null;
-										c += 1;
-									}
-								}
-							}
-						}
-					}
-					p.inventory.addItemStackToInventory(ph.getSwordStack());
-				}
+				p.inventory.addItemStackToInventory(ph.getSwordStack());
+				ph.addSoul(soul - 15);
 			}
 
 			if (AAMCore.member.getIsKeyPressed() && FMLClientHandler.instance().getClient().inGameHasFocus)
@@ -122,7 +92,7 @@ public class SoulEvent
 					{
 						if (p.getCurrentEquippedItem().getItem() instanceof SoulSword)
 						{
-							if (ph.bow && MiscUtils.randWPercent(40 + ph.castUpg * 5 + 60))
+							if (ph.bow && MiscUtils.randWPercent(40 + ph.upgLevel[SoulUpgrade.Cast.ordinal()] * 5 + 60))
 							{
 								if (ph.consumeSoul(ph.soulLevel) && !p.worldObj.isRemote)
 								{
@@ -158,9 +128,10 @@ public class SoulEvent
 					PlayerDataHandler ph = PlayerDataHandler.get(e.entityPlayer.worldObj.getPlayerEntityByName(name));
 
 					e.toolTip.add(EnumChatFormatting.DARK_AQUA + "Owner: " + name);
-					e.toolTip.add(EnumChatFormatting.BLUE + "+" + ph.soulDamage + "" + EnumChatFormatting.DARK_PURPLE + " Soul Damage");
+
+					e.toolTip.add(EnumChatFormatting.BLUE + "+" + ph.getFullMeleeDamage(false) + "" + EnumChatFormatting.DARK_PURPLE + " Soul Damage");
 					if (ph.bow)
-						e.toolTip.add(EnumChatFormatting.BLUE + "+" + (ph.soulDamage - 4 * ph.swords.size()) + "" + EnumChatFormatting.DARK_PURPLE + " Ranged Soul Damage");
+						e.toolTip.add(EnumChatFormatting.BLUE + "+" + ph.getFullRangedDamage(false) + "" + EnumChatFormatting.DARK_PURPLE + " Ranged Soul Damage");
 
 					e.toolTip.add("Additional:");
 					ArtifactTooltips.addToTooltip(ph.stype, ph.player, ph.soulLevel, e.toolTip);
@@ -219,62 +190,20 @@ public class SoulEvent
 					if (is.hasTagCompound())
 					{
 						SoulDamageSource src = new SoulDamageSource(ph);
-						float dmg = ph.soulDamage;
 						if (e.target instanceof EntityLivingBase)
 						{
 							EntityLivingBase l = (EntityLivingBase) e.target;
 
-							if (ph.bloodUpg != 0)
+							if (ph.upgLevel[SoulUpgrade.Blood.ordinal()] != 0)
 							{
 
 								double f = Math.rint(l.getMaxHealth() * 100) / 100;
 
-								float regen = (float) (f * 0.1F * ph.bloodUpg);
+								float regen = (float) (f * 0.1F * ph.upgLevel[SoulUpgrade.Blood.ordinal()]);
 								ep.heal(regen);
 							}
-							if (ph.moonUpg != 0)
-							{
-								double f = Math.rint(l.getMaxHealth() * 100f) / 100f;
-								dmg += ph.soulDamage * (25f + ph.moonUpg * 4 * (ph.soulLevel - 1) * ph.player.worldObj.getCurrentMoonPhaseFactor()) / 100f;
-							}
-							if (ph.stype.equals(Soul.Light))
-							{
-								dmg += ph.soulDamage * (20f + 2 * (ph.soulLevel - 1)) / 100f;
-								if (l.getCreatureAttribute().equals(EnumCreatureAttribute.UNDEAD))
-								{
-									dmg += ph.soulDamage * (15f + 2 * (ph.soulLevel - 1)) / 100f;
-								}
-							}
-							if (ph.stype.equals(Soul.Normal))
-							{
-								if (l.getCreatureAttribute().equals(EnumCreatureAttribute.UNDEFINED))
-								{
-									dmg += ph.soulDamage * (35f + 2 * (ph.soulLevel - 1)) / 100f;
-								}
-							}
 
-							if (ph.stype.equals(Soul.Blood))
-							{
-								if (ph.consumeSoul(1))
-								{
-									dmg += ph.soulDamage * (25f + 2 * (ph.soulLevel - 1)) / 100f;
-									if (l instanceof EntityPlayer)
-									{
-										dmg += ph.soulDamage * (25f + 2 * (ph.soulLevel - 1)) / 100f;
-									}
-								}
-							}
-							if (ph.stype.equals(Soul.Lunar))
-							{
-								dmg += ph.soulDamage * (40f + (ph.soulLevel - 1) * (2 + 4 * ph.player.worldObj.getCurrentMoonPhaseFactor())) / 100f;
-							}
-							if (ph.stype.equals(Soul.Plant))
-							{
-								dmg += ph.soulDamage * (15f + 2 * (ph.soulLevel - 1)) / 100f;
-								if (MiscUtils.randWPercent(25 + 2 * (ph.soulLevel - 1)))
-									l.addPotionEffect(new PotionEffect(Potion.poison.id, 150, 2));
-							}
-							e.target.attackEntityFrom(src, dmg);
+							e.target.attackEntityFrom(src, ph.getFullMeleeDamageAgainst(l, true));
 						}
 						else
 						{
@@ -348,25 +277,29 @@ public class SoulEvent
 					p.heal(p.getMaxHealth());
 					e.setCanceled(true);
 				}
-				if (MiscUtils.contains(p.inventory, ModItems.MassRessurectionStone, 0))
-				{
-					p.heal(p.getMaxHealth());
-					p.setAbsorptionAmount(20);
-					List<String> ps = PlayerDataHandler.get(p).party;
-					for (String name : ps)
-					{
-						if (p.worldObj.getPlayerEntityByName(name) != null)
-						{
-							EntityPlayer pp = p.worldObj.getPlayerEntityByName(name);
-							pp.heal(pp.getMaxHealth());
-							pp.setAbsorptionAmount(20);
-						}
-					}
-					p.inventory.getStackInSlot(MiscUtils.get(p.inventory, ModItems.MassRessurectionStone, 0))
-							.setItemDamage(p.dimension == AAMConfig.dungDimId ? Math.max((1 + ps.size()) * 24000 / 7, 4500) : Math.max((1 + ps.size()) * 12000 / 7, 1500));
-
-					e.setCanceled(true);
-				}
+				// if (MiscUtils.contains(p.inventory,
+				// ModItems.MassRessurectionStone, 0))
+				// {
+				// p.heal(p.getMaxHealth());
+				// p.setAbsorptionAmount(20);
+				// List<String> ps = PlayerDataHandler.get(p).party;
+				// for (String name : ps)
+				// {
+				// if (p.worldObj.getPlayerEntityByName(name) != null)
+				// {
+				// EntityPlayer pp = p.worldObj.getPlayerEntityByName(name);
+				// pp.heal(pp.getMaxHealth());
+				// pp.setAbsorptionAmount(20);
+				// }
+				// }
+				// p.inventory.getStackInSlot(MiscUtils.get(p.inventory,
+				// ModItems.MassRessurectionStone, 0))
+				// .setItemDamage(p.dimension == AAMConfig.dungDimId ?
+				// Math.max((1 + ps.size()) * 24000 / 7, 4500) : Math.max((1 +
+				// ps.size()) * 12000 / 7, 1500));
+				//
+				// e.setCanceled(true);
+				// }
 			}
 		}
 	}
@@ -404,8 +337,16 @@ public class SoulEvent
 	}
 
 	@SubscribeEvent(priority = EventPriority.HIGHEST)
-	public void harvestDrops(LivingDropsEvent event)
+	public void enderTeleport(EnderTeleportEvent event)
 	{
+		World w = event.entityLiving.worldObj;
+		List<EntityPlayer> l = w.getEntitiesWithinAABB(EntityPlayer.class, new Wec3(event.entityLiving).extendBoth(16, 16, 16));
+		if (!l.isEmpty())
+			for (EntityPlayer p : l)
+			{
+				PlayerDataHandler ph = PlayerDataHandler.get(p);
+				event.setCanceled(ph.upgLevel[SoulUpgrade.Ender.ordinal()] > 0);
+			}
 	}
 
 }

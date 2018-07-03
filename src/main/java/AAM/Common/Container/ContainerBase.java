@@ -31,12 +31,145 @@ public class ContainerBase extends Container
 	{
 		this.tile = tile;
 		this.p = p;
+		this.tile.openInventory();
 	}
 
 	@Override
 	public boolean canInteractWith(EntityPlayer p_75145_1_)
 	{
 		return true;
+	}
+
+	@Override
+	public void onContainerClosed(EntityPlayer p)
+	{
+		super.onContainerClosed(p);
+		this.tile.closeInventory();
+	}
+
+	@Override
+	public ItemStack transferStackInSlot(EntityPlayer entityPlayer, int slotIndex)
+	{
+		ItemStack newItemStack = null;
+		Slot slot = (Slot) inventorySlots.get(slotIndex);
+
+		if (slot != null && slot.getHasStack())
+		{
+			ItemStack itemStack = slot.getStack();
+			newItemStack = itemStack.copy();
+
+			if (slotIndex < p.getSizeInventory())
+			{
+				if (!this.mergeItemStack(itemStack, p.getSizeInventory(), inventorySlots.size(), false))
+					return null;
+			}
+			else
+				if (!this.mergeItemStack(itemStack, 0, p.getSizeInventory(), false))
+					return null;
+
+			if (itemStack.stackSize == 0)
+				slot.putStack(null);
+			else
+				slot.onSlotChanged();
+		}
+
+		return newItemStack;
+	}
+
+	// Credits to Pahimar for his awesome ItemStack merging code!
+	@Override
+	public boolean mergeItemStack(ItemStack itemStack, int slotMin, int slotMax, boolean ascending)
+	{
+		boolean slotFound = false;
+		int currentSlotIndex = ascending ? slotMax - 1 : slotMin;
+		Slot slot;
+		ItemStack stackInSlot;
+		if (itemStack.isStackable())
+		{
+			while (itemStack.stackSize > 0 && (!ascending && currentSlotIndex < slotMax || ascending && currentSlotIndex >= slotMin))
+			{
+				slot = (Slot) this.inventorySlots.get(currentSlotIndex);
+				stackInSlot = slot.getStack();
+				if (slot.isItemValid(itemStack) && equalsIgnoreStackSize(itemStack, stackInSlot))
+				{
+					int combinedStackSize = stackInSlot.stackSize + itemStack.stackSize;
+					int slotStackSizeLimit = Math.min(stackInSlot.getMaxStackSize(), slot.getSlotStackLimit());
+					if (combinedStackSize <= slotStackSizeLimit)
+					{
+						itemStack.stackSize = 0;
+						stackInSlot.stackSize = combinedStackSize;
+						slot.onSlotChanged();
+						slotFound = true;
+					}
+					else
+						if (stackInSlot.stackSize < slotStackSizeLimit)
+						{
+							itemStack.stackSize -= slotStackSizeLimit - stackInSlot.stackSize;
+							stackInSlot.stackSize = slotStackSizeLimit;
+							slot.onSlotChanged();
+							slotFound = true;
+						}
+				}
+				currentSlotIndex += ascending ? -1 : 1;
+			}
+		}
+
+		if (itemStack.stackSize > 0)
+		{
+			currentSlotIndex = ascending ? slotMax - 1 : slotMin;
+			while (!ascending && currentSlotIndex < slotMax || ascending && currentSlotIndex >= slotMin)
+			{
+				slot = (Slot) this.inventorySlots.get(currentSlotIndex);
+				stackInSlot = slot.getStack();
+				if (slot.isItemValid(itemStack) && stackInSlot == null)
+				{
+					slot.putStack(cloneItemStack(itemStack, Math.min(itemStack.stackSize, slot.getSlotStackLimit())));
+					slot.onSlotChanged();
+					if (slot.getStack() != null)
+					{
+						itemStack.stackSize -= slot.getStack().stackSize;
+						slotFound = true;
+					}
+					break;
+				}
+				currentSlotIndex += ascending ? -1 : 1;
+			}
+		}
+		return slotFound;
+	}
+
+	public static ItemStack cloneItemStack(ItemStack itemStack, int stackSize)
+	{
+		ItemStack clonedItemStack = itemStack.copy();
+		clonedItemStack.stackSize = stackSize;
+		return clonedItemStack;
+	}
+
+	public static boolean equalsIgnoreStackSize(ItemStack itemStack1, ItemStack itemStack2)
+	{
+		if (itemStack1 != null && itemStack2 != null)
+		{
+			if (itemStack1.getItem() == itemStack2.getItem())
+			{
+				if (itemStack1.getItemDamage() == itemStack2.getItemDamage())
+				{
+					if (itemStack1.hasTagCompound() && itemStack2.hasTagCompound())
+					{
+						if (ItemStack.areItemStackTagsEqual(itemStack1, itemStack2))
+						{
+							return true;
+						}
+					}
+					else
+						if (!itemStack1.hasTagCompound() && !itemStack2.hasTagCompound())
+						{
+							return true;
+						}
+				}
+			}
+		}
+
+		return false;
 	}
 
 	public void add(GuiOBJ obj)
@@ -193,83 +326,6 @@ public class ContainerBase extends Container
 	public void addHiddenTooltip(int x, int y, int sizex, int sizey, boolean back, boolean hide, String... text)
 	{
 		this.add(new GuiTooltip(x, y, sizex, sizey, back, text).setHidden(hide));
-	}
-
-	/**
-	 * Called when a player shift-clicks on a slot. You must override this or
-	 * you will crash when someone does that.
-	 */
-	@Override
-	public ItemStack transferStackInSlot(EntityPlayer p, int slotid)
-	{
-		ItemStack itemstack = null;
-		Slot slot = (Slot) this.inventorySlots.get(slotid);
-		//
-		// if (slot != null && slot.getHasStack())
-		// {
-		ItemStack itemstack1 = slot.getStack();
-		itemstack = itemstack1.copy();
-		//
-		// if ((slotid < 0 || slotid > 2) && slotid != 3)
-		// {
-		// if (!this.getSlot(1).getHasStack() &&
-		// this.getSlot(1).isItemValid(itemstack1))
-		// {
-		// if (!this.mergeItemStack(itemstack1, 3, 4, false))
-		// {
-		// return null;
-		// }
-		// }
-		// else
-		// if (slotid >= 4 && slotid < 31)
-		// {
-		// if (!this.mergeItemStack(itemstack1, 31, 40, false))
-		// {
-		// return null;
-		// }
-		// }
-		// else
-		// if (slotid >= 31 && slotid < 40)
-		// {
-		// if (!this.mergeItemStack(itemstack1, 4, 31, false))
-		// {
-		// return null;
-		// }
-		// }
-		// else
-		// if (!this.mergeItemStack(itemstack1, 4, 40, false))
-		// {
-		// return null;
-		// }
-		// }
-		// else
-		// {
-		// if (!this.mergeItemStack(itemstack1, 4, 40, true))
-		// {
-		// return null;
-		// }
-		//
-		// slot.onSlotChange(itemstack1, itemstack);
-		// }
-		//
-		// if (itemstack1.stackSize == 0)
-		// {
-		// slot.putStack((ItemStack) null);
-		// }
-		// else
-		// {
-		// slot.onSlotChanged();
-		// }
-		//
-		// if (itemstack1.stackSize == itemstack.stackSize)
-		// {
-		// return null;
-		// }
-		//
-		// slot.onPickupFromSlot(p, itemstack1);
-		// }
-
-		return itemstack;
 	}
 
 	public void addPlayerSlots()

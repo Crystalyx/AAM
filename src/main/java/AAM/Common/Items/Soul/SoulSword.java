@@ -275,6 +275,18 @@ public class SoulSword extends ItemSword
 				}
 			}
 		}
+		else
+		{
+			IIcon sword = icon[stack.getItemDamage()];
+			IIcon art = passartnil;
+			switch (pass)
+			{
+			case 0:
+				return sword;
+			case 1:
+				return art;
+			}
+		}
 		return icon[stack.getItemDamage()];
 	}
 
@@ -296,8 +308,8 @@ public class SoulSword extends ItemSword
 		return true;
 	}
 
-	public static IIcon[] icon = new IIcon[12];
-	public static String[] ways = new String[12];
+	public static IIcon[] icon = new IIcon[8];
+	public static String[] ways = new String[8];
 	public static IIcon nil;
 	public static IIcon passartnil;
 	public static IIcon artnil;
@@ -312,12 +324,10 @@ public class SoulSword extends ItemSword
 
 		for (int i = 0; i < 4; i++)
 		{
-			icon[i] = ir.registerIcon("aam:soulsword/soulsword_" + SwordType.values()[i].toString().toLowerCase());
-			ways[i] = "soulsword/soulsword_" + SwordType.values()[i].toString().toLowerCase();
-			icon[i + 4] = ir.registerIcon("aam:soulsword/excalibur_" + SwordType.values()[i].toString().toLowerCase());
-			ways[i + 4] = "soulsword/excalibur_" + SwordType.values()[i].toString().toLowerCase();
-			icon[i + 8] = ir.registerIcon("aam:soulsword/arbitur_" + SwordType.values()[i].toString().toLowerCase());
-			ways[i + 8] = "soulsword/arbitur_" + SwordType.values()[i].toString().toLowerCase();
+			icon[i] = ir.registerIcon("aam:soulsword/excalibur_" + SwordType.values()[i].toString().toLowerCase());
+			ways[i] = "soulsword/excalibur_" + SwordType.values()[i].toString().toLowerCase();
+			icon[i + 4] = ir.registerIcon("aam:soulsword/arbitur_" + SwordType.values()[i].toString().toLowerCase());
+			ways[i + 4] = "soulsword/arbitur_" + SwordType.values()[i].toString().toLowerCase();
 		}
 
 	}
@@ -330,7 +340,7 @@ public class SoulSword extends ItemSword
 	@Override
 	public String getUnlocalizedName(ItemStack i)
 	{
-		return i.getItemDamage() > 2 ? "aam.excalibur" : "aam.soul_sword";
+		return "aam.excalibur";// : "aam.soul_sword";
 	}
 
 	/**
@@ -341,7 +351,7 @@ public class SoulSword extends ItemSword
 	@SideOnly(Side.CLIENT)
 	public void getSubItems(Item it, CreativeTabs tab, List l)
 	{
-		for (int i = 0; i < 12; i++)
+		for (int i = 0; i < 8; i++)
 		{
 			ItemStack is = new ItemStack(it, 1, i);
 			l.add(is);

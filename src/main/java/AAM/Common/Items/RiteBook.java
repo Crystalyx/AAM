@@ -27,7 +27,7 @@ public class RiteBook extends Item
 	public ItemStack onItemRightClick(ItemStack i, World w, EntityPlayer p)
 	{
 		PlayerDataHandler ph = PlayerDataHandler.get(p);
-		ph.consumeSoul(3000);
+		ph.clearProperties(false);
 		// AttributeModifier am = new AttributeModifier("Rite", -60, 0);
 		// p.getEntityAttribute(SharedMonsterAttributes.maxHealth).applyModifier(am);
 		return i;

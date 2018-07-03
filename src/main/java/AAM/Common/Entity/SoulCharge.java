@@ -3,13 +3,11 @@ package AAM.Common.Entity;
 import java.util.List;
 
 import AAM.Common.Soul.SoulDamageSource;
+import AAM.Common.Soul.SoulUpgrade;
 import AAM.Utils.PlayerDataHandler;
 import AAM.Utils.Wec3;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.item.EntityItem;
-import net.minecraft.entity.item.EntityXPOrb;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.projectile.EntityThrowable;
 import net.minecraft.potion.PotionEffect;
@@ -67,40 +65,34 @@ public class SoulCharge extends EntityThrowable
 
 	public void handleAttacks(Wec3 wp)
 	{
-		float r = 0.5f * ph.castUpg;
-		List<Entity> l = this.worldObj.getEntitiesWithinAABB(Entity.class, wp.extend(2f + r));
+		float r = 0.5f * ph.upgLevel[SoulUpgrade.Cast.ordinal()];
+		List<EntityLivingBase> l = this.worldObj.getEntitiesWithinAABB(EntityLivingBase.class, wp.extend(2f + r));
 		l.remove(this.ph.player);
 		int victims = 0;
-		for (Entity e : l)
+		for (EntityLivingBase e : l)
 		{
-			if (!e.isDead && !(e instanceof SoulCharge) && !(e instanceof EntityItem) && !(e instanceof EntityXPOrb))
+			if (!this.effs.contains("D"))
+				e.attackEntityFrom(new SoulDamageSource(this.ph), this.ph.getFullRangedDamageAgainst(e, true));
+			if (this.effs.contains("F"))
 			{
-				if (!this.effs.contains("D"))
-					e.attackEntityFrom(new SoulDamageSource(this.ph).causePlayerDamage(this.ph.player), this.ph.getDamage());
-				if (this.effs.contains("F"))
-				{
-					e.setFire(this.ph.getSoulLevel() * 2);
-				}
-				if (this.effs.contains("P"))
-				{
-					if (e instanceof EntityLiving)
-					{
-						((EntityLiving) e).addPotionEffect(new PotionEffect(19, this.ph.getSoulLevel() * 2, 2));
-					}
-				}
-				if (this.effs.contains("K"))
-				{
-					Wec3 vec = new Wec3(0, Math.min(Math.sqrt(this.ph.getSoulLevel()) / 3, 10), 0).add(new Wec3(this.motionX, this.motionY, this.motionZ));
-					vec.ptm(e);
-				}
-				if (victims > 2)
-				{
-					this.setDead();
-					break;
-				}
-				else
-					victims++;
+				e.setFire(this.ph.getSoulLevel() * 2);
 			}
+			if (this.effs.contains("P"))
+			{
+				e.addPotionEffect(new PotionEffect(19, this.ph.getSoulLevel() * 2, 2));
+			}
+			if (this.effs.contains("K"))
+			{
+				Wec3 vec = new Wec3(0, Math.min(Math.sqrt(this.ph.getSoulLevel()) / 3, 10), 0).add(new Wec3(this.motionX, this.motionY, this.motionZ));
+				vec.ptm(e);
+			}
+			if (victims > 2)
+			{
+				this.setDead();
+				break;
+			}
+			else
+				victims++;
 		}
 	}
 

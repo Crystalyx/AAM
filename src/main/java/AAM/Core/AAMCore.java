@@ -10,7 +10,6 @@ import org.lwjgl.input.Keyboard;
 import AAM.API.PageItemList;
 import AAM.API.StackList;
 import AAM.Client.Gui.Base.ObjTypes;
-import AAM.Common.Aura.AuraRegistry;
 import AAM.Common.Blocks.Building.ModBlocks;
 import AAM.Common.Dungeon.DungeonProvider;
 import AAM.Common.Entity.ModEntities;
@@ -120,7 +119,6 @@ public class AAMCore
 		Structures.load();
 
 		Ingridients.load();
-		AuraRegistry.load();
 		ObjTypes.load();
 		Recipes.load();
 

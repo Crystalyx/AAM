@@ -2,20 +2,14 @@ package AAM.Common.Event;
 
 import org.lwjgl.opengl.GL11;
 
-import AAM.Common.Aura.AuraBase;
-import AAM.Common.Aura.AuraRegistry;
-import AAM.Common.Items.AuraRing;
 import AAM.Common.Items.ModItems;
 import AAM.Common.Items.Artifacts.CrystalBow;
 import AAM.Common.Items.Soul.Artifact;
 import AAM.Common.Items.Soul.SoulSword;
-import AAM.Common.Soul.Soul;
 import AAM.Utils.Color;
 import AAM.Utils.MiscUtils;
 import AAM.Utils.PlayerDataHandler;
-import AAM.Utils.Wec3;
 import AAM.Utils.Render.RenderUtils;
-import baubles.api.BaublesApi;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
@@ -25,7 +19,7 @@ import net.minecraft.client.gui.ScaledResolution;
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.client.renderer.RenderHelper;
 import net.minecraft.client.renderer.Tessellator;
-import net.minecraft.entity.EntityLiving;
+import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
@@ -216,25 +210,7 @@ public class ClientRenderHelper
 				t.addVertexWithUV(32.0D + k, l + 10 + lgt * lt, 0.0D, 1D, ls + lgt * v);
 				t.addVertexWithUV(k, l + 10 + lgt * lt, 0.0D, 0.5D, ls + lgt * v);
 				t.draw();
-				double dm = ph.soulDamage;
-				int level = ph.soulLevel;
-				if (ph.stype.equals(Soul.Blood))
-				{
-					dm += ph.soulDamage * (25 + 2 * (level - 1)) / 100d;
-				}
-				if (ph.stype.equals(Soul.Lunar))
-				{
-					dm += ph.soulDamage * (15 + 2 * (level - 1)) / 100d;
-					dm += ph.soulDamage * (25 + 4 * (level - 1) * ph.player.worldObj.getCurrentMoonPhaseFactor()) / 100d;
-				}
-				if (ph.stype.equals(Soul.Plant))
-				{
-					dm += ph.soulDamage * (15 + 2 * (level - 1)) / 100d;
-				}
-				if (ph.moonUpg != 0)
-				{
-					dm += ph.soulDamage * (25f + ph.moonUpg * 4 * (ph.soulLevel - 1) * ph.player.worldObj.getCurrentMoonPhaseFactor()) / 100f;
-				}
+				double dm = ph.getFullMeleeDamage(false);
 				String dam = dm + "";
 				dam = dam.substring(0, dam.indexOf(".") + 2);
 
@@ -260,11 +236,13 @@ public class ClientRenderHelper
 					if (mop.typeOfHit == MovingObjectType.ENTITY)
 					{
 						f.drawString("Entity: " + mop.entityHit.getCommandSenderName(), k + 32, l + 55, new Color(255, 255, 255).hex);
-						if (mop.entityHit instanceof EntityLiving)
+						if (mop.entityHit instanceof EntityLivingBase)
 						{
-							EntityLiving e = (EntityLiving) mop.entityHit;
+							EntityLivingBase e = (EntityLivingBase) mop.entityHit;
 
 							f.drawString("Health: " + e.getHealth() + "/" + e.getMaxHealth(), k + 32, l + 65, new Color(255, 255, 255).hex);
+							float specdmg = ph.getFullMeleeDamageAgainst(e, false);
+							f.drawString("Specific Damage: " + specdmg, k + 32, l + 85, new Color(255, 255, 255).hex);
 						}
 					}
 				}
@@ -327,46 +305,13 @@ public class ClientRenderHelper
 		if (e.entityPlayer.worldObj.isRemote)
 		{
 			EntityPlayer p = e.entityPlayer;
-			if (BaublesApi.getBaubles(p).getStackInSlot(1) != null)
-			{
-				if (BaublesApi.getBaubles(p).getStackInSlot(1).getItem() instanceof AuraRing)
-				{
-					AuraBase a = AuraRegistry.auras.get(BaublesApi.getBaubles(p).getStackInSlot(1).getItemDamage());
-					Wec3 pp = new Wec3();
-					a.renderWithScale(p.worldObj, p, pp.x, pp.y, pp.z, 3);
-				}
-				else
-				{
-					if (BaublesApi.getBaubles(p).getStackInSlot(2) != null)
-					{
-						if (BaublesApi.getBaubles(p).getStackInSlot(2).getItem() instanceof AuraRing)
-						{
-							AuraBase a = AuraRegistry.auras.get(BaublesApi.getBaubles(p).getStackInSlot(2).getItemDamage());
-							Wec3 pp = new Wec3();
-							a.renderWithScale(p.worldObj, p, pp.x, pp.y, pp.z, 3);
-						}
-					}
-				}
-			}
-			else
-			{
-				if (BaublesApi.getBaubles(p).getStackInSlot(2) != null)
-				{
-					if (BaublesApi.getBaubles(p).getStackInSlot(2).getItem() instanceof AuraRing)
-					{
-						AuraBase a = AuraRegistry.auras.get(BaublesApi.getBaubles(p).getStackInSlot(2).getItemDamage());
-						Wec3 pp = new Wec3();
-						a.renderWithScale(p.worldObj, p, pp.x, pp.y, pp.z, 3);
-					}
-				}
-			}
 			PlayerDataHandler ph = PlayerDataHandler.get(p);
 
 			int dt = MiscUtils.boolToNum(ph.arbitur) * 4;
 
 			if (ph.getPermission() > 0)
 			{
-				int meta = 4 + ph.sword.ordinal();
+				int meta = ph.sword.ordinal();
 				ph.soulTag.setString("Owner", p.getGameProfile().getName());
 				ItemStack sword = new ItemStack(ModItems.SoulSword, 1, meta);
 				sword.setTagCompound(PlayerDataHandler.get(p).soulTag);

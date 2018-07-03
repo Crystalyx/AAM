@@ -26,7 +26,7 @@ public class SoulChargeRenderer extends Render
 			GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
 			EntityPlayer p = Minecraft.getMinecraft().thePlayer;
 			GL11.glTranslated(x + Math.ulp(p.posX), y + Math.ulp(p.posY), z + Math.ulp(p.posZ));
-			Cube c = new Cube(-0.5f, -0.5f, -0.5f, 1, 1, 1, 4, 64);
+			Cube c = new Cube(0, 0.1f, 0, 1, 1, 1, 4, 64);
 
 			PlayerDataHandler ph = PlayerDataHandler.get(p);
 			if (ph != null)

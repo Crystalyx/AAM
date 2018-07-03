@@ -31,6 +31,7 @@ import AAM.Common.Items.Resources.Material;
 import AAM.Common.Items.Resources.SwordDye;
 import AAM.Common.Items.Soul.Artifact;
 import AAM.Common.Items.Soul.SoulSword;
+import AAM.Common.Items.Soul.SoulUpgradeItem;
 import AAM.Core.AAMCore;
 import cpw.mods.fml.common.registry.GameRegistry;
 import net.minecraft.creativetab.CreativeTabs;
@@ -44,6 +45,7 @@ public class ModItems
 	static CreativeTabs alchemy = ModBlocks.alchemy;
 	static CreativeTabs soul = ModBlocks.soul;
 	static CreativeTabs misc = ModBlocks.misc;
+	static CreativeTabs arts = ModBlocks.arts;
 
 	// =======================RogueWorld===========================
 	public static Item RiteBook = new RiteBook();
@@ -55,7 +57,6 @@ public class ModItems
 	// 60.0F, 100)).setUnlocalizedName(idn + "rainbowsword");
 	public static Item coins = new Coin().setUnlocalizedName(idn + "coin");
 	public static Item LuckyCoin = new LuckyCoin().setUnlocalizedName(idn + "luckycoin");
-	public static Item AuraRing = new AuraRing().setUnlocalizedName(idn + "ring_aura");
 
 	public static Item FacelessCharm = new FacelessCharm(1).setUnlocalizedName(idn + "facelesscharm");
 	public static Item ElementalHeart = new ElementalHeart();
@@ -84,8 +85,7 @@ public class ModItems
 	public static Material materials = (Material) new Material().setUnlocalizedName(idn + "material");
 	public static Item CrystalBow = new CrystalBow().setUnlocalizedName(idn + "crystalbow");
 	public static Item AnvilHammer = new AnvilHammer(0, EnumHelper.addToolMaterial("AAMAHammer", 4, 450, 10.0F, 6.0F, 15)).setUnlocalizedName(idn + "anvilhammer");
-	public static Material soulGems = (Material) new Material().setUnlocalizedName(idn + "soulgem");
-	public static Material soulUpgrades = (Material) new Material().setUnlocalizedName(idn + "soulupg");
+	public static Item SoulUpgradeItem = new SoulUpgradeItem().setUnlocalizedName(idn + "soulupg");
 
 	// =======================Alchemy===========================
 	public static Item TeleportationCrystal = new TeleportationCrystal().setUnlocalizedName(idn + "crystaltp");
@@ -117,17 +117,16 @@ public class ModItems
 		((Material) coins).addMaterial("coin_gold");
 		((Material) coins).addMaterial("coin_spectral");
 		registerItem(coins, misc);
-		registerItem(LuckyCoin, misc);
-		registerItem(AuraRing, misc);
+		registerItem(LuckyCoin, arts);
 
-		registerItem(FacelessCharm, misc);
-		registerItem(ElementalHeart, misc);
-		registerItem(SeaShard, misc);
-		registerItem(KingsStone, misc);
-		registerItem(ClockOfTime, misc);
+		registerItem(FacelessCharm, arts);
+		registerItem(ElementalHeart, arts);
+		registerItem(SeaShard, arts);
+		registerItem(KingsStone, arts);
+		registerItem(ClockOfTime, arts);
 
-		registerItem(RessurectionStone, misc);
-		registerItem(MassRessurectionStone, misc);
+		registerItem(RessurectionStone, arts);
+		registerItem(MassRessurectionStone, arts);
 
 		// =======================Debug===========================
 		registerItem(MagicWand, misc);
@@ -162,20 +161,11 @@ public class ModItems
 		materials.addMaterial("brass_scale");
 		materials.addMaterial("altersteel_scale");
 
-		soulGems.addMaterial("cast_gem");
-		soulGems.addMaterial("blood_gem");
-		soulGems.addMaterial("moon");
-
-		soulUpgrades.addMaterial("soulsword/blood_upgrade");
-		soulUpgrades.addMaterial("soulsword/cast_upgrade");
-		soulUpgrades.addMaterial("soulsword/moon_upgrade");
-
 		registerItem(materials, soul);
 		registerItem(Artifact, soul);
 		registerItem(CrystalBow, soul);
 		registerItem(AnvilHammer, soul);
-		registerItem(soulGems, soul);
-		registerItem(soulUpgrades, soul);
+		registerItem(SoulUpgradeItem, soul);
 
 		// =======================RogueWorld===========================
 		registerItem(RiteBook, misc);

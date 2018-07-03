@@ -9,6 +9,7 @@ import AAM.Common.Items.Resources.SwordDye;
 import AAM.Common.Items.Soul.Artifact;
 import AAM.Common.Items.Soul.SoulSword;
 import AAM.Common.Soul.Soul;
+import AAM.Common.Soul.SoulUpgrade;
 import AAM.Utils.MiscUtils;
 import AAM.Utils.PlayerDataHandler;
 import AAM.Utils.Structure;
@@ -27,119 +28,116 @@ public class TESoulAltar extends StructureCore implements IInventory
 	public ItemStack[] inv = new ItemStack[12];
 	public int value = 0;
 	public int maxValue = 1000;
+	public boolean opened = false;
 
 	@Override
 	public void updateEntity()
 	{
 		super.updateEntity();
-		if (this.formed && this.getStackInSlot(0) != null && this.getStackInSlot(0).getItem() instanceof SoulSword)
+		if (this.opened)
 		{
-			ItemStack is = this.getStackInSlot(0);
-
-			if (is.hasTagCompound())
+			if (this.formed && this.getStackInSlot(0) != null && this.getStackInSlot(0).getItem() instanceof SoulSword)
 			{
-				NBTTagCompound tag = is.getTagCompound();
-				String name = tag.getString("Owner");
-				if (!name.equals(""))
+				ItemStack is = this.getStackInSlot(0);
+
+				if (is.hasTagCompound())
 				{
-					if (this.worldObj.getPlayerEntityByName(name) != null)
+					NBTTagCompound tag = is.getTagCompound();
+					String name = tag.getString("Owner");
+					if (!name.equals(""))
 					{
-						PlayerDataHandler ph = PlayerDataHandler.get(this.worldObj.getPlayerEntityByName(name));
-						if (this.getStackInSlot(1) == null)
+						if (this.worldObj.getPlayerEntityByName(name) != null)
 						{
-							ph.partType = -1;
-						}
-						else
-						{
-							if (this.getStackInSlot(1).getItem() instanceof SwordDye)
-							{
-								ph.partType = this.getStackInSlot(1).getItemDamage();
-							}
-						}
-
-						if (this.getStackInSlot(2) == null)
-						{
-							ph.stype = Soul.Normal;
-							ph.art = false;
-						}
-						else
-						{
-							if (this.getStackInSlot(2).getItem() instanceof Artifact)
-							{
-								ph.stype = Soul.values()[this.getStackInSlot(2).getItemDamage()];
-								ph.art = true;
-							}
-						}
-
-						if (this.getStackInSlot(3) == null)
-						{
-							ph.bow = false;
-						}
-						else
-						{
-							if (this.getStackInSlot(3).getItem() == ModItems.CrystalBow)
-							{
-								ph.bow = true;
-							}
-
-						}
-
-						int cast = 0;
-						int blood = 0;
-						int moon = 0;
-
-						for (int i = 0; i < 6; i++)
-						{
-							ItemStack up = this.getStackInSlot(i + 4);
-							if (up != null)
-							{
-								if (up.getItem() == ModItems.soulUpgrades && MiscUtils.isInLimit(up.getItemDamage(), 0, 2))
-								{
-									if (up.getItemDamage() == 0)
-										blood += 1;
-									if (up.getItemDamage() == 1)
-										cast += 1;
-									if (up.getItemDamage() == 2)
-										moon += 1;
-								}
-							}
-						}
-
-						ph.castUpg = cast;
-						ph.bloodUpg = blood;
-						ph.moonUpg = moon;
-
-						this.inv[0] = ph.getSwordStack();
-
-						if (ph.bow)
-						{
-							ItemStack bowis = this.getStackInSlot(3);
-							if (bowis.hasTagCompound())
-							{
-								if (ph.art)
-									bowis.getTagCompound().setInteger("Art", ph.stype.ordinal());
-								else
-									bowis.getTagCompound().setInteger("Art", -1);
-							}
-							else
-							{
-								NBTTagCompound bowtag = new NBTTagCompound();
-								if (ph.art)
-									bowtag.setInteger("Art", ph.stype.ordinal());
-								bowtag.setInteger("State", 0);
-								bowis.setTagCompound(bowtag);
-							}
+							PlayerDataHandler ph = PlayerDataHandler.get(this.worldObj.getPlayerEntityByName(name));
+							saveSoulItems(ph);
 						}
 					}
 				}
 			}
+			else
+			{
+				for (int i = 1; i < this.getSizeInventory(); i++)
+				{
+					this.setInventorySlotContents(i, null);
+					// MiscUtils.dropSlot(this, i);
+				}
+			}
+		}
+	}
+
+	private void saveSoulItems(PlayerDataHandler ph)
+	{
+		if (this.getStackInSlot(1) == null)
+		{
+			ph.partType = -1;
 		}
 		else
 		{
-			for (int i = 1; i < this.getSizeInventory(); i++)
+			if (this.getStackInSlot(1).getItem() instanceof SwordDye)
 			{
-				this.setInventorySlotContents(i, null);
-				// MiscUtils.dropSlot(this, i);
+				ph.partType = this.getStackInSlot(1).getItemDamage();
+			}
+		}
+
+		if (this.getStackInSlot(2) == null)
+		{
+			ph.stype = Soul.Normal;
+			ph.art = false;
+		}
+		else
+		{
+			if (this.getStackInSlot(2).getItem() instanceof Artifact)
+			{
+				ph.stype = Soul.values()[this.getStackInSlot(2).getItemDamage()];
+				ph.art = true;
+			}
+		}
+
+		if (this.getStackInSlot(3) == null)
+		{
+			ph.bow = false;
+		}
+		else
+		{
+			if (this.getStackInSlot(3).getItem() == ModItems.CrystalBow)
+			{
+				ph.bow = true;
+			}
+
+		}
+
+		ph.upgLevel = new int[SoulUpgrade.values().length];
+		for (int i = 0; i < 6; i++)
+		{
+			ItemStack up = this.getStackInSlot(i + 4);
+			if (up != null)
+			{
+				if (up.getItem() == ModItems.SoulUpgradeItem)
+				{
+					ph.upgLevel[up.getItemDamage()] += 1;
+				}
+			}
+		}
+
+		this.inv[0] = ph.getSwordStack();
+
+		if (ph.bow)
+		{
+			ItemStack bowis = this.getStackInSlot(3);
+			if (bowis.hasTagCompound())
+			{
+				if (ph.art)
+					bowis.getTagCompound().setInteger("Art", ph.stype.ordinal());
+				else
+					bowis.getTagCompound().setInteger("Art", -1);
+			}
+			else
+			{
+				NBTTagCompound bowtag = new NBTTagCompound();
+				if (ph.art)
+					bowtag.setInteger("Art", ph.stype.ordinal());
+				bowtag.setInteger("State", 0);
+				bowis.setTagCompound(bowtag);
 			}
 		}
 	}
@@ -192,79 +190,15 @@ public class TESoulAltar extends StructureCore implements IInventory
 		this.inv[slot] = item;
 		if (item != null && formed)
 		{
-			if (item.getItem() instanceof SoulSword && slot == 0)
+			if (item.getItem() instanceof SoulSword)
 			{
-				if (item.hasTagCompound())
+				if (item.hasTagCompound() && slot == 0)
 				{
 					NBTTagCompound tag = item.getTagCompound();
 					String name = tag.getString("Owner");
-					if (!name.equals(""))
+					if (!name.equals("") && this.opened)
 					{
-						if (this.worldObj != null)
-							if (this.worldObj.getPlayerEntityByName(name) != null)
-							{
-								PlayerDataHandler ph = PlayerDataHandler.get(this.worldObj.getPlayerEntityByName(name));
-								if (ph.partType != -1)
-								{
-									if (this.getStackInSlot(1) == null)
-									{
-										this.setInventorySlotContents(1, new ItemStack(ModItems.Shield, 1, ph.partType));
-									}
-									else
-									{
-										if (this.getStackInSlot(1).getItem() instanceof SwordDye)
-										{
-											ph.partType = this.getStackInSlot(1).getItemDamage();
-										}
-									}
-								}
-
-								if (this.getStackInSlot(2) == null)
-								{
-									if (ph.art)
-										this.setInventorySlotContents(2, new ItemStack(ModItems.Artifact, 1, ph.stype.ordinal()));
-								}
-								else
-								{
-									if (this.getStackInSlot(2).getItem() instanceof Artifact)
-									{
-										ph.stype = Soul.values()[this.getStackInSlot(2).getItemDamage()];
-										ph.art = true;
-									}
-								}
-								if (ph.bow)
-								{
-									if (this.getStackInSlot(3) == null)
-									{
-										ItemStack is = new ItemStack(ModItems.CrystalBow);
-										NBTTagCompound tg = new NBTTagCompound();
-										if (ph.art)
-											tg.setInteger("Art", ph.stype.ordinal());
-										else
-											tg.setInteger("Art", -1);
-
-										is.setTagCompound(tg);
-										this.setInventorySlotContents(3, is);
-									}
-								}
-								List<Integer> list = new ArrayList<Integer>();
-								for (int i = 0; i < ph.bloodUpg; i++)
-								{
-									list.add(0);
-								}
-								for (int i = 0; i < ph.castUpg; i++)
-								{
-									list.add(1);
-								}
-								for (int i = 0; i < ph.moonUpg; i++)
-								{
-									list.add(2);
-								}
-								for (int i = 0; i < Math.min(6, list.size()); i++)
-								{
-									this.setInventorySlotContents(4 + i, new ItemStack(ModItems.soulUpgrades, 1, list.get(i)));
-								}
-							}
+						placeItems(name);
 					}
 				}
 			}
@@ -280,6 +214,51 @@ public class TESoulAltar extends StructureCore implements IInventory
 			}
 		}
 		this.markDirty();
+	}
+
+	private void placeItems(String playerName)
+	{
+		if (this.worldObj != null)
+		{
+			if (this.worldObj.getPlayerEntityByName(playerName) != null)
+			{
+				PlayerDataHandler ph = PlayerDataHandler.get(this.worldObj.getPlayerEntityByName(playerName));
+				if (ph.partType != -1)
+				{
+					this.setInventorySlotContents(1, new ItemStack(ModItems.Shield, 1, ph.partType));
+				}
+
+				if (this.getStackInSlot(2) == null)
+				{
+					if (ph.art)
+						this.setInventorySlotContents(2, new ItemStack(ModItems.Artifact, 1, ph.stype.ordinal()));
+				}
+				if (ph.bow)
+				{
+					ItemStack is = new ItemStack(ModItems.CrystalBow);
+					NBTTagCompound tg = new NBTTagCompound();
+					if (ph.art)
+						tg.setInteger("Art", ph.stype.ordinal());
+					else
+						tg.setInteger("Art", -1);
+
+					is.setTagCompound(tg);
+					this.setInventorySlotContents(3, is);
+				}
+				List<Integer> list = new ArrayList<Integer>();
+				for (int i = 0; i < ph.upgLevel.length; i++)
+				{
+					for (int j = 0; j < ph.upgLevel[i]; j++)
+					{
+						list.add(i);
+					}
+				}
+				for (int i = 0; i < Math.min(6, list.size()); i++)
+				{
+					this.setInventorySlotContents(4 + i, new ItemStack(ModItems.SoulUpgradeItem, 1, list.get(i)));
+				}
+			}
+		}
 	}
 
 	@Override
@@ -309,13 +288,48 @@ public class TESoulAltar extends StructureCore implements IInventory
 	@Override
 	public void openInventory()
 	{
-
+		this.opened = true;
+		if (this.getStackInSlot(0) != null)
+		{
+			if (this.getStackInSlot(0).getItem() instanceof SoulSword)
+			{
+				if (this.getStackInSlot(0).hasTagCompound())
+				{
+					String name = this.getStackInSlot(0).getTagCompound().getString("Owner");
+					if (!name.equals(""))
+					{
+						this.placeItems(name);
+					}
+				}
+			}
+		}
 	}
 
 	@Override
 	public void closeInventory()
 	{
-
+		this.opened = false;
+		ItemStack is = this.getStackInSlot(0);
+		if (is != null)
+		{
+			if (is.hasTagCompound())
+			{
+				NBTTagCompound tag = is.getTagCompound();
+				String name = tag.getString("Owner");
+				if (!name.equals(""))
+				{
+					if (this.worldObj.getPlayerEntityByName(name) != null)
+					{
+						PlayerDataHandler ph = PlayerDataHandler.get(this.worldObj.getPlayerEntityByName(name));
+						saveSoulItems(ph);
+					}
+				}
+			}
+		}
+		for (int i = 1; i < this.getSizeInventory(); i++)
+		{
+			this.setInventorySlotContents(i, null);
+		}
 	}
 
 	@Override

@@ -29,6 +29,7 @@ import AAM.Common.Items.BushItemBlock;
 import AAM.Common.Items.BushSproutItemBlock;
 import AAM.Common.Items.ModItems;
 import AAM.Common.Tabs.AlchemyTab;
+import AAM.Common.Tabs.ArtTab;
 import AAM.Common.Tabs.MiscTab;
 import AAM.Common.Tabs.SoulTab;
 import AAM.Common.Transmutations.FluidBlood;
@@ -48,6 +49,7 @@ public class ModBlocks
 	public static CreativeTabs alchemy = new AlchemyTab();
 	public static CreativeTabs soul = new SoulTab();
 	public static CreativeTabs misc = new MiscTab();
+	public static CreativeTabs arts = new ArtTab();
 
 	// =======================Multi==========================
 	public static int trees = 0;

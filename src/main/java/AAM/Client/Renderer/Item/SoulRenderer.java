@@ -85,39 +85,8 @@ public class SoulRenderer implements IItemRenderer
 			tough = 0;
 		}
 
-		if (item.getItemDamage() == 1 || item.getItemDamage() == 5)
+		if (item.getItemDamage() % 4 == 1)
 		{
-			String way1 = "aam:textures/items/" + SoulSword.ways[item.getItemDamage() + dt] + "_" + 1;
-			String way2 = "aam:textures/items/" + SoulSword.ways[item.getItemDamage() + dt] + "_" + 2;
-			String way3 = "aam:textures/items/" + SoulSword.ways[item.getItemDamage() + dt] + "_" + 3;
-
-			GL11.glPushMatrix();
-			GL11.glTranslated(0, 0, 1 / 20d);
-			Minecraft.getMinecraft().getTextureManager().bindTexture(new ResourceLocation(way1 + ".png"));
-			RenderUtils.renderTextureIn2D(tess, 0.0F, 0.0F, 1.0F, -1.0F, 64, 64, tough);
-
-			GL11.glTranslated(0, 0, 1 / 20d);
-			Minecraft.getMinecraft().getTextureManager().bindTexture(new ResourceLocation(way2 + ".png"));
-			RenderUtils.renderTextureIn2D(tess, 0.0F, 0.0F, 1.0F, -1.0F, 64, 64, tough);
-
-			GL11.glTranslated(0, 0, 1 / 20d);
-			Minecraft.getMinecraft().getTextureManager().bindTexture(new ResourceLocation(way3 + ".png"));
-			RenderUtils.renderTextureIn2D(tess, 0.0F, 0.0F, 1.0F, -1.0F, 64, 64, tough);
-			GL11.glPopMatrix();
-
-			GL11.glPushMatrix();
-			GL11.glTranslated(0, 0, -1 / 20d);
-			Minecraft.getMinecraft().getTextureManager().bindTexture(new ResourceLocation(way1 + ".png"));
-			RenderUtils.renderTextureIn2D(tess, 0.0F, 0.0F, 1.0F, -1.0F, 64, 64, tough);
-
-			GL11.glTranslated(0, 0, -1 / 20d);
-			Minecraft.getMinecraft().getTextureManager().bindTexture(new ResourceLocation(way2 + ".png"));
-			RenderUtils.renderTextureIn2D(tess, 0.0F, 0.0F, 1.0F, -1.0F, 64, 64, tough);
-
-			GL11.glTranslated(0, 0, -1 / 20d);
-			Minecraft.getMinecraft().getTextureManager().bindTexture(new ResourceLocation(way3 + ".png"));
-			RenderUtils.renderTextureIn2D(tess, 0.0F, 0.0F, 1.0F, -1.0F, 64, 64, tough);
-			GL11.glPopMatrix();
 
 		}
 
