@@ -6,7 +6,6 @@ import java.util.Random;
 import AAM.Common.Blocks.Building.ModBlocks;
 import AAM.Common.Items.ModItems;
 import AAM.Utils.MiscUtils;
-import AAM.Utils.Wec3;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.block.Block;
@@ -123,7 +122,7 @@ public class BerryBush extends Block implements IGrowable
 			if (p.getCurrentEquippedItem() == null)
 			{
 				w.setBlockMetadataWithNotify(x, y, z, meta * 2, 2);
-				ItemStack berry = new ItemStack(ModItems.Berry, w.rand.nextInt(4), meta);
+				ItemStack berry = new ItemStack(ModItems.Berry, (int) (Math.floorDiv(w.getWorldTime(), 5000) + 1), meta);
 				MiscUtils.dropStackToPlayer(w, x, y, z, berry, p);
 				return true;
 			}
@@ -151,19 +150,66 @@ public class BerryBush extends Block implements IGrowable
 			}
 		}
 
-		if (MiscUtils.randWPercent(20))
+		if (MiscUtils.randWPercent(r, 20))
 		{
-			Wec3 sp = Wec3.random(5, 5, 5);
-			sp = sp.add(new Wec3(x, y, z));
-			int h = MiscUtils.getLowerHighBlock(w, sp.ix, sp.iy + 11, sp.iz);
-			if (w.isAirBlock(sp.ix, h + 1, sp.iz))
+			if (r.nextInt(25) == 0)
 			{
-				if (w.getBlock(sp.ix, h, sp.iz) == Blocks.grass)
+				byte b0 = 4;
+				int l = 5;
+				int i1;
+				int j1;
+				int k1;
+
+				for (i1 = x - b0; i1 <= x + b0; ++i1)
 				{
-					w.setBlock(sp.ix, h + 1, sp.iz, ModBlocks.BushSprout, Math.floorDiv(w.getBlockMetadata(x, y, z), 2) * 4, 2);
+					for (j1 = z - b0; j1 <= z + b0; ++j1)
+					{
+						for (k1 = y - 1; k1 <= y + 1; ++k1)
+						{
+							if (w.getBlock(i1, k1, j1) == this)
+							{
+								--l;
+
+								if (l <= 0)
+								{
+									return;
+								}
+							}
+						}
+					}
+				}
+
+				i1 = x + r.nextInt(3) - 1;
+				j1 = y + r.nextInt(2) - r.nextInt(2);
+				k1 = z + r.nextInt(3) - 1;
+				int a = x, b = y, c = z;
+
+				for (int l1 = 0; l1 < 4; ++l1)
+				{
+					if (w.isAirBlock(i1, j1, k1) && this.canBlockStay(w, i1, j1, k1))
+					{
+						a = i1;
+						b = j1;
+						c = k1;
+					}
+
+					i1 = a + r.nextInt(3) - 1;
+					j1 = b + r.nextInt(2) - r.nextInt(2);
+					k1 = c + r.nextInt(3) - 1;
+				}
+
+				if (w.isAirBlock(i1, j1, k1) && this.canBlockStay(w, i1, j1, k1))
+				{
+					w.setBlock(i1, j1, k1, ModBlocks.BushSprout, Math.floorDiv(w.getBlockMetadata(x, y, z), 2) * 4, 2);
 				}
 			}
 		}
+	}
+
+	@Override
+	public boolean canBlockStay(World w, int x, int y, int z)
+	{
+		return w.getBlock(x, y - 1, z) == Blocks.grass;
 	}
 
 	@Override
@@ -188,16 +234,56 @@ public class BerryBush extends Block implements IGrowable
 				grow(w, r, x, y, z);
 			}
 		}
-		if (MiscUtils.randWPercent(20))
+		if (MiscUtils.randWPercent(r, 20))// TODO
 		{
-			Wec3 sp = Wec3.random(5, 5, 5);
-			sp = sp.add(new Wec3(x, y, z));
-			int h = MiscUtils.getLowerHighBlock(w, sp.ix, sp.iy + 11, sp.iz);
-			if (w.isAirBlock(sp.ix, h + 1, sp.iz))
+			if (r.nextInt(25) == 0)
 			{
-				if (w.getBlock(sp.ix, h, sp.iz) == Blocks.grass)
+				byte b0 = 4;
+				int l = 5;
+				int i1;
+				int j1;
+				int k1;
+
+				for (i1 = x - b0; i1 <= x + b0; ++i1)
 				{
-					w.setBlock(sp.ix, h + 1, sp.iz, ModBlocks.BushSprout, Math.floorDiv(w.getBlockMetadata(x, y, z), 2) * 4, 2);
+					for (j1 = z - b0; j1 <= z + b0; ++j1)
+					{
+						for (k1 = y - 1; k1 <= y + 1; ++k1)
+						{
+							if (w.getBlock(i1, k1, j1) == this)
+							{
+								--l;
+
+								if (l <= 0)
+								{
+									return;
+								}
+							}
+						}
+					}
+				}
+
+				i1 = x + r.nextInt(3) - 1;
+				j1 = y + r.nextInt(2) - r.nextInt(2);
+				k1 = z + r.nextInt(3) - 1;
+
+				for (int l1 = 0; l1 < 4; ++l1)
+				{
+					if (w.isAirBlock(i1, j1, k1) && this.canBlockStay(w, i1, j1, k1))
+					{
+						x = i1;
+						y = j1;
+						z = k1;
+					}
+
+					i1 = x + r.nextInt(3) - 1;
+					j1 = y + r.nextInt(2) - r.nextInt(2);
+					k1 = z + r.nextInt(3) - 1;
+				}
+
+				if (w.isAirBlock(i1, j1, k1) && this.canBlockStay(w, i1, j1, k1))
+				{
+					w.setBlock(i1, j1, k1, ModBlocks.BushSprout, Math.floorDiv(w.getBlockMetadata(x, y, z), 2) * 4, 2);
 				}
 			}
 		}

@@ -3,6 +3,7 @@
  */
 package AAM.Common.Items;
 
+import AAM.Common.Soul.WeaponType;
 import AAM.Utils.PlayerDataHandler;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
@@ -27,7 +28,7 @@ public class RiteBook extends Item
 	public ItemStack onItemRightClick(ItemStack i, World w, EntityPlayer p)
 	{
 		PlayerDataHandler ph = PlayerDataHandler.get(p);
-		ph.clearProperties(false);
+		ph.sword = WeaponType.LightStaff;
 		// AttributeModifier am = new AttributeModifier("Rite", -60, 0);
 		// p.getEntityAttribute(SharedMonsterAttributes.maxHealth).applyModifier(am);
 		return i;

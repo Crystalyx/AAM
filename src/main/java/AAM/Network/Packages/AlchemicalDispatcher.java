@@ -3,7 +3,6 @@ package AAM.Network.Packages;
 import AAM.Core.AAMCore;
 import AAM.Network.Packages.AlchemicalPackage.AlchemicalClientPackage;
 import AAM.Network.Packages.AlchemicalPackage.AlchemicalServerPackage;
-import AAM.Utils.Logger;
 import cpw.mods.fml.common.network.NetworkRegistry;
 import cpw.mods.fml.common.network.simpleimpl.IMessage;
 import cpw.mods.fml.common.network.simpleimpl.IMessageHandler;
@@ -66,7 +65,7 @@ public class AlchemicalDispatcher
 	 */
 	public static final void sendToClient(IMessage message, EntityPlayer player)
 	{
-		Logger.info("S -> C");
+		// Logger.info("S -> C");
 		AlchemicalDispatcher.dispatcher.sendTo(message, (EntityPlayerMP) player);
 	}
 
@@ -76,7 +75,7 @@ public class AlchemicalDispatcher
 	 */
 	public static final void sendToServer(IMessage message)
 	{
-		Logger.info("C -> S");
+		// Logger.info("C -> S");
 		AlchemicalDispatcher.dispatcher.sendToServer(message);
 	}
 }

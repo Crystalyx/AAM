@@ -31,7 +31,6 @@ public class Artifact extends Item
 	}
 
 	public static IIcon[] icons = new IIcon[Soul.values().length];
-	public static IIcon[] pass = new IIcon[Soul.values().length];
 	public static String[] ways = new String[Soul.values().length];
 
 	@Override
@@ -41,7 +40,6 @@ public class Artifact extends Item
 		for (int i = 0; i < icons.length; i++)
 		{
 			icons[i] = ir.registerIcon("aam:soulsword/component_" + i);
-			pass[i] = ir.registerIcon("aam:soulsword/passes/component_" + i);
 			ways[i] = "soulsword/component_" + i;
 		}
 	}
@@ -60,6 +58,7 @@ public class Artifact extends Item
 	/**
 	 * Gets an icon index based on an item's damage value
 	 */
+	@Override
 	@SideOnly(Side.CLIENT)
 	public IIcon getIconFromDamage(int meta)
 	{

@@ -364,6 +364,17 @@ public class MiscUtils
 	}
 
 	/**
+	 * @param percent
+	 *            - 1% : percent=1
+	 * @return are you lucky today?
+	 */
+	public static boolean randWPercent(Random r, double percent)
+	{
+		double ret = r.nextDouble();
+		return ret <= percent / 100d;
+	}
+
+	/**
 	 * 
 	 * @param yaw
 	 * @param pitch

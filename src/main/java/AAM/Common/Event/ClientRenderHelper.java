@@ -2,6 +2,7 @@ package AAM.Common.Event;
 
 import org.lwjgl.opengl.GL11;
 
+import AAM.Client.Renderer.Item.SoulRenderer;
 import AAM.Common.Items.ModItems;
 import AAM.Common.Items.Artifacts.CrystalBow;
 import AAM.Common.Items.Soul.Artifact;
@@ -9,7 +10,6 @@ import AAM.Common.Items.Soul.SoulSword;
 import AAM.Utils.Color;
 import AAM.Utils.MiscUtils;
 import AAM.Utils.PlayerDataHandler;
-import AAM.Utils.Render.RenderUtils;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
@@ -26,6 +26,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.util.MovingObjectPosition.MovingObjectType;
 import net.minecraft.util.ResourceLocation;
+import net.minecraftforge.client.IItemRenderer.ItemRenderType;
 import net.minecraftforge.client.event.DrawBlockHighlightEvent;
 import net.minecraftforge.client.event.EntityViewRenderEvent;
 import net.minecraftforge.client.event.GuiScreenEvent.DrawScreenEvent;
@@ -328,47 +329,31 @@ public class ClientRenderHelper
 				GL11.glTranslated(0.5, 0, 0);
 				int n = 6;
 				double ang = 360 / n;
+				GL11.glTranslated(-0.5, -0.5, 0);
 				for (int i = 0; i < n; i++)
 				{
 					GL11.glPushMatrix();
 
-					GL11.glTranslated(-1 / 2d, -1 / 2d, 0);
-
 					GL11.glRotated(p.rotationYawHead, 0, -1, 0);
+
 					GL11.glRotated(ang * i, 0, 0, 1);
-					if (p.isBlocking() && ph.bow)
+
+					SoulRenderer sr = new SoulRenderer();
+
+					GL11.glTranslated(-1.5, -1.5, 0);
+					GL11.glRotated(45, 0, 0, 1);
+					GL11.glTranslated(1.5, 1.5, 0);
+					if (ph.getBowIndex() > 0 && (p.isBlocking() || ph.cooldown > 0))
 					{
-						GL11.glRotated(80, 1, 1, 0);
-						int r = 1;
-						GL11.glTranslated(r, -r, r);
-					}
-					GL11.glTranslated(-1 / 2d, -1 / 2d, 0);
-
-					GL11.glTranslated(-1, 1, 0);
-
-					Minecraft.getMinecraft().getTextureManager().bindTexture(new ResourceLocation(way + ".png"));
-					Tessellator tess = Tessellator.instance;
-					RenderUtils.renderTextureIn2D(tess, 0.0F, 0.0F, 1.0F, -1.0F, 64, 64, 0.05F);
-
-					GL11.glScaled(0.25, 0.25, 1.0);
-					GL11.glTranslated(2.5, 0.5, 0);
-
-					if (ph.bow)
-					{
-						GL11.glTranslated(0, 0, 0.01);
-						Minecraft.getMinecraft().getTextureManager().bindTexture(new ResourceLocation(bow + ".png"));
-						RenderUtils.renderTextureIn2D(tess, 0.0F, 0.0F, 1.0F, -1.0F, 64, 64, 0.05F);
-
-						GL11.glTranslated(0, 0, -0.02);
-						Minecraft.getMinecraft().getTextureManager().bindTexture(new ResourceLocation(bow + ".png"));
-						RenderUtils.renderTextureIn2D(tess, 0.0F, 0.0F, 1.0F, -1.0F, 64, 64, 0.05F);
-
-						GL11.glTranslated(0, 0, 0.01);
+						float r = -0.125f;
+						float k = Math.min(ph.cooldown, ph.getMaxCooldown()) / (float) ph.getMaxCooldown();
+						GL11.glTranslated(1, 0, r);
+						GL11.glRotated(k * 90, 1, 1, 0);
+						GL11.glTranslated(-1, 0, -r);
 					}
 
-					Minecraft.getMinecraft().getTextureManager().bindTexture(new ResourceLocation(art + ".png"));
-					RenderUtils.renderTextureIn2D(tess, 0.0F, 0.0F, 1.0F, -1.0F, 64, 64, 0.05F);
-
+					GL11.glTranslated(-1, -1, -0.5);
+					sr.renderItem(ItemRenderType.EQUIPPED, sword, (Object[]) null);
 					GL11.glPopMatrix();
 				}
 				GL11.glPopMatrix();

@@ -62,6 +62,7 @@ public class TESoulAltar extends StructureCore implements IInventory
 					// MiscUtils.dropSlot(this, i);
 				}
 			}
+			this.markDirty();
 		}
 	}
 
@@ -145,7 +146,7 @@ public class TESoulAltar extends StructureCore implements IInventory
 	@Override
 	public int getSizeInventory()
 	{
-		return 11;
+		return 12;
 	}
 
 	@Override
@@ -188,37 +189,25 @@ public class TESoulAltar extends StructureCore implements IInventory
 	public void setInventorySlotContents(int slot, ItemStack item)
 	{
 		this.inv[slot] = item;
-		if (item != null && formed)
+		if (this.formed)
 		{
-			if (item.getItem() instanceof SoulSword)
+			if (slot == 0 && item != null && item.getItem() instanceof SoulSword && item.hasTagCompound())
 			{
-				if (item.hasTagCompound() && slot == 0)
-				{
-					NBTTagCompound tag = item.getTagCompound();
-					String name = tag.getString("Owner");
-					if (!name.equals("") && this.opened)
-					{
-						placeItems(name);
-					}
-				}
+				this.placeItems(item.getTagCompound().getString("Owner"));
+				return;
 			}
 		}
-		else
-		{
-			if (slot == 0)
+		if (slot == 0)
+			for (int i = 1; i < 12; i++)
 			{
-				for (int i = 1; i < 10; i++)
-				{
-					this.setInventorySlotContents(i, null);
-				}
+				this.setInventorySlotContents(i, null);
 			}
-		}
 		this.markDirty();
 	}
 
 	private void placeItems(String playerName)
 	{
-		if (this.worldObj != null)
+		if (this.worldObj != null && !this.worldObj.isRemote)
 		{
 			if (this.worldObj.getPlayerEntityByName(playerName) != null)
 			{

@@ -7,6 +7,7 @@ import AAM.Common.Items.ModItems;
 import AAM.Common.Soul.Soul;
 import AAM.Common.Soul.SoulUpgrade;
 import AAM.Common.Soul.WarriorType;
+import AAM.Common.Soul.WeaponType;
 import AAM.Network.Packages.AlchemicalDispatcher;
 import AAM.Network.Packages.PlayerSyncMessage;
 import net.minecraft.client.Minecraft;
@@ -46,6 +47,7 @@ public class PlayerDataHandler implements IExtendedEntityProperties
 	public int maxSoul = 100;
 	public int soulRegenTimer = 0;
 	public int deficit = 0;
+	public int cooldown = 0;
 
 	public int soulLevel = 1;
 	public int soulxp = 0;
@@ -54,7 +56,7 @@ public class PlayerDataHandler implements IExtendedEntityProperties
 	public int partType = -1;
 	public boolean bow = false;
 	public Soul stype = Soul.Normal;
-	public SwordType sword = SwordType.Broad;
+	public WeaponType sword = WeaponType.Broad;
 	public WarriorType warrior = WarriorType.NotSelected;
 	public boolean art;
 	public boolean arbitur;
@@ -72,12 +74,6 @@ public class PlayerDataHandler implements IExtendedEntityProperties
 
 	public void clearProperties(boolean construct)
 	{
-		if (this.getPermission() > 0)
-		{
-			this.soulDamage = 12.0F;
-		}
-		else
-			this.soulDamage = 5.0F;
 		this.soulTag = new NBTTagCompound();
 		if (!construct)
 			this.soulTag.setString("Owner", this.player.getGameProfile().getName());
@@ -86,12 +82,20 @@ public class PlayerDataHandler implements IExtendedEntityProperties
 		this.soulRegenTimer = 0;
 		this.maxSoul = Math.max(1, this.soulLevel * 100);
 		this.swords = new ArrayList<ItemSword>();
+		this.cooldown = 0;
+		// ========
 		this.bow = false;
 		this.partType = -1;
 		this.stype = Soul.Normal;
-		this.sword = SwordType.Broad;
+		this.sword = WeaponType.Broad;
 		this.warrior = WarriorType.NotSelected;
+		this.soulDamage = this.sword.baseDamage;
+		if (this.getPermission() > 0)
+		{
+			this.soulDamage += 7.0F;
+		}
 		this.upgLevel = new int[SoulUpgrade.values().length];
+		// =================
 		this.soulxp = 0;
 		this.deficit = 0;
 		this.party = new ArrayList<String>();
@@ -145,6 +149,8 @@ public class PlayerDataHandler implements IExtendedEntityProperties
 		this.dungLevel = props.dungLevel;
 		this.arbitur = props.arbitur;
 		this.art = props.art;
+		this.cooldown = props.cooldown;
+
 	}
 
 	@Override
@@ -193,6 +199,7 @@ public class PlayerDataHandler implements IExtendedEntityProperties
 		properties.setInteger("Dungeon", this.dungLevel);
 		properties.setBoolean("Arbitur", this.arbitur);
 		properties.setBoolean("Art", this.art);
+		properties.setInteger("Cooldown", this.cooldown);
 
 		// Finally, set the tag with our unique identifier:
 		compound.setTag(ExtendedDataId, properties);
@@ -231,7 +238,7 @@ public class PlayerDataHandler implements IExtendedEntityProperties
 		}
 		this.bow = tag.getBoolean("Bow");
 		this.partType = tag.getInteger("PartType");
-		this.sword = SwordType.values()[tag.getInteger("SwordType")];
+		this.sword = WeaponType.values()[tag.getInteger("SwordType")];
 		this.warrior = WarriorType.values()[tag.getInteger("WarriorType")];
 
 		for (int j = 0; j < upgLevel.length; j++)
@@ -243,6 +250,7 @@ public class PlayerDataHandler implements IExtendedEntityProperties
 		this.dungLevel = tag.getInteger("Dungeon");
 		this.arbitur = tag.getBoolean("Arbitur");
 		this.art = tag.getBoolean("Art");
+		this.cooldown = tag.getInteger("Cooldown");
 
 	}
 
@@ -279,6 +287,23 @@ public class PlayerDataHandler implements IExtendedEntityProperties
 	 */
 	public void onUpdate()
 	{
+		if (this.getBowIndex() > 0 && (player.isBlocking() || this.cooldown > 0))
+		{
+			if (player.isBlocking())
+			{
+				if (this.cooldown < player.getItemInUseDuration())
+					this.cooldown = player.getItemInUseDuration();
+				else
+				{
+					this.cooldown = MiscUtils.limit(this.cooldown + 1, 0, this.getMaxCooldown());
+				}
+			}
+		}
+		if (this.cooldown > 0 && !player.isBlocking())
+		{
+			this.cooldown--;
+		}
+
 		this.maxSoul = this.soulLevel * 100;
 		this.soulDamage = Math.max(this.soulLevel + 4, this.soulDamage);
 		// checking levelup (maxSoul is needed xp)
@@ -493,22 +518,27 @@ public class PlayerDataHandler implements IExtendedEntityProperties
 
 	public float getFullMeleeDamage(boolean inAttack)
 	{
-		return this.stype.getMeleeDamage(this, soulLevel, soulDamage, inAttack) + getUpgMeleeDamage();
+		float k = this.warrior.equals(WarriorType.Caster) ? 0.75f : 1;
+		return (this.stype.getMeleeDamage(this, soulLevel, soulDamage, inAttack) + getUpgMeleeDamage()) * k;
 	}
 
 	public float getFullMeleeDamageAgainst(EntityLivingBase l, boolean inAttack)
 	{
-		return this.stype.getFullMeleeDamage(this, l, soulLevel, soulDamage, inAttack) + getUpgMeleeDamageAgainst(l);
+		float k = this.warrior.equals(WarriorType.Caster) ? 0.75f : 1;
+
+		return (this.stype.getFullMeleeDamage(this, l, soulLevel, soulDamage, inAttack) + getUpgMeleeDamageAgainst(l)) * k;
 	}
 
 	public float getFullRangedDamage(boolean inAttack)
 	{
-		return this.stype.getRangedDamage(this, soulLevel, soulDamage, inAttack) + getUpgRangedDamage();
+		float k = this.warrior.equals(WarriorType.Caster) ? 0.75f : 1;
+		return (this.stype.getRangedDamage(this, soulLevel, soulDamage, inAttack) + getUpgRangedDamage()) / k;
 	}
 
 	public float getFullRangedDamageAgainst(EntityLivingBase l, boolean inAttack)
 	{
-		return this.stype.getFullRangedDamage(this, l, soulLevel, soulDamage, inAttack) + getUpgRangedDamageAgainst(l);
+		float k = this.warrior.equals(WarriorType.Caster) ? 0.75f : 1;
+		return (this.stype.getFullRangedDamage(this, l, soulLevel, soulDamage, inAttack) + getUpgRangedDamageAgainst(l)) / k;
 	}
 
 	public float getUpgMeleeDamage()
@@ -549,6 +579,19 @@ public class PlayerDataHandler implements IExtendedEntityProperties
 			upgdam += SoulUpgrade.values()[i].getRangedDamage(this, this.soulLevel, this.soulDamage, true) + SoulUpgrade.values()[i].getSpecificRangedDamage(this, l, this.soulLevel, this.soulDamage);
 		}
 		return upgdam;
+	}
+
+	public int getBowIndex()
+	{
+		int bow = 0;
+		bow += MiscUtils.boolToNum(this.bow, 1, 0);
+		bow += MiscUtils.boolToNum(this.warrior.equals(WarriorType.Caster), 1, 0);
+		return bow;
+	}
+
+	public int getMaxCooldown()
+	{
+		return 10 + 50 / this.soulLevel;
 	}
 
 }

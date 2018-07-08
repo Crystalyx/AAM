@@ -8,10 +8,11 @@ import com.google.common.collect.Multimap;
 import AAM.Client.Renderer.Item.SoulRenderer;
 import AAM.Common.Items.Artifacts.CrystalBow;
 import AAM.Common.Items.Resources.SwordDye;
+import AAM.Common.Soul.Soul;
+import AAM.Common.Soul.WarriorType;
+import AAM.Common.Soul.WeaponType;
 import AAM.Utils.Color;
-import AAM.Utils.MiscUtils;
 import AAM.Utils.PlayerDataHandler;
-import AAM.Utils.SwordType;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.client.Minecraft;
@@ -257,12 +258,23 @@ public class SoulSword extends ItemSword
 			if (Minecraft.getMinecraft().theWorld.getPlayerEntityByName(stack.getTagCompound().getString("Owner")) != null)
 			{
 				PlayerDataHandler ph = PlayerDataHandler.get(Minecraft.getMinecraft().theWorld.getPlayerEntityByName(stack.getTagCompound().getString("Owner")));
-				int dt = MiscUtils.boolToNum(ph.arbitur) * 4 * MiscUtils.boolToNum(ph.getPermission() > 0, 1, 2);
 
-				IIcon sword = icon[stack.getItemDamage() + dt];
-				IIcon art = passartnil;
+				IIcon sword = icon[stack.getItemDamage()];
+				if (ph.arbitur)
+					sword = arbitur[stack.getItemDamage()];
+				IIcon art = passSword[0];
+				if (WeaponType.values()[stack.getItemDamage()].warrior.equals(WarriorType.Caster))
+				{
+					art = passStaff[0];
+				}
+
 				if (ph.art)
-					art = Artifact.pass[ph.stype.ordinal()];
+				{
+					if (WeaponType.values()[stack.getItemDamage()].warrior.equals(WarriorType.Carry))
+						art = passSword[ph.stype.ordinal()];
+					if (WeaponType.values()[stack.getItemDamage()].warrior.equals(WarriorType.Caster))
+						art = passStaff[ph.stype.ordinal()];
+				}
 				IIcon bow = CrystalBow.pass;
 				switch (pass)
 				{
@@ -278,7 +290,11 @@ public class SoulSword extends ItemSword
 		else
 		{
 			IIcon sword = icon[stack.getItemDamage()];
-			IIcon art = passartnil;
+			IIcon art = passSword[0];
+			if (WeaponType.values()[stack.getItemDamage()].warrior.equals(WarriorType.Caster))
+			{
+				art = passStaff[0];
+			}
 			switch (pass)
 			{
 			case 0:
@@ -308,10 +324,15 @@ public class SoulSword extends ItemSword
 		return true;
 	}
 
-	public static IIcon[] icon = new IIcon[8];
-	public static String[] ways = new String[8];
+	public static IIcon[] icon = new IIcon[WeaponType.values().length];
+	public static IIcon[] arbitur = new IIcon[WeaponType.values().length];
+	public static String[] ways = new String[WeaponType.values().length];
+	public static String[] ways_arbitur = new String[WeaponType.values().length];
+
+	public static IIcon[] passSword = new IIcon[Soul.values().length + 1];
+	public static IIcon[] passStaff = new IIcon[Soul.values().length + 1];
+
 	public static IIcon nil;
-	public static IIcon passartnil;
 	public static IIcon artnil;
 
 	@Override
@@ -319,15 +340,22 @@ public class SoulSword extends ItemSword
 	public void registerIcons(IIconRegister ir)
 	{
 		nil = ir.registerIcon("aam:null");
-		passartnil = ir.registerIcon("aam:soulsword/passes/component_nil");
 		artnil = ir.registerIcon("aam:soulsword/component_nil");
 
-		for (int i = 0; i < 4; i++)
+		for (int i = 0; i < WeaponType.values().length; i++)
 		{
-			icon[i] = ir.registerIcon("aam:soulsword/excalibur_" + SwordType.values()[i].toString().toLowerCase());
-			ways[i] = "soulsword/excalibur_" + SwordType.values()[i].toString().toLowerCase();
-			icon[i + 4] = ir.registerIcon("aam:soulsword/arbitur_" + SwordType.values()[i].toString().toLowerCase());
-			ways[i + 4] = "soulsword/arbitur_" + SwordType.values()[i].toString().toLowerCase();
+			icon[i] = ir.registerIcon("aam:" + WeaponType.values()[i].texture);
+			arbitur[i] = ir.registerIcon("aam:" + WeaponType.values()[i].arbitur);
+			ways[i] = WeaponType.values()[i].texture;
+			ways_arbitur[i] = WeaponType.values()[i].arbitur;
+		}
+
+		passSword[0] = ir.registerIcon("aam:soulsword/swordpasses/component_nil");
+		passStaff[0] = ir.registerIcon("aam:soulsword/staffpasses/component_nil");
+		for (int i = 1; i < passSword.length; i++)
+		{
+			passSword[i] = ir.registerIcon("aam:soulsword/swordpasses/component_" + i);
+			passStaff[i] = ir.registerIcon("aam:soulsword/staffpasses/component_" + i);
 		}
 
 	}
@@ -340,7 +368,16 @@ public class SoulSword extends ItemSword
 	@Override
 	public String getUnlocalizedName(ItemStack i)
 	{
-		return "aam.excalibur";// : "aam.soul_sword";
+		if (i.hasTagCompound() && i.getTagCompound().hasKey("Owner"))
+		{
+			if (Minecraft.getMinecraft().theWorld.getPlayerEntityByName(i.getTagCompound().getString("Owner")) != null)
+			{
+				PlayerDataHandler ph = PlayerDataHandler.get(Minecraft.getMinecraft().theWorld.getPlayerEntityByName(i.getTagCompound().getString("Owner")));
+				return "aam." + ph.sword.toString().toLowerCase();
+			}
+		}
+		return "aam.excalibur";
+
 	}
 
 	/**
@@ -351,7 +388,7 @@ public class SoulSword extends ItemSword
 	@SideOnly(Side.CLIENT)
 	public void getSubItems(Item it, CreativeTabs tab, List l)
 	{
-		for (int i = 0; i < 8; i++)
+		for (int i = 0; i < WeaponType.values().length; i++)
 		{
 			ItemStack is = new ItemStack(it, 1, i);
 			l.add(is);

@@ -96,7 +96,7 @@ public class CrystalBow extends ItemArtifact
 			icon[i] = ir.registerIcon("aam:soulsword/bow_art_" + i);
 			ways[i] = "soulsword/bow_art_" + i;
 		}
-		pass = ir.registerIcon("aam:soulsword/passes/bow");
+		pass = ir.registerIcon("aam:soulsword/swordpasses/bow");
 
 	}
 

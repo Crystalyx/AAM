@@ -72,7 +72,12 @@ public class SoulCharge extends EntityThrowable
 		for (EntityLivingBase e : l)
 		{
 			if (!this.effs.contains("D"))
-				e.attackEntityFrom(new SoulDamageSource(this.ph), this.ph.getFullRangedDamageAgainst(e, true));
+			{
+				if (this.ph.sword.bypassesArmor)
+					e.attackEntityFrom(new SoulDamageSource(this.ph).setDamageBypassesArmor(), this.ph.getFullRangedDamageAgainst(e, true));
+				else
+					e.attackEntityFrom(new SoulDamageSource(this.ph), this.ph.getFullRangedDamageAgainst(e, true));
+			}
 			if (this.effs.contains("F"))
 			{
 				e.setFire(this.ph.getSoulLevel() * 2);

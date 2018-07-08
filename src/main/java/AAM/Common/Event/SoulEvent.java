@@ -76,7 +76,8 @@ public class SoulEvent
 						}
 					}
 				}
-				p.inventory.addItemStackToInventory(ph.getSwordStack());
+				if (soul + ph.getCurrentSoul() >= 15)
+					p.inventory.addItemStackToInventory(ph.getSwordStack());
 				ph.addSoul(soul - 15);
 			}
 
@@ -92,9 +93,9 @@ public class SoulEvent
 					{
 						if (p.getCurrentEquippedItem().getItem() instanceof SoulSword)
 						{
-							if (ph.bow && MiscUtils.randWPercent(40 + ph.upgLevel[SoulUpgrade.Cast.ordinal()] * 5 + 60))
+							if (ph.getBowIndex() > 0 && MiscUtils.randWPercent(40 + ph.upgLevel[SoulUpgrade.Cast.ordinal()] * 5 + 60))
 							{
-								if (ph.consumeSoul(ph.soulLevel) && !p.worldObj.isRemote)
+								if (ph.consumeSoul(ph.soulLevel) && !p.worldObj.isRemote && ph.cooldown >= ph.getMaxCooldown() - 2)
 								{
 									SoulCharge s = new SoulCharge(p.worldObj, p);
 									double sp = 0.5;
@@ -130,7 +131,7 @@ public class SoulEvent
 					e.toolTip.add(EnumChatFormatting.DARK_AQUA + "Owner: " + name);
 
 					e.toolTip.add(EnumChatFormatting.BLUE + "+" + ph.getFullMeleeDamage(false) + "" + EnumChatFormatting.DARK_PURPLE + " Soul Damage");
-					if (ph.bow)
+					if (ph.getBowIndex() > 0)
 						e.toolTip.add(EnumChatFormatting.BLUE + "+" + ph.getFullRangedDamage(false) + "" + EnumChatFormatting.DARK_PURPLE + " Ranged Soul Damage");
 
 					e.toolTip.add("Additional:");

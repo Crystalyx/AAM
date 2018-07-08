@@ -6,6 +6,8 @@ import AAM.Common.Items.ModItems;
 import AAM.Common.Items.Artifacts.CrystalBow;
 import AAM.Common.Items.Soul.Artifact;
 import AAM.Common.Items.Soul.SoulSword;
+import AAM.Common.Soul.WarriorType;
+import AAM.Common.Soul.WeaponType;
 import AAM.Utils.MiscUtils;
 import AAM.Utils.PlayerDataHandler;
 import AAM.Utils.Render.RenderUtils;
@@ -58,15 +60,16 @@ public class SoulRenderer implements IItemRenderer
 		}
 		PlayerDataHandler ph = PlayerDataHandler.get(Minecraft.getMinecraft().thePlayer);
 
-		int dt = MiscUtils.boolToNum(ph.arbitur) * 4 * MiscUtils.boolToNum(ph.getPermission() > 0, 1, 2);
-
 		String way = "aam:textures/items/" + SoulSword.ways[0];
 		String art = "aam:textures/items/soulsword/component_nil";
 		String bow = "aam:textures/items/" + CrystalBow.ways[0];
 
 		if (item.getItem() == ModItems.SoulSword)
 		{
-			way = "aam:textures/items/" + SoulSword.ways[item.getItemDamage() + dt];
+			way = "aam:textures/items/" + SoulSword.ways[item.getItemDamage()];
+			if (ph.arbitur)
+				way = "aam:textures/items/" + SoulSword.ways_arbitur[item.getItemDamage()];
+
 			if (ph.art)
 				art = "aam:textures/items/" + Artifact.ways[ph.stype.ordinal()];
 		}
@@ -105,7 +108,13 @@ public class SoulRenderer implements IItemRenderer
 			GL11.glTranslated(0, 0, 0.01);
 		}
 		Minecraft.getMinecraft().getTextureManager().bindTexture(new ResourceLocation(art + ".png"));
-		RenderUtils.renderTextureIn2D(tess, 0.0F, 0.0F, 1.0F, -1.0F, 16, 16, tough);
+		if (WeaponType.values()[item.getItemDamage()].warrior.equals(WarriorType.Carry))
+			RenderUtils.renderTextureIn2D(tess, 0.0F, 0.0F, 1.0F, -1.0F, 16, 16, tough);
+		if (WeaponType.values()[item.getItemDamage()].warrior.equals(WarriorType.Caster))
+		{
+			GL11.glTranslated(-2.25, 2.25, 0);
+			RenderUtils.renderTextureIn2D(tess, 0.0F, 0.0F, 1.0F, -1.0F, 16, 16, tough);
+		}
 
 		GL11.glPopMatrix();
 	}
