@@ -134,8 +134,11 @@ public class AlchemicalConcentrateItem extends ItemFood
 		{
 			if (is.hasTagCompound())
 			{
-				Concentrate conc = ModPotions.concentrates.get(is.getItemDamage());
-				return MiscUtils.rgbToHex(conc.color.red, conc.color.green, conc.color.blue);
+				if (is.getItemDamage() < ModPotions.concentrates.size())
+				{
+					Concentrate conc = ModPotions.concentrates.get(is.getItemDamage());
+					return MiscUtils.rgbToHex(conc.color.red, conc.color.green, conc.color.blue);
+				}
 			}
 		}
 		return 16777215;
