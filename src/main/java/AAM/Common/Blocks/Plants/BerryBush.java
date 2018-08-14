@@ -58,7 +58,7 @@ public class BerryBush extends Block implements IGrowable
 
 		if (beta == 1)
 		{
-			ItemStack berry = new ItemStack(ModItems.Berry, w.rand.nextInt(3) + 1, meta);
+			ItemStack berry = new ItemStack(ModItems.Berry, (int) (Math.floorMod(w.getWorldTime(), 4) + 1), meta);
 			MiscUtils.dropStack(w, x, y, z, berry);
 		}
 	}
@@ -122,7 +122,7 @@ public class BerryBush extends Block implements IGrowable
 			if (p.getCurrentEquippedItem() == null)
 			{
 				w.setBlockMetadataWithNotify(x, y, z, meta * 2, 2);
-				ItemStack berry = new ItemStack(ModItems.Berry, (int) (Math.floorDiv(w.getWorldTime(), 5000) + 1), meta);
+				ItemStack berry = new ItemStack(ModItems.Berry, (int) (Math.floorMod(w.getWorldTime(), 4) + 1), meta);
 				MiscUtils.dropStackToPlayer(w, x, y, z, berry, p);
 				return true;
 			}
@@ -139,71 +139,7 @@ public class BerryBush extends Block implements IGrowable
 	@Override
 	public void updateTick(World w, int x, int y, int z, Random r)
 	{
-		if (Math.floorMod(w.getBlockMetadata(x, y, z), 2) == 0)
-		{
-			if (!w.isRemote)
-			{
-				if (w.getBlockLightValue(x, y + 1, z) >= 9 && r.nextInt(3) == 0)
-				{
-					grow(w, r, x, y, z);
-				}
-			}
-		}
-
-		if (MiscUtils.randWPercent(r, 20))
-		{
-			if (r.nextInt(25) == 0)
-			{
-				byte b0 = 4;
-				int l = 5;
-				int i1;
-				int j1;
-				int k1;
-
-				for (i1 = x - b0; i1 <= x + b0; ++i1)
-				{
-					for (j1 = z - b0; j1 <= z + b0; ++j1)
-					{
-						for (k1 = y - 1; k1 <= y + 1; ++k1)
-						{
-							if (w.getBlock(i1, k1, j1) == this)
-							{
-								--l;
-
-								if (l <= 0)
-								{
-									return;
-								}
-							}
-						}
-					}
-				}
-
-				i1 = x + r.nextInt(3) - 1;
-				j1 = y + r.nextInt(2) - r.nextInt(2);
-				k1 = z + r.nextInt(3) - 1;
-				int a = x, b = y, c = z;
-
-				for (int l1 = 0; l1 < 4; ++l1)
-				{
-					if (w.isAirBlock(i1, j1, k1) && this.canBlockStay(w, i1, j1, k1))
-					{
-						a = i1;
-						b = j1;
-						c = k1;
-					}
-
-					i1 = a + r.nextInt(3) - 1;
-					j1 = b + r.nextInt(2) - r.nextInt(2);
-					k1 = c + r.nextInt(3) - 1;
-				}
-
-				if (w.isAirBlock(i1, j1, k1) && this.canBlockStay(w, i1, j1, k1))
-				{
-					w.setBlock(i1, j1, k1, ModBlocks.BushSprout, Math.floorDiv(w.getBlockMetadata(x, y, z), 2) * 4, 2);
-				}
-			}
-		}
+		func_149853_b(w, r, x, y, z);
 	}
 
 	@Override
@@ -236,55 +172,54 @@ public class BerryBush extends Block implements IGrowable
 		}
 		if (MiscUtils.randWPercent(r, 20))// TODO
 		{
-			if (r.nextInt(25) == 0)
+			byte b0 = 4;
+			int l = 5;
+			int i1;
+			int j1;
+			int k1;
+
+			for (i1 = x - b0; i1 <= x + b0; ++i1)
 			{
-				byte b0 = 4;
-				int l = 5;
-				int i1;
-				int j1;
-				int k1;
-
-				for (i1 = x - b0; i1 <= x + b0; ++i1)
+				for (j1 = z - b0; j1 <= z + b0; ++j1)
 				{
-					for (j1 = z - b0; j1 <= z + b0; ++j1)
+					for (k1 = y - 1; k1 <= y + 1; ++k1)
 					{
-						for (k1 = y - 1; k1 <= y + 1; ++k1)
+						if (w.getBlock(i1, k1, j1) == this)
 						{
-							if (w.getBlock(i1, k1, j1) == this)
-							{
-								--l;
+							--l;
 
-								if (l <= 0)
-								{
-									return;
-								}
+							if (l <= 0)
+							{
+								return;
 							}
 						}
 					}
 				}
+			}
 
-				i1 = x + r.nextInt(3) - 1;
-				j1 = y + r.nextInt(2) - r.nextInt(2);
-				k1 = z + r.nextInt(3) - 1;
+			int a = x, b = y, c = z;
 
-				for (int l1 = 0; l1 < 4; ++l1)
-				{
-					if (w.isAirBlock(i1, j1, k1) && this.canBlockStay(w, i1, j1, k1))
-					{
-						x = i1;
-						y = j1;
-						z = k1;
-					}
+			i1 = a + r.nextInt(3) - 1;
+			j1 = b + r.nextInt(2) - r.nextInt(2);
+			k1 = c + r.nextInt(3) - 1;
 
-					i1 = x + r.nextInt(3) - 1;
-					j1 = y + r.nextInt(2) - r.nextInt(2);
-					k1 = z + r.nextInt(3) - 1;
-				}
-
+			for (int l1 = 0; l1 < 4; ++l1)
+			{
 				if (w.isAirBlock(i1, j1, k1) && this.canBlockStay(w, i1, j1, k1))
 				{
-					w.setBlock(i1, j1, k1, ModBlocks.BushSprout, Math.floorDiv(w.getBlockMetadata(x, y, z), 2) * 4, 2);
+					a = i1;
+					b = j1;
+					c = k1;
 				}
+
+				i1 = a + r.nextInt(3) - 1;
+				j1 = b + r.nextInt(2) - r.nextInt(2);
+				k1 = c + r.nextInt(3) - 1;
+			}
+
+			if (w.isAirBlock(i1, j1, k1) && this.canBlockStay(w, i1, j1, k1))
+			{
+				w.setBlock(i1, j1, k1, ModBlocks.BushSprout, Math.floorDiv(w.getBlockMetadata(x, y, z), 2) * 4, 2);
 			}
 		}
 	}

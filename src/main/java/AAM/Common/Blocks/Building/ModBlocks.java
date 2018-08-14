@@ -5,6 +5,7 @@ import AAM.Common.Blocks.Circles.BloodBlock;
 import AAM.Common.Blocks.Circles.CircleBase;
 import AAM.Common.Blocks.Circles.MechanicalBase;
 import AAM.Common.Blocks.Circles.TransCircle;
+import AAM.Common.Blocks.Mechanical.Barrel;
 import AAM.Common.Blocks.Mechanical.BlockTeleporter;
 import AAM.Common.Blocks.Mechanical.Cauldron;
 import AAM.Common.Blocks.Mechanical.CreativeCauldron;
@@ -60,20 +61,22 @@ public class ModBlocks
 	public static ModPlank2[] ModPlanks2 = new ModPlank2[0];
 
 	// =======================Plants==========================
-	public static Block ShadowveilPlant = (new ShadowveilPlant(-1)).setBlockName(modid + "shadowveil");
-	public static Block ShroomPlant = (new ShroomPlant()).setBlockName(modid + "shroom");
-	public static Block BerryBush = (new BerryBush(Material.leaves)).setBlockName(modid + "berryBush");
-	public static Block BushSprout = (new BushSprout(Material.leaves)).setBlockName(modid + "bushSprout");
+	public static Block ShadowveilPlant = new ShadowveilPlant(-1).setBlockName(modid + "shadowveil");
+	public static Block ShroomPlant = new ShroomPlant().setBlockName(modid + "shroom");
+	public static Block BerryBush = new BerryBush(Material.leaves).setBlockName(modid + "berryBush");
+	public static Block BushSprout = new BushSprout(Material.leaves).setBlockName(modid + "bushSprout");
 
 	// =======================Potions==========================
-	public static Block Cauldron = (new Cauldron(Material.iron)).setBlockName(modid + "cauldron");
-	public static Block CauldronCreat = (new CreativeCauldron(Material.iron)).setBlockName(modid + "cauldron.creative");
+	public static Block Cauldron = new Cauldron(Material.iron).setBlockName(modid + "cauldron");
+	public static Block Barrel = new Barrel().setBlockName(modid + "barrel");
+
+	public static Block CauldronCreat = new CreativeCauldron(Material.iron).setBlockName(modid + "cauldron.creative");
 	public static Block SpellTable = new SpellTable(Material.wood).setBlockName(modid + "spelltable");
 	public static Block ReinforcedGlass = new ReinforcedGlass(Material.glass).setBlockName(modid + "reinforced_glass");
 	public static Block SandyGlass = new SandyGlass().setBlockName(modid + "sandy_glass");
 
 	// =======================Debug==========================
-	public static Block Expander = (new Expander(Material.iron)).setBlockName(modid + "expander");
+	public static Block Expander = new Expander(Material.iron).setBlockName(modid + "expander");
 	public static Block StructureBlock = new StructureBlock(Material.rock).setBlockName(modid + "struct");
 
 	// =======================Mechanical==========================
@@ -131,6 +134,7 @@ public class ModBlocks
 		// =======================Potions==========================
 		registerBlock(Cauldron, misc);
 		registerBlock(CauldronCreat, misc);
+		registerBlock(Barrel, misc);
 		registerBlock(SpellTable, misc);
 		registerBlock(ReinforcedGlass, misc);
 		registerBlock(SandyGlass, misc);
@@ -151,6 +155,7 @@ public class ModBlocks
 
 		// =======================Soul==========================
 		registerBlock(SoulAltar, soul);
+		registerBlock(ModAnvil, soul);
 		registerBlock(PHBlock);
 		registerBlock(altar_base, soul);
 		registerBlock(altar_based_stairs, soul);
@@ -173,7 +178,6 @@ public class ModBlocks
 		registerBlock(GClearer, misc);
 
 		// =======================OLD==========================
-		registerBlock(ModAnvil, misc);
 		registerBlock(grav, misc);
 
 	}

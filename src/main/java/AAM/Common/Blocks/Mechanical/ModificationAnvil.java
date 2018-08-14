@@ -3,17 +3,19 @@
  */
 package AAM.Common.Blocks.Mechanical;
 
-import AAM.Common.Items.ModItems;
 import AAM.Common.Tiles.TEModificationAnvil;
+import AAM.Core.AAMCore;
 import AAM.Utils.MiscUtils;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockContainer;
 import net.minecraft.block.material.Material;
+import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.IIcon;
 import net.minecraft.world.World;
+import net.minecraftforge.common.util.ForgeDirection;
 
 /**
  * @author Lord_Crystalyx
@@ -24,9 +26,7 @@ public class ModificationAnvil extends BlockContainer
 	public ModificationAnvil()
 	{
 		super(Material.iron);
-		this.setBlockBounds(0.0F, 0.0F, 0.0F, 1.0F, 0.625F, 1.0F);
 		this.setHardness(2.0F);
-		this.setBlockTextureName("aam:null");
 	}
 
 	@Override
@@ -36,13 +36,7 @@ public class ModificationAnvil extends BlockContainer
 		if (w.getTileEntity(x, y, z) instanceof TEModificationAnvil)
 		{
 			TEModificationAnvil tile = (TEModificationAnvil) w.getTileEntity(x, y, z);
-			for (int i = 0; i < 7; i++)
-			{
-				if (tile.inventory[i] != null)
-				{
-					MiscUtils.dropInventory(w, x, y, z, tile);
-				}
-			}
+			MiscUtils.dropInventory(w, x, y, z, tile);
 		}
 	}
 
@@ -55,52 +49,24 @@ public class ModificationAnvil extends BlockContainer
 	@Override
 	public boolean onBlockActivated(World w, int x, int y, int z, EntityPlayer p, int p_149727_6_, float px, float py, float pz)
 	{
-		if (w.getTileEntity(x, y, z) != null)
-			if (w.getTileEntity(x, y, z) instanceof TEModificationAnvil)
-			{
-				TEModificationAnvil tile = (TEModificationAnvil) w.getTileEntity(x, y, z);
-				if (!p.isSneaking())
-				{
-					if (p.getCurrentEquippedItem() != null)
-					{
-						if (p.getCurrentEquippedItem().getItem() != ModItems.RiteBook)
-						{
-							ItemStack item = p.inventory.decrStackSize(p.inventory.currentItem, 1);
-							for (int i = 0; i < tile.getSizeInventory(); i++)
-							{
-								if (tile.getStackInSlot(i) == null)
-								{
-									tile.setInventorySlotContents(i, item);
-									break;
-								}
-							}
-						}
-						else
-						{
-							if (p.getCurrentEquippedItem().getItem() == ModItems.RiteBook)
-							{
-								if (!tile.isCrafting)
-								{
-									tile.startCrafting();
-								}
-							}
-						}
-					}
-				}
-				else
-				{
-					for (int i = 6; i >= 0; i--)
-					{
-						if (tile.getStackInSlot(i) != null)
-						{
-							MiscUtils.addItemStack(p, tile.decrStackSize(i, 1));
-							tile.setInventorySlotContents(i, null);
-							break;
-						}
-					}
-				}
-			}
+		p.openGui(AAMCore.instance, 2, w, x, y, z);
 		return true;
+	}
+
+	public IIcon side;
+	public IIcon top;
+
+	@Override
+	public void registerBlockIcons(IIconRegister ir)
+	{
+		this.side = ir.registerIcon("aam:anvil_base");
+		this.top = ir.registerIcon("aam:anvil_top");
+	}
+
+	@Override
+	public IIcon getIcon(int side, int meta)
+	{
+		return side == ForgeDirection.UP.ordinal() ? this.top : this.side;
 	}
 
 	@Override

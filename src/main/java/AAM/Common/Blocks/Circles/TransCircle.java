@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-import AAM.API.ICircleExtender;
+import AAM.API.Interface.ICircleExtender;
 import AAM.Common.Blocks.Building.ModBlocks;
 import AAM.Common.Items.ModItems;
 import AAM.Common.Tiles.TETransCircle;
@@ -121,7 +121,7 @@ public class TransCircle extends BlockContainer
 					int sz = 0;
 					for (int i = 0; i < te.circle.size(); i++)
 					{
-						if (!te.circle.get(i).pt.extended)
+						// if (!te.circle.get(i).pt.extended)
 						{
 							sz += 1;
 						}
@@ -132,7 +132,7 @@ public class TransCircle extends BlockContainer
 						for (int i = 0; i < te.circle.size(); i++)
 						{
 							Circle c = te.circle.get(i);
-							if (!c.pt.extended)
+							// if (!c.pt.extended)
 							{
 								tag.setString("Part_" + i, ModCircles.getprts(c.pt));
 								tag.setDouble("Scale_" + i, c.scale);
@@ -145,96 +145,97 @@ public class TransCircle extends BlockContainer
 				}
 				return true;
 			}
-			if (MiscUtils.contains(p.inventory, ModItems.ItemChalk))
-			{
-				MiscUtils.getStack(p.inventory, ModItems.ItemChalk).damageItem(1, p);
-
-				if (p.getCurrentEquippedItem().getItem() == ModItems.ChalkPattern)
+			else
+				if (p.getCurrentEquippedItem().getItem() == ModItems.RiteBook)
 				{
-					boolean cont = false;
-					double size = 1.0;
-					CirclePart pt = ModCircles.parts.get(p.getCurrentEquippedItem().getItemDamage());
-					Circle pr = new Circle(pt, 1.0, p.isSneaking());
-					for (Circle par : te.circle)
-					{
-						cont = (par.pt.equals(pr.pt)) && (par.rev == pr.rev);
-						if (cont)
-						{
-							pr = par;
-							break;
-						}
-					}
-					if (!cont)
-					{
-						te.circle.add(pr);
-					}
-					else
-					{
-						pr.scale += 1.0;
-					}
-					return true;
+					Logger.mchat(p, te.energy, te.energyType);
 				}
-				if (p.getCurrentEquippedItem().getItem() == ModItems.AlchPaper)
-				{
-					if (p.getCurrentEquippedItem().getItemDamage() == 1)
+				else
+					if (MiscUtils.contains(p.inventory, ModItems.ItemChalk))
 					{
-						NBTTagCompound tag = p.getCurrentEquippedItem().getTagCompound();
+						MiscUtils.getStack(p.inventory, ModItems.ItemChalk).damageItem(1, p);
 
-						int count = tag.getInteger("Size");
-						if (count > 0)
+						if (p.getCurrentEquippedItem().getItem() == ModItems.ChalkPattern)
 						{
-							List<Circle> l = new ArrayList<Circle>();
-							for (int i = 0; i < count; i++)
+							boolean cont = false;
+							double size = 1.0;
+							CirclePart pt = ModCircles.parts.get(p.getCurrentEquippedItem().getItemDamage());
+							Circle pr = new Circle(pt, 1.0, p.isSneaking());
+							for (Circle par : te.circle)
 							{
-								String code = tag.getString("Part_" + i);
-								boolean rev = tag.getBoolean("rev_" + i);
-								if (p.isSneaking())
+								cont = (par.pt.equals(pr.pt)) && (par.rev == pr.rev);
+								if (cont)
 								{
-									rev = !rev;
+									pr = par;
+									break;
 								}
-								double scale = tag.getDouble("Scale_" + i);
-								Circle c = new Circle(ModCircles.getprtsr(code), scale, rev);
-								if (!l.contains(c))
-									l.add(c);
 							}
-							if (te.circle.size() == l.size())
+							if (!cont)
 							{
-								List<String> tl = new ArrayList<String>();
-								List<String> ll = new ArrayList<String>();
-
-								for (int i = 0; i < count; i++)
-								{
-									String sst = ModCircles.getCodeStr(te.circle.get(i));
-									tl.add(sst.substring(0, 2) + sst.substring(sst.length() - 1, sst.length()));
-
-									String ssl = ModCircles.getCodeStr(l.get(i));
-									ll.add(sst.substring(0, 2) + sst.substring(sst.length() - 1, sst.length()));
-								}
-								Logger.info("TL" + tl);
-								Logger.info("LL" + ll);
-								if (MiscUtils.containsOnly(tl, ll))
-								{
-									for (int i = 0; i < count; i++)
-									{
-										te.circle.get(i).scale += 1;
-									}
-								}
+								te.circle.add(pr);
 							}
 							else
 							{
-								te.circle.clear();
-								te.circle.addAll(l);
+								pr.scale += 1.0;
+							}
+							return true;
+						}
+						if (p.getCurrentEquippedItem().getItem() == ModItems.AlchPaper)
+						{
+							if (p.getCurrentEquippedItem().getItemDamage() == 1)
+							{
+								NBTTagCompound tag = p.getCurrentEquippedItem().getTagCompound();
+
+								int count = tag.getInteger("Size");
+								if (count > 0)
+								{
+									List<Circle> l = new ArrayList<Circle>();
+									for (int i = 0; i < count; i++)
+									{
+										String code = tag.getString("Part_" + i);
+										boolean rev = tag.getBoolean("rev_" + i);
+										if (p.isSneaking())
+										{
+											rev = !rev;
+										}
+										double scale = tag.getDouble("Scale_" + i);
+										Circle c = new Circle(ModCircles.getprtsr(code), scale, rev);
+										if (!l.contains(c))
+											l.add(c);
+									}
+									if (te.circle.size() == l.size())
+									{
+										List<String> tl = new ArrayList<String>();
+										List<String> ll = new ArrayList<String>();
+
+										for (int i = 0; i < count; i++)
+										{
+											String sst = ModCircles.getCodeStr(te.circle.get(i));
+											tl.add(sst.substring(0, 2) + sst.substring(sst.length() - 1, sst.length()));
+
+											String ssl = ModCircles.getCodeStr(l.get(i));
+											ll.add(sst.substring(0, 2) + sst.substring(sst.length() - 1, sst.length()));
+										}
+										Logger.info("TL" + tl);
+										Logger.info("LL" + ll);
+										if (MiscUtils.containsOnly(tl, ll))
+										{
+											for (int i = 0; i < count; i++)
+											{
+												te.circle.get(i).scale += 1;
+											}
+										}
+									}
+									else
+									{
+										te.circle.clear();
+										te.circle.addAll(l);
+									}
+								}
 							}
 						}
 					}
-				}
-			}
-			if (p.getCurrentEquippedItem().getItem() instanceof ICircleExtender)
-			{
-				((ICircleExtender) p.getCurrentEquippedItem().getItem()).onExtended(p.getCurrentEquippedItem(), p, w, new Wec3(x, y, z));
-				te.extend();
-			}
-			if (p.getCurrentEquippedItem().getItem() == ModItems.LinkObol)
+			if (p.getCurrentEquippedItem() != null && p.getCurrentEquippedItem().getItem() == ModItems.LinkObol)
 			{
 				if (!te.isLink)
 				{
@@ -250,13 +251,16 @@ public class TransCircle extends BlockContainer
 			}
 			if (te.is == null)
 			{
-				if (p.getCurrentEquippedItem() != null)
+				if (p.getCurrentEquippedItem() != null && p.getCurrentEquippedItem().getItem() == ModItems.PhilosophersStone
+						|| (EnergyProvider.hasValue(p.getCurrentEquippedItem()) && !this.blacklist.contains(p.getCurrentEquippedItem().getItem())))
 				{
-					if (EnergyProvider.hasValue(p.getCurrentEquippedItem()) && !this.blacklist.contains(p.getCurrentEquippedItem().getItem()))
-					{
-						te.is = p.inventory.decrStackSize(p.inventory.currentItem, 1);
-					}
+					te.is = p.inventory.decrStackSize(p.inventory.currentItem, 1);
 				}
+			}
+			if (p.getCurrentEquippedItem() != null && p.getCurrentEquippedItem().getItem() instanceof ICircleExtender)
+			{
+				((ICircleExtender) p.getCurrentEquippedItem().getItem()).onExtended(p.getCurrentEquippedItem(), p, w, new Wec3(x, y, z));
+				te.extend();
 			}
 		}
 		else

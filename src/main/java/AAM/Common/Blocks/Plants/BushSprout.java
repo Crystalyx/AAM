@@ -99,24 +99,26 @@ public class BushSprout extends Block implements IGrowable
 	@Override
 	public void updateTick(World w, int x, int y, int z, Random r)
 	{
-		if (Math.floorMod(w.getBlockMetadata(x, y, z), 4) <= 3)
+		if (!w.isRemote)
 		{
-			if (!w.isRemote)
-			{
-				if (w.getBlockLightValue(x, y + 1, z) >= 9 && r.nextInt(3) == 0)
-				{
-					if (Math.floorMod(w.getBlockMetadata(x, y, z), 4) < 3)
-					{
-						grow(w, r, x, y, z);
-					}
-					if (Math.floorMod(w.getBlockMetadata(x, y, z), 4) == 3)
-					{
-						w.setBlock(x, y, z, ModBlocks.BerryBush, Math.floorDiv(w.getBlockMetadata(x, y, z), 4) * 2, 2);
-					}
-				}
-			}
+			getGrowthBehaviour(w, x, y, z, r);
 		}
+	}
 
+	public void getGrowthBehaviour(World w, int x, int y, int z, Random r)
+	{
+		if (w.getBlockLightValue(x, y + 1, z) >= 9 && r.nextInt(3) == 0)
+		{
+			if (Math.floorMod(w.getBlockMetadata(x, y, z), 4) < 3)
+			{
+				grow(w, r, x, y, z);
+			}
+			else
+				if (Math.floorMod(w.getBlockMetadata(x, y, z), 4) == 3)
+				{
+					w.setBlock(x, y, z, ModBlocks.BerryBush, Math.floorDiv(w.getBlockMetadata(x, y, z), 4) * 2, 2);
+				}
+		}
 	}
 
 	@Override
@@ -134,16 +136,9 @@ public class BushSprout extends Block implements IGrowable
 	@Override
 	public void func_149853_b(World w, Random r, int x, int y, int z)
 	{
-		if (Math.floorMod(w.getBlockMetadata(x, y, z), 4) < 3)
+		if (!w.isRemote)
 		{
-			if (!w.isRemote)
-			{
-				grow(w, r, x, y, z);
-			}
-		}
-		if (Math.floorMod(w.getBlockMetadata(x, y, z), 4) == 3)
-		{
-			w.setBlock(x, y, z, ModBlocks.BerryBush, Math.floorDiv(w.getBlockMetadata(x, y, z), 4) * 2, 2);
+			getGrowthBehaviour(w, x, y, z, r);
 		}
 	}
 

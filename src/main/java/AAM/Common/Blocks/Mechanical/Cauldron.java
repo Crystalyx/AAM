@@ -6,10 +6,12 @@ import java.util.Random;
 
 import AAM.Common.Items.ModItems;
 import AAM.Common.Potions.Booster;
-import AAM.Common.Potions.Ingridient;
+import AAM.Common.Potions.IngridientItem;
+import AAM.Common.Potions.Ingridients;
 import AAM.Common.Potions.ModPotions;
 import AAM.Common.Potions.Prolonger;
 import AAM.Common.Tiles.TECauldron;
+import AAM.Utils.Logger;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.block.BlockContainer;
@@ -67,6 +69,12 @@ public class Cauldron extends BlockContainer
 
 	}
 
+	// @Override
+	// public int getLightValue(IBlockAccess world, int x, int y, int z)
+	// {
+	// return super.getLightValue(world, x, y, z);
+	// }
+
 	public void addCollisionBoxToList(World w, int x, int y, int z, AxisAlignedBB aabb, List l, Entity e)
 	{
 		AxisAlignedBB axisalignedbb1 = AxisAlignedBB.getBoundingBox(0.0525F, 0.0F, 0.0525F, 0.9475F, 0.8875F, 0.9475F);
@@ -115,6 +123,13 @@ public class Cauldron extends BlockContainer
 						cauld.isBurning = cauld.burnTime > 0;
 						flag = true;
 					}
+					if (p.getCurrentEquippedItem().getItem() == ModItems.RiteBook)
+					{
+						cauld.burnTime = 1000000;
+						cauld.fluid.amount = 1000;
+						cauld.isBurning = cauld.burnTime > 0;
+						flag = true;
+					}
 					// ==================================Water==================================
 					if (p.getCurrentEquippedItem().getItem() == Items.water_bucket)
 					{
@@ -123,52 +138,39 @@ public class Cauldron extends BlockContainer
 						cauld.fluid.amount = 1000;
 						flag = true;
 					}
+					if (p.getCurrentEquippedItem().getItem() == ModItems.AlchemicalBucket && p.getCurrentEquippedItem().getItemDamage() == 0)
+					{
+						if (Ingridients.getIngredientBase(cauld.ingrs).contains(Ingridients.berryAssorty))
+						{
+							if (cauld.potion.length > 0 && cauld.fluid.amount > 200)
+							{
+								ItemStack is = p.getCurrentEquippedItem();
+								NBTTagCompound tag = is.getTagCompound();
+								if (tag == null)
+								{
+									tag = new NBTTagCompound();
+									is.setTagCompound(tag);
+								}
+								tag.setIntArray("Potion", cauld.potion);
+								is.setItemDamage(1);
+								cauld.ingrs = new ArrayList<IngridientItem>();
+								cauld.fluid.amount -= 200;
+								cauld.potion = new int[0];
+							}
+						}
+					}
 					// ==================================Potion===============================
 					if (p.getCurrentEquippedItem().getItem() == ModItems.materials && p.getCurrentEquippedItem().getItemDamage() == phialMeta)
 					{
-						int id = 0;
-						boolean brewed = false;
-						for (int i = 0; i < ModPotions.pots.length; i++)
+						if (cauld.potion != null && cauld.potion[0] != -1)
 						{
-							if (cauld.ingrs.containsAll(ModPotions.pots[i].ingridients))
-							{
-								if (p.inventory.mainInventory[p.inventory.currentItem].stackSize >= 3)
-								{
-									if (!p.capabilities.isCreativeMode)
-									{
-										p.inventory.mainInventory[p.inventory.currentItem].stackSize -= 3;
-									}
-									cauld.ingrs.removeAll(ModPotions.pots[i].ingridients);
-									id = i;
-									brewed = true;
-									break;
-								}
-							}
-
-						}
-						if (brewed)
-						{
+							cauld.fluid.amount -= 300;
 							ItemStack ret = new ItemStack(ModItems.Potion, 3);
 							NBTTagCompound tag = new NBTTagCompound();
-							tag.setInteger("PotionID", id);
-							tag.setInteger("PotionDur", ModPotions.pots[id].duration);
-
-							for (int i = 0; i < cauld.ingrs.size(); i++)
-							{
-								if (cauld.ingrs.get(i) instanceof Booster)
-								{
-									tag.setInteger("PotionDur", tag.getInteger("PotionDur") + ((Booster) cauld.ingrs.get(i)).boost);
-									cauld.ingrs.remove(i);
-								}
-
-								if (cauld.ingrs.get(i) instanceof Prolonger)
-								{
-									tag.setInteger("PotionAmpl", tag.getInteger("PotionAmpl") + ((Prolonger) cauld.ingrs.get(i)).time);
-									cauld.ingrs.remove(i);
-								}
-							}
+							tag.setInteger("PotionID", cauld.potion[0]);
+							tag.setInteger("PotionAmpl", cauld.potion[1]);
+							tag.setInteger("PotionDur", cauld.potion[2]);
 							ret.setTagCompound(tag);
-
 							if (!p.inventory.addItemStackToInventory(ret))
 							{
 								EntityItem e = new EntityItem(w, x, y, z, ret);
@@ -177,6 +179,70 @@ public class Cauldron extends BlockContainer
 								w.spawnEntityInWorld(e);
 							}
 						}
+						else
+							if (cauld.isBurning && cauld.fluid.amount >= 300)
+							{
+								int id = 0;
+								boolean brewed = false;
+								int dur = ModPotions.pots[id].duration;
+								int power = 1;
+								for (int i = 0; i < ModPotions.pots.length; i++)
+								{
+									if (Ingridients.getIngredientBase(cauld.ingrs).containsAll(ModPotions.pots[i].ingridients))
+									{
+										if (p.inventory.mainInventory[p.inventory.currentItem].stackSize >= 3)
+										{
+											if (!p.capabilities.isCreativeMode)
+											{
+												p.inventory.mainInventory[p.inventory.currentItem].stackSize -= 3;
+											}
+											for (int j = 0; j < cauld.ingrs.size(); j++)
+											{
+												power += cauld.ingrs.get(j).type;
+											}
+											Ingridients.removeBaseList(cauld.ingrs, ModPotions.pots[i].ingridients);
+
+											id = i;
+											brewed = true;
+											break;
+										}
+									}
+
+								}
+								if (brewed)
+								{
+									cauld.fluid.amount -= 300;
+									ItemStack ret = new ItemStack(ModItems.Potion, 3);
+									NBTTagCompound tag = new NBTTagCompound();
+									tag.setInteger("PotionID", id);
+									for (int i = 0; i < cauld.ingrs.size(); i++)
+									{
+										if (cauld.ingrs.get(i).ing instanceof Booster)
+										{
+											power += ((Booster) cauld.ingrs.get(i).ing).boost;
+											cauld.ingrs.remove(i);
+										}
+
+										if (cauld.ingrs.get(i).ing instanceof Prolonger)
+										{
+											dur += ((Prolonger) cauld.ingrs.get(i).ing).time;
+											cauld.ingrs.remove(i);
+										}
+									}
+									tag.setInteger("PotionAmpl", power);
+									tag.setInteger("PotionDur", dur);
+
+									ret.setTagCompound(tag);
+
+									if (!p.inventory.addItemStackToInventory(ret))
+									{
+										EntityItem e = new EntityItem(w, x, y, z, ret);
+
+										e.setVelocity(w.rand.nextDouble() * 0.8, w.rand.nextDouble() * 0.8, w.rand.nextDouble() * 0.8);
+										w.spawnEntityInWorld(e);
+									}
+								}
+							}
 					}
 				}
 				else
@@ -187,7 +253,13 @@ public class Cauldron extends BlockContainer
 						{
 							p.addChatComponentMessage(new ChatComponentText("Ingidients IDs:"));
 							for (int i = 0; i < cauld.ingrs.size(); i++)
-								p.addChatComponentMessage(new ChatComponentText(new ItemStack(cauld.ingrs.get(i).item, 1, cauld.ingrs.get(i).meta).getDisplayName() + " : " + cauld.ingrs.get(i).id));
+							{
+								IngridientItem ingi = cauld.ingrs.get(i);
+								ItemStack is = new ItemStack(ingi.ing.items.get(ingi.type).key, 1, ingi.ing.items.get(ingi.type).value);
+								Logger.chat(p, is.getDisplayName() + " : " + ingi.ing.id + " : " + ingi.type);
+							}
+							if (cauld.potion.length > 0)
+								Logger.mchat(p, cauld.potion[0], cauld.potion[1], cauld.potion[2]);
 						}
 					}
 					else
@@ -197,7 +269,7 @@ public class Cauldron extends BlockContainer
 							cauld.isBurning = !cauld.isBurning;
 						}
 						else
-							cauld.ingrs = new ArrayList<Ingridient>();
+							cauld.ingrs = new ArrayList<IngridientItem>();
 					}
 				}
 			}

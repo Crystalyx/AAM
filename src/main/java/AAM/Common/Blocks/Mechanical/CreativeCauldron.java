@@ -5,7 +5,8 @@ import java.util.List;
 
 import AAM.Common.Items.ModItems;
 import AAM.Common.Potions.Booster;
-import AAM.Common.Potions.Ingridient;
+import AAM.Common.Potions.IngridientItem;
+import AAM.Common.Potions.Ingridients;
 import AAM.Common.Potions.ModPotions;
 import AAM.Common.Potions.Prolonger;
 import AAM.Common.Tiles.TECreativeCauldron;
@@ -112,36 +113,55 @@ public class CreativeCauldron extends BlockContainer
 					{
 						int id = 0;
 						boolean brewed = false;
+						int dur = ModPotions.pots[id].duration;
+						int power = 1;
 						for (int i = 0; i < ModPotions.pots.length; i++)
 						{
-							if (cauld.ingrs.containsAll(ModPotions.pots[i].ingridients))
+							if (Ingridients.getIngredientBase(cauld.ingrs).containsAll(ModPotions.pots[i].ingridients))
 							{
-								cauld.ingrs.removeAll(ModPotions.pots[i].ingridients);
-								id = i;
-								brewed = true;
-								break;
+								if (p.inventory.mainInventory[p.inventory.currentItem].stackSize >= 3)
+								{
+									if (!p.capabilities.isCreativeMode)
+									{
+										p.inventory.mainInventory[p.inventory.currentItem].stackSize -= 3;
+									}
+									for (int j = 0; j < cauld.ingrs.size(); j++)
+									{
+										power += cauld.ingrs.get(j).type;
+									}
+									Ingridients.removeBaseList(cauld.ingrs, ModPotions.pots[i].ingridients);
+
+									id = i;
+									brewed = true;
+									break;
+								}
 							}
+
 						}
 						if (brewed)
 						{
+							ItemStack ret = new ItemStack(ModItems.Potion, 3);
 							NBTTagCompound tag = new NBTTagCompound();
 							tag.setInteger("PotionID", id);
 							for (int i = 0; i < cauld.ingrs.size(); i++)
 							{
-								if (cauld.ingrs.get(i) instanceof Booster)
+								if (cauld.ingrs.get(i).ing instanceof Booster)
 								{
-									tag.setInteger("PotionDur", tag.getInteger("PotionDur") + 1);
+									dur += ((Booster) cauld.ingrs.get(i).ing).boost;
 									cauld.ingrs.remove(i);
 								}
 
-								if (cauld.ingrs.get(i) instanceof Prolonger)
+								if (cauld.ingrs.get(i).ing instanceof Prolonger)
 								{
-									tag.setInteger("PotionAmpl", tag.getInteger("PotionAmpl") + 1);
+									power += ((Prolonger) cauld.ingrs.get(i).ing).time;
 									cauld.ingrs.remove(i);
 								}
 							}
-							ItemStack ret = new ItemStack(ModItems.Potion, 3);
+							tag.setInteger("PotionAmpl", power);
+							tag.setInteger("PotionDur", ModPotions.pots[id].duration);
+
 							ret.setTagCompound(tag);
+
 							if (!p.inventory.addItemStackToInventory(ret))
 							{
 								EntityItem e = new EntityItem(w, x, y, z, ret);
@@ -160,12 +180,16 @@ public class CreativeCauldron extends BlockContainer
 						{
 							p.addChatComponentMessage(new ChatComponentText("Ingidients IDs:"));
 							for (int i = 0; i < cauld.ingrs.size(); i++)
-								p.addChatComponentMessage(new ChatComponentText(new ItemStack(cauld.ingrs.get(i).item, 1, cauld.ingrs.get(i).meta).getDisplayName() + " : " + cauld.ingrs.get(i).id));
+							{
+								IngridientItem ingi = cauld.ingrs.get(i);
+								ItemStack is = new ItemStack(ingi.ing.items.get(ingi.type).key, 1, ingi.ing.items.get(ingi.type).value);
+								p.addChatComponentMessage(new ChatComponentText(is.getDisplayName() + " : " + ingi.ing.id + " : " + ingi.type));
+							}
 						}
 					}
 					else
 					{
-						cauld.ingrs = new ArrayList<Ingridient>();
+						cauld.ingrs = new ArrayList<IngridientItem>();
 					}
 				}
 			}

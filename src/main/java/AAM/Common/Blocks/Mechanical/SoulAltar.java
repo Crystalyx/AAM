@@ -1,6 +1,6 @@
 package AAM.Common.Blocks.Mechanical;
 
-import AAM.API.IStructureCore;
+import AAM.API.Interface.IStructureCore;
 import AAM.Common.Tiles.TESoulAltar;
 import AAM.Core.AAMCore;
 import AAM.Utils.Structure;
