@@ -1,8 +1,11 @@
 package AAM.Common.Soul;
 
-import AAM.API.ISoulUpgrade;
+import AAM.API.Interface.ISoulUpgrade;
 import AAM.Utils.MiscUtils;
 import AAM.Utils.PlayerDataHandler;
+import AAM.Utils.VectorWorld;
+import AAM.Utils.Wec3;
+import net.minecraft.block.material.Material;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.EnumCreatureAttribute;
 import net.minecraft.entity.player.EntityPlayer;
@@ -37,26 +40,34 @@ public enum Soul implements ISoulUpgrade
 		{
 			if (this.equals(Soul.Light))
 			{
-				dmg += baseDamage * 0.2 + getLeveledDamage(soulLevel, baseDamage);
+				dmg += baseDamage * 0.2;
 			}
 			if (this.equals(Soul.Normal))
 			{
-				dmg += baseDamage * 0.3 + getLeveledDamage(soulLevel, baseDamage);
+				dmg += baseDamage * 0.1;
 			}
 			if (this.equals(Soul.Blood))
 			{
-				if (!inAttack || ph.consumeSoul(1))
+				if (!inAttack || ph.consumeSoul(4))
 				{
-					dmg += baseDamage * 0.25 + getLeveledDamage(soulLevel, baseDamage);
+					dmg += baseDamage * 0.15;
 				}
 			}
 			if (this.equals(Soul.Lunar))
 			{
-				dmg += baseDamage * 0.2 + getLeveledDamage(soulLevel, baseDamage);
+				dmg += baseDamage * (4 * ph.player.worldObj.getCurrentMoonPhaseFactor()) / 8f;
 			}
 			if (this.equals(Soul.Plant))
 			{
-				dmg += baseDamage * 0.15f + getLeveledDamage(soulLevel, baseDamage);
+				dmg += baseDamage * 0.15f;
+			}
+			if (this.equals(Soul.Watery))
+			{
+				VectorWorld vw = new VectorWorld(ph.player.worldObj);
+				if (vw.getBlock(new Wec3(ph.player)).getMaterial() == Material.water || vw.getBlock(new Wec3(ph.player)).getMaterial() == Material.lava)
+				{
+					dmg += baseDamage * 0.15;
+				}
 			}
 		}
 
@@ -73,14 +84,14 @@ public enum Soul implements ISoulUpgrade
 			{
 				if (l.getCreatureAttribute().equals(EnumCreatureAttribute.UNDEAD))
 				{
-					dmg += baseDamage * 0.15f + getLeveledDamage(soulLevel, baseDamage);
+					dmg += baseDamage * 0.15f;
 				}
 			}
 			if (this.equals(Soul.Normal))
 			{
 				if (l.getCreatureAttribute().equals(EnumCreatureAttribute.UNDEFINED))
 				{
-					dmg += baseDamage * 0.35 + getLeveledDamage(soulLevel, baseDamage);
+					dmg += baseDamage * 0.25;
 				}
 			}
 			if (this.equals(Soul.Blood))
@@ -89,13 +100,9 @@ public enum Soul implements ISoulUpgrade
 				{
 					if (l instanceof EntityPlayer)
 					{
-						dmg += baseDamage * 0.25 + getLeveledDamage(soulLevel, baseDamage);
+						dmg += baseDamage * 0.15;
 					}
 				}
-			}
-			if (this.equals(Soul.Lunar))
-			{
-				dmg += baseDamage * (soulLevel - 1) * (4 * l.worldObj.getCurrentMoonPhaseFactor()) / 100f;
 			}
 		}
 		return dmg;
@@ -117,12 +124,75 @@ public enum Soul implements ISoulUpgrade
 	@Override
 	public float getRangedDamage(PlayerDataHandler ph, int level, float baseDamage, boolean inAttack)
 	{
-		return this.getMeleeDamage(ph, level, baseDamage, inAttack) - 0.1f * baseDamage;
+		float dmg = baseDamage;
+		if (ph.art)
+		{
+			if (this.equals(Soul.Light))
+			{
+				dmg += baseDamage * 0.2;
+			}
+			if (this.equals(Soul.Normal))
+			{
+				dmg += baseDamage * 0.1;
+			}
+			if (this.equals(Soul.Blood))
+			{
+				if (!inAttack || ph.consumeSoul(4))
+				{
+					dmg += baseDamage * 0.15;
+				}
+			}
+			if (this.equals(Soul.Lunar))
+			{
+				dmg += baseDamage * (4 * ph.player.worldObj.getCurrentMoonPhaseFactor()) / 8f;
+			}
+			if (this.equals(Soul.Plant))
+			{
+				dmg += baseDamage * 0.15f;
+			}
+			if (this.equals(Soul.Watery))
+			{
+				VectorWorld vw = new VectorWorld(ph.player.worldObj);
+				if (vw.getBlock(new Wec3(ph.player)).getMaterial() == Material.water || vw.getBlock(new Wec3(ph.player)).getMaterial() == Material.lava)
+				{
+					dmg += baseDamage * 0.15;
+				}
+			}
+		}
+		return dmg;
 	}
 
 	@Override
 	public float getSpecificRangedDamage(PlayerDataHandler ph, EntityLivingBase l, int soulLevel, float baseDamage)
 	{
-		return this.getSpecificMeleeDamage(ph, l, soulLevel, baseDamage);
+		float dmg = 0;
+		if (ph.art)
+		{
+			if (this.equals(Soul.Light))
+			{
+				if (l.getCreatureAttribute().equals(EnumCreatureAttribute.UNDEAD))
+				{
+					dmg += baseDamage * 0.15f;
+				}
+			}
+			if (this.equals(Soul.Normal))
+			{
+				if (l.getCreatureAttribute().equals(EnumCreatureAttribute.UNDEFINED))
+				{
+					dmg += baseDamage * 0.25;
+				}
+			}
+			if (this.equals(Soul.Blood))
+			{
+				if (ph.consumeSoul(1))
+				{
+					if (l instanceof EntityPlayer)
+					{
+						dmg += baseDamage * 0.15;
+					}
+				}
+			}
+		}
+		return dmg;
 	}
 }

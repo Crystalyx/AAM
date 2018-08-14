@@ -2,6 +2,8 @@ package AAM.Utils;
 
 public class TODOList
 {
+	// TODO TraitList
+
 	// TODO DungWorld
 
 	// Flat DungWorld Generation[Done]

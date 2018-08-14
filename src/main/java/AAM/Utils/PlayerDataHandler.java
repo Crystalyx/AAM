@@ -3,9 +3,14 @@ package AAM.Utils;
 import java.util.ArrayList;
 import java.util.List;
 
+import AAM.API.TraitModifier;
 import AAM.Common.Items.ModItems;
+import AAM.Common.Items.Soul.ModHammer;
+import AAM.Common.Items.Soul.ModStaff;
 import AAM.Common.Soul.Soul;
 import AAM.Common.Soul.SoulUpgrade;
+import AAM.Common.Soul.Trait;
+import AAM.Common.Soul.TraitStack;
 import AAM.Common.Soul.WarriorType;
 import AAM.Common.Soul.WeaponType;
 import AAM.Network.Packages.AlchemicalDispatcher;
@@ -14,10 +19,9 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.ItemSword;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.NBTTagList;
 import net.minecraft.util.ChatComponentText;
 import net.minecraft.world.World;
 import net.minecraftforge.common.IExtendedEntityProperties;
@@ -25,7 +29,6 @@ import net.minecraftforge.common.IExtendedEntityProperties;
 public class PlayerDataHandler implements IExtendedEntityProperties
 {
 	public final static String ExtendedDataId = "AAoMPlayer";
-	public final static String ExtendedSoulDataId = "ASoulPlayer";
 
 	public final EntityPlayer player;
 
@@ -38,29 +41,23 @@ public class PlayerDataHandler implements IExtendedEntityProperties
 
 	public List<String> party = new ArrayList<String>();
 	public String addMember = "";
-	public int dungLevel = 0;
+
+	public TraitStack[] traits = new TraitStack[Trait.values().length];
 
 	public boolean lastTickBlocked = false;
 
-	public float soulDamage = 5.0F;
-	public int soul = 100;
-	public int maxSoul = 100;
 	public int soulRegenTimer = 0;
-	public int deficit = 0;
-	public int cooldown = 0;
-
-	public int soulLevel = 1;
 	public int soulxp = 0;
 
-	public List<ItemSword> swords = new ArrayList<ItemSword>();
-	public int partType = -1;
+	public int blockDuration = 0;
+
+	public int color = -1;
 	public boolean bow = false;
 	public Soul stype = Soul.Normal;
 	public WeaponType sword = WeaponType.Broad;
 	public WarriorType warrior = WarriorType.NotSelected;
 	public boolean art;
 	public boolean arbitur;
-
 	public int[] upgLevel = new int[SoulUpgrade.values().length];
 
 	public static final int SoulWatcherId = 22;
@@ -68,41 +65,10 @@ public class PlayerDataHandler implements IExtendedEntityProperties
 	public PlayerDataHandler(EntityPlayer player)
 	{
 		this.player = player;
-		this.player.getDataWatcher().addObject(SoulWatcherId, this.maxSoul);
 		clearProperties(true);
-	}
+		this.player.getDataWatcher().addObject(SoulWatcherId, (int) this.getTrait(Trait.Soul));
+		this.setCurrentSoul((int) this.getTrait(Trait.Soul));
 
-	public void clearProperties(boolean construct)
-	{
-		this.soulTag = new NBTTagCompound();
-		if (!construct)
-			this.soulTag.setString("Owner", this.player.getGameProfile().getName());
-		this.soul = 100;
-		this.soulLevel = 1;
-		this.soulRegenTimer = 0;
-		this.maxSoul = Math.max(1, this.soulLevel * 100);
-		this.swords = new ArrayList<ItemSword>();
-		this.cooldown = 0;
-		// ========
-		this.bow = false;
-		this.partType = -1;
-		this.stype = Soul.Normal;
-		this.sword = WeaponType.Broad;
-		this.warrior = WarriorType.NotSelected;
-		this.soulDamage = this.sword.baseDamage;
-		if (this.getPermission() > 0)
-		{
-			this.soulDamage += 7.0F;
-		}
-		this.upgLevel = new int[SoulUpgrade.values().length];
-		// =================
-		this.soulxp = 0;
-		this.deficit = 0;
-		this.party = new ArrayList<String>();
-		this.addMember = "";
-		this.dungLevel = 0;
-		this.arbitur = false;
-		this.art = false;
 	}
 
 	/**
@@ -129,28 +95,68 @@ public class PlayerDataHandler implements IExtendedEntityProperties
 	public void copy(PlayerDataHandler props)
 	{
 		// inventory.copy(props.inventory);
-		this.soulDamage = props.soulDamage;
-		this.soul = props.soul;
-		this.soulLevel = props.soulLevel;
+
+		for (int i = 0; i < traits.length; i++)
+		{
+			this.traits[i] = props.traits[i].copy();
+		}
+
+		this.setCurrentSoul(props.getCurrentSoul());
 		this.soulRegenTimer = props.soulRegenTimer;
-		this.maxSoul = props.maxSoul;
 		this.soulTag = props.soulTag;
-		this.swords = props.swords;
 		this.bow = props.bow;
-		this.partType = props.partType;
+		this.color = props.color;
 		this.stype = props.stype;
 		this.sword = props.sword;
 		this.warrior = props.warrior;
 		this.soulxp = props.soulxp;
 		this.upgLevel = props.upgLevel;
-		this.deficit = props.deficit;
 		this.party = props.party;
 		this.addMember = props.addMember;
-		this.dungLevel = props.dungLevel;
 		this.arbitur = props.arbitur;
 		this.art = props.art;
-		this.cooldown = props.cooldown;
+		this.blockDuration = props.blockDuration;
 
+	}
+
+	public void clearProperties(boolean construct)
+	{
+		this.soulTag = new NBTTagCompound();
+		if (!construct)
+		{
+			this.soulTag.setString("Owner", this.player.getGameProfile().getName());
+		}
+
+		for (int i = 0; i < traits.length; i++)
+		{
+			traits[i] = new TraitStack(Trait.values()[i]);
+		}
+		this.setTraitBase(Trait.Level, 1);
+
+		this.soulRegenTimer = 0;
+		this.blockDuration = 0;
+		// ========
+		this.bow = false;
+		this.color = -1;
+		this.stype = Soul.Normal;
+		this.sword = WeaponType.Broad;
+		this.warrior = WarriorType.NotSelected;
+		if (this.getPermission() > 0)
+		{
+			TraitModifier tmM = new TraitModifier("Permission", Trait.MeleeDamage, 7.0f, TraitModifier.Operation.add);
+			TraitModifier tmR = new TraitModifier("Permission", Trait.RangedDamage, 7.0f, TraitModifier.Operation.add);
+			this.applyModifier(tmM);
+			this.applyModifier(tmR);
+		}
+		this.upgLevel = new int[SoulUpgrade.values().length];
+		// =================
+		this.soulxp = 0;
+		this.party = new ArrayList<String>();
+		this.addMember = "";
+		this.arbitur = false;
+		this.art = false;
+		this.setTraitBase(Trait.MeleeDamage, this.sword.baseDamage);
+		this.setTraitBase(Trait.RangedDamage, this.sword.baseDamage);
 	}
 
 	@Override
@@ -159,50 +165,51 @@ public class PlayerDataHandler implements IExtendedEntityProperties
 		// We store all of our data nested in a single tag;
 		// this way, we never have to worry about conflicting with other
 		// mods that may also be writing to the player's tag compound
-		NBTTagCompound properties = new NBTTagCompound();
+		NBTTagCompound tag = new NBTTagCompound();
 
 		// Write everything to our new tag:
 		// inventory.writeToNBT(properties);
 
-		properties.setInteger("CurrentSoul", player.getDataWatcher().getWatchableObjectInt(SoulWatcherId));
-		properties.setFloat("SoulDamage", this.soulDamage);
-		properties.setInteger("SoulCharge", this.soul);
-		properties.setInteger("SoulLevel", this.soulLevel);
-		properties.setInteger("SoulRegenTimer", this.soulRegenTimer);
-		properties.setInteger("SoulXp", this.soulxp);
-		properties.setInteger("DeficitSoul", this.deficit);
-		properties.setInteger("SoulType", this.stype.ordinal());
-
-		properties.setTag("NBT", this.soulTag);
-		properties.setInteger("Size", this.swords.size());
-		for (int i = 0; i < this.swords.size(); i++)
+		NBTTagList tagl = new NBTTagList();
+		for (int i = 0; i < traits.length; i++)
 		{
-			properties.setInteger("Sw" + i, Item.getIdFromItem(this.swords.get(i)));
+			NBTTagCompound tg = new NBTTagCompound();
+			traits[i].saveToNBT(tg);
+			tagl.appendTag(tg);
 		}
-		properties.setInteger("PtSize", this.party.size());
+
+		tag.setTag("Traits", tagl);
+
+		tag.setInteger("CurrentSoul", player.getDataWatcher().getWatchableObjectInt(SoulWatcherId));
+		tag.setInteger("SoulCharge", this.getCurrentSoul());
+		tag.setInteger("SoulRegenTimer", this.soulRegenTimer);
+		tag.setInteger("SoulXp", this.soulxp);
+		tag.setInteger("SoulType", this.stype.ordinal());
+
+		tag.setTag("NBT", this.soulTag);
+		tag.setInteger("PtSize", this.party.size());
 		for (int i = 0; i < this.party.size(); i++)
 		{
-			properties.setString("Pt" + i, this.party.get(i));
+			tag.setString("Pt" + i, this.party.get(i));
 		}
 
-		properties.setBoolean("Bow", this.bow);
-		properties.setInteger("PartType", this.partType);
-		properties.setString("Owner", this.player.getGameProfile().getName());
-		properties.setInteger("SwordType", this.sword.ordinal());
-		properties.setInteger("WarriorType", this.warrior.ordinal());
+		tag.setBoolean("Bow", this.bow);
+		tag.setInteger("PartType", this.color);
+		tag.setString("Owner", this.player.getGameProfile().getName());
+		tag.setInteger("SwordType", this.sword.ordinal());
+		tag.setInteger("WarriorType", this.warrior.ordinal());
 
 		for (int j = 0; j < upgLevel.length; j++)
 		{
-			properties.setInteger("Upg" + j, this.upgLevel[j]);
+			tag.setInteger("Upg" + j, this.upgLevel[j]);
 		}
-		properties.setString("addMember", this.addMember);
-		properties.setInteger("Dungeon", this.dungLevel);
-		properties.setBoolean("Arbitur", this.arbitur);
-		properties.setBoolean("Art", this.art);
-		properties.setInteger("Cooldown", this.cooldown);
+		tag.setString("addMember", this.addMember);
+		tag.setBoolean("Arbitur", this.arbitur);
+		tag.setBoolean("Art", this.art);
+		tag.setInteger("Cooldown", this.blockDuration);
 
 		// Finally, set the tag with our unique identifier:
-		compound.setTag(ExtendedDataId, properties);
+		compound.setTag(ExtendedDataId, tag);
 	}
 
 	@Override
@@ -213,31 +220,36 @@ public class PlayerDataHandler implements IExtendedEntityProperties
 		NBTTagCompound tag = (NBTTagCompound) compound.getTag(ExtendedDataId);
 		// inventory.readFromNBT(properties);
 
+		for (int i = 0; i < traits.length; i++)
+		{
+			traits[i] = new TraitStack(Trait.values()[i]);
+		}
+
+		if (tag.hasKey("Traits"))
+		{
+			NBTTagList tagl = tag.getTagList("Traits", 10);
+			for (int i = 0; i < traits.length; i++)
+			{
+				NBTTagCompound tg = tagl.getCompoundTagAt(i);
+				traits[i].loadFromNBT(tg);
+			}
+		}
 		player.getDataWatcher().updateObject(SoulWatcherId, tag.getInteger("CurrentSoul"));
-		this.soulDamage = tag.getFloat("SoulDamage");
-		this.soul = tag.getInteger("SoulCharge");
-		this.soulLevel = tag.getInteger("SoulLevel");
+		this.setCurrentSoul(tag.getInteger("SoulCharge"));
 		this.soulRegenTimer = tag.getInteger("SoulRegenTimer");
-		this.maxSoul = Math.max(1, this.soulLevel * 100);
 
 		this.soulxp = tag.getInteger("SoulXp");
-		this.deficit = tag.getInteger("DeficitSoul");
 		this.stype = Soul.values()[tag.getInteger("SoulType")];
 
 		this.soulTag = tag.getCompoundTag("NBT");
 
-		this.swords.clear();
-		for (int i = 0; i < tag.getInteger("Size"); i++)
-		{
-			this.swords.add((ItemSword) Item.getItemById(tag.getInteger("Sw" + i)));
-		}
 		this.party.clear();
 		for (int i = 0; i < tag.getInteger("PtSize"); i++)
 		{
 			this.party.add(tag.getString("Pt" + i));
 		}
 		this.bow = tag.getBoolean("Bow");
-		this.partType = tag.getInteger("PartType");
+		this.color = tag.getInteger("PartType");
 		this.sword = WeaponType.values()[tag.getInteger("SwordType")];
 		this.warrior = WarriorType.values()[tag.getInteger("WarriorType")];
 
@@ -247,37 +259,84 @@ public class PlayerDataHandler implements IExtendedEntityProperties
 		}
 
 		this.addMember = tag.getString("addMember");
-		this.dungLevel = tag.getInteger("Dungeon");
 		this.arbitur = tag.getBoolean("Arbitur");
 		this.art = tag.getBoolean("Art");
-		this.cooldown = tag.getInteger("Cooldown");
+		this.blockDuration = tag.getInteger("Cooldown");
 
+		this.setTraitBase(Trait.MeleeDamage, this.sword.baseDamage);
+		this.setTraitBase(Trait.RangedDamage, this.sword.baseDamage);
+	}
+
+	public float getTrait(Trait t)
+	{
+		return this.traits[t.ordinal()].countValue();
+	}
+
+	public void setTraitBase(Trait t, float base)
+	{
+		this.traits[t.ordinal()].base = base;
+	}
+
+	public void addTraitBase(Trait t, float base)
+	{
+		this.traits[t.ordinal()].base += base;
+	}
+
+	public float getTraitBase(Trait t)
+	{
+		return this.traits[t.ordinal()].base;
+	}
+
+	public void applyModifier(TraitModifier tm)
+	{
+		this.traits[tm.trait.ordinal()].applyModifier(tm);
+	}
+
+	public TraitModifier findModifier(Trait t, String id)
+	{
+		if (this.traits[t.ordinal()].modifiers != null)
+		{
+			for (TraitModifier tm : this.traits[t.ordinal()].modifiers)
+			{
+				if (tm.id == id)
+				{
+					return tm;
+				}
+			}
+		}
+		return null;
+	}
+
+	public void removeModifier(TraitModifier tm)
+	{
+		this.traits[tm.trait.ordinal()].removeModifier(tm);
+	}
+
+	public void removeModifier(Trait t, String id)
+	{
+		this.traits[t.ordinal()].removeModifier(id);
+	}
+
+	public void applyAllModifiers(List<TraitModifier> tml)
+	{
+		for (TraitModifier tm : tml)
+		{
+			applyModifier(tm);
+		}
+	}
+
+	public void removeAllModifiers(List<TraitModifier> tml)
+	{
+		for (TraitModifier tm : tml)
+		{
+			removeModifier(tm);
+		}
 	}
 
 	@Override
 	public void init(Entity entity, World world)
 	{
 
-	}
-
-	public void setDeficit(int deficit)
-	{
-		this.deficit = deficit;
-	}
-
-	public int getDeficit()
-	{
-		return deficit;
-	}
-
-	public void setDamage(float soulDamage)
-	{
-		this.soulDamage = soulDamage;
-	}
-
-	public float getDamage()
-	{
-		return this.soulDamage;
 	}
 
 	/**
@@ -287,106 +346,69 @@ public class PlayerDataHandler implements IExtendedEntityProperties
 	 */
 	public void onUpdate()
 	{
-		if (this.getBowIndex() > 0 && (player.isBlocking() || this.cooldown > 0))
+		// You couldn't increase blockDuration using anything but SoulSword
+		// blockDuration used to render 6 weapons behind player and to count
+		// hammer damage bonus
+		if (player.getCurrentEquippedItem() != null
+				&& (player.getCurrentEquippedItem().getItem() == ModItems.SoulSword || player.getCurrentEquippedItem().getItem() instanceof ModHammer || player.getCurrentEquippedItem().getItem() instanceof ModStaff) && player.isBlocking())
 		{
-			if (player.isBlocking())
+			// Either you have a not hammer as weapon or you have 1
+			// soulCharge
+			if ((player.getCurrentEquippedItem().getItem() == ModItems.SoulSword && !this.sword.equals(WeaponType.Hammer)) || player.getCurrentEquippedItem().getItem() instanceof ModStaff
+					|| (this.player.worldObj.getWorldTime() % 2 != 0 || this.consumeSoul(1)))
 			{
-				if (this.cooldown < player.getItemInUseDuration())
-					this.cooldown = player.getItemInUseDuration();
-				else
-				{
-					this.cooldown = MiscUtils.limit(this.cooldown + 1, 0, this.getMaxCooldown());
-				}
+				this.blockDuration += 1;
+			}
+			else
+			{
+				if (this.player.worldObj.getWorldTime() % 4 == 0)
+					this.blockDuration--;
 			}
 		}
-		if (this.cooldown > 0 && !player.isBlocking())
-		{
-			this.cooldown--;
-		}
+		else
+			if (this.blockDuration > 0)
+			{
+				this.blockDuration--;
+			}
 
-		this.maxSoul = this.soulLevel * 100;
-		this.soulDamage = Math.max(this.soulLevel + 4, this.soulDamage);
-		// checking levelup (maxSoul is needed xp)
-		if (this.soulxp >= this.maxSoul && this.soulxp != 0)
+		this.setTraitBase(Trait.MeleeDamage, this.sword.baseDamage);
+		this.setTraitBase(Trait.RangedDamage, this.sword.baseDamage);
+		// checking levelup (maxSoul is equal to needed xp)
+		if (this.soulxp >= this.getTrait(Trait.Soul) && this.soulxp != 0)
 		{
-			this.soulxp -= this.maxSoul;
-			this.soulLevel += 1;
-			this.maxSoul = Math.max(1, this.soulLevel * 100);
-			this.soulDamage += 1;
+			this.soulxp -= this.getTrait(Trait.Soul);
+			this.setTraitBase(Trait.Level, this.getTraitBase(Trait.Level) + 1);
+			this.setTraitBase(Trait.Soul, this.getTraitBase(Trait.Level) * 100);
+			TraitModifier damM = new TraitModifier("LevelUp", Trait.MeleeDamage, this.getTraitBase(Trait.Level), TraitModifier.Operation.add);
+			TraitModifier damR = new TraitModifier("LevelUp", Trait.RangedDamage, this.getTraitBase(Trait.Level), TraitModifier.Operation.add);
+			removeModifier(Trait.MeleeDamage, "LevelUp");
+			removeModifier(Trait.RangedDamage, "LevelUp");
+			applyModifier(damM);
+			applyModifier(damR);
 
 			if (player.worldObj.isRemote)
 			{
-				this.player.addChatComponentMessage(new ChatComponentText("You have reached " + this.soulLevel + " level of of soul mastery!"));
+				this.player.addChatComponentMessage(new ChatComponentText("You have reached " + ((int) this.getTraitBase(Trait.Level)) + " level of soul mastery!"));
 			}
 		}
+
 		// updating owner tag
 		this.soulTag.setString("Owner", this.player.getDisplayName());
 
-		// only want to update the timer and regen mana on the server:
+		// only want to update the timer and regen soul on the server:
 		if (!player.worldObj.isRemote)
 		{
-			if (Minecraft.getMinecraft().theWorld.getTotalWorldTime() % 60 == 0)
-				this.maxSoul = Math.max(1, this.soulLevel * 100);
-
-			if (this.deficit <= 0 && updateSoulTimer())
+			if (updateSoulTimer())
 			{
 				addSoul(1);
 
-				if (Minecraft.getMinecraft().theWorld.getWorldTime() % 1000 == 1)
+				// syncronizing once in a minute
+				if (Minecraft.getMinecraft().theWorld.getWorldTime() % 1200 == 1)
 				{
 					if (!this.player.worldObj.isRemote)
 					{
 						PlayerSyncMessage psm = new PlayerSyncMessage(this.player);
 						AlchemicalDispatcher.sendToClient(psm, this.player);
-					}
-				}
-
-				int count = 0;
-				for (int i = 0; i < 36; i++)
-				{
-					ItemStack item = this.player.inventory.getStackInSlot(i);
-
-					if (item != null)
-					{
-						if (item.getItem() == ModItems.SoulSword && item.hasTagCompound() && item.getTagCompound().getString("Owner") == this.player.getGameProfile().getName())
-						{
-							count += 1;
-						}
-					}
-				}
-				if (count == 1)
-				{
-					int slot = 0;
-					for (int i = 0; i < 36; i++)
-					{
-						ItemStack item = this.player.inventory.mainInventory[i];
-
-						if (item != null)
-						{
-							if (item.getItem() == ModItems.SoulSword && item.hasTagCompound() && item.getTagCompound().getString("Owner") == this.player.getGameProfile().getName())
-							{
-								slot = i;
-							}
-						}
-					}
-					ItemStack sword = this.player.inventory.mainInventory[slot];
-					this.soulTag = sword.getTagCompound();
-				}
-			}
-			else
-			{
-				if (this.deficit > 0)
-				{
-					if (this.deficit <= this.getCurrentSoul())
-					{
-						this.consumeSoul(this.deficit);
-						this.deficit = 0;
-					}
-					else
-					{
-						int excess = this.deficit - this.getCurrentSoul();
-						this.setCurrentSoul(0);
-						this.deficit = excess;
 					}
 				}
 			}
@@ -398,9 +420,9 @@ public class PlayerDataHandler implements IExtendedEntityProperties
 	// ========================================================================================
 	private boolean updateSoulTimer()
 	{
-		if (getCurrentSoul() > maxSoul)
+		if (getCurrentSoul() > this.getTrait(Trait.Soul))
 		{
-			setCurrentSoul(maxSoul);
+			setCurrentSoul((int) this.getTrait(Trait.Soul));
 		}
 		if (soulRegenTimer > 0)
 		{
@@ -416,48 +438,44 @@ public class PlayerDataHandler implements IExtendedEntityProperties
 				soulRegenTimer -= 3;
 				l += 1;
 			}
-			if (l > 0)
+			if (l > 1)
 			{
-				soulRegenTimer -= 2;
+				soulRegenTimer -= 4;
 			}
 			if (this.upgLevel[SoulUpgrade.Recharge.ordinal()] > 0)
 			{
-				int rechlev = this.upgLevel[SoulUpgrade.Recharge.ordinal()];
-				soulRegenTimer -= rechlev;
+				int rechargelevel = this.upgLevel[SoulUpgrade.Recharge.ordinal()];
+				soulRegenTimer -= rechargelevel * 2;
 			}
 
 		}
-		double spd = -1 + 2 / (Math.exp(-(this.soulLevel - 1) / 24d) + 1);
+		double spd = -1 + 2 / (Math.exp(-(this.getTrait(Trait.Level) - 1) / 24d) + 1);
 		if (soulRegenTimer <= 0)
 		{
-			soulRegenTimer = getCurrentSoul() < getMaxSoul() ? 20 - (int) (15 * spd) : 0;
+			soulRegenTimer += getCurrentSoul() < this.getTrait(Trait.Soul) ? 20 - (int) (15 * spd) : 0;
 			return true;
 		}
 
 		return false;
 	}
 
-	public int getDicountSoul(int amount)
+	public int getDicountedSoul(int amount)
 	{
-		return (int) Math.round(amount - amount * ((double) this.soulLevel) / 100D);
+		return (int) Math.round(amount - amount * (this.getTrait(Trait.Level)) / 100D);
 	}
 
 	/**
 	 * Returns true if the amount of soul was consumed or false if the player's
 	 * current soul was insufficient
 	 */
+
 	public final boolean consumeSoul(int amount)
 	{
-		int rem = (int) Math.min(Math.round(amount - amount * ((double) this.soulLevel) / 100D), amount);
+		int rem = Math.min(getDicountedSoul(amount), amount);
 		boolean sufficient = rem <= getCurrentSoul();
 		if (sufficient)
 			setCurrentSoul(getCurrentSoul() - rem);
 		return sufficient;
-	}
-
-	public final void addSoul(int amount)
-	{
-		setCurrentSoul(getCurrentSoul() + amount);
 	}
 
 	/**
@@ -465,7 +483,7 @@ public class PlayerDataHandler implements IExtendedEntityProperties
 	 */
 	public final void replenishSoul()
 	{
-		this.player.getDataWatcher().updateObject(SoulWatcherId, this.maxSoul);
+		this.player.getDataWatcher().updateObject(SoulWatcherId, (int) this.getTrait(Trait.Soul));
 	}
 
 	/**
@@ -476,25 +494,17 @@ public class PlayerDataHandler implements IExtendedEntityProperties
 		return player.getDataWatcher().getWatchableObjectInt(SoulWatcherId);
 	}
 
+	public final void addSoul(int amount)
+	{
+		setCurrentSoul(getCurrentSoul() + amount);
+	}
+
 	/**
 	 * Sets current Soul to amount or maxSoul, whichever is lesser
 	 */
 	public final void setCurrentSoul(int amount)
 	{
-		player.getDataWatcher().updateObject(SoulWatcherId, amount > 0 ? (amount < maxSoul ? amount : maxSoul) : 0);
-	}
-
-	/**
-	 * Returns max Soul amount
-	 */
-	public final int getMaxSoul()
-	{
-		return maxSoul;
-	}
-
-	public final int getSoulLevel()
-	{
-		return soulLevel;
+		player.getDataWatcher().updateObject(SoulWatcherId, amount > 0 ? (amount < this.getTrait(Trait.Soul) ? amount : (int) this.getTrait(Trait.Soul)) : 0);
 	}
 
 	public int getPermission()
@@ -507,91 +517,115 @@ public class PlayerDataHandler implements IExtendedEntityProperties
 		return 0;
 	}
 
+	/**
+	 * @param w
+	 * @return functional Itemstack for soul sword
+	 */
 	public ItemStack getSwordStack()
 	{
 		int meta = this.sword.ordinal();
 		this.soulTag.setString("Owner", this.player.getGameProfile().getName());
 		ItemStack sword = new ItemStack(ModItems.SoulSword, 1, meta);
-		sword.setTagCompound(PlayerDataHandler.get(this.player).soulTag);
+		sword.setTagCompound(this.soulTag);
+		sword.getTagCompound().setInteger("UpgradeLevel", (int) this.getTrait(Trait.WeaponLevel));
 		return sword.copy();
 	}
 
 	public float getFullMeleeDamage(boolean inAttack)
 	{
-		float k = this.warrior.equals(WarriorType.Caster) ? 0.75f : 1;
-		return (this.stype.getMeleeDamage(this, soulLevel, soulDamage, inAttack) + getUpgMeleeDamage()) * k;
+		float m = (float) (this.sword.equals(WeaponType.Hammer) ? 1 + 1 / (Math.exp(-(this.blockDuration - 160) / 10) + 1) : 1);
+		return (this.stype.getMeleeDamage(this, (int) this.getTrait(Trait.Level), this.getTrait(Trait.MeleeDamage), inAttack) + getUpgMeleeDamage()) * (this.getTrait(Trait.WeaponLevel) * 0.05f + 1) * m;
 	}
 
 	public float getFullMeleeDamageAgainst(EntityLivingBase l, boolean inAttack)
 	{
-		float k = this.warrior.equals(WarriorType.Caster) ? 0.75f : 1;
-
-		return (this.stype.getFullMeleeDamage(this, l, soulLevel, soulDamage, inAttack) + getUpgMeleeDamageAgainst(l)) * k;
+		float m = (float) (this.sword.equals(WeaponType.Hammer) ? 1 + 1 / (Math.exp(-(this.blockDuration - 160) / 10) + 1) : 1);
+		return (this.stype.getFullMeleeDamage(this, l, (int) this.getTrait(Trait.Level), this.getTrait(Trait.MeleeDamage), inAttack) + getUpgMeleeDamageAgainst(l)) * (this.getTrait(Trait.WeaponLevel) * 0.05f + 1) * m;
 	}
 
 	public float getFullRangedDamage(boolean inAttack)
 	{
-		float k = this.warrior.equals(WarriorType.Caster) ? 0.75f : 1;
-		return (this.stype.getRangedDamage(this, soulLevel, soulDamage, inAttack) + getUpgRangedDamage()) / k;
+		float m = (float) (this.sword.equals(WeaponType.Hammer) ? 1 + 1 / (Math.exp(-(this.blockDuration - 160) / 10) + 1) : 1);
+		return (this.stype.getRangedDamage(this, (int) this.getTrait(Trait.Level), this.getTrait(Trait.RangedDamage), inAttack) + getUpgRangedDamage()) * (this.getTrait(Trait.WeaponLevel) * 0.05f + 1) * m;
 	}
 
 	public float getFullRangedDamageAgainst(EntityLivingBase l, boolean inAttack)
 	{
-		float k = this.warrior.equals(WarriorType.Caster) ? 0.75f : 1;
-		return (this.stype.getFullRangedDamage(this, l, soulLevel, soulDamage, inAttack) + getUpgRangedDamageAgainst(l)) / k;
+		float m = (float) (this.sword.equals(WeaponType.Hammer) ? 1 + 1 / (Math.exp(-(this.blockDuration - 160) / 10) + 1) : 1);
+		return (this.stype.getFullRangedDamage(this, l, (int) this.getTrait(Trait.Level), this.getTrait(Trait.RangedDamage), inAttack) + getUpgRangedDamageAgainst(l)) * (this.getTrait(Trait.WeaponLevel) * 0.05f + 1) * m;
 	}
 
+	/**
+	 * @return sum of all passive melee upgrade bonuses
+	 */
 	public float getUpgMeleeDamage()
 	{
 		float upgdam = 0;
 		for (int i = 0; i < this.upgLevel.length; i++)
 		{
-			upgdam += SoulUpgrade.values()[i].getMeleeDamage(this, this.soulLevel, this.soulDamage, true);
+			upgdam += SoulUpgrade.values()[i].getMeleeDamage(this, (int) this.getTrait(Trait.Level), this.getTrait(Trait.MeleeDamage), true);
 		}
 		return upgdam;
 	}
 
+	/**
+	 * @return sum of all passive and active melee upgrade bonuses
+	 */
 	public float getUpgMeleeDamageAgainst(EntityLivingBase l)
 	{
 		float upgdam = 0;
 		for (int i = 0; i < this.upgLevel.length; i++)
 		{
-			upgdam += SoulUpgrade.values()[i].getMeleeDamage(this, this.soulLevel, this.soulDamage, true) + SoulUpgrade.values()[i].getSpecificMeleeDamage(this, l, this.soulLevel, this.soulDamage);
+			upgdam += SoulUpgrade.values()[i].getMeleeDamage(this, (int) this.getTrait(Trait.Level), this.getTrait(Trait.MeleeDamage), true)
+					+ SoulUpgrade.values()[i].getSpecificMeleeDamage(this, l, (int) this.getTrait(Trait.Level), this.getTrait(Trait.MeleeDamage));
 		}
 		return upgdam;
 	}
 
+	/**
+	 * @return sum of all passive ranged upgrade bonuses
+	 */
 	public float getUpgRangedDamage()
 	{
 		float upgdam = 0;
 		for (int i = 0; i < this.upgLevel.length; i++)
 		{
-			upgdam += SoulUpgrade.values()[i].getRangedDamage(this, this.soulLevel, this.soulDamage, true);
+			upgdam += SoulUpgrade.values()[i].getRangedDamage(this, (int) this.getTrait(Trait.Level), this.getTrait(Trait.RangedDamage), true);
 		}
 		return upgdam;
 	}
 
+	/**
+	 * @return sum of all passive and active ranged upgrade bonuses
+	 */
 	public float getUpgRangedDamageAgainst(EntityLivingBase l)
 	{
 		float upgdam = 0;
 		for (int i = 0; i < this.upgLevel.length; i++)
 		{
-			upgdam += SoulUpgrade.values()[i].getRangedDamage(this, this.soulLevel, this.soulDamage, true) + SoulUpgrade.values()[i].getSpecificRangedDamage(this, l, this.soulLevel, this.soulDamage);
+			upgdam += SoulUpgrade.values()[i].getRangedDamage(this, (int) this.getTrait(Trait.Level), this.getTrait(Trait.RangedDamage), true)
+					+ SoulUpgrade.values()[i].getSpecificRangedDamage(this, l, (int) this.getTrait(Trait.Level), this.getTrait(Trait.RangedDamage));
 		}
 		return upgdam;
 	}
 
+	/**
+	 * @return if bow>0 then player can use ranged attacks
+	 */
 	public int getBowIndex()
 	{
 		int bow = 0;
 		bow += MiscUtils.boolToNum(this.bow, 1, 0);
-		bow += MiscUtils.boolToNum(this.warrior.equals(WarriorType.Caster), 1, 0);
+		bow += MiscUtils.boolToNum(this.sword.warrior.equals(WarriorType.Caster), 1, 0);
 		return bow;
 	}
 
-	public int getMaxCooldown()
+	/**
+	 * @return time (in ticks) needed to fully charge staff or crystal bow
+	 */
+	public int getBowMaxCooldown()
 	{
-		return 10 + 50 / this.soulLevel;
+		return 8 + ((int) (this.getTrait(Trait.Cooldown) * (7 - this.upgLevel[SoulUpgrade.Cast.ordinal()])) / (int) this.getTrait(Trait.Level));
 	}
 
 }

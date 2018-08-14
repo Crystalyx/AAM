@@ -4,9 +4,7 @@ import org.lwjgl.opengl.GL11;
 
 import AAM.Client.Renderer.Item.SoulRenderer;
 import AAM.Common.Items.ModItems;
-import AAM.Common.Items.Artifacts.CrystalBow;
-import AAM.Common.Items.Soul.Artifact;
-import AAM.Common.Items.Soul.SoulSword;
+import AAM.Common.Soul.Trait;
 import AAM.Utils.Color;
 import AAM.Utils.MiscUtils;
 import AAM.Utils.PlayerDataHandler;
@@ -111,7 +109,7 @@ public class ClientRenderHelper
 								tessellator.draw();
 								EntityPlayer ep = p.worldObj.getPlayerEntityByName(ph.party.get(i));
 								PlayerDataHandler eph = PlayerDataHandler.get(ep);
-								double length = 1 - ((double) eph.getCurrentSoul() / (double) eph.getMaxSoul());
+								double length = 1 - (eph.getCurrentSoul() / ph.getTrait(Trait.Soul));
 
 								tessellator.startDrawingQuads();
 								tessellator.addVertexWithUV(k, l + 60.0 + i * s, 0.0D, 0.5D, 1.0D - length);
@@ -198,7 +196,7 @@ public class ClientRenderHelper
 				t.addVertexWithUV(k, l, 0.0D, 0.0D, 0.0D);
 				t.draw();
 
-				double lgt = 1 - (ph.getCurrentSoul() / ((double) ph.getMaxSoul()));
+				double lgt = 1 - (ph.getCurrentSoul() / (ph.getTrait(Trait.Soul)));
 
 				double mr = 118 / 128d;
 				double ls = 10 / 128d;
@@ -215,10 +213,11 @@ public class ClientRenderHelper
 				String dam = dm + "";
 				dam = dam.substring(0, dam.indexOf(".") + 2);
 
-				f.drawString("Soul: " + ph.getCurrentSoul() + "/" + ph.getMaxSoul(), k + 32, l + 5, new Color(255, 255, 255).hex);
-				f.drawString("Level: " + ph.getSoulLevel(), k + 32, l + 15, new Color(255, 255, 255).hex);
-				f.drawString("Expirience: " + (ph.soulxp) + "/" + (100 * ph.soulLevel), k + 32, l + 25, new Color(255, 255, 255).hex);
+				f.drawString("Soul: " + ph.getCurrentSoul() + "/" + ph.getTrait(Trait.Soul), k + 32, l + 5, new Color(255, 255, 255).hex);
+				f.drawString("Level: " + ph.getTrait(Trait.Level), k + 32, l + 15, new Color(255, 255, 255).hex);
+				f.drawString("Expirience: " + (ph.soulxp) + "/" + (100 * ph.getTrait(Trait.Level)), k + 32, l + 25, new Color(255, 255, 255).hex);
 				f.drawString("Damage: " + dam, k + 32, l + 35, new Color(255, 255, 255).hex);
+				f.drawString("Cooldown: " + ph.blockDuration, k + 32, l + 45, new Color(255, 255, 255).hex);
 
 				MovingObjectPosition mop = Minecraft.getMinecraft().objectMouseOver;
 				if (mop != null)
@@ -226,24 +225,24 @@ public class ClientRenderHelper
 					if (mop.typeOfHit == MovingObjectType.BLOCK)
 					{
 						Block block = p.worldObj.getBlock(mop.blockX, mop.blockY, mop.blockZ);
-						f.drawString("Block: " + block.getLocalizedName(), k + 32, l + 55, new Color(255, 255, 255).hex);
-						f.drawString("Meta: " + p.worldObj.getBlockMetadata(mop.blockX, mop.blockY, mop.blockZ), k + 32, l + 65, new Color(255, 255, 255).hex);
-						f.drawString("Has TileEntity: " + (p.worldObj.getTileEntity(mop.blockX, mop.blockY, mop.blockZ) != null), k + 32, l + 75, new Color(255, 255, 255).hex);
+						f.drawString("Block: " + block.getLocalizedName(), k + 32, l + 65, new Color(255, 255, 255).hex);
+						f.drawString("Meta: " + p.worldObj.getBlockMetadata(mop.blockX, mop.blockY, mop.blockZ), k + 32, l + 75, new Color(255, 255, 255).hex);
+						f.drawString("Has TileEntity: " + (p.worldObj.getTileEntity(mop.blockX, mop.blockY, mop.blockZ) != null), k + 32, l + 85, new Color(255, 255, 255).hex);
 						if (p.worldObj.getTileEntity(mop.blockX, mop.blockY, mop.blockZ) != null)
 						{
-							f.drawString("TileEntity: " + p.worldObj.getTileEntity(mop.blockX, mop.blockY, mop.blockZ).getClass().getName(), k + 32, l + 85, new Color(255, 255, 255).hex);
+							f.drawString("TileEntity: " + p.worldObj.getTileEntity(mop.blockX, mop.blockY, mop.blockZ).getClass().getName(), k + 32, l + 95, new Color(255, 255, 255).hex);
 						}
 					}
 					if (mop.typeOfHit == MovingObjectType.ENTITY)
 					{
-						f.drawString("Entity: " + mop.entityHit.getCommandSenderName(), k + 32, l + 55, new Color(255, 255, 255).hex);
+						f.drawString("Entity: " + mop.entityHit.getCommandSenderName(), k + 32, l + 65, new Color(255, 255, 255).hex);
 						if (mop.entityHit instanceof EntityLivingBase)
 						{
 							EntityLivingBase e = (EntityLivingBase) mop.entityHit;
 
-							f.drawString("Health: " + e.getHealth() + "/" + e.getMaxHealth(), k + 32, l + 65, new Color(255, 255, 255).hex);
+							f.drawString("Health: " + e.getHealth() + "/" + e.getMaxHealth(), k + 32, l + 75, new Color(255, 255, 255).hex);
 							float specdmg = ph.getFullMeleeDamageAgainst(e, false);
-							f.drawString("Specific Damage: " + specdmg, k + 32, l + 85, new Color(255, 255, 255).hex);
+							f.drawString("Specific Damage: " + specdmg, k + 32, l + 95, new Color(255, 255, 255).hex);
 						}
 					}
 				}
@@ -305,58 +304,60 @@ public class ClientRenderHelper
 	{
 		if (e.entityPlayer.worldObj.isRemote)
 		{
-			EntityPlayer p = e.entityPlayer;
-			PlayerDataHandler ph = PlayerDataHandler.get(p);
-
-			int dt = MiscUtils.boolToNum(ph.arbitur) * 4;
-
-			if (ph.getPermission() > 0)
+			if (e.entityPlayer.getCurrentEquippedItem() != null)
 			{
-				int meta = ph.sword.ordinal();
-				ph.soulTag.setString("Owner", p.getGameProfile().getName());
-				ItemStack sword = new ItemStack(ModItems.SoulSword, 1, meta);
-				sword.setTagCompound(PlayerDataHandler.get(p).soulTag);
-
-				String way = "aam:textures/items/" + SoulSword.ways[0];
-				String art = "aam:textures/items/soulsword/component_nil";
-				String bow = "aam:textures/items/" + CrystalBow.ways[0];
-
-				way = "aam:textures/items/" + SoulSword.ways[sword.getItemDamage() + dt];
-				if (ph.art)
-					art = "aam:textures/items/" + Artifact.ways[ph.stype.ordinal()];
-				GL11.glPushMatrix();
-
-				GL11.glTranslated(0.5, 0, 0);
-				int n = 6;
-				double ang = 360 / n;
-				GL11.glTranslated(-0.5, -0.5, 0);
-				for (int i = 0; i < n; i++)
+				if (e.entityPlayer.getCurrentEquippedItem().getItem() == ModItems.SoulSword)
 				{
-					GL11.glPushMatrix();
+					EntityPlayer p = e.entityPlayer;
+					PlayerDataHandler ph = PlayerDataHandler.get(p);
 
-					GL11.glRotated(p.rotationYawHead, 0, -1, 0);
+					int dt = MiscUtils.boolToNum(ph.arbitur) * 4;
 
-					GL11.glRotated(ang * i, 0, 0, 1);
-
-					SoulRenderer sr = new SoulRenderer();
-
-					GL11.glTranslated(-1.5, -1.5, 0);
-					GL11.glRotated(45, 0, 0, 1);
-					GL11.glTranslated(1.5, 1.5, 0);
-					if (ph.getBowIndex() > 0 && (p.isBlocking() || ph.cooldown > 0))
+					if (ph.getPermission() > 0)
 					{
-						float r = -0.125f;
-						float k = Math.min(ph.cooldown, ph.getMaxCooldown()) / (float) ph.getMaxCooldown();
-						GL11.glTranslated(1, 0, r);
-						GL11.glRotated(k * 90, 1, 1, 0);
-						GL11.glTranslated(-1, 0, -r);
-					}
+						int meta = ph.sword.ordinal();
+						ph.soulTag.setString("Owner", p.getGameProfile().getName());
+						ItemStack sword = new ItemStack(ModItems.SoulSword, 1, meta);
+						sword.setTagCompound(PlayerDataHandler.get(p).soulTag);
 
-					GL11.glTranslated(-1, -1, -0.5);
-					sr.renderItem(ItemRenderType.EQUIPPED, sword, (Object[]) null);
-					GL11.glPopMatrix();
+						GL11.glPushMatrix();
+
+						int n = 6;
+						double ang = 360 / n;
+						GL11.glTranslated(0, -0.5, 0);
+						for (int i = 0; i < n; i++)
+						{
+							GL11.glPushMatrix();
+
+							GL11.glRotated(p.rotationYawHead, 0, -1, 0);
+							GL11.glRotated(p.rotationPitch, 1, 0, 0);
+							GL11.glTranslated(0, 0.5, -0.5);
+
+							GL11.glRotated(ang * i, 0, 0, 1);
+
+							SoulRenderer sr = new SoulRenderer();
+
+							double kt = 1.5;
+							GL11.glTranslated(-kt, -kt, 0);
+							GL11.glRotated(45, 0, 0, 1);
+							GL11.glTranslated(kt, kt, 0);
+							if (ph.getBowIndex() > 0 && (p.isBlocking() || ph.blockDuration > 0))
+							{
+								float r = -0.5f;
+								float k = Math.min(ph.blockDuration, ph.getBowMaxCooldown()) / (float) ph.getBowMaxCooldown();
+								GL11.glTranslated(1, 0, r);
+								if (ph.getBowIndex() > 0)
+									GL11.glRotated(k * 90, 1, 1, 0);
+								GL11.glTranslated(-1, 0, -r);
+							}
+
+							GL11.glTranslated(-1, -1, -0.5);
+							sr.renderItem(ItemRenderType.EQUIPPED, sword, (Object[]) null);
+							GL11.glPopMatrix();
+						}
+						GL11.glPopMatrix();
+					}
 				}
-				GL11.glPopMatrix();
 			}
 		}
 	}

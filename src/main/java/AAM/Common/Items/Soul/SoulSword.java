@@ -3,15 +3,17 @@ package AAM.Common.Items.Soul;
 import java.util.List;
 import java.util.Random;
 
-import com.google.common.collect.Multimap;
-
+import AAM.API.GameWeapon;
+import AAM.API.Interface.IExtendedReach;
 import AAM.Client.Renderer.Item.SoulRenderer;
 import AAM.Common.Items.Artifacts.CrystalBow;
 import AAM.Common.Items.Resources.SwordDye;
 import AAM.Common.Soul.Soul;
+import AAM.Common.Soul.Trait;
 import AAM.Common.Soul.WarriorType;
 import AAM.Common.Soul.WeaponType;
 import AAM.Utils.Color;
+import AAM.Utils.MiscUtils;
 import AAM.Utils.PlayerDataHandler;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
@@ -19,14 +21,11 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.SharedMonsterAttributes;
-import net.minecraft.entity.ai.attributes.AttributeModifier;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemBow;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.ItemSword;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.IIcon;
@@ -34,7 +33,7 @@ import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.world.World;
 import net.minecraftforge.client.MinecraftForgeClient;
 
-public class SoulSword extends ItemSword
+public class SoulSword extends GameWeapon implements IExtendedReach
 {
 
 	public SoulSword(ToolMaterial mat)
@@ -52,18 +51,51 @@ public class SoulSword extends ItemSword
 	}
 
 	@Override
+	public void addUpgradeLevel(World w, ItemStack is)
+	{
+		String name = is.getTagCompound().getString("Owner");
+		if (w.getPlayerEntityByName(name) == null)
+		{
+			return;
+		}
+		PlayerDataHandler.get(w.getPlayerEntityByName(name)).addTraitBase(Trait.WeaponLevel, 1);
+		super.addUpgradeLevel(w, is);
+	}
+
+	@Override
+	public void addUpgradeLevel(World w, ItemStack is, int level)
+	{
+		String name = is.getTagCompound().getString("Owner");
+		if (w.getPlayerEntityByName(name) == null)
+		{
+			return;
+		}
+		PlayerDataHandler.get(w.getPlayerEntityByName(name)).addTraitBase(Trait.WeaponLevel, level);
+		super.addUpgradeLevel(w, is, level);
+	}
+
+	@Override
+	public void setUpgradeLevel(World w, ItemStack is, int level)
+	{
+		if (!is.hasTagCompound())
+		{
+			NBTTagCompound tg = new NBTTagCompound();
+			is.setTagCompound(tg);
+		}
+		String name = is.getTagCompound().getString("Owner");
+		if (w.getPlayerEntityByName(name) == null)
+		{
+			return;
+		}
+		PlayerDataHandler.get(w.getPlayerEntityByName(name)).setTraitBase(Trait.WeaponLevel, level);
+
+		super.setUpgradeLevel(w, is, level);
+	}
+
+	@Override
 	public boolean doesContainerItemLeaveCraftingGrid(ItemStack is)
 	{
 		return false;
-	}
-
-	/**
-	 * Damage (I think...)
-	 */
-	@Override
-	public float func_150931_i()
-	{
-		return PlayerDataHandler.get(Minecraft.getMinecraft().thePlayer).soulDamage;
 	}
 
 	/**
@@ -91,55 +123,14 @@ public class SoulSword extends ItemSword
 
 	public static Color getcPhColor(PlayerDataHandler ph)
 	{
-		if (ph.partType >= 0)
+		if (ph.color >= 0)
 		{
-			return colors[ph.partType];
+			return colors[ph.color];
 		}
 		else
 		{
 			return new Color(1.0, 1.0, 1.0);
 		}
-	}
-
-	/**
-	 * Gets a map of item attribute modifiers, used by ItemSword to increase hit
-	 * damage.
-	 */
-	@Override
-	public Multimap getItemAttributeModifiers()
-	{
-		Multimap multimap = super.getItemAttributeModifiers();
-		multimap.put(SharedMonsterAttributes.attackDamage.getAttributeUnlocalizedName(), new AttributeModifier(field_111210_e, "Soul modifier", PlayerDataHandler.get(Minecraft.getMinecraft().thePlayer).soulDamage, 0));
-		return multimap;
-	}
-
-	/**
-	 * ItemStack sensitive version of getItemAttributeModifiers
-	 */
-	@Override
-	public Multimap getAttributeModifiers(ItemStack stack)
-	{
-		Multimap multimap = super.getItemAttributeModifiers();
-		if (stack.hasTagCompound())
-		{
-			EntityPlayer p = Minecraft.getMinecraft().thePlayer.worldObj.getPlayerEntityByName(stack.getTagCompound().getString("Owner"));
-			if (p != null)
-			{
-				multimap.put(SharedMonsterAttributes.attackDamage.getAttributeUnlocalizedName(), new AttributeModifier(field_111210_e, "Soul modifier", PlayerDataHandler.get(p).soulDamage, 0));
-
-			}
-			else
-			{
-				multimap.put(SharedMonsterAttributes.attackDamage.getAttributeUnlocalizedName(), new AttributeModifier(field_111210_e, "Soul modifier", 5, 0));
-
-			}
-		}
-		else
-		{
-			multimap.put(SharedMonsterAttributes.attackDamage.getAttributeUnlocalizedName(), new AttributeModifier(field_111210_e, "Soul modifier", 5, 0));
-
-		}
-		return multimap;
 	}
 
 	/**
@@ -163,44 +154,53 @@ public class SoulSword extends ItemSword
 			List<EntityItem> entities = p.worldObj.getEntitiesWithinAABB(EntityItem.class, aabb);
 			if (!entities.isEmpty())
 			{
-				int time = 10;
+				int time = 100;
 				PlayerDataHandler ph = PlayerDataHandler.get(p);
 
 				EntityItem item = entities.get(0);
-				if (item.getEntityItem().getItem() instanceof ItemSword && !ph.swords.contains(item.getEntityItem().getItem()) && !(item.getEntityItem().getItem() instanceof SoulSword))
-				{
-					Random r = new Random();
-					if (item.getEntityItem().hasTagCompound())
-					{
-						if (item.getEntityItem().getTagCompound().getInteger("Consumption") >= time)
-						{
-							ph.soulDamage += ((ItemSword) item.getEntityItem().getItem()).func_150931_i() + 4;
-							ph.swords.add((ItemSword) item.getEntityItem().getItem());
-							item.setDead();
-						}
-						else
-						{
-							item.getEntityItem().getTagCompound().setInteger("Consumption", item.getEntityItem().getTagCompound().getInteger("Consumption") + 1);
-						}
-					}
-					else
-					{
-						NBTTagCompound tag = new NBTTagCompound();
-						tag.setInteger("Consumption", 0);
-						item.getEntityItem().setTagCompound(tag);
-					}
-				}
+				// if (item.getEntityItem().getItem() instanceof ItemSword &&
+				// !ph.swords.contains(item.getEntityItem().getItem()) &&
+				// !(item.getEntityItem().getItem() instanceof SoulSword))
+				// {
+				// Random r = new Random();
+				// if (item.getEntityItem().hasTagCompound())
+				// {
+				// if
+				// (item.getEntityItem().getTagCompound().getInteger("Consumption")
+				// >= time)
+				// {
+				// // ph.soulDamage += ((ItemSword)
+				// // item.getEntityItem().getItem()).func_150931_i() +
+				// // 4;
+				// // ph.swords.add((ItemSword)
+				// // item.getEntityItem().getItem());
+				// // item.setDead();
+				// }
+				// else
+				// {
+				// item.getEntityItem().getTagCompound().setInteger("Consumption",
+				// item.getEntityItem().getTagCompound().getInteger("Consumption")
+				// + 1);
+				// }
+				// }
+				// else
+				// {
+				// NBTTagCompound tag = new NBTTagCompound();
+				// tag.setInteger("Consumption", 0);
+				// item.getEntityItem().setTagCompound(tag);
+				// }
+				// }
 				if (item.getEntityItem().getItem() instanceof SwordDye)
 				{
 					Random r = new Random();
-					if (ph.partType != item.getEntityItem().getItemDamage())
+					if (ph.color != item.getEntityItem().getItemDamage())
 					{
 						if (item.getEntityItem().hasTagCompound())
 						{
 							if (item.getEntityItem().getTagCompound().getInteger("Consumption") >= time)
 							{
 
-								ph.partType = item.getEntityItem().getItemDamage();
+								ph.color = item.getEntityItem().getItemDamage();
 								item.setDead();
 
 							}
@@ -267,15 +267,21 @@ public class SoulSword extends ItemSword
 				{
 					art = passStaff[0];
 				}
-
+				if (WeaponType.values()[stack.getItemDamage()].warrior.equals(WarriorType.Tank))
+				{
+					art = passTank[0];
+				}
 				if (ph.art)
 				{
 					if (WeaponType.values()[stack.getItemDamage()].warrior.equals(WarriorType.Carry))
 						art = passSword[ph.stype.ordinal()];
 					if (WeaponType.values()[stack.getItemDamage()].warrior.equals(WarriorType.Caster))
 						art = passStaff[ph.stype.ordinal()];
+					if (WeaponType.values()[stack.getItemDamage()].warrior.equals(WarriorType.Tank))
+						art = passTank[ph.stype.ordinal()];
 				}
-				IIcon bow = CrystalBow.pass;
+				IIcon bow = WeaponType.values()[stack.getItemDamage()].warrior.equals(WarriorType.Carry) ? CrystalBow.pass[0]
+						: (WeaponType.values()[stack.getItemDamage()].warrior.equals(WarriorType.Caster) ? CrystalBow.pass[1] : CrystalBow.pass[2]);
 				switch (pass)
 				{
 				case 0:
@@ -294,6 +300,10 @@ public class SoulSword extends ItemSword
 			if (WeaponType.values()[stack.getItemDamage()].warrior.equals(WarriorType.Caster))
 			{
 				art = passStaff[0];
+			}
+			if (WeaponType.values()[stack.getItemDamage()].warrior.equals(WarriorType.Tank))
+			{
+				art = passTank[0];
 			}
 			switch (pass)
 			{
@@ -331,16 +341,15 @@ public class SoulSword extends ItemSword
 
 	public static IIcon[] passSword = new IIcon[Soul.values().length + 1];
 	public static IIcon[] passStaff = new IIcon[Soul.values().length + 1];
+	public static IIcon[] passTank = new IIcon[Soul.values().length + 1];
 
 	public static IIcon nil;
-	public static IIcon artnil;
 
 	@Override
 	@SideOnly(Side.CLIENT)
 	public void registerIcons(IIconRegister ir)
 	{
 		nil = ir.registerIcon("aam:null");
-		artnil = ir.registerIcon("aam:soulsword/component_nil");
 
 		for (int i = 0; i < WeaponType.values().length; i++)
 		{
@@ -352,10 +361,12 @@ public class SoulSword extends ItemSword
 
 		passSword[0] = ir.registerIcon("aam:soulsword/swordpasses/component_nil");
 		passStaff[0] = ir.registerIcon("aam:soulsword/staffpasses/component_nil");
+		passTank[0] = ir.registerIcon("aam:soulsword/tankpasses/component_nil");
 		for (int i = 1; i < passSword.length; i++)
 		{
 			passSword[i] = ir.registerIcon("aam:soulsword/swordpasses/component_" + i);
 			passStaff[i] = ir.registerIcon("aam:soulsword/staffpasses/component_" + i);
+			passTank[i] = ir.registerIcon("aam:soulsword/tankpasses/component_" + i);
 		}
 
 	}
@@ -376,7 +387,7 @@ public class SoulSword extends ItemSword
 				return "aam." + ph.sword.toString().toLowerCase();
 			}
 		}
-		return "aam.excalibur";
+		return "aam." + WeaponType.values()[i.getItemDamage()].toString().toLowerCase();
 
 	}
 
@@ -393,5 +404,12 @@ public class SoulSword extends ItemSword
 			ItemStack is = new ItemStack(it, 1, i);
 			l.add(is);
 		}
+	}
+
+	@Override
+	public float getReachValue(EntityPlayer p, ItemStack is)
+	{
+		PlayerDataHandler ph = PlayerDataHandler.get(p);
+		return MiscUtils.boolToNum(ph.sword.equals(WeaponType.Spear), 8, 4);
 	}
 }
