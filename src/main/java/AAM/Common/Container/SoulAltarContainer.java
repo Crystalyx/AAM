@@ -1,10 +1,5 @@
 package AAM.Common.Container;
 
-import AAM.Client.Gui.Base.GuiBar;
-import AAM.Common.Tiles.TESoulAltar;
-import AAM.Utils.Color;
-import AAM.Utils.PlayerDataHandler;
-import net.minecraft.client.Minecraft;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.IInventory;
 
@@ -17,22 +12,6 @@ public class SoulAltarContainer extends ContainerBase
 
 		this.addBackground(234, 234);
 		this.addText("Soul", 194, 94, 68, 10, false);
-		GuiBar soul = new GuiBar(199, 124, 20, 82, 1, new Color(53, 143, 255))
-		{
-			@Override
-			public void updBar(int value, int maxValue)
-			{
-				super.updBar(value, maxValue);
-			}
-
-			@Override
-			public int getLength()
-			{
-				PlayerDataHandler ph = PlayerDataHandler.get(Minecraft.getMinecraft().thePlayer);
-				return ((TESoulAltar) this.gui.cont.tile).value / ((TESoulAltar) this.gui.cont.tile).maxValue * this.sizey;
-			}
-		};
-		this.add(soul);
 
 		this.addSlot(0, 4, tile, 100, 10);
 
