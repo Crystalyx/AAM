@@ -1,9 +1,10 @@
 package AAM.Common.Items.Artifacts;
 
-import AAM.API.ItemArtifact;
+import AAM.API.Abstract.ItemArtifact;
 import AAM.Common.Entity.SoulCharge;
 import AAM.Common.Items.Soul.Artifact;
 import AAM.Common.Items.Soul.SoulSword;
+import AAM.Common.Soul.Trait;
 import AAM.Utils.PlayerDataHandler;
 import AAM.Utils.Wec3;
 import net.minecraft.client.renderer.texture.IIconRegister;
@@ -34,13 +35,17 @@ public class CrystalBow extends ItemArtifact
 			}
 			else
 			{
-				SoulCharge s = new SoulCharge(p.worldObj, p);
-				s.setLife(500);
-				Wec3 look = new Wec3(p.getLookVec());
-				look.ptm(s);
-				p.worldObj.spawnEntityInWorld(s);
-				i.getTagCompound().setInteger("State", 0);
-				i.damageItem(1, p);
+				PlayerDataHandler ph = PlayerDataHandler.get(p);
+				if (!w.isRemote && ph.consumeSoul((int) ph.getTrait(Trait.Level)))
+				{
+					SoulCharge s = new SoulCharge(p.worldObj, p);
+					s.setLife(500);
+					Wec3 look = new Wec3(p.getLookVec());
+					look.ptm(s);
+					p.worldObj.spawnEntityInWorld(s);
+					i.getTagCompound().setInteger("State", 0);
+					i.damageItem(1, p);
+				}
 			}
 		}
 		return i;
@@ -85,7 +90,7 @@ public class CrystalBow extends ItemArtifact
 	}
 
 	public static IIcon[] icon = new IIcon[3];
-	public static IIcon pass;
+	public static IIcon[] pass = new IIcon[3];
 	public static String[] ways = new String[3];
 
 	@Override
@@ -96,8 +101,9 @@ public class CrystalBow extends ItemArtifact
 			icon[i] = ir.registerIcon("aam:soulsword/bow_art_" + i);
 			ways[i] = "soulsword/bow_art_" + i;
 		}
-		pass = ir.registerIcon("aam:soulsword/swordpasses/bow");
-
+		pass[0] = ir.registerIcon("aam:soulsword/swordpasses/bow");
+		pass[1] = ir.registerIcon("aam:soulsword/staffpasses/bow");
+		pass[2] = ir.registerIcon("aam:soulsword/tankpasses/bow");
 	}
 
 	@Override
@@ -110,7 +116,7 @@ public class CrystalBow extends ItemArtifact
 				if (i.getTagCompound().getInteger("Art") != -1)
 					return Artifact.icons[i.getTagCompound().getInteger("Art")];
 				else
-					return SoulSword.artnil;
+					return SoulSword.nil;
 			}
 			else
 				if (p == 1)

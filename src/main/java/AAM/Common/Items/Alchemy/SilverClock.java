@@ -1,7 +1,7 @@
 package AAM.Common.Items.Alchemy;
 
-import AAM.API.ICatalyst;
-import AAM.API.MetaUpradableItem;
+import AAM.API.Abstract.MetaUpradableItem;
+import AAM.API.Interface.ICatalyst;
 import net.minecraft.item.ItemStack;
 
 public class SilverClock extends MetaUpradableItem implements ICatalyst

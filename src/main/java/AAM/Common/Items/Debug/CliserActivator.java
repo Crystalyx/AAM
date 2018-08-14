@@ -1,6 +1,6 @@
 package AAM.Common.Items.Debug;
 
-import AAM.API.IStructureCore;
+import AAM.API.Interface.IStructureCore;
 import AAM.Utils.PlayerDataHandler;
 import AAM.Utils.Wec3;
 import net.minecraft.entity.player.EntityPlayer;

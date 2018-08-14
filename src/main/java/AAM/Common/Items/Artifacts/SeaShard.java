@@ -1,6 +1,6 @@
 package AAM.Common.Items.Artifacts;
 
-import AAM.API.ItemArtifact;
+import AAM.API.Abstract.ItemArtifact;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;

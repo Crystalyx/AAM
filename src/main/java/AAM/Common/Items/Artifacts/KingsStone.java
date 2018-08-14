@@ -2,7 +2,7 @@ package AAM.Common.Items.Artifacts;
 
 import java.util.List;
 
-import AAM.API.ItemArtifact;
+import AAM.API.Abstract.ItemArtifact;
 import AAM.Utils.Wec3;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;

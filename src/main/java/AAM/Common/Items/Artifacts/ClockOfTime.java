@@ -5,12 +5,14 @@ import java.util.List;
 
 import com.google.common.collect.Lists;
 
-import AAM.API.ItemArtifact;
+import AAM.API.Abstract.ItemArtifact;
+import AAM.Common.Soul.Trait;
 import AAM.Utils.PlayerDataHandler;
 import baubles.api.BaubleType;
 import baubles.api.IBauble;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockLiquid;
+import net.minecraft.block.IGrowable;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.monster.EntityMob;
@@ -19,6 +21,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.world.World;
+import net.minecraftforge.common.IPlantable;
 import net.minecraftforge.fluids.BlockFluidBase;
 
 public class ClockOfTime extends ItemArtifact implements IBauble
@@ -46,7 +49,7 @@ public class ClockOfTime extends ItemArtifact implements IBauble
 
 			AxisAlignedBB bBox = AxisAlignedBB.getBoundingBox(x - 4, y - 4, z - 4, x + 4, y + 4, z + 4);
 			PlayerDataHandler ph = PlayerDataHandler.get((EntityPlayer) e);
-			int speed = (int) (16 * Math.sqrt(ph.soulLevel));
+			int speed = (int) (2 * Math.sqrt(ph.getTrait(Trait.Level) - 1));
 			speedUpTileEntities(e.worldObj, speed, bBox);
 			speedUpRandomTicks(e.worldObj, speed, bBox);
 			speedUpEntities(e.worldObj, speed, bBox);
@@ -129,7 +132,7 @@ public class ClockOfTime extends ItemArtifact implements IBauble
 				{
 					Block block = world.getBlock(x, y, z);
 
-					if (block.getTickRandomly() && !(block instanceof BlockLiquid) && !(block instanceof BlockFluidBase))
+					if (block.getTickRandomly() && !(block instanceof BlockLiquid) && !(block instanceof BlockFluidBase) && !(block instanceof IPlantable) && !(block instanceof IGrowable))
 					{
 						for (int i = 0; i < bonusTicks; i++)
 						{
