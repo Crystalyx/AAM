@@ -16,4 +16,14 @@ public class Colorer extends Ingridient
 		super(i, col, id);
 	}
 
+	public Colorer(Item i, int meta, Color col, int id, Item ib, int metab)
+	{
+		super(i, meta, col, id, ib, metab);
+	}
+
+	public Colorer(ItemStack i, Color col, int id, Item ib, int metab)
+	{
+		super(i, col, id, ib, metab);
+	}
+
 }

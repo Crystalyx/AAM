@@ -1,4 +1,4 @@
-package AAM.Common.Items;
+package AAM.Common.Items.Alchemy;
 
 import net.minecraft.item.Item;
 

@@ -3,14 +3,19 @@
  */
 package AAM.Common.Items;
 
+import AAM.Common.Event.SoulEvent;
+import AAM.Common.Soul.Trait;
 import AAM.Common.Soul.WeaponType;
+import AAM.Utils.MiscUtils;
 import AAM.Utils.PlayerDataHandler;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.client.renderer.texture.IIconRegister;
+import net.minecraft.enchantment.Enchantment;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.ChatComponentText;
 import net.minecraft.world.World;
 
 /**
@@ -28,9 +33,34 @@ public class RiteBook extends Item
 	public ItemStack onItemRightClick(ItemStack i, World w, EntityPlayer p)
 	{
 		PlayerDataHandler ph = PlayerDataHandler.get(p);
-		ph.sword = WeaponType.LightStaff;
-		// AttributeModifier am = new AttributeModifier("Rite", -60, 0);
-		// p.getEntityAttribute(SharedMonsterAttributes.maxHealth).applyModifier(am);
+		int f = 0;
+		switch (f)
+		{
+		case 0:
+			ph.sword = WeaponType.values()[MiscUtils.cycle(ph.sword.ordinal() + 1, 0, WeaponType.values().length - 1)];
+			break;
+		case 1:
+			ph.arbitur = !ph.arbitur;
+			break;
+		case 2:
+			if (w.isRemote)
+				for (int j = 0; j < Enchantment.enchantmentsList.length; j++)
+				{
+					if (Enchantment.enchantmentsList[j] != null)
+					{
+						ChatComponentText cct = new ChatComponentText(MiscUtils.compact(Enchantment.enchantmentsList[j].effectId, Enchantment.enchantmentsList[j].getTranslatedName(1)));
+						p.addChatMessage(cct);
+					}
+				}
+			break;
+		case 3:
+			ph.setTraitBase(Trait.Level, 1);
+			break;
+		case 4:
+			ph.soulxp += ph.getTrait(Trait.Soul) - ph.soulxp;
+			break;
+		}
+		SoulEvent.callSwordRecreation(ph);
 		return i;
 	}
 

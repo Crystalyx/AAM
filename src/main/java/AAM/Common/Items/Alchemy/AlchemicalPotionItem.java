@@ -38,7 +38,7 @@ public class AlchemicalPotionItem extends ItemFood
 			int id = i.getTagCompound().getInteger("PotionID");
 			if (id < ModPotions.pots.length)
 			{
-				PotionEffect eff = new PotionEffect(AAMCore.cfg.genericPID + id, i.getTagCompound().getInteger("PotionDur") * 20, i.getTagCompound().getInteger("PotionAmpl"));
+				PotionEffect eff = new PotionEffect(AAMCore.cfg.genericPID + id, i.getTagCompound().getInteger("PotionDur"), i.getTagCompound().getInteger("PotionAmpl"));
 				p.addPotionEffect(eff);
 				ItemStack item = new ItemStack(i.getItem(), i.stackSize - 1);
 				item.setTagCompound(i.getTagCompound());
@@ -65,7 +65,13 @@ public class AlchemicalPotionItem extends ItemFood
 	{
 		if (i.hasTagCompound())
 		{
-			l.add("Duration: " + i.getTagCompound().getInteger("PotionDur"));
+			int dur = i.getTagCompound().getInteger("PotionDur") / 20;
+			if (dur > 0)
+				l.add("Duration: " + dur + " sec");
+			else
+			{
+				l.add("Duration: Instant");
+			}
 			l.add("Power: " + (i.getTagCompound().getInteger("PotionAmpl") + 1));
 		}
 	}

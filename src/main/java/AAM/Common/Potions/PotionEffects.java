@@ -2,6 +2,7 @@ package AAM.Common.Potions;
 
 import AAM.Common.Blocks.Building.ModBlocks;
 import AAM.Core.AAMConfig;
+import AAM.Utils.VectorWorld;
 import AAM.Utils.Wec3;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
@@ -64,9 +65,11 @@ public class PotionEffects extends Potion
 		{
 			Wec3 p = new Wec3(e);
 			p = p.sub(new Wec3(0, 0, 0));
-			if (e.worldObj.getBlock(p.ix, p.iy - 1, p.iz).isBlockSolid(e.worldObj, p.ix, p.iy - 1, p.iz, 1) && e.worldObj.isAirBlock(p.ix, p.iy, p.iz))
+			Wec3 down = p.sub(new Wec3(0, 1, 0));
+			VectorWorld vw = new VectorWorld(e.worldObj);
+			if (vw.getBlock(down).isBlockSolid(e.worldObj, down.ix, down.iy, down.iz, 1) && vw.isAirBlock(down))
 			{
-				e.worldObj.setBlock(p.ix, p.iy, p.iz, Blocks.snow_layer);
+				vw.setBlock(p, Blocks.snow_layer);
 			}
 
 			for (int i = -3; i < 4; i++)
@@ -75,24 +78,24 @@ public class PotionEffects extends Potion
 				{
 					for (int k = -3; k < 4; k++)
 					{
-						if (e.worldObj.getBlock((int) e.posX + i, (int) e.posY + j, (int) e.posZ + k) == Blocks.water || e.worldObj.getBlock((int) e.posX + i, (int) e.posY + j, (int) e.posZ + k) == Blocks.flowing_water)
+						Wec3 ijk = p.add(new Wec3(i, j, k));
+						if (vw.getBlock(ijk) == Blocks.water || vw.getBlock(ijk) == Blocks.flowing_water)
 						{
-							e.worldObj.setBlock((int) e.posX + i, (int) e.posY + j, (int) e.posZ + k, Blocks.ice, 0, 2);
+							vw.setBlock(ijk, Blocks.ice, 0, 2);
 						}
-						if (e.worldObj.getBlock((int) e.posX + i, (int) e.posY + j, (int) e.posZ + k) == Blocks.lava || e.worldObj.getBlock((int) e.posX + i, (int) e.posY + j, (int) e.posZ + k) == Blocks.flowing_lava)
+						if (vw.getBlock(ijk) == Blocks.lava || vw.getBlock(ijk) == Blocks.flowing_lava)
 						{
-							if (e.worldObj.getBlockMetadata((int) e.posX + i, (int) e.posY + j, (int) e.posZ + k) == 0)
-								e.worldObj.setBlock((int) e.posX + i, (int) e.posY + j, (int) e.posZ + k, Blocks.obsidian, 0, 2);
+							if (vw.getBlockMetadata(ijk) == 0)
+								vw.setBlock(ijk, Blocks.obsidian, 0, 2);
 							else
-								e.worldObj.setBlock((int) e.posX + i, (int) e.posY + j, (int) e.posZ + k, Blocks.cobblestone, 0, 2);
+								vw.setBlock(ijk, Blocks.cobblestone, 0, 2);
 						}
-						if (e.worldObj.getBlock((int) e.posX + i, (int) e.posY + j, (int) e.posZ + k) == ModBlocks.BloodBlock)
+						if (vw.getBlock(ijk) == ModBlocks.BloodBlock)
 						{
-							// if(MiscUtils.randWPercent(10))
-							if (((BlockFluidClassic) e.worldObj.getBlock((int) e.posX + i, (int) e.posY + j, (int) e.posZ + k)).isSourceBlock(e.worldObj, (int) e.posX + i, (int) e.posY + j, (int) e.posZ + k))
-								e.worldObj.setBlock((int) e.posX + i, (int) e.posY + j, (int) e.posZ + k, ModBlocks.miniumBlock, 0, 2);
+							if (((BlockFluidClassic) vw.getBlock(ijk)).isSourceBlock(e.worldObj, p.ix + i, p.iy + j, p.iz + k))
+								vw.setBlock(ijk, ModBlocks.miniumBlock, 0, 2);
 							else
-								e.worldObj.setBlock((int) e.posX + i, (int) e.posY + j, (int) e.posZ + k, Blocks.ice, 0, 2);
+								vw.setBlock(ijk, Blocks.ice, 0, 2);
 						}
 					}
 				}

@@ -3,8 +3,9 @@ package AAM.Common.Tiles;
 import java.util.ArrayList;
 import java.util.List;
 
+import AAM.Common.Items.ModItems;
 import AAM.Common.Potions.Colorer;
-import AAM.Common.Potions.Ingridient;
+import AAM.Common.Potions.IngridientItem;
 import AAM.Common.Potions.Ingridients;
 import AAM.Utils.Color;
 import cpw.mods.fml.common.registry.GameRegistry;
@@ -15,9 +16,7 @@ import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemBlock;
-import net.minecraft.item.ItemHoe;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.ItemSword;
 import net.minecraft.item.ItemTool;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.NetworkManager;
@@ -90,17 +89,17 @@ public class TECauldron extends TileEntity
 				}
 			}
 		}
-		Color col = new Color(0, 123, 255);
+		Color col = new Color(0, 136, 255);
 		Color withClrr = new Color(256, 256, 256);
 		for (int i = this.ingrs.size() - 1; i >= 0; i--)
 		{
-			col = col.add(this.ingrs.get(i).color);
-			if (this.ingrs.get(i) instanceof Colorer)
+			col = col.add(this.ingrs.get(i).ing.color);
+			if (this.ingrs.get(i).ing instanceof Colorer)
 			{
-				withClrr = withClrr.add(this.ingrs.get(i).color);
+				withClrr = this.ingrs.get(i).ing.color;
 			}
 		}
-		if (withClrr.red == 256)
+		if (withClrr.equals(Color.White))
 		{
 			this.color = col;
 		}
@@ -184,10 +183,6 @@ public class TECauldron extends TileEntity
 
 			if (item instanceof ItemTool && ((ItemTool) item).getToolMaterialName().equals("WOOD"))
 				return 200;
-			if (item instanceof ItemSword && ((ItemSword) item).getToolMaterialName().equals("WOOD"))
-				return 200;
-			if (item instanceof ItemHoe && ((ItemHoe) item).getToolMaterialName().equals("WOOD"))
-				return 200;
 			if (item == Items.stick)
 				return 100;
 			if (item == Items.coal)
@@ -206,9 +201,17 @@ public class TECauldron extends TileEntity
 	{
 		if (Ingridients.getId(is) >= 0)
 		{
-			Ingridient id = Ingridients.ings.get(Ingridients.getId(is));
+			IngridientItem id = Ingridients.getPair(is);
 			this.ingrs.add(id);
 			this.lastid += 1;
+			return true;
+		}
+		if (is.getItem() == ModItems.Potion)
+		{
+			int id = is.getTagCompound().getInteger("PotionID");
+			int power = is.getTagCompound().getInteger("PotionAmpl");
+			int duration = is.getTagCompound().getInteger("PotionDur");
+			this.potion = new int[] { id, power, duration };
 			return true;
 		}
 		return false;
@@ -217,8 +220,12 @@ public class TECauldron extends TileEntity
 	public boolean isBurning = false;
 	public int burnTime = 0;
 	public FluidStack fluid = new FluidStack(FluidRegistry.WATER, 0);
+	/**
+	 * id,power,time
+	 */
+	public int[] potion = new int[0];
 	public Color color = new Color(0, 136, 254);
-	public List<Ingridient> ingrs = new ArrayList<Ingridient>();
+	public List<IngridientItem> ingrs = new ArrayList<IngridientItem>();
 	public int lastid = 0;
 
 	@Override
@@ -232,7 +239,9 @@ public class TECauldron extends TileEntity
 		this.color = new Color(tag.getIntArray("Color"));
 		int size = tag.getInteger("IngCount");
 		for (int i = 0; i < size; i++)
-			this.ingrs.add(Ingridients.ings.get(tag.getInteger("Ing_" + i)));
+		{
+			this.ingrs.add(new IngridientItem(Ingridients.ings.get(tag.getInteger("Ing_" + i)), tag.getInteger("IngType_" + i)));
+		}
 	}
 
 	@Override
@@ -247,7 +256,11 @@ public class TECauldron extends TileEntity
 		tag.setIntArray("Color", new int[] { this.color.red, this.color.green, this.color.blue });
 		tag.setInteger("IngCount", this.ingrs.size());
 		for (int i = 0; i < this.ingrs.size(); i++)
-			tag.setInteger("Ing_" + i, this.ingrs.get(i).id);
+		{
+			tag.setInteger("Ing_" + i, this.ingrs.get(i).ing.id);
+			tag.setInteger("IngType_" + i, this.ingrs.get(i).type);
+		}
+
 	}
 
 }
