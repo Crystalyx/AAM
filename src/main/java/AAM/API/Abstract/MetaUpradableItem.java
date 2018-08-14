@@ -1,9 +1,11 @@
-package AAM.API;
+package AAM.API.Abstract;
 
+import AAM.API.Interface.IUpgradableItem;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.IIcon;
+import net.minecraft.world.World;
 
 public abstract class MetaUpradableItem extends Item implements IUpgradableItem
 {
@@ -63,19 +65,19 @@ public abstract class MetaUpradableItem extends Item implements IUpgradableItem
 	}
 
 	@Override
-	public void addUpgradeLevel(ItemStack is)
+	public void addUpgradeLevel(World w, ItemStack is)
 	{
 		is.setItemDamage(is.getItemDamage() + 1);
 	}
 
 	@Override
-	public void setUpgradeLevel(ItemStack is, int level)
+	public void setUpgradeLevel(World w, ItemStack is, int level)
 	{
 		is.setItemDamage(level);
 	}
 
 	@Override
-	public void addUpgradeLevel(ItemStack is, int level)
+	public void addUpgradeLevel(World w, ItemStack is, int level)
 	{
 		is.setItemDamage(is.getItemDamage() + level);
 	}

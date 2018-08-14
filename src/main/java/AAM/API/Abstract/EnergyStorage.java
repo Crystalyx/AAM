@@ -1,5 +1,6 @@
-package AAM.API;
+package AAM.API.Abstract;
 
+import AAM.API.Interface.IEnergyStorage;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;

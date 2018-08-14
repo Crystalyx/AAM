@@ -1,7 +1,10 @@
 package AAM.API;
 
+import AAM.API.Interface.IUpgradableItem;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.ItemSword;
+import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.world.World;
 
 public class GameWeapon extends ItemSword implements IUpgradableItem
 {
@@ -14,43 +17,46 @@ public class GameWeapon extends ItemSword implements IUpgradableItem
 	@Override
 	public int getUpgradeLevel(ItemStack is)
 	{
-		// TODO Auto-generated method stub
-		return 0;
+		return is.hasTagCompound() ? is.getTagCompound().getInteger("UpgradeLevel") : 0;
 	}
 
 	@Override
-	public void addUpgradeLevel(ItemStack is)
+	public void addUpgradeLevel(World w, ItemStack is)
 	{
-		// TODO Auto-generated method stub
-
+		this.setUpgradeLevel(w, is, this.getUpgradeLevel(is) + 1);
 	}
 
 	@Override
-	public void addUpgradeLevel(ItemStack is, int level)
+	public void addUpgradeLevel(World w, ItemStack is, int level)
 	{
-		// TODO Auto-generated method stub
-
+		this.setUpgradeLevel(w, is, this.getUpgradeLevel(is) + level);
 	}
 
 	@Override
-	public void setUpgradeLevel(ItemStack is, int level)
+	public void setUpgradeLevel(World w, ItemStack is, int level)
 	{
-		// TODO Auto-generated method stub
-
+		if (is.hasTagCompound())
+		{
+			is.getTagCompound().setInteger("UpgradeLevel", level);
+		}
+		else
+		{
+			NBTTagCompound tag = new NBTTagCompound();
+			tag.setInteger("UpgradeLevel", level);
+			is.setTagCompound(tag);
+		}
 	}
 
 	@Override
 	public int getMaxLevel(ItemStack is)
 	{
-		// TODO Auto-generated method stub
-		return 0;
+		return 15;
 	}
 
 	@Override
 	public boolean enableLayers(ItemStack is)
 	{
-		// TODO Auto-generated method stub
-		return false;
+		return true;
 	}
 
 }

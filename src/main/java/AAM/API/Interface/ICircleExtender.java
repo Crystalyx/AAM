@@ -1,4 +1,4 @@
-package AAM.API;
+package AAM.API.Interface;
 
 import AAM.Utils.Wec3;
 import net.minecraft.entity.player.EntityPlayer;

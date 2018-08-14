@@ -1,4 +1,4 @@
-package AAM.API;
+package AAM.API.Interface;
 
 import AAM.Utils.PlayerDataHandler;
 import net.minecraft.entity.EntityLivingBase;

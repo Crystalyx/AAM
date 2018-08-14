@@ -1,5 +1,6 @@
-package AAM.API;
+package AAM.API.Abstract;
 
+import AAM.API.Interface.IStructureCore;
 import AAM.Utils.Logger;
 import AAM.Utils.Wec3;
 import net.minecraft.nbt.NBTTagCompound;
