@@ -4,7 +4,6 @@ import java.lang.reflect.Field;
 
 import AAM.Common.Blocks.Building.ModBlocks;
 import AAM.Utils.MiscUtils;
-import AAM.Utils.PlayerDataHandler;
 import AAM.Utils.Wec3;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
@@ -22,6 +21,7 @@ public class DungeonTeleporter extends Teleporter
 	/**
 	 * Place an entity in a nearby portal which already exists.
 	 */
+	@Override
 	public boolean placeInExistingPortal(Entity e, double x, double y, double z, float f)
 	{
 		this.makePortal(e);
@@ -34,7 +34,7 @@ public class DungeonTeleporter extends Teleporter
 																					// cause
 																					// I'm
 																					// lazy
-				int dung = PlayerDataHandler.get(p).dungLevel;
+				int dung = 0;
 				Field ms = clazz.getField("PDung" + dung);
 				if (ms != null)
 				{
@@ -57,6 +57,7 @@ public class DungeonTeleporter extends Teleporter
 		return true;
 	}
 
+	@Override
 	public boolean makePortal(Entity e)
 	{
 		if (e instanceof EntityPlayer)
@@ -65,7 +66,7 @@ public class DungeonTeleporter extends Teleporter
 			try
 			{
 				Class clazz = Class.forName("AAM.Common.Dungeon.DungeonRegistry");
-				int dung = PlayerDataHandler.get(p).dungLevel;
+				int dung = 0;
 				Field ms = clazz.getField("PDung" + dung);
 				if (ms != null)
 				{
