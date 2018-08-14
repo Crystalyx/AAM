@@ -15,8 +15,6 @@ import net.minecraft.client.gui.inventory.GuiContainer;
 public class GuiBase extends GuiContainer
 {
 	public ContainerBase cont;
-	public int k;
-	public int l;
 
 	public GuiBase(ContainerBase cont)
 	{
@@ -35,7 +33,7 @@ public class GuiBase extends GuiContainer
 	@Override
 	public void drawGuiContainerBackgroundLayer(float p_146976_1_, int mx, int my)
 	{
-		int k = (this.width - this.xSize) / 2;
+		int k = +(this.width - this.xSize) / 2;
 		int l = (this.height - this.ySize) / 2;
 
 		for (GuiOBJ obj : this.cont.objs)

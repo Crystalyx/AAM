@@ -3,7 +3,9 @@ package AAM.Client.Gui;
 import org.lwjgl.opengl.GL11;
 
 import AAM.Client.Gui.Base.ButtonRMember;
+import AAM.Common.Soul.Trait;
 import AAM.Common.Soul.WarriorType;
+import AAM.Common.Soul.WeaponType;
 import AAM.Network.Packages.AlchemicalDispatcher;
 import AAM.Network.Packages.PlayerSyncMessage;
 import AAM.Utils.Logger;
@@ -104,12 +106,18 @@ public class GuiParty extends GuiScreen
 
 		GuiButton gb = new GuiButton(0, this.x - 35, this.y + 4, 70, 20, "Invite Player");
 
-		WarriorButton classUp = new WarriorButton(7, this.x - w / 2 - ps / 2, this.y - h / 2, 32, 32, "", true);
+		SwitchButton classUp = new SwitchButton(7, this.x - w / 2 - ps / 2, this.y - h / 2 - 8, 32, 32, "", true);
 
-		WarriorButton classDown = new WarriorButton(8, this.x - w / 2 - ps / 2, this.y - h / 2 + 32, 32, 32, "", false);
+		SwitchButton classDown = new SwitchButton(8, this.x - w / 2 - ps / 2, this.y - h / 2 + 12, 32, 32, "", false);
 		this.buttonList.add(gb);
 		this.buttonList.add(classUp);
 		this.buttonList.add(classDown);
+
+		SwitchButton swordUp = new SwitchButton(9, this.x - w / 2 - ps / 2, this.y - h / 2 + 28, 32, 32, "", true);
+		SwitchButton swordDown = new SwitchButton(10, this.x - w / 2 - ps / 2, this.y - h / 2 + 12 + 36, 32, 32, "", false);
+
+		this.buttonList.add(swordUp);
+		this.buttonList.add(swordDown);
 
 		for (int i = 0; i < 6; i++)
 		{
@@ -153,6 +161,20 @@ public class GuiParty extends GuiScreen
 			ph.warrior = WarriorType.values()[id];
 			AlchemicalDispatcher.sendToServer(new PlayerSyncMessage(mc.thePlayer));
 		}
+		if (b.id == 9)
+		{
+			PlayerDataHandler ph = PlayerDataHandler.get(Minecraft.getMinecraft().thePlayer);
+			int id = MiscUtils.cycle(ph.sword.ordinal() + 1, 0, WeaponType.values().length - 1);
+			ph.sword = WeaponType.values()[id];
+			AlchemicalDispatcher.sendToServer(new PlayerSyncMessage(mc.thePlayer));
+		}
+		if (b.id == 10)
+		{
+			PlayerDataHandler ph = PlayerDataHandler.get(Minecraft.getMinecraft().thePlayer);
+			int id = MiscUtils.cycle(ph.sword.ordinal() - 1, 0, WeaponType.values().length - 1);
+			ph.sword = WeaponType.values()[id];
+			AlchemicalDispatcher.sendToServer(new PlayerSyncMessage(mc.thePlayer));
+		}
 	}
 
 	@Override
@@ -184,6 +206,7 @@ public class GuiParty extends GuiScreen
 		GL11.glScaled(0.5D, 0.5D, 0.5D);
 		Tessellator tessellator = Tessellator.instance;
 
+		// Class
 		GL11.glPushMatrix();
 		GL11.glTranslated(dPad - 4, dPad + 4, 0);
 		GL11.glColor4d(1, 1, 1, 1);
@@ -216,6 +239,40 @@ public class GuiParty extends GuiScreen
 
 		GL11.glPopMatrix();
 
+		// Weapon
+		GL11.glPushMatrix();
+		GL11.glTranslated(dPad - 4, dPad + 76, 0);
+		GL11.glColor4d(1, 1, 1, 1);
+		MiscUtils.bindTexture("aam:textures/items/" + ph.sword.texture + ".png");
+
+		tessellator.startDrawingQuads();
+		tessellator.addVertexWithUV(0 - t, s + l, 0.0D, 0.0D, 1.0D);
+		tessellator.addVertexWithUV(ps - t, s + l, 0.0D, 1D, 1.0D);
+		tessellator.addVertexWithUV(ps - t, l, 0.0D, 1D, 0.0D);
+		tessellator.addVertexWithUV(0 - t, l, 0.0D, 0.0D, 0.0D);
+		tessellator.draw();
+
+		Minecraft.getMinecraft().getTextureManager().bindTexture(classPadding);
+		tessellator.startDrawingQuads();
+		tessellator.addVertexWithUV(0 - t - dPad, s + l + dPad, 0.0D, 0.0D, 1.0D);
+		tessellator.addVertexWithUV(ps - t + dPad, s + l + dPad, 0.0D, 1D, 1.0D);
+		tessellator.addVertexWithUV(ps - t + dPad, l - dPad, 0.0D, 1D, 0.0D);
+		tessellator.addVertexWithUV(0 - t - dPad, l - dPad, 0.0D, 0.0D, 0.0D);
+		tessellator.draw();
+
+		GL11.glPushMatrix();
+		GL11.glTranslated(-t - dPad * 2, 3 * l, 0);
+		GL11.glPopMatrix();
+
+		GL11.glPushMatrix();
+		GL11.glTranslated(ps - t + dPad * 2, s / 2 + 3 * l / 2, 0);
+		GL11.glScaled(2, 2, 2);
+		f.drawString(ph.sword.toString(), 0, 0, 0xFFFFFF);
+		GL11.glPopMatrix();
+
+		GL11.glPopMatrix();
+
+		// Party
 		for (int i = 0; i < Math.min(6, ph.party.size()); i++)
 		{
 			String nick = "";
@@ -254,7 +311,7 @@ public class GuiParty extends GuiScreen
 
 						EntityPlayer ep = p.worldObj.getPlayerEntityByName(ph.party.get(i));
 						PlayerDataHandler eph = PlayerDataHandler.get(ep);
-						double length = 1 - ((double) eph.getCurrentSoul() / (double) eph.getMaxSoul());
+						double length = 1 - ((double) eph.getCurrentSoul() / (double) eph.getTrait(Trait.Soul));
 
 						tessellator.startDrawingQuads();
 						tessellator.addVertexWithUV(k, l + 60.0 + i * s, 0.0D, 0.5D, 1.0D - length);

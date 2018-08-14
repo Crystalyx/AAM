@@ -1,20 +1,8 @@
 package AAM.Client.Gui;
 
-import org.lwjgl.input.Mouse;
-import org.lwjgl.opengl.GL11;
-
-import AAM.Common.Skills.ModSkills;
-import AAM.Network.Packages.AlchemicalDispatcher;
-import AAM.Network.Packages.SkillPackage;
-import AAM.Utils.PlayerDataHandler;
-import AAM.Utils.Wec3;
-import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.gui.ScaledResolution;
-import net.minecraft.client.renderer.Tessellator;
-import net.minecraft.util.ChatComponentText;
-import net.minecraft.util.ResourceLocation;
 
 public class SkillsGui extends GuiScreen
 {

@@ -11,21 +11,15 @@ import net.minecraft.client.gui.ScaledResolution;
 import net.minecraft.client.renderer.OpenGlHelper;
 import net.minecraft.util.ResourceLocation;
 
-public class WarriorButton extends GuiButton
+public class SwitchButton extends GuiButton
 {
 	boolean up;
 
-	public WarriorButton(int id, int x, int y, int w, int h, String text, boolean up)
+	public SwitchButton(int id, int x, int y, int w, int h, String text, boolean up)
 	{
 		super(id, x, y, w, h, text);
 		this.up = up;
 		this.visible = true;
-	}
-
-	@Override
-	public boolean mousePressed(Minecraft mc, int x, int y)
-	{
-		return super.mousePressed(mc, x, y);
 	}
 
 	public static final ResourceLocation classSelector = new ResourceLocation("aam", "textures/hud/selectorClass.png");
