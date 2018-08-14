@@ -38,6 +38,7 @@ public class ChalkPattern extends Item
 
 	public static IIcon[] icon;
 
+	@Override
 	@SideOnly(Side.CLIENT)
 	public void registerIcons(IIconRegister ir)
 	{
@@ -46,7 +47,7 @@ public class ChalkPattern extends Item
 		int j = 0;
 		for (CirclePart pt : ModCircles.parts)
 		{
-			if (!pt.extended)
+			// if (!pt.extended)
 			{
 				icon[2 * j + 1] = ir.registerIcon("aam:" + pt.item.getResourcePath());
 				icon[2 * j + 2] = ir.registerIcon("aam:" + pt.itemRev.getResourcePath());
@@ -76,6 +77,7 @@ public class ChalkPattern extends Item
 	 * ItemStack so different stacks can have different names based on their
 	 * damage or NBT.
 	 */
+	@Override
 	public String getUnlocalizedName(ItemStack i)
 	{
 		return "aam.chalk." + ModCircles.parts.get(i.getItemDamage()).name;
@@ -86,6 +88,7 @@ public class ChalkPattern extends Item
 	 * returns a list of items with the same ID, but different meta (eg: dye
 	 * returns 16 items)
 	 */
+	@Override
 	@SideOnly(Side.CLIENT)
 	public void getSubItems(Item is, CreativeTabs tab, List l)
 	{
@@ -100,6 +103,7 @@ public class ChalkPattern extends Item
 	 * clicking, he will have one of those. Return True if something happen and
 	 * false if it don't. This is for ITEMS, not BLOCKS
 	 */
+	@Override
 	public boolean onItemUse(ItemStack is, EntityPlayer p, World w, int px, int py, int pz, int side, float fx, float fy, float fz)
 	{
 		int x = px + ForgeDirection.getOrientation(side).offsetX;

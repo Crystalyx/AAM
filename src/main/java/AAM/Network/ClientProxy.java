@@ -1,9 +1,11 @@
 package AAM.Network;
 
+import AAM.Client.Gui.GuiModificationAnvil;
 import AAM.Client.Gui.GuiParty;
 import AAM.Client.Gui.GuiSoulAltar;
 import AAM.Client.Gui.GuiSpellTable;
 import AAM.Client.Gui.SkillsGui;
+import AAM.Client.Renderer.Block.BarrelRenderer;
 import AAM.Client.Renderer.Block.BloodAltarRenderer;
 import AAM.Client.Renderer.Block.BushRenderer;
 import AAM.Client.Renderer.Block.BushSproutRenderer;
@@ -22,6 +24,7 @@ import AAM.Client.Renderer.Entity.ElemGuardRenderer;
 import AAM.Client.Renderer.Entity.ElementalRenderer;
 import AAM.Client.Renderer.Entity.GolemRenderer;
 import AAM.Client.Renderer.Entity.SoulChargeRenderer;
+import AAM.Client.Renderer.Entity.StaffChargeRenderer;
 import AAM.Client.Renderer.Entity.SubwerRenderer;
 import AAM.Client.Renderer.Entity.WastelandRenderer;
 import AAM.Client.Renderer.Tile.CauldronRenderer;
@@ -32,9 +35,11 @@ import AAM.Client.Renderer.Tile.SoulAltarRenderer;
 import AAM.Client.Renderer.Tile.SpellTableRenderer;
 import AAM.Client.Renderer.Tile.TeleporterRenderer;
 import AAM.Client.Renderer.Tile.TransCircleRenderer;
+import AAM.Common.Container.ModificationAnvilContainer;
 import AAM.Common.Container.SoulAltarContainer;
 import AAM.Common.Container.SpellTableContainer;
 import AAM.Common.Entity.SoulCharge;
+import AAM.Common.Entity.StaffCharge;
 import AAM.Common.Entity.Elemental.ElementalBoss;
 import AAM.Common.Entity.Elemental.ElementalGuard;
 import AAM.Common.Entity.Elemental.EntityBloodball;
@@ -69,6 +74,9 @@ public class ClientProxy extends CommonProxy
 			return new GuiSpellTable(new SpellTableContainer(p.inventory, (TESpellTable) w.getTileEntity(x, y, z)));
 		case (1):
 			return new GuiSoulAltar(new SoulAltarContainer(p.inventory, (TESoulAltar) w.getTileEntity(x, y, z)));
+		case (2):
+			return new GuiModificationAnvil(new ModificationAnvilContainer(p.inventory, (TEModificationAnvil) w.getTileEntity(x, y, z)));
+
 		}
 		return null;
 
@@ -124,6 +132,8 @@ public class ClientProxy extends CommonProxy
 		RenderingRegistry.registerBlockHandler(new BloodAltarRenderer());
 		// 138
 		RenderingRegistry.registerBlockHandler(new BushSproutRenderer());
+		// 139
+		RenderingRegistry.registerBlockHandler(new BarrelRenderer());
 
 		ClientRegistry.bindTileEntitySpecialRenderer(TECauldron.class, new CauldronRenderer());
 		ClientRegistry.bindTileEntitySpecialRenderer(TECreativeCauldron.class, new CreativeCauldronRenderer());
@@ -144,6 +154,7 @@ public class ClientProxy extends CommonProxy
 		RenderingRegistry.registerEntityRenderingHandler(Subwer.class, new SubwerRenderer());
 
 		RenderingRegistry.registerEntityRenderingHandler(GolemBoss.class, new GolemRenderer());
+		RenderingRegistry.registerEntityRenderingHandler(StaffCharge.class, new StaffChargeRenderer());
 
 	}
 

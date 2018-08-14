@@ -24,7 +24,7 @@ public class ActPhilo extends TransAction
 	@Override
 	public boolean actTick(World w, Wec3 tile, TETransCircle te, EntityPlayer p, int time, double potency, ForgeDirection dir)
 	{
-		if ((te.energyType.equals(EnergyType.Unknown) || te.energyType.equals(EnergyType.Philo)) && te.is == null)
+		if ((te.energyType.equals(EnergyType.Unknown) || te.energyType.equals(EnergyType.Philo)))
 		{
 			List<EntityLivingBase> lst = w.getEntitiesWithinAABB(EntityLivingBase.class, tile.centralize().extendBoth(25f, 30f, 25f));
 			List<EntityLivingBase> l = new ArrayList<EntityLivingBase>();
@@ -42,14 +42,13 @@ public class ActPhilo extends TransAction
 				EntityLivingBase ei = l.get(i);
 				if (te instanceof TEBloodAltar)
 				{
-					((TEBloodAltar) te).blood.amount += ModCircles.K * 10;
-					ei.attackEntityFrom(DamageSource.outOfWorld.setDamageBypassesArmor().setDamageAllowedInCreativeMode(), 1);
+					((TEBloodAltar) te).blood.amount += ModCircles.K;
+					ei.attackEntityFrom(DamageSource.causePlayerDamage(te.alchemist).setDamageBypassesArmor().setDamageAllowedInCreativeMode(), 1);
 
 					if (ei.getHealth() <= 1.1)
 					{
-						((TEBloodAltar) te).blood.amount += ModCircles.K * 10;
-						ei.attackEntityFrom(DamageSource.outOfWorld.setDamageBypassesArmor().setDamageAllowedInCreativeMode(), 1);
-
+						((TEBloodAltar) te).blood.amount += ModCircles.K;
+						ei.attackEntityFrom(DamageSource.causePlayerDamage(te.alchemist).setDamageBypassesArmor().setDamageAllowedInCreativeMode(), 2);
 					}
 				}
 				else
@@ -64,12 +63,12 @@ public class ActPhilo extends TransAction
 					{
 						te.energy += ModCircles.K * k * 2;
 						l.remove(ei);
-						ei.attackEntityFrom(DamageSource.outOfWorld.setDamageBypassesArmor().setDamageAllowedInCreativeMode(), 1);
+						ei.attackEntityFrom(DamageSource.causePlayerDamage(te.alchemist).setDamageBypassesArmor().setDamageAllowedInCreativeMode(), 2);
 					}
 					else
 					{
 						te.energy += k * k;
-						ei.attackEntityFrom(DamageSource.outOfWorld.setDamageBypassesArmor().setDamageAllowedInCreativeMode(), 1);
+						ei.attackEntityFrom(DamageSource.causePlayerDamage(te.alchemist).setDamageBypassesArmor().setDamageAllowedInCreativeMode(), 1);
 					}
 				}
 			}
@@ -79,18 +78,11 @@ public class ActPhilo extends TransAction
 				if (te.is == null)
 				{
 					ItemStack isk = new ItemStack(ModItems.PhilosophersStone);
-					((PhilosophersStone) isk.getItem()).chargeBypass(isk, te.energy);
-					te.clearEnergy();
 					te.is = isk;
 				}
-				else
-				{
-					if (te.is.getItem() == ModItems.PhilosophersStone)
-					{
-						((PhilosophersStone) te.is.getItem()).chargeBypass(te.is, te.energy);
-						te.clearEnergy();
-					}
-				}
+				((PhilosophersStone) te.is.getItem()).chargeBypass(te.is, te.energy);
+				te.clearEnergy();
+				return false;
 			}
 			if (l.isEmpty())
 				return false;

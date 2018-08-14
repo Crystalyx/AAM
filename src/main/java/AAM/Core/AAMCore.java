@@ -7,9 +7,15 @@ import java.util.List;
 
 import org.lwjgl.input.Keyboard;
 
+import AAM.API.PageIMultiRecipe;
 import AAM.API.PageItemList;
 import AAM.API.StackList;
 import AAM.Client.Gui.Base.ObjTypes;
+import AAM.Commands.CommandAAMEnchant;
+import AAM.Commands.CommandAAMPotion;
+import AAM.Commands.CommandItemLevel;
+import AAM.Commands.CommandSoulDamage;
+import AAM.Commands.CommandSoulLevel;
 import AAM.Common.Blocks.Building.ModBlocks;
 import AAM.Common.Dungeon.DungeonProvider;
 import AAM.Common.Entity.ModEntities;
@@ -40,7 +46,6 @@ import amerifrance.guideapi.api.abstraction.IPage;
 import amerifrance.guideapi.api.base.Book;
 import amerifrance.guideapi.api.base.EntryBase;
 import amerifrance.guideapi.api.util.BookBuilder;
-import amerifrance.guideapi.categories.CategoryItemStack;
 import amerifrance.guideapi.categories.CategoryResourceLocation;
 import amerifrance.guideapi.pages.PageFurnaceRecipe;
 import amerifrance.guideapi.pages.PageIRecipe;
@@ -55,10 +60,13 @@ import cpw.mods.fml.common.SidedProxy;
 import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.event.FMLPostInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
+import cpw.mods.fml.common.event.FMLServerStartingEvent;
 import cpw.mods.fml.common.network.NetworkRegistry;
 import cpw.mods.fml.common.registry.GameRegistry;
 import net.minecraft.client.settings.KeyBinding;
+import net.minecraft.command.CommandHandler;
 import net.minecraft.item.ItemStack;
+import net.minecraft.server.MinecraftServer;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.common.DimensionManager;
 import net.minecraftforge.common.MinecraftForge;
@@ -84,6 +92,17 @@ public class AAMCore
 	public static KeyBinding member = new KeyBinding("aam.addmember", Keyboard.KEY_H, "key.categories.inventory");
 	public static KeyBinding arts = new KeyBinding("aam.arts", Keyboard.KEY_J, "key.categories.inventory");
 	public static int dungdimid = 15;
+
+	@EventHandler
+	public void serverStart(FMLServerStartingEvent event)
+	{
+		MinecraftServer mcserver = event.getServer();
+		((CommandHandler) mcserver.getCommandManager()).registerCommand(new CommandItemLevel());
+		((CommandHandler) mcserver.getCommandManager()).registerCommand(new CommandSoulLevel());
+		((CommandHandler) mcserver.getCommandManager()).registerCommand(new CommandSoulDamage());
+		((CommandHandler) mcserver.getCommandManager()).registerCommand(new CommandAAMEnchant());
+		((CommandHandler) mcserver.getCommandManager()).registerCommand(new CommandAAMPotion());
+	}
 
 	@EventHandler
 	public void preInit(FMLPreInitializationEvent event)
@@ -120,7 +139,6 @@ public class AAMCore
 
 		Ingridients.load();
 		ObjTypes.load();
-		Recipes.load();
 
 		DimensionManager.registerProviderType(dungdimid, DungeonProvider.class, false);
 		DimensionManager.registerDimension(dungdimid, dungdimid);
@@ -129,7 +147,6 @@ public class AAMCore
 		// GameRegistry.registerWorldGenerator(new DungGenerator(), 0);
 		ClientProxy.registerRenders();
 
-		buildBook();
 	}
 
 	@EventHandler
@@ -139,8 +156,9 @@ public class AAMCore
 			instance = this;
 
 		ModCircles.load();
-
 		ModItems.load();
+		Recipes.load();
+		buildPotionBook();
 
 		NetworkRegistry.INSTANCE.registerGuiHandler(instance, proxy);
 	}
@@ -151,13 +169,12 @@ public class AAMCore
 
 	}
 
-	public static Book Enchir;
+	public static Book Potions;
 
-	public static void buildBook()
+	public static void buildPotionBook()
 	{
 		ArrayList<CategoryAbstract> categories = new ArrayList<CategoryAbstract>();
 
-		// Potions
 		List<EntryAbstract> entries = new ArrayList<EntryAbstract>();
 		ArrayList<IPage> pbase = new ArrayList<IPage>();
 		pbase.add(new PageText("aam.p1.txt1", 0));
@@ -169,6 +186,12 @@ public class AAMCore
 		pbase.add(new PageIRecipe(Recipes.phials, new ShapedOreRecipeRenderer(Recipes.phials)));
 		entries.add(new EntryBase(pbase, "aam.p1.name"));
 
+		ArrayList<IPage> pcrush = new ArrayList<IPage>();
+		pcrush.add(new PageText("aam.pc.txt1", 0));
+		pcrush.add(new PageText("aam.pc.txt2", 0));
+		pcrush.add(new PageIMultiRecipe("", Recipes.crushed_berries));
+		entries.add(new EntryBase(pcrush, "aam.pc.name"));
+
 		ArrayList<IPage> plants = new ArrayList<IPage>();
 		plants.add(new PageText("aam.pw.txt1", 0));
 		plants.add(new PageText("aam.pw.txt2", 0));
@@ -177,8 +200,8 @@ public class AAMCore
 		pl.add(new ItemStack[] { new ItemStack(ModItems.Berry, 1, 0), new ItemStack(ModItems.Berry, 1, 1), new ItemStack(ModItems.Berry, 1, 2), new ItemStack(ModItems.Berry, 1, 3) }, "Berries can be found on berry bushes over the world");
 		pl.add(new ItemStack(ModBlocks.BerryBush, 1, 0), "Bushes grows in forests and fields");
 		pl.add(new ItemStack(ModBlocks.ModSaplings[0], 1, 0), "Wormwood must be created by alchemy");
-		pl.add(new ItemStack(ModBlocks.ShadowveilPlant, 1, 0), "Shadowveil can be found in the the world");
-		pl.add(new ItemStack(ModBlocks.ShroomPlant, 1, 0), "Shroom can be found in the the world");
+		pl.add(new ItemStack(ModBlocks.ShadowveilPlant, 1, 0), "Shadowveil can be found on the fields");
+		pl.add(new ItemStack(ModBlocks.ShroomPlant, 1, 0), "Shrooms grows in caves and nether");
 
 		plants.add(new PageItemList("aam.itemlist", pl));
 
@@ -194,7 +217,7 @@ public class AAMCore
 
 			for (int i = 0; i < fsize; i++)
 			{
-				ItemStack is = new ItemStack(ModPotions.pots[k].ingridients.get(i).item, 1, ModPotions.pots[k].ingridients.get(i).meta);
+				ItemStack is = new ItemStack(ModPotions.pots[k].ingridients.get(i).items.get(0).key, 1, ModPotions.pots[k].ingridients.get(i).items.get(0).value);
 				sl.add(is, is.getDisplayName());
 			}
 			potion.add(new PageItemList("aam.itemlist", sl));
@@ -203,7 +226,7 @@ public class AAMCore
 				sl = new StackList();
 				for (int i = 7; i < ModPotions.pots[k].ingridients.size(); i++)
 				{
-					ItemStack is = new ItemStack(ModPotions.pots[k].ingridients.get(i).item, 1, ModPotions.pots[k].ingridients.get(i).meta);
+					ItemStack is = new ItemStack(ModPotions.pots[k].ingridients.get(i).items.get(0).key, 1, ModPotions.pots[k].ingridients.get(i).items.get(0).value);
 					sl.add(is, is.getDisplayName());
 				}
 				potion.add(new PageItemList("aam.itemlist", sl));
@@ -213,24 +236,6 @@ public class AAMCore
 			entries.add(new EntryBase(potion, "aam.p" + (k + 2) + ".name"));
 		}
 		categories.add(new CategoryResourceLocation(entries, "aam.magic.name", new ResourceLocation("aam", "textures/book/magic.png")));
-
-		// Alchemy
-		entries = new ArrayList<EntryAbstract>();
-		ArrayList<IPage> a1 = new ArrayList<IPage>();
-		a1.add(new PageText("aam.a1.txt1", 0));
-		entries.add(new EntryBase(a1, "aam.a1.name"));
-		a1.add(new PageText("aam.a2.txt1", 0));
-		entries.add(new EntryBase(a1, "aam.a2.name"));
-		categories.add(new CategoryResourceLocation(entries, "aam.alchemy.name", new ResourceLocation("aam", "textures/items/tools/clock_enchanced.png")));
-
-		// Soul
-		entries = new ArrayList<EntryAbstract>();
-		ArrayList<IPage> s1 = new ArrayList<IPage>();
-		s1.add(new PageText("aam.s1.txt1", 0));
-		entries.add(new EntryBase(s1, "aam.s1.name"));
-		s1.add(new PageText("aam.s2.txt1", 0));
-		entries.add(new EntryBase(a1, "aam.s2.name"));
-		categories.add(new CategoryItemStack(entries, "aam.soul.name", new ItemStack(ModItems.SoulSword)));
 
 		BookBuilder builder = new BookBuilder();
 		builder.setOutlineTexture(new ResourceLocation("aam", "textures/book/outline.png"));
@@ -243,8 +248,8 @@ public class AAMCore
 		builder.setUnlocWelcomeMessage("Hello");
 		builder.setSpawnWithBook(true);
 		builder.setBookColor(Color.red);
-		Enchir = builder.build();
-		GuideRegistry.registerBook(Enchir);
+		Potions = builder.build();
+		GuideRegistry.registerBook(Potions);
 	}
 
 }

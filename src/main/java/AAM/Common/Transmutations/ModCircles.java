@@ -36,7 +36,7 @@ import net.minecraft.world.World;
 
 public class ModCircles
 {
-	public static final float K = 200;
+	public static final float K = 20;
 
 	// C
 	public static CirclePart circle_big = new CirclePart("circle_big", "circle_big", "circle_big");
@@ -334,8 +334,8 @@ public class ModCircles
 		parts.add(p);
 		p.ptId = code;
 		partsr.add(code);
-		if (!p.extended)
-			count += 1;
+		// if (!p.extended)
+		count += 1;
 	}
 
 	public static CirclePart getprtsr(String code)

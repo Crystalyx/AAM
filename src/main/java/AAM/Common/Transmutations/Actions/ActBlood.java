@@ -21,48 +21,52 @@ public class ActBlood extends TransAction
 	@Override
 	public boolean actTick(World w, Wec3 tile, TETransCircle te, EntityPlayer p, int time, double potency, ForgeDirection dir)
 	{
-		if (w.getWorldTime() % 2 == 1)
-			if (!PlayerDataHandler.get(p).consumeSoul(1))
-				return false;
-		if ((te.energyType.equals(EnergyType.Unknown) || te.energyType.equals(EnergyType.Blood)))
+		if (w.getWorldTime() > 100)
 		{
-			List<EntityLivingBase> lst = w.getEntitiesWithinAABB(EntityLivingBase.class, tile.centralize().extendBoth(15f, 20f, 15f));
-			List<EntityLivingBase> l = new ArrayList<EntityLivingBase>();
-			for (int i = 0; i < lst.size(); i++)
+			if (w.getWorldTime() % 2 == 1)
+				if (!PlayerDataHandler.get(p).consumeSoul(1))
+					return false;
+			if ((te.energyType.equals(EnergyType.Unknown) || te.energyType.equals(EnergyType.Blood)))
 			{
-				EntityLivingBase ei = lst.get(i);
-				if (ei != te.alchemist)
+				List<EntityLivingBase> lst = w.getEntitiesWithinAABB(EntityLivingBase.class, tile.centralize().extendBoth(15f, 20f, 15f));
+				List<EntityLivingBase> l = new ArrayList<EntityLivingBase>();
+				for (int i = 0; i < lst.size(); i++)
 				{
-					l.add(ei);
+					EntityLivingBase ei = lst.get(i);
+					if (ei != te.alchemist)
+					{
+						l.add(ei);
+					}
 				}
-			}
-			l.remove(te.alchemist);
-			for (int i = 0; i < l.size(); i++)
-			{
-				EntityLivingBase ei = l.get(i);
-				if (te instanceof TEBloodAltar)
+				l.remove(te.alchemist);
+				for (int i = 0; i < l.size(); i++)
 				{
-					((TEBloodAltar) te).blood.amount += ModCircles.K * 2;
-					ei.attackEntityFrom(DamageSource.outOfWorld.setDamageBypassesArmor().setDamageAllowedInCreativeMode(), 1);
-
-					if (ei.getHealth() <= 1.1)
+					EntityLivingBase ei = l.get(i);
+					if (te instanceof TEBloodAltar)
 					{
 						((TEBloodAltar) te).blood.amount += ModCircles.K * 2;
 						ei.attackEntityFrom(DamageSource.outOfWorld.setDamageBypassesArmor().setDamageAllowedInCreativeMode(), 1);
 
+						if (ei.getHealth() <= 1.1)
+						{
+							((TEBloodAltar) te).blood.amount += ModCircles.K * 2;
+							ei.attackEntityFrom(DamageSource.outOfWorld.setDamageBypassesArmor().setDamageAllowedInCreativeMode(), 1);
+
+						}
+					}
+					else
+					{
+						return false;
 					}
 				}
-				else
-				{
+
+				if (l.isEmpty())
 					return false;
-				}
+
+				return true;
 			}
-
-			if (l.isEmpty())
-				return false;
-
-			return true;
+			return false;
 		}
-		return false;
+		return true;
 	}
 }

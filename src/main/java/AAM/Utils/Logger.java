@@ -3,6 +3,8 @@ package AAM.Utils;
 import org.apache.logging.log4j.Level;
 
 import cpw.mods.fml.common.FMLLog;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.util.ChatComponentText;
 
 /**
  * @author Lord_Crystalyx
@@ -39,9 +41,15 @@ public class Logger
 		log(Level.FATAL, s);
 	}
 
-	public static void info(Object... object)
+	public static void minfo(Object... object)
 	{
 		String s = MiscUtils.compact(object);
+		log(Level.INFO, s);
+	}
+
+	public static void info(Object object)
+	{
+		String s = object + "";
 		log(Level.INFO, s);
 	}
 
@@ -61,5 +69,32 @@ public class Logger
 	{
 		String s = MiscUtils.compact(object);
 		log(Level.WARN, s);
+	}
+
+	public static void chat(EntityPlayer p, Object object)
+	{
+		if (p.worldObj.isRemote)
+		{
+			String s = object + "";
+			p.addChatMessage(new ChatComponentText(s));
+		}
+	}
+
+	public static void mchat(EntityPlayer p, Object... object)
+	{
+		if (p.worldObj.isRemote)
+		{
+			String s = MiscUtils.compact(object);
+			p.addChatMessage(new ChatComponentText(s));
+		}
+	}
+
+	public static void achat(EntityPlayer p, Object[] object)
+	{
+		if (p.worldObj.isRemote)
+		{
+			String s = MiscUtils.compact(object);
+			p.addChatMessage(new ChatComponentText(s));
+		}
 	}
 }

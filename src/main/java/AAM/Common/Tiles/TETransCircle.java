@@ -3,7 +3,7 @@ package AAM.Common.Tiles;
 import java.util.ArrayList;
 import java.util.List;
 
-import AAM.API.ICatalyst;
+import AAM.API.Interface.ICatalyst;
 import AAM.Common.Transmutations.Circle;
 import AAM.Common.Transmutations.EnergyType;
 import AAM.Common.Transmutations.Extension;
@@ -151,6 +151,8 @@ public class TETransCircle extends TileEntity implements IInventory
 			if (n >= 2)
 			{
 				circle.remove(cl);
+				if (i > 0)
+					i -= 1;
 			}
 		}
 
@@ -171,26 +173,7 @@ public class TETransCircle extends TileEntity implements IInventory
 			}
 			if (this.state.equals(State.complete))
 			{
-				int dpot = 0;
-
-				// for (int i = 0; i < 9; i++)
-				// {
-				// for (int j = 0; j < 4; j++)
-				// {
-				// ItemStack is = this.alchemist.inventory.getStackInSlot(i + j
-				// * 9);
-				// if (is != null)
-				// {
-				// if (is.getItem() instanceof ICatalyst)
-				// {
-				// if (((ICatalyst) is.getItem()).getPotency(is) > dpot)
-				// dpot = ((ICatalyst) is.getItem()).getPotency(is);
-				// }
-				// }
-				// }
-				// }
-
-				boolean ticks = this.transm.action.actTick(this.worldObj, new Wec3(this), this, this.alchemist, this.ticktime, this.potency + dpot,
+				boolean ticks = this.transm.action.actTick(this.worldObj, new Wec3(this), this, this.alchemist, this.ticktime, this.potency,
 						ForgeDirection.getOrientation(this.worldObj.getBlockMetadata(this.xCoord, this.yCoord, this.zCoord)));
 				if (this.completeTimer > this.transm.prepTime + this.transm.actTime && !ticks)
 				{

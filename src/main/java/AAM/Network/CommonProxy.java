@@ -1,7 +1,9 @@
 package AAM.Network;
 
+import AAM.Common.Container.ModificationAnvilContainer;
 import AAM.Common.Container.SoulAltarContainer;
 import AAM.Common.Container.SpellTableContainer;
+import AAM.Common.Tiles.TEModificationAnvil;
 import AAM.Common.Tiles.TESoulAltar;
 import AAM.Common.Tiles.TESpellTable;
 import cpw.mods.fml.common.network.IGuiHandler;
@@ -21,6 +23,8 @@ public class CommonProxy implements IGuiHandler
 			return new SpellTableContainer(p.inventory, (TESpellTable) w.getTileEntity(x, y, z));
 		case (1):
 			return new SoulAltarContainer(p.inventory, (TESoulAltar) w.getTileEntity(x, y, z));
+		case (2):
+			return new ModificationAnvilContainer(p.inventory, (TEModificationAnvil) w.getTileEntity(x, y, z));
 		}
 		return null;
 	}

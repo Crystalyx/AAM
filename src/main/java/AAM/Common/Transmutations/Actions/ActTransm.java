@@ -1,8 +1,11 @@
 package AAM.Common.Transmutations.Actions;
 
-import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
+import java.util.stream.Stream;
 
+import AAM.Common.Items.ModItems;
+import AAM.Common.Items.Alchemy.PhilosophersStone;
 import AAM.Common.Tiles.TETransCircle;
 import AAM.Common.Transmutations.EnergyProvider;
 import AAM.Common.Transmutations.EnergyType;
@@ -22,102 +25,89 @@ public class ActTransm extends TransAction
 	public boolean actTick(World w, Wec3 tile, TETransCircle te, EntityPlayer p, int time, double potency, ForgeDirection dir)
 	{
 		List<EntityItem> lst = w.getEntitiesWithinAABB(EntityItem.class, tile.centralize().extendBoth(2.5f, 1, 2.5f));
-		List<EntityItem> l = new ArrayList<EntityItem>();
-		for (int i = 0; i < lst.size(); i++)
+		// Stream of the items that have Energy Value
+		Stream<EntityItem> l = lst.stream().filter(e -> EnergyProvider.hasEnergy(e.getEntityItem())).filter(e -> te.energyType.equals(EnergyType.Unknown) || EnergyProvider.getType(e.getEntityItem()).isFriendly(te.energyType))
+				.filter(e -> te.is == null || (e.getEntityItem().getItem() != te.is.getItem() || e.getEntityItem().getItemDamage() != te.is.getItemDamage()));
+		Optional<EntityItem> opei = l.findFirst();
+		if (opei.isPresent())
 		{
-			EntityItem ei = lst.get(i);
+			EntityItem ei = opei.get();
 			ItemStack is = ei.getEntityItem();
-			if (is != null)
+			if (!is.hasTagCompound())
 			{
-				if (EnergyProvider.hasEnergy(is) && (te.is == null || is.getItem() != te.is.getItem()))
+				NBTTagCompound tg = new NBTTagCompound();
+				is.setTagCompound(tg);
+			}
+			NBTTagCompound tg = is.getTagCompound();
+			int trTime = tg.getInteger("TrTime");
+			if (!w.isRemote)
+			{
+				if (trTime >= 40 / potency)
 				{
+					te.energy += EnergyProvider.getFullEnergy(is);
 					if (te.energyType.equals(EnergyType.Unknown))
 					{
-						l.add(ei);
 						te.energyType = EnergyProvider.getType(is);
 					}
-					if (te.energyType.equals(EnergyType.Philo))
-					{
-						l.add(ei);
-						te.energyType = EnergyProvider.getType(is);
-					}
-					if (EnergyProvider.getType(is).isFriendly(te.energyType))
-					{
-						l.add(ei);
-					}
-				}
-			}
-		}
-
-		for (int i = 0; i < l.size(); i++)
-		{
-			EntityItem ei = l.get(i);
-			ItemStack is = ei.getEntityItem();
-			if (is != null)
-			{
-				if (w.isRemote)
-				{
-					for (int j = 0; j < 12; j++)
-					{
-						Wec3 ip = new Wec3(ei);
-						Wec3 vec = MiscUtils.getPosBy3DAngle(j * Math.PI / 6d, 0, 0.2);
-						vec.normalize();
-						vec = vec.mult(0.06);
-						w.spawnParticle("smoke", ip.x, ip.y, ip.z, vec.x, vec.y, vec.z);
-					}
+					is.stackSize -= 1;
+					tg.setInteger("TrTime", 0);
 				}
 				else
 				{
-					if (is.hasTagCompound())
-					{
-						NBTTagCompound tg = is.getTagCompound();
-						int currTime = tg.getInteger("TrTime");
-						if (currTime >= 2 * Math.log(10 + EnergyProvider.getFullEnergy(is)))
-						{
-							te.energy += EnergyProvider.getFullEnergy(is);
-							is.stackSize -= 1;
-							tg.setInteger("TrTime", 0);
-						}
-						else
-						{
-							tg.setInteger("TrTime", currTime + 1);
-						}
-					}
-					else
-					{
-						NBTTagCompound tg = new NBTTagCompound();
-						tg.setInteger("TrTime", 1);
-						is.setTagCompound(tg);
-					}
+					trTime += 1;
+					tg.setInteger("TrTime", trTime);
 				}
-				break;
+			}
+
+			if (w.isRemote && w.getWorldTime() % 8 == 1)
+			{
+				for (int i = 0; i < 12; i++)
+				{
+					Wec3 vec1 = MiscUtils.getPosBy3DAngle(i * Math.PI / 6d, 0, 0.4);
+					Wec3 vec2 = MiscUtils.getPosBy3DAngle((i + 1) * Math.PI / 6d, 0, 0.3);
+					Wec3 vec = vec2.sub(vec1);
+					vec.normalize();
+					vec = vec.mult(0.0055);
+					w.spawnParticle("smoke", ei.posX + vec1.x, ei.posY + vec1.y, ei.posZ + vec1.z, vec.x, vec.y, vec.z);
+				}
 			}
 		}
-
-		if (te.is != null)
+		// if (!w.isRemote)
+		// Logger.mchat(p, te.energy);
+		if (te.is != null && te.energy >= EnergyProvider.getFullEnergy(te.is))
 		{
-			if (te.energy >= EnergyProvider.getValue(te.is) && te.energyType.isFriendly(EnergyProvider.getType(te.is)))
+			if (w.isRemote && w.getWorldTime() % 8 == 1)
 			{
-				if (w.isRemote)
+				for (int i = 0; i < 12; i++)
 				{
-					for (int i = 0; i < 12; i++)
-					{
-						Wec3 vec1 = MiscUtils.getPosBy3DAngle(i * Math.PI / 6d, 0, 0.4);
-						Wec3 vec2 = MiscUtils.getPosBy3DAngle((i + 1) * Math.PI / 6d, 0, 0.3);
-						Wec3 vec = vec2.sub(vec1);
-						vec.normalize();
-						vec = vec.mult(0.055);
-						w.spawnParticle("flame", tile.x + vec1.x, tile.y + vec1.y, tile.z + vec1.z, vec.x, vec.y, vec.z);
-					}
+					Wec3 vec1 = MiscUtils.getPosBy3DAngle(i * Math.PI / 6d, 0, 0.4);
+					Wec3 vec2 = MiscUtils.getPosBy3DAngle((i + 1) * Math.PI / 6d, 0, 0.3);
+					Wec3 vec = vec2.sub(vec1);
+					vec.normalize();
+					vec = vec.mult(0.0055);
+					w.spawnParticle("flame", tile.x + vec1.x, tile.y + vec1.y, tile.z + vec1.z, vec.x, vec.y, vec.z);
 				}
+			}
+			if (te.is.getItem() != ModItems.PhilosophersStone)
+			{
 				if (!w.isRemote)
 				{
-					MiscUtils.dropStack(w, tile, te.is.copy());
+					MiscUtils.dropStack(w, new Wec3(te).centralize(), te.is.copy());
 					te.energy -= EnergyProvider.getFullEnergy(te.is);
 					te.energyType = EnergyProvider.getType(te.is);
 				}
 			}
+			else
+			{
+				if (!w.isRemote)
+				{
+					PhilosophersStone phI = (PhilosophersStone) te.is.getItem();
+					te.energy = phI.chargeBypass(te.is, te.energy);
+				}
+			}
+
 		}
-		return !(l.isEmpty()) || ((te.is != null && te.energy >= EnergyProvider.getValue(te.is)) && (te.energyType.isFriendly(EnergyProvider.getType(te.is)) || te.energyType.equals(EnergyType.Unknown)));
+
+		return opei.isPresent() || (te.is != null && te.energy >= EnergyProvider.getFullEnergy(te.is) && te.energy > 0);
 	}
 }

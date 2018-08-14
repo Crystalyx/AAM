@@ -166,7 +166,7 @@ aam.artifact5.name=Artifact Of Water
 aam.artifact6.name=Artifact Of Faceless
 aam.artifact7.name=Artifact Of Seven Gods
 
-item.aam.crystalbow=Crystal Bow
+item.aam.crystalbow.name=Crystal Bow
 
 item.aam.anvilhammer.name=Anvil Hammer
 
@@ -222,6 +222,14 @@ aam.p9.txt1=Poison is the most annoing thing except of withering. You could use 
 
 aam.itemlist=Item List
 
-
-
-
+//==================================Commands===================================
+aam.command.level.name=aamlevel
+aam.command.level.usage=/aamlevel <set/add> [level]
+aam.command.soullevel.name=aamsoullevel
+aam.command.soullevel.usage=/aamsoullevel <set/add> <level>
+aam.command.souldamage.name=aamsouldamage
+aam.command.souldamage.usage=/aamsouldamage <set/add> <damage>
+aam.command.enchant.name=aamenchant
+aam.command.enchant.usage=/aamenchant <player> <enchantmentID> <Level>
+aam.command.potion.name=aampotion
+aam.command.potion.usage=/aampotion <duration/power/amplifier> <set/add> <value>

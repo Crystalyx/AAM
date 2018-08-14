@@ -31,6 +31,13 @@ import net.minecraft.world.World;
  */
 public class MiscUtils
 {
+	public static Color rainbow(double time)
+	{
+		float r = (float) ((Math.sin(time * Math.PI / 3 + 5 * Math.PI / 6)) + 1) / 2f;
+		float g = (float) ((Math.sin(time * Math.PI / 3 + Math.PI / 6) + 1)) / 2f;
+		float b = (float) ((Math.sin(time * Math.PI / 3 - Math.PI / 2) + 1)) / 2f;
+		return new Color(r, g, b);
+	}
 
 	public static Random r = new Random();
 
@@ -72,6 +79,32 @@ public class MiscUtils
 	}
 
 	public static String compact(String d, Object... ss)
+	{
+		String s = "";
+		for (int i = 0; i < ss.length; i++)
+		{
+			s += toString(ss[i]);
+			if (i != ss.length - 1)
+				s += d;
+		}
+
+		return s;
+	}
+
+	public static String acompact(Object[] ss)
+	{
+		String s = "";
+		for (int i = 0; i < ss.length; i++)
+		{
+			s += toString(ss[i]);
+			if (i != ss.length - 1)
+				s += d;
+		}
+
+		return s;
+	}
+
+	public static String acompact(String d, Object[] ss)
 	{
 		String s = "";
 		for (int i = 0; i < ss.length; i++)
@@ -1163,7 +1196,7 @@ public class MiscUtils
 				{
 					if (ic.getStackInSlot(i).getItemDamage() == meta)
 					{
-						ret += 1;
+						ret += ic.getStackInSlot(i).stackSize;
 					}
 				}
 			}
@@ -1194,7 +1227,7 @@ public class MiscUtils
 			{
 				if (ic.getStackInSlot(i).getItem() == is)
 				{
-					ret += 1;
+					ret += ic.getStackInSlot(i).stackSize;
 				}
 			}
 			else
@@ -1533,7 +1566,11 @@ public class MiscUtils
 	public static String roundStr(double value, int i)
 	{
 		String s = (Math.round(value * Math.pow(10, i)) / Math.pow(10, i)) + "";
-		while (s.endsWith("0") || s.endsWith("."))
+		while (s.endsWith("0") && s.contains("."))
+		{
+			s = s.substring(0, s.length() - 1);
+		}
+		if (s.indexOf(".") == s.length() - 1)
 		{
 			s = s.substring(0, s.length() - 1);
 		}

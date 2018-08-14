@@ -1,6 +1,6 @@
 package AAM.Common.Items.Alchemy;
 
-import AAM.API.ICircleExtender;
+import AAM.API.Interface.ICircleExtender;
 import AAM.Common.Entity.EntityMinium;
 import AAM.Utils.Wec3;
 import net.minecraft.entity.Entity;

@@ -6,6 +6,8 @@ import AAM.Common.Potions.ModPotions;
 import AAM.Utils.PlayerDataHandler;
 import cpw.mods.fml.common.eventhandler.EventPriority;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
+import net.minecraft.entity.SharedMonsterAttributes;
+import net.minecraft.entity.ai.attributes.AttributeModifier;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.DamageSource;
@@ -15,6 +17,17 @@ import net.minecraftforge.event.entity.player.AttackEntityEvent;
 
 public class PotionEventHandler
 {
+	public static AttributeModifier[] flightSpeed = new AttributeModifier[20];
+
+	static
+	{
+		for (int i = 0; i < flightSpeed.length; i++)
+		{
+			flightSpeed[i] = new AttributeModifier("potion_flight", 0.05 * (i + 1), 0);
+			flightSpeed[i].setSaved(false);
+		}
+	}
+
 	@SubscribeEvent(priority = EventPriority.LOWEST)
 	public void entityUpdate(LivingUpdateEvent e)
 	{
@@ -25,6 +38,22 @@ public class PotionEventHandler
 			{
 				p.capabilities.allowFlying = true;
 				p.fallDistance = 0;
+				int power = Math.min(p.getActivePotionEffect(ModPotions.flight).getAmplifier() - 1, 19);
+				if (power > -1)
+				{
+					try
+					{
+						p.getEntityAttribute(SharedMonsterAttributes.movementSpeed).removeModifier(flightSpeed[power]);
+					}
+					catch (Exception e2)
+					{
+					}
+
+					if (!p.onGround)
+					{
+						p.getEntityAttribute(SharedMonsterAttributes.movementSpeed).applyModifier(flightSpeed[power]);
+					}
+				}
 			}
 			else
 			{

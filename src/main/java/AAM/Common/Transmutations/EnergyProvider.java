@@ -1,16 +1,16 @@
 package AAM.Common.Transmutations;
 
+import static AAM.Common.Transmutations.EnergyType.Blood;
 import static AAM.Common.Transmutations.EnergyType.Fluid;
 import static AAM.Common.Transmutations.EnergyType.Fuel;
 import static AAM.Common.Transmutations.EnergyType.Matter;
 import static AAM.Common.Transmutations.EnergyType.Unknown;
-import static AAM.Common.Transmutations.EnergyType.Blood;
 
 import java.util.ArrayList;
 import java.util.Hashtable;
 import java.util.List;
 
-import AAM.API.IEnergyStorage;
+import AAM.API.Interface.IEnergyStorage;
 import AAM.Common.Blocks.Building.ModBlocks;
 import AAM.Common.Items.ModItems;
 import net.minecraft.block.Block;
@@ -126,6 +126,7 @@ public class EnergyProvider
 		setEnergyValue(ModItems.ItemChalk, 128, Matter);
 		setEnergyValue(ModItems.STea, 48, Matter);
 		setEnergyValue(ModItems.BloodBucket, 1024 + 128 * 3, Blood);
+		setEnergyValue(ModItems.MiniumShard, 1024, Matter);
 
 		// ==============MODBLOCKS=================
 		setEnergyValue(ModBlocks.BerryBush, 32, Matter);
@@ -142,7 +143,7 @@ public class EnergyProvider
 		setEnergyValue(ModBlocks.ModLogs[1], 32, Matter);
 		setEnergyValue(ModBlocks.ModPlanks[1], 8, Matter);
 		setEnergyValue(ModBlocks.ModSaplings[1], 16, Matter);
-		setEnergyValue(ModBlocks.miniumBlock, 9 * 1024, Blood);
+		setEnergyValue(ModBlocks.miniumBlock, 9 * 1024, Matter);
 
 	}
 
@@ -224,11 +225,12 @@ public class EnergyProvider
 
 	public static ItemStack findIS(Item i, int meta)
 	{
+		List<ItemStack> rml = new ArrayList<ItemStack>();
 		for (ItemStack key : itemstacks)
 		{
 			if (key.stackSize <= 0 || key.getItem() == null)
 			{
-				itemstacks.remove(key);
+				rml.add(key);
 			}
 			if (key.getItem() == i && (key.getItemDamage() == meta || key.getItemDamage() == 42))
 			{
@@ -236,12 +238,14 @@ public class EnergyProvider
 			}
 		}
 		ItemStack postKey = new ItemStack(i, 1, meta);
+		itemstacks.removeAll(rml);
 		itemstacks.add(postKey);
 		return postKey;
 	}
 
 	public static ItemStack findIS(Item i)
 	{
+		List<ItemStack> rml = new ArrayList<ItemStack>();
 		for (ItemStack key : itemstacks)
 		{
 			if (key.getItem() == i)
@@ -250,6 +254,7 @@ public class EnergyProvider
 			}
 		}
 		ItemStack postKey = new ItemStack(i, 1, 42);
+		itemstacks.removeAll(rml);
 		itemstacks.add(postKey);
 		return postKey;
 	}

@@ -2,12 +2,11 @@ package AAM.Common.Items.Alchemy;
 
 import java.util.List;
 
-import AAM.API.ICircleExtender;
+import AAM.API.Interface.ICircleExtender;
 import AAM.Utils.Wec3;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.EnumChatFormatting;
 import net.minecraft.world.World;
 
@@ -34,7 +33,7 @@ public class MiniumStone extends Item implements ICircleExtender
 			int last = i.getTagCompound().getInteger("TrLast");
 			if (last <= 0)
 			{
-				i.damageItem(65, p);
+				p.setCurrentItemOrArmor(0, null);
 			}
 			else
 			{
@@ -43,9 +42,7 @@ public class MiniumStone extends Item implements ICircleExtender
 		}
 		else
 		{
-			NBTTagCompound tg = new NBTTagCompound();
-			tg.setInteger("TrLast", 64);
-			i.setTagCompound(tg);
+			p.setCurrentItemOrArmor(0, null);
 		}
 	}
 

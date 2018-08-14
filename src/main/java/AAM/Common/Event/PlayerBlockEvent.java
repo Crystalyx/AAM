@@ -1,5 +1,7 @@
 package AAM.Common.Event;
 
+import AAM.Common.Soul.WeaponType;
+import AAM.Utils.PlayerDataHandler;
 import cpw.mods.fml.common.eventhandler.EventPriority;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import net.minecraft.entity.player.EntityPlayer;
@@ -16,7 +18,8 @@ public class PlayerBlockEvent
 		{
 			EntityPlayer p = (EntityPlayer) e.entityLiving;
 
-			if (p.getItemInUse() != null && p.isBlocking() && e.source.getSourceOfDamage() != null)
+			PlayerDataHandler ph = PlayerDataHandler.get(p);
+			if (p.getItemInUse() != null && p.isBlocking() && e.source.getSourceOfDamage() != null && !ph.sword.equals(WeaponType.Hammer))
 			{
 				if (p.getItemInUse().getItem() instanceof ItemSword)
 				{
@@ -34,7 +37,7 @@ public class PlayerBlockEvent
 	}
 
 	@SubscribeEvent(priority = EventPriority.HIGHEST)
-	public void PlayerAttackedEvent(LivingFallEvent e)
+	public void PlayerFallEvent(LivingFallEvent e)
 	{
 		/*
 		 * Some Code with Artifacts Inventory

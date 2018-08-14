@@ -50,6 +50,17 @@ public class Color
 	public int alpha = 255;
 	public int hex;
 
+	@Override
+	public boolean equals(Object obj)
+	{
+		if (obj instanceof Color)
+		{
+			Color c = (Color) obj;
+			return c.red == this.red && c.green == this.green && c.blue == this.blue && c.alpha == this.alpha;
+		}
+		return false;
+	}
+
 	public Color add(Color c)
 	{
 		red = ((c.red + this.red) / 2);
