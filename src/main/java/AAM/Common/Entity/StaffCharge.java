@@ -11,33 +11,37 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.projectile.EntityThrowable;
+import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.world.World;
 
-public class SoulCharge extends EntityThrowable
+public class StaffCharge extends EntityThrowable
 {
 
-	public SoulCharge(World w)
+	public StaffCharge(World w)
 	{
 		super(w);
 	}
 
 	public String effs = "";
+	public float dmg = 7f;
 
-	public SoulCharge(World w, EntityLivingBase el)
+	public StaffCharge(World w, EntityLivingBase el, float dmg)
 	{
 		super(w, el);
 		if (el instanceof EntityPlayer)
 		{
 			this.ph = PlayerDataHandler.get((EntityPlayer) el);
 		}
+		this.dmg = dmg;
 	}
 
-	public SoulCharge(World w, double x, double y, double z)
+	public StaffCharge(World w, float dmg, double x, double y, double z)
 	{
 		super(w, x, y, z);
+		this.dmg = dmg;
 	}
 
 	@Override
@@ -76,9 +80,9 @@ public class SoulCharge extends EntityThrowable
 			if (!this.effs.contains("D"))
 			{
 				if (this.ph.sword.bypassesArmor)
-					e.attackEntityFrom(new SoulDamageSource(this.ph).setDamageBypassesArmor(), this.ph.getFullRangedDamageAgainst(e, true));
+					e.attackEntityFrom(new SoulDamageSource(this.ph).setDamageBypassesArmor(), this.dmg);
 				else
-					e.attackEntityFrom(new SoulDamageSource(this.ph), this.ph.getFullRangedDamageAgainst(e, true));
+					e.attackEntityFrom(new SoulDamageSource(this.ph), this.dmg);
 			}
 			if (this.effs.contains("F"))
 			{
@@ -86,7 +90,7 @@ public class SoulCharge extends EntityThrowable
 			}
 			if (this.effs.contains("P"))
 			{
-				e.addPotionEffect(new PotionEffect(19, (int) (this.ph.getTrait(Trait.Level) * 2), 2));
+				e.addPotionEffect(new PotionEffect(Potion.poison.id, (int) (this.ph.getTrait(Trait.Level) * 2), 2));
 			}
 			if (this.effs.contains("K"))
 			{
@@ -96,7 +100,7 @@ public class SoulCharge extends EntityThrowable
 			if (victims > 2)
 			{
 				this.setDead();
-				break;
+				return;
 			}
 			else
 				victims++;

@@ -21,7 +21,8 @@ public class ModEntities
 		EntityRegistry.registerModEntity(EntityBloodball.class, "bloodball", 243, AAMCore.instance, 80, 3, true);
 		EntityRegistry.registerModEntity(WastelandCreature.class, "wasteland", 244, AAMCore.instance, 80, 3, true);
 		EntityRegistry.registerModEntity(Subwer.class, "subwer", 245, AAMCore.instance, 80, 3, true);
-//		EntityRegistry.registerModEntity(EntityMinium.class, "minium", 246, AAMCore.instance, 80, 3, true);
+		// EntityRegistry.registerModEntity(EntityMinium.class, "minium", 246,
+		// AAMCore.instance, 80, 3, true);
 		EntityRegistry.registerModEntity(GolemBoss.class, "golemboss", 246, AAMCore.instance, 80, 3, true);
 
 		// Mapping
@@ -29,8 +30,9 @@ public class ModEntities
 		EntityList.addMapping(ElementalGuard.class, "elemguard", 241, 0x1a1a1a, 0xb7191c);
 		EntityList.addMapping(WastelandCreature.class, "wasteland", 244, 0x5e0000, 0x000000);
 		EntityList.addMapping(Subwer.class, "subwer", 245, 0x04affb, 0x1722d1);
-		
+
 		EntityList.addMapping(GolemBoss.class, "golemboss", 246, 0xdecfcf, 0x9b1515);
+		EntityRegistry.registerModEntity(StaffCharge.class, "staffcharge", 247, AAMCore.instance, 80, 3, true);
 
 	}
 }
