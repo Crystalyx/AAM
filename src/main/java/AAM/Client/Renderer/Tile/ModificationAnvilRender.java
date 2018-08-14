@@ -5,70 +5,68 @@ package AAM.Client.Renderer.Tile;
 
 import org.lwjgl.opengl.GL11;
 
-import AAM.Client.Model.Altar;
 import AAM.Common.Tiles.TEModificationAnvil;
-import AAM.Utils.MiscUtils;
 import DummyCore.Utils.DrawUtils;
-import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.RenderHelper;
-import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
-import net.minecraft.entity.Entity;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.ResourceLocation;
 
 /**
  * @author Lord_Crystalyx Created using Tabula 4.1.1
  */
 public class ModificationAnvilRender extends TileEntitySpecialRenderer
 {
-	public static final ResourceLocation textures = new ResourceLocation("aam:textures/misc/altar.png");
-	public static final ResourceLocation arcane = new ResourceLocation("aam:textures/blocks/arcane.png");
-
 	@Override
 	public void renderTileEntityAt(TileEntity tile, double x, double y, double z, float p_147500_8_)
 	{
+		TEModificationAnvil te = (TEModificationAnvil) tile;
 		RenderHelper.disableStandardItemLighting();
-
+		//
 		GL11.glPushMatrix();
-		GL11.glTranslatef((float) x + 0.5F, (float) y + 2.4F, (float) z + 0.5F);
-		float scale = 0.1F;
-		GL11.glScalef(scale, scale, scale);
-		GL11.glRotatef(180F, 0.0F, 0.0F, 1.0F);
-		Altar model = new Altar();
-		Minecraft.getMinecraft().renderEngine.bindTexture(textures);
-		model.render((Entity) null, 0.0F, 0.0F, 0.0F, 1.0F, 1.0F, 1.0F);
+		GL11.glTranslatef((float) x + 0.5F, (float) y + 0.95F, (float) z + 0.3F);
+		if (te.getStackInSlot(0) != null)
+		{
+			GL11.glPushMatrix();
+			GL11.glTranslated(-0.1, 0, 0);
+			GL11.glRotated(90, 1, 0, 0);
+			GL11.glRotated(-45, 0, 0, 1);
+			DrawUtils.renderItemStack_Full(te.getStackInSlot(0), te.xCoord + 0.5f, te.yCoord + 1, te.zCoord + 0.5f, 0, 0, 0, 0, 0, 1, 1, 1, 0, 0, 0, true);
 
-		TEModificationAnvil tilee = (TEModificationAnvil) tile;
+			GL11.glPopMatrix();
+		}
+		else
+		{
+			if (te.getStackInSlot(3) != null)
+			{
+				GL11.glPushMatrix();
+				GL11.glTranslated(-0.1, 0, 0);
+				GL11.glRotated(90, 1, 0, 0);
+				GL11.glRotated(-45, 0, 0, 1);
+				DrawUtils.renderItemStack_Full(te.getStackInSlot(3), te.xCoord + 0.5f, te.yCoord + 1, te.zCoord + 0.5f, 0, 0, 0, 0, 0, 1, 1, 1, 0, 0, 0, true);
 
-		Minecraft.getMinecraft().renderEngine.bindTexture(arcane);
+				GL11.glPopMatrix();
+			}
+		}
 
-		Tessellator t = Tessellator.instance;
+		if (te.getStackInSlot(2) != null)
+		{
+			GL11.glPushMatrix();
+			GL11.glTranslated(0, 0.2, -0.2);
+			long time = te.craftTime;
+			int period = 20;
+			long md = Math.floorMod(time, period * 2);
+			if (md > period)
+			{
+				md = period * 2 - md;
+			}
 
-		GL11.glScaled(14, 10, 14);
-		GL11.glTranslated(0, 1.2, 0);
-		t.startDrawingQuads();
+			GL11.glRotated(40 + 50f * md / period, 1, 0, 0);
+			GL11.glScaled(1 / 2f, 1 / 2f, 1 / 2f);
 
-		t.addVertexWithUV(-0.5, 0, -0.5, 0, 0);
-		t.addVertexWithUV(0.5, 0, -0.5, 1, 0);
-		t.addVertexWithUV(0.5, 0, 0.5, 1, 1);
-		t.addVertexWithUV(-0.5, 0, 0.5, 0, 1);
+			DrawUtils.renderItemStack_Full(te.getStackInSlot(2), te.xCoord + 0.5f, te.yCoord + 1, te.zCoord + 0.5f, 0, 0, 0, 0, 0, 1, 1, 1, 0, 0, 0, true);
 
-		t.draw();
-
-		GL11.glPopMatrix();
-
-		float rotation = (float) (MiscUtils.getTimedAngle(1) + 360d / MiscUtils.getTimedAngle(1));
-		GL11.glPushMatrix();
-		DrawUtils.renderItemStack_Full(tilee.getStackInSlot(0), tilee.xCoord + 0.5D, tilee.yCoord + 10D, tilee.zCoord + 0.5D, x, y + 1.1D, z, rotation, 0F, 1, 1, 1, 0.5F, 0.375F, 0.5F, true);
-
-		DrawUtils.renderItemStack_Full(tilee.getStackInSlot(1), tilee.xCoord + 0.5D, tilee.yCoord + 5D, tilee.zCoord, x, y + 0.85D, z - 0.6D, rotation, 0F, 1, 1, 1, 0.5F, 0.375F, 0.5F, true);
-		DrawUtils.renderItemStack_Full(tilee.getStackInSlot(2), tilee.xCoord, tilee.yCoord + 5D, tilee.zCoord - 0.5D, x, y + 0.85D, z + 0.6D, rotation, 0F, 1, 1, 1, 0.5F, 0.375F, 0.5F, true);
-
-		DrawUtils.renderItemStack_Full(tilee.getStackInSlot(3), tilee.xCoord + 0.5D, tilee.yCoord + 5D, tilee.zCoord, x + 0.525D, y + 0.85D, z - 0.3D, rotation, 0F, 1, 1, 1, 0.375F, 0.5F, 0.5F, true);
-		DrawUtils.renderItemStack_Full(tilee.getStackInSlot(4), tilee.xCoord, tilee.yCoord + 5D, tilee.zCoord + 0.5D, x - 0.525D, y + 0.85D, z + 0.3D, rotation, 0F, 1, 1, 1, 0.375F, 0.5F, 0.5F, true);
-		DrawUtils.renderItemStack_Full(tilee.getStackInSlot(5), tilee.xCoord - 0.5D, tilee.yCoord + 5D, tilee.zCoord, x + 0.55D, y + 0.85D, z + 0.3D, rotation, 0F, 1, 1, 1, 0.375F, 0.5F, 0.5F, true);
-		DrawUtils.renderItemStack_Full(tilee.getStackInSlot(6), tilee.xCoord, tilee.yCoord + 5D, tilee.zCoord - 0.5D, x - 0.55D, y + 0.85D, z - 0.3D, rotation, 0F, 1, 1, 1, 0.375F, 0.5F, 0.5F, true);
+			GL11.glPopMatrix();
+		}
 
 		GL11.glPopMatrix();
 		RenderHelper.enableStandardItemLighting();
