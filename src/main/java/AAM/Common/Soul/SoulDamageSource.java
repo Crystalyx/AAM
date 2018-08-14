@@ -10,10 +10,6 @@ public class SoulDamageSource extends EntityDamageSource
 	{
 		super(id, ph.player);
 		this.ph = ph;
-		if (ph.sword.equals(WeaponType.Rapier))
-		{
-			this.setDamageBypassesArmor();
-		}
 	}
 
 	public static final String id = "soulDamage";

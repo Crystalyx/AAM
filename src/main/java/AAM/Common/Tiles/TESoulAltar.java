@@ -3,11 +3,10 @@ package AAM.Common.Tiles;
 import java.util.ArrayList;
 import java.util.List;
 
-import AAM.API.StructureCore;
+import AAM.API.Abstract.StructureCore;
 import AAM.Common.Items.ModItems;
 import AAM.Common.Items.Resources.SwordDye;
 import AAM.Common.Items.Soul.Artifact;
-import AAM.Common.Items.Soul.SoulSword;
 import AAM.Common.Soul.Soul;
 import AAM.Common.Soul.SoulUpgrade;
 import AAM.Utils.MiscUtils;
@@ -26,8 +25,6 @@ import net.minecraft.network.play.server.S35PacketUpdateTileEntity;
 public class TESoulAltar extends StructureCore implements IInventory
 {
 	public ItemStack[] inv = new ItemStack[12];
-	public int value = 0;
-	public int maxValue = 1000;
 	public boolean opened = false;
 
 	@Override
@@ -36,33 +33,28 @@ public class TESoulAltar extends StructureCore implements IInventory
 		super.updateEntity();
 		if (this.opened)
 		{
-			if (this.formed && this.getStackInSlot(0) != null && this.getStackInSlot(0).getItem() instanceof SoulSword)
+			if (this.getStackInSlot(0) != null)
 			{
-				ItemStack is = this.getStackInSlot(0);
-
-				if (is.hasTagCompound())
+				if (this.getStackInSlot(0).getItem() == ModItems.SoulSword)
 				{
-					NBTTagCompound tag = is.getTagCompound();
-					String name = tag.getString("Owner");
-					if (!name.equals(""))
+					if (this.getStackInSlot(0).hasTagCompound())
 					{
-						if (this.worldObj.getPlayerEntityByName(name) != null)
+						String name = this.getStackInSlot(0).getTagCompound().getString("Owner");
+
+						if (name != "")
 						{
-							PlayerDataHandler ph = PlayerDataHandler.get(this.worldObj.getPlayerEntityByName(name));
-							saveSoulItems(ph);
+							if (this.worldObj.getPlayerEntityByName(name) != null && this.formed)
+							{
+								EntityPlayer p = this.worldObj.getPlayerEntityByName(name);
+								PlayerDataHandler ph = PlayerDataHandler.get(p);
+								saveSoulItems(ph);
+								this.clearItems();
+								placeItems(ph);
+							}
 						}
 					}
 				}
 			}
-			else
-			{
-				for (int i = 1; i < this.getSizeInventory(); i++)
-				{
-					this.setInventorySlotContents(i, null);
-					// MiscUtils.dropSlot(this, i);
-				}
-			}
-			this.markDirty();
 		}
 	}
 
@@ -70,13 +62,13 @@ public class TESoulAltar extends StructureCore implements IInventory
 	{
 		if (this.getStackInSlot(1) == null)
 		{
-			ph.partType = -1;
+			ph.color = -1;
 		}
 		else
 		{
 			if (this.getStackInSlot(1).getItem() instanceof SwordDye)
 			{
-				ph.partType = this.getStackInSlot(1).getItemDamage();
+				ph.color = this.getStackInSlot(1).getItemDamage();
 			}
 		}
 
@@ -189,65 +181,93 @@ public class TESoulAltar extends StructureCore implements IInventory
 	public void setInventorySlotContents(int slot, ItemStack item)
 	{
 		this.inv[slot] = item;
-		if (this.formed)
+		if (slot != 0)
 		{
-			if (slot == 0 && item != null && item.getItem() instanceof SoulSword && item.hasTagCompound())
+			if (this.getStackInSlot(0) != null)
 			{
-				this.placeItems(item.getTagCompound().getString("Owner"));
-				return;
-			}
-		}
-		if (slot == 0)
-			for (int i = 1; i < 12; i++)
-			{
-				this.setInventorySlotContents(i, null);
-			}
-		this.markDirty();
-	}
-
-	private void placeItems(String playerName)
-	{
-		if (this.worldObj != null && !this.worldObj.isRemote)
-		{
-			if (this.worldObj.getPlayerEntityByName(playerName) != null)
-			{
-				PlayerDataHandler ph = PlayerDataHandler.get(this.worldObj.getPlayerEntityByName(playerName));
-				if (ph.partType != -1)
+				if (this.getStackInSlot(0).getItem() == ModItems.SoulSword)
 				{
-					this.setInventorySlotContents(1, new ItemStack(ModItems.Shield, 1, ph.partType));
-				}
-
-				if (this.getStackInSlot(2) == null)
-				{
-					if (ph.art)
-						this.setInventorySlotContents(2, new ItemStack(ModItems.Artifact, 1, ph.stype.ordinal()));
-				}
-				if (ph.bow)
-				{
-					ItemStack is = new ItemStack(ModItems.CrystalBow);
-					NBTTagCompound tg = new NBTTagCompound();
-					if (ph.art)
-						tg.setInteger("Art", ph.stype.ordinal());
-					else
-						tg.setInteger("Art", -1);
-
-					is.setTagCompound(tg);
-					this.setInventorySlotContents(3, is);
-				}
-				List<Integer> list = new ArrayList<Integer>();
-				for (int i = 0; i < ph.upgLevel.length; i++)
-				{
-					for (int j = 0; j < ph.upgLevel[i]; j++)
+					if (this.getStackInSlot(0).hasTagCompound())
 					{
-						list.add(i);
+						String name = this.getStackInSlot(0).getTagCompound().getString("Owner");
+
+						if (name != "")
+						{
+							if (this.worldObj.getPlayerEntityByName(name) != null)
+							{
+								EntityPlayer p = this.worldObj.getPlayerEntityByName(name);
+								PlayerDataHandler ph = PlayerDataHandler.get(p);
+								saveSoulItems(ph);
+								clearItems();
+								placeItems(ph);
+							}
+						}
 					}
 				}
-				for (int i = 0; i < Math.min(6, list.size()); i++)
+			}
+		}
+		else
+		{
+			if (item != null)
+			{
+				if (item.getItem() == ModItems.SoulSword)
 				{
-					this.setInventorySlotContents(4 + i, new ItemStack(ModItems.SoulUpgradeItem, 1, list.get(i)));
+					if (item.hasTagCompound())
+					{
+						String name = item.getTagCompound().getString("Owner");
+
+						if (name != "")
+						{
+							if (this.worldObj.getPlayerEntityByName(name) != null)
+							{
+								EntityPlayer p = this.worldObj.getPlayerEntityByName(name);
+								PlayerDataHandler ph = PlayerDataHandler.get(p);
+								clearItems();
+								placeItems(ph);
+							}
+						}
+					}
 				}
 			}
 		}
+	}
+
+	public void clearItems()
+	{
+		for (int i = 1; i < this.getSizeInventory(); i++)
+		{
+			inv[i] = null;
+		}
+	}
+
+	private void placeItems(PlayerDataHandler ph)
+	{
+		if (ph.color != -1)
+		{
+			this.inv[1] = new ItemStack(ModItems.SoulLens, 1, ph.color);
+		}
+		if (ph.art)
+		{
+			this.inv[2] = new ItemStack(ModItems.Artifact, 1, ph.stype.ordinal());
+		}
+		if (ph.bow)
+		{
+			this.inv[3] = new ItemStack(ModItems.CrystalBow);
+		}
+
+		List<Integer> l = new ArrayList<Integer>();
+		for (int i = 0; i < ph.upgLevel.length; i++)
+		{
+			for (int j = 0; j < ph.upgLevel[i]; j++)
+			{
+				l.add(i);
+			}
+		}
+		for (int i = 0; i < Math.min(l.size(), 6); i++)
+		{
+			this.inv[4 + i] = new ItemStack(ModItems.SoulUpgradeItem, 1, l.get(i));
+		}
+
 	}
 
 	@Override
@@ -280,14 +300,20 @@ public class TESoulAltar extends StructureCore implements IInventory
 		this.opened = true;
 		if (this.getStackInSlot(0) != null)
 		{
-			if (this.getStackInSlot(0).getItem() instanceof SoulSword)
+			if (this.getStackInSlot(0).getItem() == ModItems.SoulSword)
 			{
 				if (this.getStackInSlot(0).hasTagCompound())
 				{
 					String name = this.getStackInSlot(0).getTagCompound().getString("Owner");
-					if (!name.equals(""))
+
+					if (name != "")
 					{
-						this.placeItems(name);
+						if (this.worldObj.getPlayerEntityByName(name) != null)
+						{
+							EntityPlayer p = this.worldObj.getPlayerEntityByName(name);
+							PlayerDataHandler ph = PlayerDataHandler.get(p);
+							placeItems(ph);
+						}
 					}
 				}
 			}
@@ -298,27 +324,27 @@ public class TESoulAltar extends StructureCore implements IInventory
 	public void closeInventory()
 	{
 		this.opened = false;
-		ItemStack is = this.getStackInSlot(0);
-		if (is != null)
+		if (this.getStackInSlot(0) != null)
 		{
-			if (is.hasTagCompound())
+			if (this.getStackInSlot(0).getItem() == ModItems.SoulSword)
 			{
-				NBTTagCompound tag = is.getTagCompound();
-				String name = tag.getString("Owner");
-				if (!name.equals(""))
+				if (this.getStackInSlot(0).hasTagCompound())
 				{
-					if (this.worldObj.getPlayerEntityByName(name) != null)
+					String name = this.getStackInSlot(0).getTagCompound().getString("Owner");
+
+					if (name != "")
 					{
-						PlayerDataHandler ph = PlayerDataHandler.get(this.worldObj.getPlayerEntityByName(name));
-						saveSoulItems(ph);
+						if (this.worldObj.getPlayerEntityByName(name) != null)
+						{
+							EntityPlayer p = this.worldObj.getPlayerEntityByName(name);
+							PlayerDataHandler ph = PlayerDataHandler.get(p);
+							saveSoulItems(ph);
+						}
 					}
 				}
 			}
 		}
-		for (int i = 1; i < this.getSizeInventory(); i++)
-		{
-			this.setInventorySlotContents(i, null);
-		}
+		clearItems();
 	}
 
 	@Override
@@ -345,8 +371,6 @@ public class TESoulAltar extends StructureCore implements IInventory
 	public void readFromNBT(NBTTagCompound tag)
 	{
 		super.readFromNBT(tag);
-		this.value = tag.getInteger("Value");
-		this.maxValue = tag.getInteger("MaxValue");
 		MiscUtils.readInventory(this, tag);
 	}
 
@@ -354,8 +378,6 @@ public class TESoulAltar extends StructureCore implements IInventory
 	public void writeToNBT(NBTTagCompound tag)
 	{
 		super.writeToNBT(tag);
-		tag.setInteger("Value", this.value);
-		tag.setInteger("MaxValue", this.maxValue);
 		MiscUtils.saveInventory(this, tag);
 	}
 

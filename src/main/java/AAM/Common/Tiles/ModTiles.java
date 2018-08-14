@@ -21,5 +21,7 @@ public class ModTiles
 		GameRegistry.registerTileEntity(TEMechanicalBase.class, id + "mechbase");
 		GameRegistry.registerTileEntity(TETeleporter.class, id + "dungteleporter");
 		GameRegistry.registerTileEntity(TEBloodAltar.class, id + "bloodaltar");
+		GameRegistry.registerTileEntity(TEBarrel.class, id + "barrel");
+
 	}
 }

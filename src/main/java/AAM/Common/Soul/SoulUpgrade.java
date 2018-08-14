@@ -1,6 +1,6 @@
 package AAM.Common.Soul;
 
-import AAM.API.ISoulUpgrade;
+import AAM.API.Interface.ISoulUpgrade;
 import AAM.Utils.PlayerDataHandler;
 import net.minecraft.entity.EntityLivingBase;
 

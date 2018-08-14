@@ -3,15 +3,14 @@
  */
 package AAM.Common.Tiles;
 
-import AAM.Common.Recipes.ModificationAnvilRecipe;
-import AAM.Common.Recipes.ModificationAnvilRecipes;
+import AAM.API.Interface.IUpgradableItem;
+import AAM.Common.Items.ModItems;
 import AAM.Utils.MiscUtils;
 import AAM.Utils.Wec3;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.nbt.NBTTagList;
 import net.minecraft.network.NetworkManager;
 import net.minecraft.network.Packet;
 import net.minecraft.network.play.server.S35PacketUpdateTileEntity;
@@ -23,12 +22,12 @@ import net.minecraft.util.AxisAlignedBB;
  */
 public class TEModificationAnvil extends TileEntity implements IInventory
 {
-	public ItemStack[] inventory = new ItemStack[7];
+	public ItemStack[] inventory = new ItemStack[4];
 
 	@Override
 	public int getSizeInventory()
 	{
-		return 7;
+		return 4;
 	}
 
 	public int ccount = 0;
@@ -47,85 +46,83 @@ public class TEModificationAnvil extends TileEntity implements IInventory
 		readFromNBT(pkt.func_148857_g());
 	}
 
-	public void repair()
-	{
-		if (this.inventory[0] != null)
-		{
-
-		}
-	}
-
-	public int count(ItemStack i)
-	{
-		int count = 0;
-		for (int l = 0; l < this.getSizeInventory(); l++)
-		{
-			if (this.inventory[l] != null)
-			{
-				if (this.inventory[l].getItem() == i.getItem() && this.inventory[l].getItemDamage() == i.getItemDamage())
-				{
-					count += this.inventory[l].stackSize;
-				}
-			}
-		}
-		return count;
-	}
-
 	public boolean isCrafting = false;
 	public int craftTime = 0;
-	ModificationAnvilRecipe currrec;
 
 	public void startCrafting()
 	{
 		this.isCrafting = true;
-		this.currrec = ModificationAnvilRecipes.findRecipeFor(this);
-		if (this.currrec == null)
-		{
-			this.isCrafting = false;
-			repair();
-			return;
-		}
 	}
 
 	@Override
 	public void updateEntity()
 	{
 		super.updateEntity();
-		if (this.isCrafting)
+		if (this.getStackInSlot(0) != null && this.getStackInSlot(1) != null && this.getStackInSlot(2) != null && this.getStackInSlot(3) == null)
 		{
-			if (this.currrec == null)
+			if (this.getStackInSlot(0).getItem() instanceof IUpgradableItem && this.getStackInSlot(1).getItem() == ModItems.ModificationCatalyst && this.getStackInSlot(2).getItem() == ModItems.AnvilHammer)
 			{
-				this.isCrafting = false;
-				return;
-			}
-
-			if (this.craftTime > 0)
-			{
-				if (this.currrec == ModificationAnvilRecipes.findRecipeFor(this))
+				IUpgradableItem ui = ((IUpgradableItem) this.getStackInSlot(0).getItem());
+				int level = ui.getUpgradeLevel(this.getStackInSlot(0));
+				int maxLevel = ui.getMaxLevel(this.getStackInSlot(0));
+				int catLevel = this.getStackInSlot(1).getItemDamage();
+				int modLevel = MiscUtils.isInLimit(catLevel, 0, 4) ? 1 : (MiscUtils.isInLimit(catLevel, 5, 9) ? 2 : catLevel >= 10 ? 3 : 0);
+				if (this.getStackInSlot(0).getItem() == ModItems.SoulSword)
 				{
-					--this.craftTime;
+					if (this.getStackInSlot(0).hasTagCompound())
+					{
+						String name = this.getStackInSlot(0).getTagCompound().getString("Owner");
+						if (this.worldObj.getPlayerEntityByName(name) == null)
+						{
+							this.isCrafting = false;
+							this.craftTime = 0;
+							return;
+						}
+					}
+					else
+					{
+						this.isCrafting = false;
+						this.craftTime = 0;
+						return;
+					}
+				}
+				if (level < maxLevel && ((MiscUtils.isInLimit(level, 0, 4) && modLevel == 1) || (MiscUtils.isInLimit(level, 5, 9) && modLevel == 2) || (level >= 10 && modLevel == 3)))
+				{
+					if (this.craftTime <= 400)
+					{
+						this.isCrafting = true;
+						this.craftTime += 1;
+					}
+					else
+					{
+						this.isCrafting = false;
+						this.craftTime = 0;
+						ui.addUpgradeLevel(this.worldObj, this.getStackInSlot(0));
+						this.decrStackSize(1, 1);
+						this.getStackInSlot(2).setItemDamage(this.getStackInSlot(2).getItemDamage() + level + 1);
+						this.setInventorySlotContents(3, this.getStackInSlot(0));
+						this.setInventorySlotContents(0, null);
+					}
 				}
 				else
 				{
 					this.isCrafting = false;
+					this.craftTime = 0;
 					return;
 				}
 			}
-			if (this.craftTime <= 0)
+			else
 			{
-				clearInv();
-				this.inventory[0] = this.currrec.output;
 				this.isCrafting = false;
+				this.craftTime = 0;
+				return;
 			}
 		}
-
-	}
-
-	public void clearInv()
-	{
-		for (int i = 0; i < this.inventory.length; i++)
+		else
 		{
-			this.inventory[i] = null;
+			this.isCrafting = false;
+			this.craftTime = 0;
+			return;
 		}
 	}
 
@@ -199,7 +196,7 @@ public class TEModificationAnvil extends TileEntity implements IInventory
 	@Override
 	public int getInventoryStackLimit()
 	{
-		return 0;
+		return 64;
 	}
 
 	@Override
@@ -226,12 +223,14 @@ public class TEModificationAnvil extends TileEntity implements IInventory
 		return true;
 	}
 
+	@Override
 	public void readFromNBT(NBTTagCompound tag)
 	{
 		super.readFromNBT(tag);
 		MiscUtils.readInventory(this, tag);
 	}
 
+	@Override
 	public void writeToNBT(NBTTagCompound tag)
 	{
 		super.writeToNBT(tag);

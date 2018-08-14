@@ -4,8 +4,9 @@ public enum WeaponType
 {
 	Broad("soulsword/excalibur_broad", "soulsword/arbitur_broad", "soulsword/swordpasses", 5, false, WarriorType.Carry), Rapier("soulsword/excalibur_rapier", "soulsword/arbitur_rapier", "soulsword/swordpasses", 4, true,
 			WarriorType.Carry), Saber("soulsword/excalibur_saber", "soulsword/arbitur_saber", "soulsword/swordpasses", 5, false, WarriorType.Carry), Long("soulsword/excalibur_long", "soulsword/arbitur_long", "soulsword/swordpasses", 5,
-					false, WarriorType.Carry), SolarStaff("soulsword/solar_staff", "soulsword/arbitur_solar_staff", "soulsword/staffpasses", 7, false,
-							WarriorType.Caster), LightStaff("soulsword/light_staff", "soulsword/arbitur_light_staff", "soulsword/staffpasses", 4, true, WarriorType.Caster);
+					false, WarriorType.Carry), SolarStaff("soulsword/solar_staff", "soulsword/arbitur_solar_staff", "soulsword/staffpasses", 7, false, WarriorType.Caster), LightStaff("soulsword/light_staff", "soulsword/arbitur_light_staff",
+							"soulsword/staffpasses", 4, true, WarriorType.Caster), Spear("soulsword/spear", "soulsword/arbitur_spear", "soulsword/tankpasses", 6, false,
+									WarriorType.Tank), Hammer("soulsword/hammer", "soulsword/arbitur_hammer", "soulsword/staffpasses", 7, false, WarriorType.Tank);
 
 	public String texture;
 	public String arbitur;
