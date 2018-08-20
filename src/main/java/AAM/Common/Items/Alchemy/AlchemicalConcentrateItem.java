@@ -2,6 +2,7 @@ package AAM.Common.Items.Alchemy;
 
 import java.util.List;
 
+import AAM.Common.Items.ModItems;
 import AAM.Common.Potions.Concentrate;
 import AAM.Common.Potions.ModPotions;
 import AAM.Utils.MiscUtils;
@@ -29,17 +30,50 @@ public class AlchemicalConcentrateItem extends ItemFood
 		this.setAlwaysEdible();
 		this.setHasSubtypes(true);
 		this.size = size;
+		if (size > 0)
+		{
+			this.setMaxStackSize(1);
+		}
+		this.icon = new IIcon[Volumes[size] + 1];
 	}
+
+	public static final int[] Volumes = new int[] { 0, 2, 8 };
 
 	@Override
 	public ItemStack onEaten(ItemStack i, World w, EntityPlayer p)
 	{
-		if (i.hasTagCompound())
+		if (!w.isRemote)
 		{
-			int level = i.getTagCompound().getInteger("potionLevel");
-			ModPotions.concentrates.get(i.getItemDamage()).action.act(w, p, level, size);
-			if (!p.capabilities.isCreativeMode)
-				MiscUtils.decrPlayerStack(p, 1);
+			if (!i.hasTagCompound())
+			{
+				NBTTagCompound tag = new NBTTagCompound();
+				tag.setInteger("Fluid", Volumes[size]);
+				i.setTagCompound(tag);
+			}
+			else
+			{
+				i.getTagCompound().setInteger("Fluid", i.getTagCompound().getInteger("Fluid") - 1);
+			}
+			if (i.hasTagCompound())
+			{
+				int level = i.getTagCompound().getInteger("potionLevel");
+				ModPotions.concentrates.get(i.getItemDamage()).action.act(w, p, level, size);
+				if (!p.capabilities.isCreativeMode)
+				{
+					if (i.getTagCompound().getInteger("Fluid") <= 0)
+					{
+						MiscUtils.addItemStack(p, new ItemStack(ModItems.ConcentratePhial, 1, size));
+						MiscUtils.decrPlayerStack(p, 1);
+						if (this.size == 0)
+						{
+							if (i.stackSize > 0)
+							{
+								i.getTagCompound().setInteger("Fluid", 1);
+							}
+						}
+					}
+				}
+			}
 		}
 		return i;
 	}
@@ -49,7 +83,14 @@ public class AlchemicalConcentrateItem extends ItemFood
 	{
 		if (i.hasTagCompound())
 		{
-			l.add("Level: " + i.getTagCompound().getInteger("potionLevel"));
+			l.add("Level: " + (i.getTagCompound().getInteger("potionLevel") + 1));
+			l.add(i.getTagCompound().getInteger("Fluid") + " uses left");
+		}
+		else
+		{
+			NBTTagCompound tag = new NBTTagCompound();
+			tag.setInteger("Fluid", Volumes[size] + 1);
+			i.setTagCompound(tag);
 		}
 	}
 
@@ -75,15 +116,21 @@ public class AlchemicalConcentrateItem extends ItemFood
 	}
 
 	public static final String[] sizes = new String[] { "small", "medium", "big" };
-	public IIcon[] icon = new IIcon[2];
+	public IIcon bottle;
+	public IIcon[] icon;
 
 	@Override
 	@SideOnly(Side.CLIENT)
 	public void registerIcons(IIconRegister ir)
 	{
 		String wp = "aam:potions/";
-		icon[0] = ir.registerIcon(wp + sizes[this.size] + "_concentrate");
-		icon[1] = ir.registerIcon(wp + sizes[this.size] + "_concentrate_offset");
+		bottle = ir.registerIcon(wp + sizes[this.size] + "_concentrate");
+		for (int i = 0; i < Volumes[size] + 1; i++)
+		{
+			String volume = sizes[this.size];
+			icon[i] = ir.registerIcon(wp + volume + "_concentrate_offset_" + i);
+
+		}
 	}
 
 	/**
@@ -120,10 +167,33 @@ public class AlchemicalConcentrateItem extends ItemFood
 	{
 		if (pass == 0)
 		{
-			return icon[0];
+			return bottle;
 		}
 		else
-			return icon[1];
+			return icon[0];
+	}
+
+	@Override
+	public IIcon getIcon(ItemStack i, int pass)
+	{
+		if (pass == 0)
+		{
+			return bottle;
+		}
+		else
+		{
+			int volume = Volumes[size];
+			if (i.hasTagCompound())
+			{
+				volume = i.getTagCompound().getInteger("Fluid") - 1;
+			}
+			if (volume < 0)
+			{
+				return bottle;
+			}
+			else
+				return icon[volume];
+		}
 	}
 
 	@Override
@@ -161,7 +231,8 @@ public class AlchemicalConcentrateItem extends ItemFood
 		for (int i = 0; i < ModPotions.concentrates.size(); i++)
 		{
 			NBTTagCompound tag = new NBTTagCompound();
-			tag.setInteger("potionLevel", 1);
+			tag.setInteger("potionLevel", 0);
+			tag.setInteger("Fluid", Volumes[size] + 1);
 			ItemStack item = new ItemStack(is, 1, i);
 			item.setTagCompound(tag);
 			l.add(item);

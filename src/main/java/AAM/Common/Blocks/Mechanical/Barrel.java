@@ -1,6 +1,7 @@
 package AAM.Common.Blocks.Mechanical;
 
 import AAM.Common.Items.ModItems;
+import AAM.Common.Items.Alchemy.AlchemicalConcentrateItem;
 import AAM.Common.Potions.ModPotions;
 import AAM.Common.Tiles.TEBarrel;
 import AAM.Utils.Logger;
@@ -41,30 +42,38 @@ public class Barrel extends BlockContainer
 						is.setItemDamage(0);
 					}
 				}
-				if (te.burnTime >= 300)
+				if (is.getItem() == ModItems.RiteBook)
 				{
-					if (te.potion.length > 0)
+					te.burnTime += 3000;
+				}
+				if (te.potion.length > 0)
+				{
+					if (ModPotions.getConcentrateID(te.potion[0]) != -1)
 					{
-						if (ModPotions.getConcentrateID(te.potion[0]) != -1)
+						if (is.getItem() == ModItems.ConcentratePhial)
 						{
-							if (is.getItem() == ModItems.ConcentratePhial)
+							int i = is.getItemDamage();
+							if (i < 3)
 							{
-								int i = is.getItemDamage();
-								if (i < 3)
+								int[] volumes = new int[] { 1, 3, 9 };
+
+								if (te.volume >= volumes[i])
 								{
 									Item item = i == 0 ? ModItems.smallConcentrate : (i == 1 ? ModItems.mediumConcentrate : ModItems.bigConcentrate);
-									int count = 5 - 2 * i;
-									if (is.stackSize >= count)
-									{
-										ItemStack concentrateIs = new ItemStack(item, count, ModPotions.getConcentrateID(te.potion[0]));
-										NBTTagCompound tag = new NBTTagCompound();
-										tag.setInteger("potionLevel", te.potion[1]);
-										concentrateIs.setTagCompound(tag);
-										MiscUtils.dropStackToPlayer(w, x, y, z, concentrateIs, p);
-										MiscUtils.decrPlayerStack(p, count);
-										te.potion = new int[0];
-									}
+
+									ItemStack concentrateIs = new ItemStack(item, 1, ModPotions.getConcentrateID(te.potion[0]));
+									NBTTagCompound tag = new NBTTagCompound();
+									tag.setInteger("potionLevel", te.potion[1]);
+									tag.setInteger("Fluid", AlchemicalConcentrateItem.Volumes[i] + 1);
+									concentrateIs.setTagCompound(tag);
+									MiscUtils.dropStackToPlayer(w, x, y, z, concentrateIs, p);
+									MiscUtils.decrPlayerStack(p, 1);
+									te.volume -= volumes[i];
 								}
+							}
+							if (te.volume == 0 && te.burnTime == 0)
+							{
+								te.potion = new int[0];
 							}
 						}
 					}
@@ -73,11 +82,26 @@ public class Barrel extends BlockContainer
 			else
 			{
 				if (te.potion.length > 0)
-					Logger.mchat(p, te.potion[0], te.potion[1], te.potion[2]);
-				Logger.chat(p, te.burnTime);
+				{
+					Logger.chat(p, "");
+					if (te.volume <= 0)
+					{
+						Logger.chat(p, "BurnTime: " + te.burnTime);
+					}
+					else
+						Logger.chat(p, "Volume: " + te.volume);
+					Logger.chat(p, "Potion: " + ModPotions.pots[te.potion[0]].name);
+					Logger.chat(p, "Power: " + (te.potion[1] + 1));
+				}
+				else
+				{
+					Logger.chat(p, "");
+					Logger.chat(p, "Empty");
+				}
 			}
 		}
 		return true;
+
 	}
 
 	/**

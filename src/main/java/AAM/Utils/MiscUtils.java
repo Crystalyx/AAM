@@ -621,6 +621,10 @@ public class MiscUtils
 		{
 			p.getCurrentEquippedItem().stackSize -= c;
 		}
+		if (p.getCurrentEquippedItem().stackSize <= 0)
+		{
+			p.destroyCurrentEquippedItem();
+		}
 	}
 
 	/**

@@ -37,20 +37,21 @@ import AAM.Common.Items.Resources.Coin;
 import AAM.Common.Items.Resources.Material;
 import AAM.Common.Items.Resources.SwordDye;
 import AAM.Common.Items.Soul.Artifact;
-import AAM.Common.Items.Soul.ModAxe;
-import AAM.Common.Items.Soul.ModHammer;
-import AAM.Common.Items.Soul.ModSpear;
-import AAM.Common.Items.Soul.ModStaff;
-import AAM.Common.Items.Soul.ModSword;
-import AAM.Common.Items.Soul.ModificationCatalyst;
 import AAM.Common.Items.Soul.SoulSword;
 import AAM.Common.Items.Soul.SoulUpgradeItem;
+import AAM.Common.Items.Weapon.ModAxe;
+import AAM.Common.Items.Weapon.ModHammer;
+import AAM.Common.Items.Weapon.ModSpear;
+import AAM.Common.Items.Weapon.ModStaff;
+import AAM.Common.Items.Weapon.ModSword;
+import AAM.Common.Items.Weapon.ModificationCatalyst;
 import AAM.Common.Tabs.StaffTab;
 import AAM.Common.Tabs.SwordTab;
 import AAM.Common.Tabs.TankTab;
 import AAM.Core.AAMCore;
 import cpw.mods.fml.common.registry.GameRegistry;
 import net.minecraft.creativetab.CreativeTabs;
+import net.minecraft.item.EnumRarity;
 import net.minecraft.item.Item;
 import net.minecraft.util.EnumChatFormatting;
 import net.minecraftforge.common.util.EnumHelper;
@@ -134,6 +135,8 @@ public class ModItems
 	public static List<ModHammer> hammers = new ArrayList<ModHammer>();
 	public static List<ModAxe> axes = new ArrayList<ModAxe>();
 
+	public static final EnumRarity blood = EnumHelper.addRarity("Blood", EnumChatFormatting.DARK_RED, "Blood");
+
 	public static void load()
 	{
 		// =======================Potions===========================
@@ -207,57 +210,57 @@ public class ModItems
 		registerItem(RiteBook, misc);
 		registerItem(STea, misc);
 
-		registerSword("aam.item.sword.blood", 8, false, EnumChatFormatting.AQUA, "aam:sword/blood");
-		registerSword("aam.item.sword.brass", 17, false, EnumChatFormatting.GOLD, "aam:sword/brass");
-		registerStaff("aam.item.staff.blood", 6, 12, 8, false, EnumChatFormatting.AQUA, "aam:staff/blood");
+		registerSword("aam.item.sword.blood", 8, false, EnumRarity.rare, "aam:sword/blood", 4000, 3, 1, 3);
+		registerSword("aam.item.sword.brass", 17, false, EnumRarity.uncommon, "aam:sword/brass", 3000, 3, 0, 2);
+		registerStaff("aam.item.staff.blood", 6, 12, 8, false, EnumRarity.rare, "aam:staff/blood", 4000, 3, 1, 3);
 
 		// Leaders set
-		registerSword("aam.item.sword.leader.broad", 32, false, EnumChatFormatting.RED, "aam:sword/leader_broadsword");
-		registerSword("aam.item.sword.leader.rapier", 28, true, EnumChatFormatting.RED, "aam:sword/leader_rapier");
-		registerSpear("aam.item.spear.leader.spear", 28, true, EnumChatFormatting.RED, "aam:tank/leader_spear");
-		registerAxe("aam.item.axe.leader.battleaxe", 32, false, EnumChatFormatting.RED, "aam:tank/leader_axe");
-		registerStaff("aam.item.staff.leader.wand", 17, 28, 8, 12, true, EnumChatFormatting.RED, "aam:staff/leader_wand");
-		registerStaff("aam.item.staff.leader.staff", 20, 32, 8, 20, false, EnumChatFormatting.RED, "aam:staff/leader_staff");
+		registerSword("aam.item.sword.leader.broad", 32, false, blood, "aam:sword/leader_broadsword", 8, 3, 0, 3);
+		registerSword("aam.item.sword.leader.rapier", 28, true, blood, "aam:sword/leader_rapier", 8000, 3, 0, 3);
+		registerSpear("aam.item.spear.leader.spear", 28, true, blood, "aam:tank/leader_spear", 8000, 3, 0, 3);
+		registerAxe("aam.item.axe.leader.battleaxe", 32, false, blood, "aam:tank/leader_axe", 8000, 3, 0, 3);
+		registerStaff("aam.item.staff.leader.wand", 17, 28, 8, 12, true, blood, "aam:staff/leader_wand", 8000, 3, 0, 3);
+		registerStaff("aam.item.staff.leader.staff", 20, 32, 8, 20, false, blood, "aam:staff/leader_staff", 8000, 3, 0, 3);
 	}
 
-	public static void registerAxe(String name, int baseDmg, boolean bypassesArmor, EnumChatFormatting rarity, String texture)
+	public static void registerAxe(String name, int baseDmg, boolean bypassesArmor, EnumRarity rarity, String texture, int durability, int repairs, int minSlots, int maxSlots)
 	{
-		ModAxe ms = new ModAxe(name, baseDmg, bypassesArmor, rarity, texture);
+		ModAxe ms = new ModAxe(name, baseDmg, bypassesArmor, rarity, texture, durability, repairs, minSlots, maxSlots);
 		axes.add(ms);
 		registerItem(ms, tanktab);
 	}
 
-	public static void registerSpear(String name, int baseDmg, boolean bypassesArmor, EnumChatFormatting rarity, String texture)
+	public static void registerSpear(String name, int baseDmg, boolean bypassesArmor, EnumRarity rarity, String texture, int durability, int repairs, int minSlots, int maxSlots)
 	{
-		ModSpear ms = new ModSpear(name, baseDmg, bypassesArmor, rarity, texture);
+		ModSpear ms = new ModSpear(name, baseDmg, bypassesArmor, rarity, texture, durability, repairs, minSlots, maxSlots);
 		spears.add(ms);
 		registerItem(ms, tanktab);
 	}
 
-	public static void registerHammer(String name, int baseDmg, boolean bypassesArmor, EnumChatFormatting rarity, String texture)
+	public static void registerHammer(String name, int baseDmg, boolean bypassesArmor, EnumRarity rarity, String texture, int durability, int repairs, int minSlots, int maxSlots)
 	{
-		ModHammer ms = new ModHammer(name, baseDmg, bypassesArmor, rarity, texture);
+		ModHammer ms = new ModHammer(name, baseDmg, bypassesArmor, rarity, texture, durability, repairs, minSlots, maxSlots);
 		hammers.add(ms);
 		registerItem(ms, tanktab);
 	}
 
-	public static void registerStaff(String name, int meleeDmg, int rangedDmg, int soulConsumed, boolean bypassesArmor, EnumChatFormatting rarity, String texture)
+	public static void registerStaff(String name, int meleeDmg, int rangedDmg, int soulConsumed, boolean bypassesArmor, EnumRarity rarity, String texture, int durability, int repairs, int minSlots, int maxSlots)
 	{
-		ModStaff ms = new ModStaff(name, meleeDmg, rangedDmg, soulConsumed, bypassesArmor, rarity, texture);
+		ModStaff ms = new ModStaff(name, meleeDmg, rangedDmg, soulConsumed, bypassesArmor, rarity, texture, durability, repairs, minSlots, maxSlots);
 		staffs.add(ms);
 		registerItem(ms, stafftab);
 	}
 
-	public static void registerStaff(String name, int meleeDmg, int rangedDmg, int soulConsumed, int cd, boolean bypassesArmor, EnumChatFormatting rarity, String texture)
+	public static void registerStaff(String name, int meleeDmg, int rangedDmg, int soulConsumed, int cd, boolean bypassesArmor, EnumRarity rarity, String texture, int durability, int repairs, int minSlots, int maxSlots)
 	{
-		ModStaff ms = new ModStaff(name, meleeDmg, rangedDmg, soulConsumed, bypassesArmor, rarity, texture).setCooldown(cd);
+		ModStaff ms = new ModStaff(name, meleeDmg, rangedDmg, soulConsumed, bypassesArmor, rarity, texture, durability, repairs, minSlots, maxSlots).setCooldown(cd);
 		staffs.add(ms);
 		registerItem(ms, stafftab);
 	}
 
-	public static void registerSword(String name, int baseDmg, boolean bypassesArmor, EnumChatFormatting rarity, String texture)
+	public static void registerSword(String name, int baseDmg, boolean bypassesArmor, EnumRarity rarity, String texture, int durability, int repairs, int minSlots, int maxSlots)
 	{
-		ModSword ms = new ModSword(name, baseDmg, bypassesArmor, rarity, texture);
+		ModSword ms = new ModSword(name, baseDmg, bypassesArmor, rarity, texture, durability, repairs, minSlots, maxSlots);
 		swords.add(ms);
 		registerItem(ms, swordtab);
 	}

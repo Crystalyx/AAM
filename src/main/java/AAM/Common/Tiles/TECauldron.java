@@ -7,6 +7,7 @@ import AAM.Common.Items.ModItems;
 import AAM.Common.Potions.Colorer;
 import AAM.Common.Potions.IngridientItem;
 import AAM.Common.Potions.Ingridients;
+import AAM.Common.Potions.ModPotions;
 import AAM.Utils.Color;
 import cpw.mods.fml.common.registry.GameRegistry;
 import net.minecraft.block.Block;
@@ -42,7 +43,7 @@ public class TECauldron extends TileEntity
 					this.fluid.amount--;
 		}
 
-		if (this.isBurning)
+		if (this.isBurning && this.fluid.amount > 300)
 		{
 			AxisAlignedBB aabb = AxisAlignedBB.getBoundingBox(0.0625F + this.xCoord, 0.15625F + this.yCoord, 0.0625F + this.zCoord, 0.9375F + this.xCoord, 0.8875F + this.yCoord, 0.9375F + this.zCoord);
 			List<EntityItem> entities = this.worldObj.getEntitiesWithinAABB(EntityItem.class, aabb);
@@ -106,6 +107,10 @@ public class TECauldron extends TileEntity
 		else
 		{
 			this.color = withClrr;
+		}
+		if (this.potion.length > 0)
+		{
+			this.color = ModPotions.pots[this.potion[0]].col;
 		}
 
 		if (this.isBurning)

@@ -38,6 +38,7 @@ public class AlchemicalBucket extends Item
 	@Override
 	public void addInformation(ItemStack is, EntityPlayer p, List l, boolean hand)
 	{
+		super.addInformation(is, p, l, hand);
 		if (is.hasTagCompound())
 		{
 			NBTTagCompound tag = is.getTagCompound();
@@ -50,4 +51,5 @@ public class AlchemicalBucket extends Item
 			}
 		}
 	}
+
 }

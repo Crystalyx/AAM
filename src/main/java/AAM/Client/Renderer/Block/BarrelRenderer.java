@@ -22,6 +22,7 @@ public class BarrelRenderer implements ISimpleBlockRenderingHandler
 		float th = tough / 2;
 		float dwd = 1 - wd;
 		float dwdtough = 1 - wd;
+		float d = 0.000001f;
 		b.setBlockBounds(t, t, wd, dt, dt, wd + tough);
 		r.setRenderBoundsFromBlock(b);
 		RenderUtils.drawSides(r, b, MiscUtils.getIconArray(b, meta), true);
@@ -170,7 +171,7 @@ public class BarrelRenderer implements ISimpleBlockRenderingHandler
 		b.setBlockBounds(t - th, dt, wd, dt + th, dt + tough, wd + tough);
 		r.setRenderBoundsFromBlock(b);
 		r.renderStandardBlock(b, x, y, z);
-		// ==================================
+		// ================Another=Side==================
 		b.setBlockBounds(t - tough, t - th, dwd - tough, t, dt + th, dwd);
 		r.setRenderBoundsFromBlock(b);
 		r.renderStandardBlock(b, x, y, z);

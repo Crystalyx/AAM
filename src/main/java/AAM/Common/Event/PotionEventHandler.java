@@ -18,13 +18,20 @@ import net.minecraftforge.event.entity.player.AttackEntityEvent;
 public class PotionEventHandler
 {
 	public static AttributeModifier[] flightSpeed = new AttributeModifier[20];
+	public static AttributeModifier[] healthIncrease = new AttributeModifier[20];
 
 	static
 	{
 		for (int i = 0; i < flightSpeed.length; i++)
 		{
 			flightSpeed[i] = new AttributeModifier("potion_flight", 0.05 * (i + 1), 0);
-			flightSpeed[i].setSaved(false);
+			flightSpeed[i].setSaved(true);
+		}
+
+		for (int i = 0; i < flightSpeed.length; i++)
+		{
+			healthIncrease[i] = new AttributeModifier("potion_health_increase", 20 + 8 * i, 0);
+			healthIncrease[i].setSaved(true);
 		}
 	}
 
@@ -63,6 +70,23 @@ public class PotionEventHandler
 					p.capabilities.allowFlying = false;
 				}
 			}
+
+			// if (p.getActivePotionEffect(ModPotions.healthincr) != null)
+			// {
+			// int power =
+			// Math.min(p.getActivePotionEffect(ModPotions.healthincr).getAmplifier(),
+			// 19);
+			// int time =
+			// p.getActivePotionEffect(ModPotions.healthincr).getDuration();
+			//
+			// if (power > -1 && time > 1)
+			// {
+			// p.getEntityAttribute(SharedMonsterAttributes.maxHealth).applyModifier(healthIncrease[power]);
+			// }
+			// else
+			// p.getEntityAttribute(SharedMonsterAttributes.maxHealth).removeModifier(healthIncrease[power]);
+			//
+			// }
 			if (p.getActivePotionEffect(ModPotions.soul) != null)
 			{
 				int snk = p.isSneaking() ? 2 : 0;
