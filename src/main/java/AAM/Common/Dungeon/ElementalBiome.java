@@ -1,8 +1,8 @@
-package AAM.Common.Dungeon;
+package aam.common.dungeon;
 
 import java.util.Random;
 
-import AAM.Common.Blocks.Building.ModBlocks;
+import aam.common.blocks.building.ModBlocks;
 import net.minecraft.init.Blocks;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.BiomeGenBase;
@@ -13,16 +13,16 @@ public class ElementalBiome extends BiomeGenBase
 	public ElementalBiome(int id)
 	{
 		super(id);
-		this.enableRain = false;
-		this.enableSnow = false;
-		this.biomeName = "aamdungeon";
-		this.topBlock = Blocks.bedrock;
-		this.fillerBlock = ModBlocks.Bricks;
+		enableRain = false;
+		enableSnow = false;
+		biomeName = "aamdungeon";
+		topBlock = Blocks.bedrock;
+		fillerBlock = ModBlocks.Bricks;
 
-		this.spawnableCaveCreatureList.clear();
-		this.spawnableCreatureList.clear();
-		this.spawnableMonsterList.clear();
-		this.spawnableWaterCreatureList.clear();
+		spawnableCaveCreatureList.clear();
+		spawnableCreatureList.clear();
+		spawnableMonsterList.clear();
+		spawnableWaterCreatureList.clear();
 
 		this.setHeight(new Height(250, 6));
 	}

@@ -1,17 +1,17 @@
-package AAM.Common.Tiles;
+package aam.common.tiles;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import AAM.API.Interface.ICatalyst;
-import AAM.Common.Transmutations.Circle;
-import AAM.Common.Transmutations.EnergyType;
-import AAM.Common.Transmutations.Extension;
-import AAM.Common.Transmutations.ModCircles;
-import AAM.Common.Transmutations.Transmutation;
-import AAM.Utils.Color;
-import AAM.Utils.MiscUtils;
-import AAM.Utils.Wec3;
+import aam.api.Interface.ICatalyst;
+import aam.common.transmutations.Circle;
+import aam.common.transmutations.CircleUtils;
+import aam.common.transmutations.EnergyType;
+import aam.common.transmutations.ModCircles;
+import aam.common.transmutations.Transmutation;
+import aam.utils.Color;
+import aam.utils.InventoryUtils;
+import aam.utils.vectors.Wec3;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
@@ -26,7 +26,7 @@ import net.minecraftforge.common.util.ForgeDirection;
 
 public class TETransCircle extends TileEntity implements IInventory
 {
-	public List<Circle> circle = new ArrayList<Circle>();
+	public List<Circle> circle = new ArrayList<>();
 	private String name = "circle";
 	public boolean isLink = false;
 	int ticktime = 0;
@@ -47,89 +47,57 @@ public class TETransCircle extends TileEntity implements IInventory
 		idle, active, complete;
 	}
 
-	public void extend()
-	{
-		for (Extension ex : ModCircles.extensions)
-		{
-			ex.work(this.worldObj, new Wec3(this));
-		}
-	}
-
-	public List<String> modify(List<String> l, double mod)
-	{
-		List<String> lst = new ArrayList<String>();
-		for (String c : l)
-		{
-			String num = c.substring(2, c.length() - 1);
-			double i = Double.parseDouble(num);
-			lst.add(c.substring(0, 2) + (int) (i * mod) + c.substring(c.length() - 1));
-		}
-
-		return lst;
-	}
-
-	public double getMinScale(List<Circle> l)
-	{
-		double min = 100;
-
-		for (int i = 0; i < l.size(); i++)
-		{
-			double s = l.get(i).scale;
-			if (s < min)
-				min = s;
-		}
-
-		return min;
-	}
-
-	public void clearEnergy()
-	{
-		this.energy = 0;
-		this.energyType = EnergyType.Unknown;
-	}
-
 	public void check()
 	{
-		double scale = getMinScale(this.circle);
-		for (Transmutation tr : ModCircles.circles)
+		double scale = CircleUtils.getMinScale(circle);
+		if (!ModCircles.reloading)
 		{
-			if (MiscUtils.containsOnly(ModCircles.getCodeStr(this.circle), modify(tr.parts, scale)))
+			for (Transmutation tr : ModCircles.circles)
 			{
-				int maxLevel = 0;
-				if (this.alchemist != null)
+				if (InventoryUtils.containsOnly(ModCircles.getCodeStr(circle), CircleUtils.modify(tr.parts, scale)))
 				{
-					for (int i = 0; i < this.alchemist.inventory.getSizeInventory(); i++)
+					int maxLevel = 0;
+					if (alchemist != null)
 					{
-						if (this.alchemist.inventory.getStackInSlot(i) != null)
+						for (int i = 0; i < alchemist.inventory.getSizeInventory(); i++)
 						{
-							if (this.alchemist.inventory.getStackInSlot(i).getItem() instanceof ICatalyst)
+							if (alchemist.inventory.getStackInSlot(i) != null)
 							{
-								if (maxLevel < ((ICatalyst) this.alchemist.inventory.getStackInSlot(i).getItem()).getPotency(this.alchemist.inventory.getStackInSlot(i)))
+								if (alchemist.inventory.getStackInSlot(i).getItem() instanceof ICatalyst)
 								{
-									maxLevel = ((ICatalyst) this.alchemist.inventory.getStackInSlot(i).getItem()).getPotency(this.alchemist.inventory.getStackInSlot(i));
+									if (maxLevel < ((ICatalyst) alchemist.inventory.getStackInSlot(i).getItem()).getPotency(alchemist.inventory.getStackInSlot(i)))
+									{
+										maxLevel = ((ICatalyst) alchemist.inventory.getStackInSlot(i).getItem()).getPotency(alchemist.inventory.getStackInSlot(i));
+									}
 								}
 							}
 						}
 					}
+					transm = tr;
+					potency = scale + maxLevel;
+					prepCol = tr.prepCol;
+					actCol = tr.actCol;
+					return;
 				}
-				this.transm = tr;
-				this.potency = scale + maxLevel;
-				this.prepCol = tr.prepCol;
-				this.actCol = tr.actCol;
-				return;
+				else
+				{
+					transm = null;
+				}
 			}
-			else
-				this.transm = null;
 		}
 	}
 
 	public void transmute()
 	{
 		check();
-		if (this.transm != null)
-			this.transm.action.act(this.worldObj, new Wec3(this), this, this.alchemist, this.potency, ForgeDirection.getOrientation(this.worldObj.getBlockMetadata(this.xCoord, this.yCoord, this.zCoord)));
+		if (transm != null)
+		{
+			transm.action.act(worldObj, new Wec3(this), this, alchemist, potency, ForgeDirection.getOrientation(worldObj.getBlockMetadata(xCoord, yCoord, zCoord)));
+		}
 		else
-			this.state = State.idle;
+		{
+			state = State.idle;
+		}
 	}
 
 	@Override
@@ -152,52 +120,54 @@ public class TETransCircle extends TileEntity implements IInventory
 			{
 				circle.remove(cl);
 				if (i > 0)
+				{
 					i -= 1;
+				}
 			}
 		}
 
-		if (this.transm != null)
+		if (transm != null)
 		{
-			if (this.state.equals(State.active))
+			if (state.equals(State.active))
 			{
-				if (this.completeTimer < this.transm.prepTime)
+				if (completeTimer < transm.prepTime)
 				{
-					++this.completeTimer;
+					++completeTimer;
 				}
 				else
 				{
-					this.completeTimer++;
-					this.state = State.complete;
+					completeTimer++;
+					state = State.complete;
 					this.transmute();
 				}
 			}
-			if (this.state.equals(State.complete))
+			if (state.equals(State.complete))
 			{
-				boolean ticks = this.transm.action.actTick(this.worldObj, new Wec3(this), this, this.alchemist, this.ticktime, this.potency,
-						ForgeDirection.getOrientation(this.worldObj.getBlockMetadata(this.xCoord, this.yCoord, this.zCoord)));
-				if (this.completeTimer > this.transm.prepTime + this.transm.actTime && !ticks)
+				boolean ticks = transm.action.actTick(worldObj, new Wec3(this), this, alchemist, ticktime, potency, ForgeDirection.getOrientation(worldObj.getBlockMetadata(xCoord, yCoord, zCoord)));
+				if (completeTimer > transm.prepTime + transm.actTime && !ticks)
 				{
-					this.completeTimer = 0;
-					this.state = State.idle;
-					this.ticktime = 0;
+					completeTimer = 0;
+					state = State.idle;
+					ticktime = 0;
 				}
 				else
 				{
-					this.completeTimer++;
+					completeTimer++;
 					if (ticks)
 					{
-						this.ticktime += 1;
+						ticktime += 1;
 					}
 				}
 			}
 		}
 		else
-			this.state = State.idle;
-
-		if (this.energy <= 0)
 		{
-			this.energy = 0;
-			this.energyType = EnergyType.Unknown;
+			state = State.idle;
+		}
+
+		if (energy <= 0)
+		{
+			CircleUtils.clearEnergy(this);
 		}
 	}
 
@@ -211,7 +181,7 @@ public class TETransCircle extends TileEntity implements IInventory
 	{
 		NBTTagCompound syncData = new NBTTagCompound();
 		this.writeToNBT(syncData);
-		return new S35PacketUpdateTileEntity(this.xCoord, this.yCoord, this.zCoord, 1, syncData);
+		return new S35PacketUpdateTileEntity(xCoord, yCoord, zCoord, 1, syncData);
 	}
 
 	@Override
@@ -228,29 +198,31 @@ public class TETransCircle extends TileEntity implements IInventory
 	{
 		super.readFromNBT(tag);
 
-		MiscUtils.readInventory(this, tag);
+		InventoryUtils.readInventory(this, tag);
 
 		NBTTagList circles = tag.getTagList("Circles", 10);
 
-		this.energy = tag.getDouble("TrEnergy");
-		this.extended = tag.getBoolean("Ext-d");
-		if (this.extended)
-			this.esize = tag.getDouble("ExtSize");
+		energy = tag.getDouble("TrEnergy");
+		extended = tag.getBoolean("Ext-d");
+		if (extended)
+		{
+			esize = tag.getDouble("ExtSize");
+		}
 
 		int size = tag.getInteger("CircleSize");
-		List<String> codes = new ArrayList<String>();
+		List<String> codes = new ArrayList<>();
 		for (int i = 0; i < size; i++)
 		{
 			codes.add(tag.getString("Part" + i));
 		}
 
-		this.circle = ModCircles.getCircles(codes);
+		circle = ModCircles.getCircles(codes);
 
-		this.state = State.values()[tag.getInteger("State")];
+		state = State.values()[tag.getInteger("State")];
 
 		if (tag.hasKey("CustomName"))
 		{
-			this.name = tag.getString("CustomName");
+			name = tag.getString("CustomName");
 		}
 	}
 
@@ -262,33 +234,35 @@ public class TETransCircle extends TileEntity implements IInventory
 	{
 		super.writeToNBT(tag);
 
-		MiscUtils.saveInventory(this, tag);
+		InventoryUtils.saveInventory(this, tag);
 
-		tag.setDouble("TrEnergy", this.energy);
+		tag.setDouble("TrEnergy", energy);
 
-		tag.setBoolean("Ext-d", this.extended);
-		if (this.extended)
-			tag.setDouble("ExtSize", this.esize);
+		tag.setBoolean("Ext-d", extended);
+		if (extended)
+		{
+			tag.setDouble("ExtSize", esize);
+		}
 
-		List<String> codes = ModCircles.getCodeStr(this.circle);
-		for (int i = 0; i < this.circle.size(); i++)
+		List<String> codes = ModCircles.getCodeStr(circle);
+		for (int i = 0; i < circle.size(); i++)
 		{
 			tag.setInteger("CircleSize", codes.size());
 			tag.setString("Part" + i, codes.get(i));
 		}
 
-		tag.setInteger("State", this.state.ordinal());
+		tag.setInteger("State", state.ordinal());
 
-		if (!this.name.equals(""))
+		if (!name.equals(""))
 		{
-			tag.setString("CustomName", this.name);
+			tag.setString("CustomName", name);
 		}
 	}
 
 	@Override
 	public AxisAlignedBB getRenderBoundingBox()
 	{
-		return this.INFINITE_EXTENT_AABB;
+		return new Wec3(this).extendBoth((float) CircleUtils.getMaxScale(circle) + 1);
 	}
 
 	@Override

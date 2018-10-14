@@ -1,7 +1,7 @@
-package AAM.Common.WorldGen;
+package aam.common.worldgen;
 
-import AAM.Utils.Structure;
-import AAM.Utils.StructureApi;
+import aam.utils.Structure;
+import aam.utils.StructureApi;
 import net.minecraft.world.World;
 
 public class DungeonUnit
@@ -20,19 +20,19 @@ public class DungeonUnit
 
 	public void print(World w)
 	{
-		if (this.center == null)
+		if (center == null)
 		{
-			StructureApi.print(base.x + cx * 14, base.y, base.z + cz * 14, this.base.center.strtag, w);
+			StructureApi.print(base.x + cx * 14, base.y, base.z + cz * 14, base.center.strtag, w);
 		}
 		else
 		{
-			StructureApi.print(base.x + cx * 14, base.y, base.z + cz * 14, this.center.strtag, w);
+			StructureApi.print(base.x + cx * 14, base.y, base.z + cz * 14, center.strtag, w);
 		}
 		for (int i = 0; i < 4; i++)
 		{
 			if (able[i])
 			{
-				StructureApi.print(base.x + cx * 14, base.y, base.z + cz * 14, this.base.path[i].strtag, w);
+				StructureApi.print(base.x + cx * 14, base.y, base.z + cz * 14, base.path[i].strtag, w);
 			}
 		}
 	}

@@ -1,14 +1,15 @@
-package AAM.Common.Items.Alchemy;
+package aam.common.items.alchemy;
 
 import java.util.List;
 
-import AAM.Common.Blocks.Building.ModBlocks;
-import AAM.Common.Items.ModItems;
-import AAM.Common.Tiles.TETransCircle;
-import AAM.Common.Transmutations.Circle;
-import AAM.Common.Transmutations.CirclePart;
-import AAM.Common.Transmutations.ModCircles;
-import AAM.Utils.MiscUtils;
+import aam.common.blocks.building.ModBlocks;
+import aam.common.items.ModItems;
+import aam.common.tiles.TETransCircle;
+import aam.common.transmutations.Circle;
+import aam.common.transmutations.CirclePart;
+import aam.common.transmutations.ModCircles;
+import aam.utils.InventoryUtils;
+import aam.utils.MathUtils;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.client.renderer.texture.IIconRegister;
@@ -47,12 +48,9 @@ public class ChalkPattern extends Item
 		int j = 0;
 		for (CirclePart pt : ModCircles.parts)
 		{
-			// if (!pt.extended)
-			{
-				icon[2 * j + 1] = ir.registerIcon("aam:" + pt.item.getResourcePath());
-				icon[2 * j + 2] = ir.registerIcon("aam:" + pt.itemRev.getResourcePath());
-				j += 1;
-			}
+			icon[2 * j + 1] = ir.registerIcon("aam:" + pt.item.getResourcePath());
+			icon[2 * j + 2] = ir.registerIcon("aam:" + pt.itemRev.getResourcePath());
+			j += 1;
 		}
 	}
 
@@ -60,7 +58,9 @@ public class ChalkPattern extends Item
 	public IIcon getIconFromDamageForRenderPass(int meta, int pass)
 	{
 		if (pass == 0)
+		{
 			return icon[0];
+		}
 		return icon[meta * 2 + 1];
 	}
 
@@ -68,8 +68,10 @@ public class ChalkPattern extends Item
 	public IIcon getIcon(ItemStack is, int pass, EntityPlayer p, ItemStack use, int time)
 	{
 		if (pass == 0)
+		{
 			return icon[0];
-		return icon[2 * is.getItemDamage() + 1 + MiscUtils.boolToNum(p.isSneaking())];
+		}
+		return icon[2 * is.getItemDamage() + 1 + MathUtils.boolToNum(p.isSneaking())];
 	}
 
 	/**
@@ -111,9 +113,9 @@ public class ChalkPattern extends Item
 		int z = pz + ForgeDirection.getOrientation(side).offsetZ;
 		if (y < 256)
 		{
-			if (MiscUtils.contains(p.inventory, ModItems.ItemChalk))
+			if (InventoryUtils.contains(p.inventory, ModItems.ItemChalk))
 			{
-				MiscUtils.getStack(p.inventory, ModItems.ItemChalk).damageItem(1, p);
+				InventoryUtils.getStack(p.inventory, ModItems.ItemChalk).damageItem(1, p);
 				if (w.getBlock(px, py, pz) != ModBlocks.TransCircle && w.getBlock(px, py, pz) != ModBlocks.MechanicalBase)
 				{
 					if (w.getBlock(x, y, z) == Blocks.air && w.getBlock(x, y, z) != ModBlocks.TransCircle && w.getBlock(x, y, z) != ModBlocks.MechanicalBase)

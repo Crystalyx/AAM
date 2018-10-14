@@ -1,15 +1,15 @@
-package AAM.Common.Blocks.Mechanical;
+package aam.common.blocks.mechanical;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import AAM.Common.Items.ModItems;
-import AAM.Common.Potions.Booster;
-import AAM.Common.Potions.IngridientItem;
-import AAM.Common.Potions.Ingridients;
-import AAM.Common.Potions.ModPotions;
-import AAM.Common.Potions.Prolonger;
-import AAM.Common.Tiles.TECreativeCauldron;
+import aam.common.items.ModItems;
+import aam.common.potions.Booster;
+import aam.common.potions.IngridientItem;
+import aam.common.potions.Ingridients;
+import aam.common.potions.ModPotions;
+import aam.common.potions.Prolonger;
+import aam.common.tiles.TECreativeCauldron;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.block.BlockContainer;
@@ -189,7 +189,7 @@ public class CreativeCauldron extends BlockContainer
 					}
 					else
 					{
-						cauld.ingrs = new ArrayList<IngridientItem>();
+						cauld.ingrs = new ArrayList<>();
 					}
 				}
 			}
@@ -228,14 +228,14 @@ public class CreativeCauldron extends BlockContainer
 	@SideOnly(Side.CLIENT)
 	public void registerBlockIcons(IIconRegister ir)
 	{
-		this.top = ir.registerIcon("aam:cauldron_top");
-		this.side = ir.registerIcon("aam:cauldron_creative_side");
+		top = ir.registerIcon("aam:cauldron_top");
+		side = ir.registerIcon("aam:cauldron_creative_side");
 	}
 
 	@Override
 	public IIcon getIcon(int side, int meta)
 	{
-		return (side == ForgeDirection.UP.ordinal() || side == ForgeDirection.DOWN.offsetX) ? this.top : this.side;
+		return side == ForgeDirection.UP.ordinal() || side == ForgeDirection.DOWN.offsetX ? top : this.side;
 	}
 
 }

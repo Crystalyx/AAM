@@ -1,16 +1,17 @@
-package AAM.Client.Gui;
+package aam.client.gui;
 
 import org.lwjgl.opengl.GL11;
 
-import AAM.Client.Gui.Base.ButtonRMember;
-import AAM.Common.Soul.Trait;
-import AAM.Common.Soul.WarriorType;
-import AAM.Common.Soul.WeaponType;
-import AAM.Network.Packages.AlchemicalDispatcher;
-import AAM.Network.Packages.PlayerSyncMessage;
-import AAM.Utils.Logger;
-import AAM.Utils.MiscUtils;
-import AAM.Utils.PlayerDataHandler;
+import aam.client.gui.base.ButtonRMember;
+import aam.common.soul.SoulWeaponType;
+import aam.common.soul.Trait;
+import aam.common.soul.WarriorType;
+import aam.network.packages.AlchemicalDispatcher;
+import aam.network.packages.PlayerSyncMessage;
+import aam.utils.Logger;
+import aam.utils.MathUtils;
+import aam.utils.MiscUtils;
+import aam.utils.PlayerDataHandler;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.entity.EntityClientPlayerMP;
 import net.minecraft.client.gui.FontRenderer;
@@ -52,28 +53,28 @@ public class GuiParty extends GuiScreen
 		GL11.glPushMatrix();
 		GL11.glColor4d(0.5, 0.5, 0.5, 0.25);
 		Minecraft.getMinecraft().getTextureManager().bindTexture(padding);
-		this.drawTexturedModalRect(this.x - w / 2, this.y - h / 2, 0, 0, w, h);
+		this.drawTexturedModalRect(x - w / 2, y - h / 2, 0, 0, w, h);
 		GL11.glPopMatrix();
 
-		this.renderParty(this.x + w / 2, this.y - h / 2);
+		this.renderParty(x + w / 2, y - h / 2);
 		super.drawScreen(x, y, fl);
 		if (cd > 0)
 		{
-			if (!this.message.equals(""))
+			if (!message.equals(""))
 			{
 				FontRenderer f = mc.fontRenderer;
-				f.drawString(this.message, this.x - this.message.length() * 2, this.y - h / 4, 16777215);
+				f.drawString(message, x - message.length() * 2, y - h / 4, 16777215);
 			}
-			cd += this.messagelast - mc.theWorld.getWorldTime();
-			this.messagelast = mc.theWorld.getWorldTime();
+			cd += messagelast - mc.theWorld.getWorldTime();
+			messagelast = mc.theWorld.getWorldTime();
 		}
 		else
 		{
-			this.message = "";
-			this.cd = 0;
-			this.messagelast = 0;
+			message = "";
+			cd = 0;
+			messagelast = 0;
 		}
-		this.textBoxFilter.drawTextBox();
+		textBoxFilter.drawTextBox();
 	}
 
 	@Override
@@ -81,9 +82,9 @@ public class GuiParty extends GuiScreen
 	{
 		super.updateScreen();
 		PlayerDataHandler ph = PlayerDataHandler.get(Minecraft.getMinecraft().thePlayer);
-		this.textBoxFilter.updateCursorCounter();
-		this.textBoxFilter.setMaxStringLength(128);
-		ph.addMember = this.textBoxFilter.getText();
+		textBoxFilter.updateCursorCounter();
+		textBoxFilter.setMaxStringLength(128);
+		ph.addMember = textBoxFilter.getText();
 	}
 
 	private GuiTextField textBoxFilter;
@@ -97,32 +98,32 @@ public class GuiParty extends GuiScreen
 	{
 		super.initGui();
 		ScaledResolution sr = new ScaledResolution(mc, mc.displayWidth, mc.displayHeight);
-		this.x = sr.getScaledWidth() / 2;
-		this.y = sr.getScaledHeight() / 2;
+		x = sr.getScaledWidth() / 2;
+		y = sr.getScaledHeight() / 2;
 		PlayerDataHandler ph = PlayerDataHandler.get(Minecraft.getMinecraft().thePlayer);
-		this.textBoxFilter = new GuiTextField(this.fontRendererObj, this.x - 64, this.y - 20, 128, 15);
-		this.textBoxFilter.setMaxStringLength(128);
-		this.textBoxFilter.setText(ph.addMember);
+		textBoxFilter = new GuiTextField(fontRendererObj, x - 64, y - 20, 128, 15);
+		textBoxFilter.setMaxStringLength(128);
+		textBoxFilter.setText(ph.addMember);
 
-		GuiButton gb = new GuiButton(0, this.x - 35, this.y + 4, 70, 20, "Invite Player");
+		GuiButton gb = new GuiButton(0, x - 35, y + 4, 70, 20, "Invite Player");
 
-		SwitchButton classUp = new SwitchButton(7, this.x - w / 2 - ps / 2, this.y - h / 2 - 8, 32, 32, "", true);
+		SwitchButton classUp = new SwitchButton(7, x - w / 2 - ps / 2, y - h / 2 - 8, 32, 32, "", true);
 
-		SwitchButton classDown = new SwitchButton(8, this.x - w / 2 - ps / 2, this.y - h / 2 + 12, 32, 32, "", false);
-		this.buttonList.add(gb);
-		this.buttonList.add(classUp);
-		this.buttonList.add(classDown);
+		SwitchButton classDown = new SwitchButton(8, x - w / 2 - ps / 2, y - h / 2 + 24, 32, 32, "", false);
+		buttonList.add(gb);
+		buttonList.add(classUp);
+		buttonList.add(classDown);
 
-		SwitchButton swordUp = new SwitchButton(9, this.x - w / 2 - ps / 2, this.y - h / 2 + 28, 32, 32, "", true);
-		SwitchButton swordDown = new SwitchButton(10, this.x - w / 2 - ps / 2, this.y - h / 2 + 12 + 36, 32, 32, "", false);
+		SwitchButton swordUp = new SwitchButton(9, x - w / 2 - ps / 2, y - h / 2 + 56, 32, 32, "", true);
+		SwitchButton swordDown = new SwitchButton(10, x - w / 2 - ps / 2, y - h / 2 + 88, 32, 32, "", false);
 
-		this.buttonList.add(swordUp);
-		this.buttonList.add(swordDown);
+		buttonList.add(swordUp);
+		buttonList.add(swordDown);
 
 		for (int i = 0; i < 6; i++)
 		{
-			ButtonRMember brm = new ButtonRMember(i + 1, this.x + 109, this.y - 92 + 32 * i, 10, 10);
-			this.buttonList.add(brm);
+			ButtonRMember brm = new ButtonRMember(i + 1, x + 109, y - 92 + 32 * i, 10, 10);
+			buttonList.add(brm);
 		}
 	}
 
@@ -136,13 +137,13 @@ public class GuiParty extends GuiScreen
 			if (mc.theWorld.getPlayerEntityByName(ph.addMember) != null)
 			{
 				ph.party.add(ph.addMember);
-				this.textBoxFilter.setText("");
+				textBoxFilter.setText("");
 			}
 			else
 			{
-				this.message = EnumChatFormatting.DARK_RED + "There is no player with such nickname or he is offline";
-				this.cd = 100;
-				this.messagelast = mc.theWorld.getWorldTime();
+				message = EnumChatFormatting.DARK_RED + "There is no player with such nickname or he is offline";
+				cd = 100;
+				messagelast = mc.theWorld.getWorldTime();
 			}
 			ph.addMember = "";
 			AlchemicalDispatcher.sendToServer(new PlayerSyncMessage(mc.thePlayer));
@@ -150,29 +151,29 @@ public class GuiParty extends GuiScreen
 		if (b.id == 7)
 		{
 			PlayerDataHandler ph = PlayerDataHandler.get(Minecraft.getMinecraft().thePlayer);
-			int id = MiscUtils.cycle(ph.warrior.ordinal() + 1, 0, WarriorType.values().length - 1);
+			int id = MathUtils.cycle(ph.warrior.ordinal() + 1, 0, WarriorType.values().length - 1);
 			ph.warrior = WarriorType.values()[id];
 			AlchemicalDispatcher.sendToServer(new PlayerSyncMessage(mc.thePlayer));
 		}
 		if (b.id == 8)
 		{
 			PlayerDataHandler ph = PlayerDataHandler.get(Minecraft.getMinecraft().thePlayer);
-			int id = MiscUtils.cycle(ph.warrior.ordinal() - 1, 0, WarriorType.values().length - 1);
+			int id = MathUtils.cycle(ph.warrior.ordinal() - 1, 0, WarriorType.values().length - 1);
 			ph.warrior = WarriorType.values()[id];
 			AlchemicalDispatcher.sendToServer(new PlayerSyncMessage(mc.thePlayer));
 		}
 		if (b.id == 9)
 		{
 			PlayerDataHandler ph = PlayerDataHandler.get(Minecraft.getMinecraft().thePlayer);
-			int id = MiscUtils.cycle(ph.sword.ordinal() + 1, 0, WeaponType.values().length - 1);
-			ph.sword = WeaponType.values()[id];
+			int id = MathUtils.cycle(ph.sword.ordinal() + 1, 0, SoulWeaponType.values().length - 1);
+			ph.sword = SoulWeaponType.values()[id];
 			AlchemicalDispatcher.sendToServer(new PlayerSyncMessage(mc.thePlayer));
 		}
 		if (b.id == 10)
 		{
 			PlayerDataHandler ph = PlayerDataHandler.get(Minecraft.getMinecraft().thePlayer);
-			int id = MiscUtils.cycle(ph.sword.ordinal() - 1, 0, WeaponType.values().length - 1);
-			ph.sword = WeaponType.values()[id];
+			int id = MathUtils.cycle(ph.sword.ordinal() - 1, 0, SoulWeaponType.values().length - 1);
+			ph.sword = SoulWeaponType.values()[id];
 			AlchemicalDispatcher.sendToServer(new PlayerSyncMessage(mc.thePlayer));
 		}
 	}
@@ -241,7 +242,7 @@ public class GuiParty extends GuiScreen
 
 		// Weapon
 		GL11.glPushMatrix();
-		GL11.glTranslated(dPad - 4, dPad + 76, 0);
+		GL11.glTranslated(dPad - 4, dPad + 88, 0);
 		GL11.glColor4d(1, 1, 1, 1);
 		MiscUtils.bindTexture("aam:textures/items/" + ph.sword.texture + ".png");
 
@@ -311,7 +312,7 @@ public class GuiParty extends GuiScreen
 
 						EntityPlayer ep = p.worldObj.getPlayerEntityByName(ph.party.get(i));
 						PlayerDataHandler eph = PlayerDataHandler.get(ep);
-						double length = 1 - ((double) eph.getCurrentSoul() / (double) eph.getTrait(Trait.Soul));
+						double length = 1 - eph.getCurrentSoul() / (double) eph.getTrait(Trait.Soul);
 
 						tessellator.startDrawingQuads();
 						tessellator.addVertexWithUV(k, l + 60.0 + i * s, 0.0D, 0.5D, 1.0D - length);
@@ -329,7 +330,7 @@ public class GuiParty extends GuiScreen
 						tessellator.addVertexWithUV((double) k - 8, (double) l + 12 + i * s, 0.0D, 0.0D, 0.0D);
 						tessellator.draw();
 
-						length = 1 - (ep.getHealth() / ep.getMaxHealth());
+						length = 1 - ep.getHealth() / ep.getMaxHealth();
 
 						tessellator.startDrawingQuads();
 						tessellator.addVertexWithUV((double) k - 8, l + 60.0 + i * s, 0.0D, 0.5D, 1.0D - length);
@@ -343,13 +344,19 @@ public class GuiParty extends GuiScreen
 						Minecraft.getMinecraft().getTextureManager().bindTexture(on);
 					}
 					else
+					{
 						Minecraft.getMinecraft().getTextureManager().bindTexture(off);
+					}
 				}
 				else
+				{
 					Minecraft.getMinecraft().getTextureManager().bindTexture(off);
+				}
 			}
 			else
+			{
 				Minecraft.getMinecraft().getTextureManager().bindTexture(nul);
+			}
 
 			tessellator.startDrawingQuads();
 			tessellator.addVertexWithUV((double) k + 8, l + 60.0 + i * s, 0.0D, 0, 1);
@@ -381,11 +388,11 @@ public class GuiParty extends GuiScreen
 	protected void keyTyped(char par1, int par2)
 	{
 		PlayerDataHandler ph = PlayerDataHandler.get(Minecraft.getMinecraft().thePlayer);
-		if (this.textBoxFilter.isFocused())
+		if (textBoxFilter.isFocused())
 		{
-			this.textBoxFilter.textboxKeyTyped(par1, par2);
+			textBoxFilter.textboxKeyTyped(par1, par2);
 
-			String srch = this.textBoxFilter.getText();
+			String srch = textBoxFilter.getText();
 
 			if (!ph.addMember.equals(srch))
 			{
@@ -393,9 +400,9 @@ public class GuiParty extends GuiScreen
 			}
 		}
 
-		if (par2 == 1 || par2 == this.mc.gameSettings.keyBindInventory.getKeyCode() && !this.textBoxFilter.isFocused())
+		if (par2 == 1 || par2 == mc.gameSettings.keyBindInventory.getKeyCode() && !textBoxFilter.isFocused())
 		{
-			this.mc.thePlayer.closeScreen();
+			mc.thePlayer.closeScreen();
 		}
 	}
 
@@ -413,9 +420,9 @@ public class GuiParty extends GuiScreen
 		if (mouseButton == 1 && x >= minX && x <= maxX && y <= maxY)
 		{
 			ph.addMember = "";
-			this.textBoxFilter.setText("");
+			textBoxFilter.setText("");
 		}
 
-		this.textBoxFilter.mouseClicked(x, y, mouseButton);
+		textBoxFilter.mouseClicked(x, y, mouseButton);
 	}
 }

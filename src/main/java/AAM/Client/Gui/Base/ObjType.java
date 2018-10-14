@@ -1,10 +1,10 @@
-package AAM.Client.Gui.Base;
+package aam.client.gui.base;
 
 public class ObjType
 {
 	public ObjType(Obj typ, int id, int px, int py, int sizex, int sizey)
 	{
-		this.type = typ;
+		type = typ;
 		this.id = id;
 		this.px = px;
 		this.py = py;

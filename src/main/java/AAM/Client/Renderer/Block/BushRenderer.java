@@ -1,15 +1,11 @@
-package AAM.Client.Renderer.Block;
+package aam.client.renderer.block;
 
-import org.lwjgl.opengl.GL11;
-
-import AAM.Common.Blocks.Plants.BerryBush;
-import AAM.Network.ClientProxy;
+import aam.common.blocks.plants.BerryBush;
+import aam.network.ClientProxy;
 import cpw.mods.fml.client.registry.ISimpleBlockRenderingHandler;
 import net.minecraft.block.Block;
-import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.RenderBlocks;
 import net.minecraft.init.Blocks;
-import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.IBlockAccess;
 
 public class BushRenderer implements ISimpleBlockRenderingHandler

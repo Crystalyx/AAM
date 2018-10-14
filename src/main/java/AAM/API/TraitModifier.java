@@ -1,7 +1,7 @@
-package AAM.API;
+package aam.api;
 
-import AAM.API.Interface.INBTSave;
-import AAM.Common.Soul.Trait;
+import aam.api.Interface.INBTSave;
+import aam.common.soul.Trait;
 import net.minecraft.nbt.NBTTagCompound;
 
 public class TraitModifier implements INBTSave
@@ -35,7 +35,7 @@ public class TraitModifier implements INBTSave
 		if (obj instanceof TraitModifier)
 		{
 			TraitModifier tm = (TraitModifier) obj;
-			return this.id == tm.id && this.trait.equals(tm.trait) && this.value == tm.value && this.operation.equals(tm.operation);
+			return id == tm.id && trait.equals(tm.trait) && value == tm.value && operation.equals(tm.operation);
 		}
 		return false;
 	}
@@ -43,18 +43,18 @@ public class TraitModifier implements INBTSave
 	@Override
 	public void saveToNBT(NBTTagCompound tag)
 	{
-		tag.setString("ID", this.id);
-		tag.setInteger("Trait", this.trait.ordinal());
-		tag.setFloat("Value", this.value);
-		tag.setInteger("Operation", this.operation.ordinal());
+		tag.setString("ID", id);
+		tag.setInteger("Trait", trait.ordinal());
+		tag.setFloat("Value", value);
+		tag.setInteger("Operation", operation.ordinal());
 	}
 
 	@Override
 	public void loadFromNBT(NBTTagCompound tag)
 	{
-		this.id = tag.getString("ID");
-		this.trait = Trait.values()[tag.getInteger("Trait")];
-		this.value = tag.getFloat("Value");
-		this.operation = TraitModifier.Operation.values()[tag.getInteger("Operation")];
+		id = tag.getString("ID");
+		trait = Trait.values()[tag.getInteger("Trait")];
+		value = tag.getFloat("Value");
+		operation = TraitModifier.Operation.values()[tag.getInteger("Operation")];
 	}
 }

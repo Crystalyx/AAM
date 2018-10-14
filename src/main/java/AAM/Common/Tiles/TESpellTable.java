@@ -1,6 +1,6 @@
-package AAM.Common.Tiles;
+package aam.common.tiles;
 
-import AAM.Utils.MiscUtils;
+import aam.utils.InventoryUtils;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
@@ -25,21 +25,23 @@ public class TESpellTable extends TileEntity implements IInventory
 	@Override
 	public ItemStack getStackInSlot(int slot)
 	{
-		return this.inv[slot];
+		return inv[slot];
 	}
 
 	@Override
 	public ItemStack decrStackSize(int slot, int size)
 	{
-		ItemStack is = this.inv[slot].copy();
+		ItemStack is = inv[slot].copy();
 		is.stackSize = size;
 
-		if (this.inv[slot].stackSize - size <= 0)
+		if (inv[slot].stackSize - size <= 0)
 		{
-			this.inv[slot] = null;
+			inv[slot] = null;
 		}
 		else
-			this.inv[slot].stackSize -= size;
+		{
+			inv[slot].stackSize -= size;
+		}
 
 		return is;
 	}
@@ -53,7 +55,7 @@ public class TESpellTable extends TileEntity implements IInventory
 	@Override
 	public void setInventorySlotContents(int slot, ItemStack item)
 	{
-		this.inv[slot] = item;
+		inv[slot] = item;
 	}
 
 	@Override
@@ -103,7 +105,7 @@ public class TESpellTable extends TileEntity implements IInventory
 	{
 		NBTTagCompound syncData = new NBTTagCompound();
 		this.writeToNBT(syncData);
-		return new S35PacketUpdateTileEntity(this.xCoord, this.yCoord, this.zCoord, 1, syncData);
+		return new S35PacketUpdateTileEntity(xCoord, yCoord, zCoord, 1, syncData);
 	}
 
 	@Override
@@ -112,16 +114,18 @@ public class TESpellTable extends TileEntity implements IInventory
 		readFromNBT(pkt.func_148857_g());
 	}
 
+	@Override
 	public void readFromNBT(NBTTagCompound tag)
 	{
 		super.readFromNBT(tag);
-		MiscUtils.readInventory(this, tag);
+		InventoryUtils.readInventory(this, tag);
 	}
 
+	@Override
 	public void writeToNBT(NBTTagCompound tag)
 	{
 		super.writeToNBT(tag);
-		MiscUtils.saveInventory(this, tag);
+		InventoryUtils.saveInventory(this, tag);
 	}
 
 }

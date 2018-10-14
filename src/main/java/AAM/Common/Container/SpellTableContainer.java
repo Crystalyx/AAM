@@ -1,7 +1,7 @@
-package AAM.Common.Container;
+package aam.common.container;
 
-import AAM.Common.Tiles.TESpellTable;
-import AAM.Utils.PlayerDataHandler;
+import aam.common.tiles.TESpellTable;
+import aam.utils.PlayerDataHandler;
 import net.minecraft.entity.player.InventoryPlayer;
 
 public class SpellTableContainer extends ContainerBase

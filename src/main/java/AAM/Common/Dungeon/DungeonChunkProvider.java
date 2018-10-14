@@ -1,10 +1,10 @@
-package AAM.Common.Dungeon;
+package aam.common.dungeon;
 
 import java.util.List;
 import java.util.Random;
 
-import AAM.Common.WorldGen.DungGenerator;
-import AAM.Utils.MiscUtils;
+import aam.common.worldgen.DungGenerator;
+import aam.utils.MathUtils;
 import net.minecraft.block.Block;
 import net.minecraft.entity.EnumCreatureType;
 import net.minecraft.util.IProgressUpdate;
@@ -42,16 +42,16 @@ public class DungeonChunkProvider implements IChunkProvider
 	public DungeonChunkProvider(World w, long seed)
 	{
 		this.w = w;
-		this.r = new Random(seed);
-		this.sound1 = new NoiseGeneratorOctaves(this.r, 16);
-		this.sound2 = new NoiseGeneratorOctaves(this.r, 16);
-		this.sound3 = new NoiseGeneratorOctaves(this.r, 8);
-		this.sound4 = new NoiseGeneratorPerlin(this.r, 4);
+		r = new Random(seed);
+		sound1 = new NoiseGeneratorOctaves(r, 16);
+		sound2 = new NoiseGeneratorOctaves(r, 16);
+		sound3 = new NoiseGeneratorOctaves(r, 8);
+		sound4 = new NoiseGeneratorPerlin(r, 4);
 
-		this.noiseGen1 = new NoiseGeneratorOctaves(this.r, 10);
-		this.noiseGen2 = new NoiseGeneratorOctaves(this.r, 16);
+		noiseGen1 = new NoiseGeneratorOctaves(r, 10);
+		noiseGen2 = new NoiseGeneratorOctaves(r, 16);
 
-		this.mobSpawnerNoise = new NoiseGeneratorOctaves(this.r, 8);
+		mobSpawnerNoise = new NoiseGeneratorOctaves(r, 8);
 
 	}
 
@@ -64,15 +64,15 @@ public class DungeonChunkProvider implements IChunkProvider
 	@Override
 	public Chunk provideChunk(int x, int z)
 	{
-		this.r.setSeed((long) x * 341873128712L + (long) z * 132897987541L);
+		r.setSeed(x * 341873128712L + z * 132897987541L);
 		Block[] ablock = new Block[65536];
 
 		// Generators work here
-		this.generator.func_151539_a(this, this.w, x, z, ablock);
-		this.cavegen.func_151539_a(this, this.w, x, z, ablock);
+		generator.func_151539_a(this, w, x, z, ablock);
+		cavegen.func_151539_a(this, w, x, z, ablock);
 		// Generators stopped working
 
-		Chunk chunk = new Chunk(this.w, ablock, x, z);
+		Chunk chunk = new Chunk(w, ablock, x, z);
 		chunk.generateSkylightMap();
 
 		return chunk;
@@ -117,7 +117,7 @@ public class DungeonChunkProvider implements IChunkProvider
 	@Override
 	public List getPossibleCreatures(EnumCreatureType type, int x, int y, int z)
 	{
-		BiomeGenBase biome = this.w.getBiomeGenForCoords(x, z);
+		BiomeGenBase biome = w.getBiomeGenForCoords(x, z);
 		return biome.getSpawnableList(type);
 	}
 
@@ -137,7 +137,7 @@ public class DungeonChunkProvider implements IChunkProvider
 	public void recreateStructures(int x, int z)
 	{
 		DungGenerator dg = new DungGenerator();
-		dg.generate(MiscUtils.r, x, z, this.w, this, this);
+		dg.generate(MathUtils.r, x, z, w, this, this);
 	}
 
 	@Override

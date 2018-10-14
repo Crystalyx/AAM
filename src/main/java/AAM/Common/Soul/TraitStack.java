@@ -1,11 +1,11 @@
-package AAM.Common.Soul;
+package aam.common.soul;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import AAM.API.TraitModifier;
-import AAM.API.Interface.INBTSave;
-import AAM.Utils.NBTHelper;
+import aam.api.TraitModifier;
+import aam.api.Interface.INBTSave;
+import aam.utils.NBTHelper;
 import net.minecraft.nbt.NBTTagCompound;
 
 public class TraitStack implements INBTSave
@@ -17,14 +17,14 @@ public class TraitStack implements INBTSave
 
 	public TraitStack()
 	{
-		this.trait = Trait.MentalHealth;
-		this.base = 0;
+		trait = Trait.MentalHealth;
+		base = 0;
 	}
 
 	public TraitStack(Trait trait)
 	{
 		this.trait = trait;
-		this.base = trait.base;
+		base = trait.base;
 	}
 
 	public TraitStack(Trait trait, float base)
@@ -37,11 +37,13 @@ public class TraitStack implements INBTSave
 	{
 		if (modifiers == null)
 		{
-			modifiers = new ArrayList<TraitModifier>();
+			modifiers = new ArrayList<>();
 		}
 
-		if (this.modifiers.contains(tm))
+		if (modifiers.contains(tm))
+		{
 			return;
+		}
 
 		modifiers.add(tm);
 	}
@@ -50,8 +52,10 @@ public class TraitStack implements INBTSave
 	{
 		if (modifiers != null)
 		{
-			if (this.modifiers.contains(tm))
-				this.modifiers.remove(tm);
+			if (modifiers.contains(tm))
+			{
+				modifiers.remove(tm);
+			}
 		}
 	}
 
@@ -64,7 +68,7 @@ public class TraitStack implements INBTSave
 	{
 		if (modifiers != null)
 		{
-			List<TraitModifier> rmList = new ArrayList<TraitModifier>();
+			List<TraitModifier> rmList = new ArrayList<>();
 			for (TraitModifier tm : modifiers)
 			{
 				if (tm.id == id)
@@ -72,7 +76,7 @@ public class TraitStack implements INBTSave
 					rmList.add(tm);
 				}
 			}
-			this.modifiers.removeAll(rmList);
+			modifiers.removeAll(rmList);
 		}
 	}
 
@@ -81,7 +85,7 @@ public class TraitStack implements INBTSave
 		float add = 0;
 		float perc = 0;
 		float mult = 1;
-		if (this.modifiers != null)
+		if (modifiers != null)
 		{
 			for (TraitModifier tm : modifiers)
 			{
@@ -99,33 +103,35 @@ public class TraitStack implements INBTSave
 				}
 			}
 		}
-		return (this.base + add) * (1 + perc) * mult;
+		return (base + add) * (1 + perc) * mult;
 	}
 
 	@Override
 	public void saveToNBT(NBTTagCompound tag)
 	{
-		tag.setInteger("Trait", this.trait.ordinal());
-		tag.setFloat("Base", this.base);
-		if (this.modifiers != null && !this.modifiers.isEmpty())
-			tag.setTag("List", NBTHelper.saveList(this.modifiers));
+		tag.setInteger("Trait", trait.ordinal());
+		tag.setFloat("Base", base);
+		if (modifiers != null && !modifiers.isEmpty())
+		{
+			tag.setTag("List", NBTHelper.saveList(modifiers));
+		}
 	}
 
 	@Override
 	public void loadFromNBT(NBTTagCompound tag)
 	{
-		this.trait = Trait.values()[tag.getInteger("Trait")];
-		this.base = tag.getFloat("Base");
+		trait = Trait.values()[tag.getInteger("Trait")];
+		base = tag.getFloat("Base");
 		if (tag.hasKey("List"))
 		{
-			this.modifiers = (List<TraitModifier>) NBTHelper.loadList(tag.getTagList("List", 10));
+			modifiers = (List<TraitModifier>) NBTHelper.loadList(tag.getTagList("List", 10));
 		}
 	}
 
 	public TraitStack copy()
 	{
-		TraitStack ret = new TraitStack(this.trait, this.base);
-		ret.modifiers = this.modifiers;
+		TraitStack ret = new TraitStack(trait, base);
+		ret.modifiers = modifiers;
 		return ret;
 	}
 

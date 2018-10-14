@@ -1,9 +1,8 @@
-package AAM.Common.Tiles;
+package aam.common.tiles;
 
 import java.util.List;
 
-import AAM.Utils.MiscUtils;
-import AAM.Utils.PlayerDataHandler;
+import aam.utils.MathUtils;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.nbt.NBTTagCompound;
@@ -28,7 +27,7 @@ public class TEAGraviter extends TileEntity
 	{
 		NBTTagCompound syncData = new NBTTagCompound();
 		this.writeToNBT(syncData);
-		return new S35PacketUpdateTileEntity(this.xCoord, this.yCoord, this.zCoord, 1, syncData);
+		return new S35PacketUpdateTileEntity(xCoord, yCoord, zCoord, 1, syncData);
 	}
 
 	@Override
@@ -37,15 +36,16 @@ public class TEAGraviter extends TileEntity
 		readFromNBT(pkt.func_148857_g());
 	}
 
+	@Override
 	public void updateEntity()
 	{
 
-		double rx = this.worldObj.rand.nextDouble() * 10 * MiscUtils.boolToNum();
-		double ry = this.worldObj.rand.nextDouble() * 10 * MiscUtils.boolToNum();
-		double rz = this.worldObj.rand.nextDouble() * 10 * MiscUtils.boolToNum();
+		double rx = worldObj.rand.nextDouble() * 10 * MathUtils.boolToNum();
+		double ry = worldObj.rand.nextDouble() * 10 * MathUtils.boolToNum();
+		double rz = worldObj.rand.nextDouble() * 10 * MathUtils.boolToNum();
 
 		double radius = 40;
-		List<Entity> ents = this.worldObj.getEntitiesWithinAABB(Entity.class, AxisAlignedBB.getBoundingBox(this.xCoord - radius, this.yCoord - radius, this.zCoord - radius, this.xCoord + radius, this.yCoord + radius, this.zCoord + radius));
+		List<Entity> ents = worldObj.getEntitiesWithinAABB(Entity.class, AxisAlignedBB.getBoundingBox(xCoord - radius, yCoord - radius, zCoord - radius, xCoord + radius, yCoord + radius, zCoord + radius));
 		for (Entity entl : ents)
 		{
 			if (!(entl instanceof EntityPlayer))

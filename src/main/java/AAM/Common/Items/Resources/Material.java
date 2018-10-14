@@ -1,4 +1,4 @@
-package AAM.Common.Items.Resources;
+package aam.common.items.resources;
 
 import java.util.List;
 
@@ -22,17 +22,17 @@ public class Material extends Item
 	public void addMaterial(String texture)
 	{
 		expandArray();
-		this.textures[this.textures.length - 1] = texture;
+		textures[textures.length - 1] = texture;
 	}
 
 	public void expandArray()
 	{
-		String[] ret = new String[this.textures.length + 1];
-		for (int i = 0; i < this.textures.length; i++)
+		String[] ret = new String[textures.length + 1];
+		for (int i = 0; i < textures.length; i++)
 		{
-			ret[i] = this.textures[i];
+			ret[i] = textures[i];
 		}
-		this.textures = ret;
+		textures = ret;
 	}
 
 	/**
@@ -44,7 +44,9 @@ public class Material extends Item
 	public void getSubItems(Item i, CreativeTabs tab, List l)
 	{
 		for (int k = 0; k < textures.length; k++)
+		{
 			l.add(new ItemStack(i, 1, k));
+		}
 	}
 
 	public IIcon[] icons;
@@ -53,7 +55,7 @@ public class Material extends Item
 	@SideOnly(Side.CLIENT)
 	public void registerIcons(IIconRegister ir)
 	{
-		this.icons = new IIcon[textures.length];
+		icons = new IIcon[textures.length];
 		for (int k = 0; k < textures.length; k++)
 		{
 			icons[k] = ir.registerIcon("aam:" + textures[k]);
@@ -74,6 +76,7 @@ public class Material extends Item
 	/**
 	 * Gets an icon index based on an item's damage value
 	 */
+	@Override
 	@SideOnly(Side.CLIENT)
 	public IIcon getIconFromDamage(int meta)
 	{

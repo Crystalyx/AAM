@@ -1,9 +1,8 @@
-package AAM.Commands;
+package aam.commands;
 
-import AAM.Common.Soul.Trait;
-import AAM.Network.Packages.AlchemicalDispatcher;
-import AAM.Network.Packages.PlayerSyncMessage;
-import AAM.Utils.PlayerDataHandler;
+import aam.common.soul.Trait;
+import aam.network.packages.AlchemicalDispatcher;
+import aam.utils.PlayerDataHandler;
 import net.minecraft.command.CommandBase;
 import net.minecraft.command.ICommandSender;
 import net.minecraft.entity.player.EntityPlayer;
@@ -44,10 +43,12 @@ public class CommandSoulLevel extends CommandBase
 			{
 				if (args.length == 2)
 				{
-					float l = Float.parseFloat(args[1]) + ph.getTraitBase(Trait.Level);
-					ph.setTraitBase(Trait.Level, l);
+					float dlevel = Float.parseFloat(args[1]);
+					ph.addTraitBase(Trait.Level, dlevel);
+					ph.addTraitBase(Trait.Soul, dlevel);
 				}
-				ph.setTraitBase(Trait.Level, 1 + ph.getTraitBase(Trait.Level));
+				else
+					ph.setTraitBase(Trait.Level, 1 + ph.getTraitBase(Trait.Level));
 			}
 			if (args[0].toLowerCase().equals("set"))
 			{
@@ -55,13 +56,18 @@ public class CommandSoulLevel extends CommandBase
 				{
 					int l = Integer.parseInt(args[1]);
 					ph.setTraitBase(Trait.Level, l);
+					ph.setTraitBase(Trait.Soul, l * 100);
 				}
+			}
+			if (args[0].toLowerCase().equals("resetsoul"))
+			{
+				ph.replenishSoul();
 			}
 			if (ph.getTraitBase(Trait.Level) <= 0)
 			{
 				ph.setTraitBase(Trait.Level, 1);
 			}
-			AlchemicalDispatcher.sendToClient(new PlayerSyncMessage(p), p);
+			AlchemicalDispatcher.syncPlayer(p);
 		}
 	}
 

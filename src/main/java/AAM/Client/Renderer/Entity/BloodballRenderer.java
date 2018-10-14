@@ -1,9 +1,9 @@
-package AAM.Client.Renderer.Entity;
+package aam.client.renderer.entity;
 
 import org.lwjgl.opengl.GL11;
 
-import AAM.Common.Entity.Elemental.EntityBloodball;
-import AAM.Utils.MiscUtils;
+import aam.common.entity.elemental.EntityBloodball;
+import aam.utils.MiscUtils;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.entity.Render;
 import net.minecraft.entity.Entity;
@@ -19,8 +19,8 @@ public class BloodballRenderer extends Render
 		{
 			GL11.glPushMatrix();
 			GL11.glTranslatef((float) x, (float) y, (float) z);
-			GL11.glRotatef(180.0F - this.renderManager.playerViewY, 0.0F, 1.0F, 0.0F);
-			GL11.glRotatef(-this.renderManager.playerViewX, 1.0F, 0.0F, 0.0F);
+			GL11.glRotatef(180.0F - renderManager.playerViewY, 0.0F, 1.0F, 0.0F);
+			GL11.glRotatef(-renderManager.playerViewX, 1.0F, 0.0F, 0.0F);
 			Tessellator t = Tessellator.instance;
 
 			float f4 = 1.0F;

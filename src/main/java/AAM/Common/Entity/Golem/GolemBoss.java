@@ -1,9 +1,8 @@
-package AAM.Common.Entity.Golem;
+package aam.common.entity.golem;
 
-import AAM.Common.Entity.Elemental.ElementalBoss.State;
-import AAM.Common.Items.ModItems;
-import AAM.Utils.MiscUtils;
-import AAM.Utils.Wec3;
+import aam.common.items.ModItems;
+import aam.utils.MathUtils;
+import aam.utils.vectors.Wec3;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.IRangedAttackMob;
@@ -23,6 +22,7 @@ public class GolemBoss extends EntityMob implements IBossDisplayData, IRangedAtt
 		this.setSize(1.8f, 4f);
 	}
 
+	@Override
 	protected void applyEntityAttributes()
 	{
 		super.applyEntityAttributes();
@@ -60,7 +60,7 @@ public class GolemBoss extends EntityMob implements IBossDisplayData, IRangedAtt
 
 		public State random()
 		{
-			return values()[MiscUtils.getIntInRange(1, 7)];
+			return values()[MathUtils.getIntInRange(1, 7)];
 		}
 	}
 
@@ -71,7 +71,7 @@ public class GolemBoss extends EntityMob implements IBossDisplayData, IRangedAtt
 		{
 			if (p.getCurrentEquippedItem().getItem() == ModItems.AnvilHammer)
 			{
-				this.state = State.next(this.state);
+				state = State.next(state);
 			}
 		}
 		return false;
@@ -100,20 +100,20 @@ public class GolemBoss extends EntityMob implements IBossDisplayData, IRangedAtt
 	public void onUpdate()
 	{
 		super.onUpdate();
-		this.time++;
-		Entity e = this.worldObj.getClosestPlayerToEntity(this, 10);
+		time++;
+		Entity e = worldObj.getClosestPlayerToEntity(this, 10);
 		if (e != null)
 		{
-			this.rotationPitch = 1.0F;
+			rotationPitch = 1.0F;
 			Wec3 elem = new Wec3(this);
 			Wec3 ewp = new Wec3(e);
 			Wec3 vec = elem.sub(ewp);
 			vec.normalize();
-			this.rotationYaw = (float) Math.toDegrees(Math.atan2(vec.z, vec.x));
+			rotationYaw = (float) Math.toDegrees(Math.atan2(vec.z, vec.x));
 		}
 		else
 		{
-			this.rotationPitch = 0.0F;
+			rotationPitch = 0.0F;
 		}
 	}
 

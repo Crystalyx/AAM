@@ -1,4 +1,4 @@
-package AAM.Common.Tiles;
+package aam.common.tiles;
 
 import cpw.mods.fml.common.registry.GameRegistry;
 
@@ -14,7 +14,6 @@ public class ModTiles
 		GameRegistry.registerTileEntity(TETransCircle.class, id + "transcircle");
 		GameRegistry.registerTileEntity(TESoulAltar.class, id + "soulaltar");
 		GameRegistry.registerTileEntity(TEModificationAnvil.class, id + "modanvil");
-		GameRegistry.registerTileEntity(TEVoider.class, id + "voider");
 		GameRegistry.registerTileEntity(TEAGraviter.class, id + "agraviter");
 		GameRegistry.registerTileEntity(TEGraviter.class, id + "rgraviter");
 		GameRegistry.registerTileEntity(TECrystal.class, id + "pillarcrystal");
@@ -22,6 +21,7 @@ public class ModTiles
 		GameRegistry.registerTileEntity(TETeleporter.class, id + "dungteleporter");
 		GameRegistry.registerTileEntity(TEBloodAltar.class, id + "bloodaltar");
 		GameRegistry.registerTileEntity(TEBarrel.class, id + "barrel");
+		GameRegistry.registerTileEntity(TEMechanistsTable.class, id + "mech_table");
 
 	}
 }

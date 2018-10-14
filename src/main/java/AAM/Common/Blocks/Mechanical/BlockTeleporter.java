@@ -1,8 +1,8 @@
-package AAM.Common.Blocks.Mechanical;
+package aam.common.blocks.mechanical;
 
-import AAM.Common.Dungeon.DungeonTeleporter;
-import AAM.Common.Tiles.TETeleporter;
-import AAM.Core.AAMCore;
+import aam.common.dungeon.DungeonTeleporter;
+import aam.common.tiles.TETeleporter;
+import aam.core.AAMCore;
 import cpw.mods.fml.common.FMLCommonHandler;
 import net.minecraft.block.BlockContainer;
 import net.minecraft.block.material.Material;
@@ -18,7 +18,7 @@ public class BlockTeleporter extends BlockContainer
 	{
 		super(Material.rock);
 		this.setHardness(4.0F);
-		this.setBlockTextureName("aam:clearblock");
+		this.setBlockTextureName("aam:clear_block");
 		this.setBlockBounds(0, 0, 0, 1, 0.5f, 1);
 	}
 
@@ -35,7 +35,9 @@ public class BlockTeleporter extends BlockContainer
 				player.mcServer.getConfigurationManager().transferPlayerToDimension(player, 0, new DungeonTeleporter(mServer.worldServerForDimension(AAMCore.dungdimid)));
 			}
 			else
+			{
 				player.mcServer.getConfigurationManager().transferPlayerToDimension(player, AAMCore.dungdimid, new DungeonTeleporter(mServer.worldServerForDimension(AAMCore.dungdimid)));
+			}
 		}
 		return true;
 	}

@@ -1,4 +1,4 @@
-package AAM.Common.Blocks.Circles;
+package aam.common.blocks.circles;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;

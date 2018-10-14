@@ -1,9 +1,10 @@
-package AAM.Common.Potions;
+package aam.common.potions;
 
-import AAM.Common.Blocks.Building.ModBlocks;
-import AAM.Core.AAMConfig;
-import AAM.Utils.VectorWorld;
-import AAM.Utils.Wec3;
+import aam.common.blocks.building.ModBlocks;
+import aam.common.soul.IceDamageSource;
+import aam.core.AAMConfig;
+import aam.utils.vectors.VectorWorld;
+import aam.utils.vectors.Wec3;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.client.Minecraft;
@@ -86,29 +87,43 @@ public class PotionEffects extends Potion
 						if (vw.getBlock(ijk) == Blocks.lava || vw.getBlock(ijk) == Blocks.flowing_lava)
 						{
 							if (vw.getBlockMetadata(ijk) == 0)
+							{
 								vw.setBlock(ijk, Blocks.obsidian, 0, 2);
+							}
 							else
+							{
 								vw.setBlock(ijk, Blocks.cobblestone, 0, 2);
+							}
 						}
 						if (vw.getBlock(ijk) == ModBlocks.BloodBlock)
 						{
 							if (((BlockFluidClassic) vw.getBlock(ijk)).isSourceBlock(e.worldObj, p.ix + i, p.iy + j, p.iz + k))
+							{
 								vw.setBlock(ijk, ModBlocks.miniumBlock, 0, 2);
+							}
 							else
+							{
 								vw.setBlock(ijk, Blocks.ice, 0, 2);
+							}
 						}
 					}
 				}
 			}
 		}
 		if (id == ModPotions.flame.id)
-
 		{
 			Wec3 p = new Wec3(e);
 			p = p.sub(new Wec3(0, 0, +1));
 			if (e.worldObj.getBlock(p.ix, p.iy - 1, p.iz).isBlockSolid(e.worldObj, p.ix, p.iy - 1, p.iz, 1) && e.worldObj.isAirBlock(p.ix, p.iy, p.iz))
 			{
 				e.worldObj.setBlock(p.ix, p.iy, p.iz, Blocks.fire);
+			}
+		}
+		if (id == ModPotions.cold.id)
+		{
+			if (level > 2)
+			{
+				e.attackEntityFrom(new IceDamageSource(), level);
 			}
 		}
 

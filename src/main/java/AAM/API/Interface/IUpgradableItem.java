@@ -1,4 +1,4 @@
-package AAM.API.Interface;
+package aam.api.Interface;
 
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
@@ -16,4 +16,13 @@ public interface IUpgradableItem
 	public int getMaxLevel(ItemStack is);
 
 	public boolean enableLayers(ItemStack is);
+
+	public int getMinSlotCount(ItemStack is);
+
+	public int getMaxSlotCount(ItemStack is);
+
+	public int getDurability(ItemStack is);
+
+	public int getMaxRepairCount(ItemStack is);
+
 }

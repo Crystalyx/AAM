@@ -1,4 +1,4 @@
-package AAM.Common.Blocks.Building;
+package aam.common.blocks.building;
 
 import java.util.List;
 

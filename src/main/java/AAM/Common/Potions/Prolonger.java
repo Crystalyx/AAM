@@ -1,6 +1,6 @@
-package AAM.Common.Potions;
+package aam.common.potions;
 
-import AAM.Utils.Color;
+import aam.utils.Color;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 

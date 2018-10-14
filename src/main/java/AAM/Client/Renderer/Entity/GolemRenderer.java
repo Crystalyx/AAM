@@ -1,7 +1,7 @@
-package AAM.Client.Renderer.Entity;
+package aam.client.renderer.entity;
 
-import AAM.Client.Model.Golem;
-import AAM.Common.Entity.Golem.GolemBoss;
+import aam.client.models.Golem;
+import aam.common.entity.golem.GolemBoss;
 import net.minecraft.client.renderer.entity.RenderLiving;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.boss.BossStatus;

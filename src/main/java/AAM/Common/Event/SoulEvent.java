@@ -1,46 +1,48 @@
-package AAM.Common.Event;
+package aam.common.event;
 
 import java.util.List;
 import java.util.Random;
 import java.util.UUID;
 
-import AAM.API.Interface.IExtendedReach;
-import AAM.API.Interface.IUpgradableItem;
-import AAM.Common.Blocks.Building.ModBlocks;
-import AAM.Common.Entity.SoulCharge;
-import AAM.Common.Entity.StaffCharge;
-import AAM.Common.Items.ModItems;
-import AAM.Common.Items.Artifacts.LuckyCoin;
-import AAM.Common.Items.Soul.ModAxe;
-import AAM.Common.Items.Soul.ModHammer;
-import AAM.Common.Items.Soul.ModSpear;
-import AAM.Common.Items.Soul.ModStaff;
-import AAM.Common.Items.Soul.ModSword;
-import AAM.Common.Items.Soul.SoulSword;
-import AAM.Common.Soul.ArtifactTooltips;
-import AAM.Common.Soul.Soul;
-import AAM.Common.Soul.SoulDamageSource;
-import AAM.Common.Soul.SoulUpgrade;
-import AAM.Common.Soul.Trait;
-import AAM.Common.Soul.WeaponType;
-import AAM.Common.Transmutations.EnergyProvider;
-import AAM.Core.AAMConfig;
-import AAM.Core.AAMCore;
-import AAM.Network.Packages.AlchemicalDispatcher;
-import AAM.Network.Packages.MessageExtendedReachAttack;
-import AAM.Network.Packages.PlayerSyncMessage;
-import AAM.Utils.Logger;
-import AAM.Utils.MiscUtils;
-import AAM.Utils.PlayerDataHandler;
-import AAM.Utils.VectorWorld;
-import AAM.Utils.Wec3;
 import DummyCore.Utils.EnumRarityColor;
+import aam.api.GameWeapon;
+import aam.api.Interface.IExtendedReach;
+import aam.api.Interface.IUpgradableItem;
+import aam.api.abstraction.MeleeWeapon;
+import aam.api.abstraction.RangedWeapon;
+import aam.common.blocks.building.ModBlocks;
+import aam.common.entity.SoulCharge;
+import aam.common.entity.StaffCharge;
+import aam.common.items.ModItems;
+import aam.common.items.artifacts.LuckyCoin;
+import aam.common.items.soul.SoulSword;
+import aam.common.soul.ArtifactTooltips;
+import aam.common.soul.Soul;
+import aam.common.soul.SoulDamageSource;
+import aam.common.soul.SoulUpgrade;
+import aam.common.soul.SoulWeaponType;
+import aam.common.soul.Trait;
+import aam.common.transmutations.EnergyProvider;
+import aam.common.weapon.WeaponManager;
+import aam.common.weapon.WeaponUpgrade;
+import aam.core.AAMConfig;
+import aam.core.AAMCore;
+import aam.network.ClientProxy;
+import aam.network.packages.AlchemicalDispatcher;
+import aam.network.packages.MessageExtendedReachAttack;
+import aam.network.packages.PlayerSyncMessage;
+import aam.utils.InventoryUtils;
+import aam.utils.Logger;
+import aam.utils.MathUtils;
+import aam.utils.PlayerDataHandler;
+import aam.utils.vectors.Vec2;
+import aam.utils.vectors.VectorWorld;
+import aam.utils.vectors.Wec3;
 import baubles.api.BaublesApi;
 import cpw.mods.fml.client.FMLClientHandler;
 import cpw.mods.fml.common.eventhandler.Event.Result;
 import cpw.mods.fml.common.eventhandler.EventPriority;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
-import cpw.mods.fml.common.gameevent.PlayerEvent.ItemCraftedEvent;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.block.Block;
@@ -68,11 +70,12 @@ import net.minecraftforge.event.entity.living.LivingHurtEvent;
 import net.minecraftforge.event.entity.player.AttackEntityEvent;
 import net.minecraftforge.event.entity.player.FillBucketEvent;
 import net.minecraftforge.event.entity.player.ItemTooltipEvent;
+import net.minecraftforge.event.entity.player.PlayerDestroyItemEvent;
 
 public class SoulEvent
 {
 
-	public static AttributeModifier am = new AttributeModifier(UUID.randomUUID(), "aam_watery_art", 0.35f, 2);
+	public static AttributeModifier am = new AttributeModifier(UUID.randomUUID(), "aam_watery_art", 1f, 2);
 
 	@SubscribeEvent(priority = EventPriority.LOWEST)
 	public void entityUpdate(LivingUpdateEvent e)
@@ -81,8 +84,8 @@ public class SoulEvent
 		{
 			EntityPlayer p = (EntityPlayer) e.entityLiving;
 			PlayerDataHandler ph = PlayerDataHandler.get(p);
-
-			if (AAMCore.soul.getIsKeyPressed() && FMLClientHandler.instance().getClient().inGameHasFocus)
+			ItemStack is = p.getCurrentEquippedItem();
+			if (ClientProxy.soul.getIsKeyPressed() && FMLClientHandler.instance().getClient().inGameHasFocus)
 			{
 				callSwordRecreation(ph);
 			}
@@ -94,14 +97,18 @@ public class SoulEvent
 				if (vw.getBlock(ps).getMaterial() == Material.water || vw.getBlock(ps).getMaterial() == Material.lava)
 				{
 					if (p.getEntityAttribute(SharedMonsterAttributes.movementSpeed).func_111122_c().contains(am))
+					{
 						p.getEntityAttribute(SharedMonsterAttributes.movementSpeed).applyModifier(am);
+					}
 				}
 				else
+				{
 					p.getEntityAttribute(SharedMonsterAttributes.movementSpeed).removeModifier(am);
+				}
 
 			}
 
-			if (AAMCore.member.getIsKeyPressed() && FMLClientHandler.instance().getClient().inGameHasFocus)
+			if (ClientProxy.member.getIsKeyPressed() && FMLClientHandler.instance().getClient().inGameHasFocus)
 			{
 				AAMCore.proxy.addMember();
 			}
@@ -109,11 +116,11 @@ public class SoulEvent
 			{
 				if (FMLClientHandler.instance().getClient().inGameHasFocus && Minecraft.getMinecraft().objectMouseOver.typeOfHit == MovingObjectType.MISS && !p.isBlocking() && ph.lastTickBlocked)
 				{
-					if (p.getCurrentEquippedItem() != null)
+					if (is != null)
 					{
-						if (p.getCurrentEquippedItem().getItem() instanceof SoulSword)
+						if (is.getItem() instanceof SoulSword)
 						{
-							if (ph.getBowIndex() > 0 && MiscUtils.randWPercent(40 + ph.upgLevel[SoulUpgrade.Cast.ordinal()] * 5 + 60))
+							if (ph.getBowIndex() > 0 && MathUtils.randWPercent(40 + ph.upgLevel[SoulUpgrade.Cast.ordinal()] * 5 + 60))
 							{
 								if (!p.worldObj.isRemote && ph.blockDuration >= ph.getBowMaxCooldown() - 2)
 								{
@@ -128,14 +135,13 @@ public class SoulEvent
 								}
 							}
 						}
-						if (p.getCurrentEquippedItem().getItem() instanceof ModStaff)
+						if (is.getItem() instanceof RangedWeapon)
 						{
-							if (!p.worldObj.isRemote && ph.blockDuration >= ((ModStaff) p.getCurrentEquippedItem().getItem()).cd)
+							if (!p.worldObj.isRemote && ph.blockDuration >= WeaponManager.getRangedCooldown(is))
 							{
-								if (ph.consumeSoul(((ModStaff) p.getCurrentEquippedItem().getItem()).soulConsumed))
+								if (ph.consumeSoul(WeaponManager.getRangedSoulConsumed(is)))
 								{
-									StaffCharge s = new StaffCharge(p.worldObj, p,
-											((ModStaff) p.getCurrentEquippedItem().getItem()).rangedDmg * (1 + ((ModStaff) p.getCurrentEquippedItem().getItem()).getUpgradeLevel(p.getCurrentEquippedItem()) * 0.05f));
+									StaffCharge s = new StaffCharge(p.worldObj, p, WeaponManager.getRangedDamage(is) * (1 + WeaponManager.getUpgradeLevel(is) * 0.05f));
 									s.setLife(500);
 									Wec3 look = new Wec3(p.getLookVec()).mult(2);
 									look.ptm(s);
@@ -175,7 +181,9 @@ public class SoulEvent
 		if (!p.isSneaking())
 		{
 			if (soul + ph.getCurrentSoul() >= 15)
+			{
 				p.inventory.addItemStackToInventory(ph.getSwordStack());
+			}
 			ph.addSoul(soul - 15);
 		}
 		else
@@ -184,6 +192,7 @@ public class SoulEvent
 		}
 	}
 
+	@SideOnly(Side.CLIENT)
 	@SubscribeEvent
 	public void tooltip(ItemTooltipEvent e)
 	{
@@ -203,10 +212,14 @@ public class SoulEvent
 
 					e.toolTip.add(EnumChatFormatting.BLUE + "+" + ph.getFullMeleeDamage(false) + "" + EnumChatFormatting.DARK_PURPLE + " Soul Damage");
 					if (ph.getBowIndex() > 0)
+					{
 						e.toolTip.add(EnumChatFormatting.BLUE + "+" + ph.getFullRangedDamage(false) + "" + EnumChatFormatting.DARK_PURPLE + " Ranged Soul Damage");
+					}
 
-					if (ph.sword.equals(WeaponType.Spear))
+					if (ph.sword.equals(SoulWeaponType.Spear))
+					{
 						e.toolTip.add(EnumChatFormatting.BLUE + "+4 Reach Distance");
+					}
 					if (ph.art)
 					{
 						e.toolTip.add("Additional:");
@@ -215,52 +228,58 @@ public class SoulEvent
 
 				}
 				else
+				{
 					e.toolTip.add(EnumChatFormatting.BLUE + "+" + 5 + "" + EnumChatFormatting.DARK_PURPLE + " Soul Damage");
+				}
 			}
 			else
+			{
 				e.toolTip.add(EnumChatFormatting.BLUE + "+" + 5 + "" + EnumChatFormatting.DARK_PURPLE + " Soul Damage");
-		}
-		if (e.itemStack.getItem() instanceof ModSword)
-		{
-			String name = e.toolTip.get(0);
-			e.toolTip.remove(e.toolTip.size() - 1);
-			float dmg = ((ModSword) e.itemStack.getItem()).baseDmg * (1 + ((ModSword) e.itemStack.getItem()).getUpgradeLevel(e.itemStack) * 0.05f);
-			e.toolTip.add(EnumChatFormatting.BLUE + "+" + MiscUtils.roundStr(dmg, 1) + " Attack Damage");
+			}
 		}
 
-		if (e.itemStack.getItem() instanceof ModStaff)
+		if (e.itemStack.getItem() instanceof GameWeapon)
 		{
-			String name = e.toolTip.get(0);
 			e.toolTip.remove(e.toolTip.size() - 1);
-			float dmgM = ((ModStaff) e.itemStack.getItem()).meleeDmg * (1 + ((ModStaff) e.itemStack.getItem()).getUpgradeLevel(e.itemStack) * 0.05f);
-			float dmgR = ((ModStaff) e.itemStack.getItem()).rangedDmg * (1 + ((ModStaff) e.itemStack.getItem()).getUpgradeLevel(e.itemStack) * 0.05f);
-			e.toolTip.add(EnumChatFormatting.BLUE + "+" + MiscUtils.roundStr(dmgM, 1) + " Attack Damage");
-			e.toolTip.add(EnumChatFormatting.BLUE + "+" + MiscUtils.roundStr(dmgR, 1) + " Ranged Damage");
+			if (e.itemStack.hasTagCompound())
+			{
+				if (((IUpgradableItem) e.itemStack.getItem()).getDurability(e.itemStack) > 0)
+				{
+					if (WeaponManager.isBroken(e.itemStack))
+					{
+						e.toolTip.add("Broken");
+					}
+					else
+					{
+						e.toolTip.add("Durability: " + (WeaponManager.getMaxDamagePoints(e.itemStack) - WeaponManager.getDamagePoints(e.itemStack)) + "/" + WeaponManager.getMaxDamagePoints(e.itemStack));
+					}
+				}
+			}
 		}
 
-		if (e.itemStack.getItem() instanceof ModSpear)
+		if (e.itemStack.getItem() instanceof MeleeWeapon)
+
 		{
 			String name = e.toolTip.get(0);
-			e.toolTip.remove(e.toolTip.size() - 1);
-			float dmg = ((ModSpear) e.itemStack.getItem()).baseDmg * (1 + ((ModSpear) e.itemStack.getItem()).getUpgradeLevel(e.itemStack) * 0.05f);
-			e.toolTip.add(EnumChatFormatting.BLUE + "+" + MiscUtils.roundStr(dmg, 1) + " Attack Damage");
-			e.toolTip.add(EnumChatFormatting.BLUE + "+4 Reach Distance");
+			float dmg = WeaponManager.getWeaponMeleeDamage(e.entityPlayer, e.itemStack);
+			e.toolTip.add(EnumChatFormatting.BLUE + "+" + MathUtils.roundStr(dmg, 1) + " Attack Damage");
+			float reach = WeaponManager.getReachValue(e.itemStack, e.entityPlayer);
+			if (reach > 4)
+			{
+				e.toolTip.add(EnumChatFormatting.BLUE + "+" + (reach - 4) + " Reach Distance");
+
+			}
 		}
 
-		if (e.itemStack.getItem() instanceof ModHammer)
+		if (e.itemStack.getItem() instanceof RangedWeapon)
 		{
 			String name = e.toolTip.get(0);
-			e.toolTip.remove(e.toolTip.size() - 1);
-			float dmg = ((ModHammer) e.itemStack.getItem()).baseDmg * (1 + ((ModHammer) e.itemStack.getItem()).getUpgradeLevel(e.itemStack) * 0.05f);
-			e.toolTip.add(EnumChatFormatting.BLUE + "+" + MiscUtils.roundStr(dmg, 1) + " Attack Damage");
+			float dmgM = ((RangedWeapon) e.itemStack.getItem()).getMeleeDamage(e.itemStack) * (1 + ((RangedWeapon) e.itemStack.getItem()).getUpgradeLevel(e.itemStack) * 0.05f);
+			float dmgR = ((RangedWeapon) e.itemStack.getItem()).getRangedDamage(e.itemStack) * (1 + ((RangedWeapon) e.itemStack.getItem()).getUpgradeLevel(e.itemStack) * 0.05f);
+			e.toolTip.add(EnumChatFormatting.BLUE + "+" + MathUtils.roundStr(dmgM, 1) + " Attack Damage");
+			e.toolTip.add(EnumChatFormatting.BLUE + "+" + MathUtils.roundStr(dmgR, 1) + " Ranged Damage");
 		}
-		if (e.itemStack.getItem() instanceof ModAxe)
-		{
-			String name = e.toolTip.get(0);
-			e.toolTip.remove(e.toolTip.size() - 1);
-			float dmg = ((ModAxe) e.itemStack.getItem()).baseDmg * (1 + ((ModAxe) e.itemStack.getItem()).getUpgradeLevel(e.itemStack) * 0.05f);
-			e.toolTip.add(EnumChatFormatting.BLUE + "+" + MiscUtils.roundStr(dmg, 1) + " Attack Damage");
-		}
+
 		if (e.itemStack.getItem() == ModItems.Artifact)
 		{
 
@@ -289,20 +308,17 @@ public class SoulEvent
 		if (EnergyProvider.hasValue(e.itemStack))
 		{
 			e.toolTip.add(EnumChatFormatting.GRAY + "Energy Type: " + EnergyProvider.getType(e.itemStack));
-			e.toolTip.add(EnumChatFormatting.GRAY + "Energy: " + MiscUtils.roundStr(EnergyProvider.getValue(e.itemStack), 1));
+			e.toolTip.add(EnumChatFormatting.GRAY + "Energy: " + MathUtils.roundStr(EnergyProvider.getValue(e.itemStack), 1));
 			if (e.itemStack.stackSize > 1)
-				e.toolTip.add(EnumChatFormatting.GRAY + "Stack Energy: " + MiscUtils.roundStr(EnergyProvider.getValue(e.itemStack) * e.itemStack.stackSize, 1));
+			{
+				e.toolTip.add(EnumChatFormatting.GRAY + "Stack Energy: " + MathUtils.roundStr(EnergyProvider.getValue(e.itemStack) * e.itemStack.stackSize, 1));
+			}
 
 		}
 		if (EnergyProvider.getStoredEnergy(e.itemStack) > 0)
 		{
-			e.toolTip.add(EnumChatFormatting.GRAY + "Stored Energy: " + MiscUtils.roundStr(EnergyProvider.getStoredEnergy(e.itemStack), 1));
+			e.toolTip.add(EnumChatFormatting.GRAY + "Stored Energy: " + MathUtils.roundStr(EnergyProvider.getStoredEnergy(e.itemStack), 1));
 		}
-	}
-
-	@SubscribeEvent
-	public void crafted(ItemCraftedEvent e)
-	{
 	}
 
 	@SubscribeEvent
@@ -350,6 +366,11 @@ public class SoulEvent
 
 							float dmg = phI.getFullMeleeDamageAgainst(l, true);
 							e.target.attackEntityFrom(src, dmg);
+							for (int i = 0; i < phI.upgLevel.length; i++)
+							{
+								if (phI.upgLevel[i] > 0)
+									SoulUpgrade.values()[i].onAttack(ep, l, dmg);
+							}
 						}
 						else
 						{
@@ -373,118 +394,67 @@ public class SoulEvent
 				}
 			}
 
-			if (e.entityPlayer.getCurrentEquippedItem().getItem() instanceof ModSword)
+			if (e.target instanceof EntityLivingBase)
 			{
-				ItemStack is = e.entityPlayer.getCurrentEquippedItem();
-
-				SoulDamageSource src = new SoulDamageSource(ph);
-				if (ph.sword.bypassesArmor)
+				EntityLivingBase l = (EntityLivingBase) e.target;
+				if (e.entityPlayer.getCurrentEquippedItem().getItem() instanceof IUpgradableItem)
 				{
-					src.setDamageBypassesArmor();
-				}
-				ModSword sw = (ModSword) e.entityPlayer.getCurrentEquippedItem().getItem();
-				e.target.attackEntityFrom(src, sw.baseDmg * (1 + sw.getUpgradeLevel(is) * 0.05f));
-
-				if (e.target instanceof EntityLivingBase)
-				{
-					EntityLivingBase l = (EntityLivingBase) e.target;
-					if (e.entityPlayer.getCurrentEquippedItem().getItem() == ModItems.swords.get(0) && MiscUtils.randWPercent(e.entityPlayer.worldObj.rand, 30))
+					ItemStack weaponStack = e.entityPlayer.getCurrentEquippedItem();
+					WeaponManager.setCompounds(weaponStack);
+					if (((IUpgradableItem) weaponStack.getItem()).getDurability(weaponStack) > 0)
 					{
-						double f = 2;
+						if (WeaponManager.isBroken(weaponStack))
+						{
+							e.setCanceled(true);
+							return;
+						}
+						else
+						{
+							if (!l.isDead)
+							{
+								WeaponManager.addDamagePoints(weaponStack, 1);
+							}
+							if (WeaponManager.getDamagePoints(weaponStack) > WeaponManager.getMaxDamagePoints(weaponStack))
+							{
+								if (WeaponManager.getRepairs(weaponStack) < WeaponManager.getMaxRepairs(weaponStack))
+								{
+									WeaponManager.setBroken(weaponStack, true);
+								}
+								else
+								{
+									ep.destroyCurrentEquippedItem();
+								}
+							}
+						}
+					}
 
-						float regen = (float) (f * 0.1F * 3);
-						ep.heal(regen);
+					float dmg = WeaponManager.getWeaponMeleeDamage(ep, weaponStack);
+					dmg += WeaponManager.getSpecificWeaponMeleeDamage(ep, l, weaponStack);
+					float baseDmg = dmg;
+					for (int i = 0; i < WeaponManager.getSlotCount(weaponStack); i++)
+					{
+						WeaponUpgrade wu = WeaponManager.getUpgradeAt(weaponStack, i);
+						if (wu != null)
+						{
+							dmg += WeaponManager.getUpgradeAt(weaponStack, i).getMeleeDamageBonus(ph, 0, baseDmg, true) + WeaponManager.getUpgradeAt(weaponStack, i).getSpecificMeleeDamageBonus(ph, l, 0, baseDmg);
+						}
+					}
+					if (weaponStack.getItem() instanceof GameWeapon)
+					{
+						((GameWeapon) weaponStack.getItem()).onAttack(ep, l, dmg);
+						((GameWeapon) weaponStack.getItem()).applySpecificPotionEffects(ph, l, ((GameWeapon) weaponStack.getItem()).getUpgradeLevel(weaponStack), baseDmg);
+					}
+					for (int i = 0; i < WeaponManager.getSlotCount(weaponStack); i++)
+					{
+						if (WeaponManager.getUpgradeAt(weaponStack, i) != null)
+						{
+							WeaponManager.getUpgradeAt(weaponStack, i).onAttack(ep, l, dmg);
+							WeaponManager.getUpgradeAt(weaponStack, i).applySpecificPotionEffects(ph, l, 0, baseDmg);
+						}
 					}
 				}
-			}
-			if (e.entityPlayer.getCurrentEquippedItem().getItem() instanceof ModAxe)
-			{
-				ItemStack is = e.entityPlayer.getCurrentEquippedItem();
+				attackEntityFrom(e.entityPlayer.getCurrentEquippedItem(), ph, l);
 
-				SoulDamageSource src = new SoulDamageSource(ph);
-				if (ph.sword.bypassesArmor)
-				{
-					src.setDamageBypassesArmor();
-				}
-				ModAxe sw = (ModAxe) e.entityPlayer.getCurrentEquippedItem().getItem();
-				e.target.attackEntityFrom(src, sw.baseDmg * (1 + sw.getUpgradeLevel(is) * 0.05f));
-
-				// if (e.target instanceof EntityLivingBase)
-				// {
-				// EntityLivingBase l = (EntityLivingBase) e.target;
-				// if (e.entityPlayer.getCurrentEquippedItem().getItem() ==
-				// ModItems.swords.get(0) &&
-				// MiscUtils.randWPercent(e.entityPlayer.worldObj.rand, 30))
-				// {
-				// double f = 2;
-				//
-				// float regen = (float) (f * 0.1F * 3);
-				// ep.heal(regen);
-				// }
-				// }
-			}
-			if (e.entityPlayer.getCurrentEquippedItem().getItem() instanceof ModSpear)
-			{
-				ItemStack is = e.entityPlayer.getCurrentEquippedItem();
-
-				SoulDamageSource src = new SoulDamageSource(ph);
-				if (ph.sword.bypassesArmor)
-				{
-					src.setDamageBypassesArmor();
-				}
-				ModSpear sw = (ModSpear) e.entityPlayer.getCurrentEquippedItem().getItem();
-				e.target.attackEntityFrom(src, sw.baseDmg * (1 + sw.getUpgradeLevel(is) * 0.05f));
-
-				// if (e.target instanceof EntityLivingBase)
-				// {
-				// EntityLivingBase l = (EntityLivingBase) e.target;
-				// if (e.entityPlayer.getCurrentEquippedItem().getItem() ==
-				// ModItems.swords.get(0) &&
-				// MiscUtils.randWPercent(e.entityPlayer.worldObj.rand, 30))
-				// {
-				// double f = 2;
-				//
-				// float regen = (float) (f * 0.1F * 3);
-				// ep.heal(regen);
-				// }
-				// }
-			}
-			if (e.entityPlayer.getCurrentEquippedItem().getItem() instanceof ModHammer)
-			{
-				ItemStack is = e.entityPlayer.getCurrentEquippedItem();
-
-				SoulDamageSource src = new SoulDamageSource(ph);
-				if (ph.sword.bypassesArmor)
-				{
-					src.setDamageBypassesArmor();
-				}
-				ModHammer sw = (ModHammer) e.entityPlayer.getCurrentEquippedItem().getItem();
-				e.target.attackEntityFrom(src, sw.baseDmg * (1 + sw.getUpgradeLevel(is) * 0.05f));
-
-				// if (e.target instanceof EntityLivingBase)
-				// {
-				// EntityLivingBase l = (EntityLivingBase) e.target;
-				// if (e.entityPlayer.getCurrentEquippedItem().getItem() ==
-				// ModItems.swords.get(0) &&
-				// MiscUtils.randWPercent(e.entityPlayer.worldObj.rand, 30))
-				// {
-				// double f = 2;
-				//
-				// float regen = (float) (f * 0.1F * 3);
-				// ep.heal(regen);
-				// }
-				// }
-			}
-			if (e.entityPlayer.getCurrentEquippedItem().getItem() instanceof ModStaff)
-			{
-				ItemStack is = e.entityPlayer.getCurrentEquippedItem();
-				SoulDamageSource src = new SoulDamageSource(ph);
-				if (ph.sword.bypassesArmor)
-				{
-					src.setDamageBypassesArmor();
-				}
-				ModStaff sw = (ModStaff) e.entityPlayer.getCurrentEquippedItem().getItem();
-				e.target.attackEntityFrom(src, sw.rangedDmg * (1 + sw.getUpgradeLevel(is) * 0.05f));
 			}
 
 			int mod = 1;
@@ -496,39 +466,39 @@ public class SoulEvent
 				}
 
 			}
-			if (MiscUtils.randWPercent(75d))
+			if (MathUtils.randWPercent(75d))
 			{
-				boolean drop = MiscUtils.randWPercent(100 * mod / 50d);
+				boolean drop = MathUtils.randWPercent(100 * mod / 50d);
 				if (drop)
 				{
-					MiscUtils.dropStack(e.entityPlayer.worldObj, new Wec3(e.entityPlayer), new ItemStack(ModItems.coins, 1, 2));
+					InventoryUtils.dropStack(e.entityPlayer.worldObj, new Wec3(e.entityPlayer), new ItemStack(ModItems.coins, 1, 2));
 				}
 				else
 				{
-					drop = MiscUtils.randWPercent(100 * mod / 15d);
+					drop = MathUtils.randWPercent(100 * mod / 15d);
 					if (drop)
 					{
-						MiscUtils.dropStack(e.entityPlayer.worldObj, new Wec3(e.entityPlayer), new ItemStack(ModItems.coins, 1, 1));
+						InventoryUtils.dropStack(e.entityPlayer.worldObj, new Wec3(e.entityPlayer), new ItemStack(ModItems.coins, 1, 1));
 					}
 					else
 					{
-						drop = MiscUtils.randWPercent(100 * mod / 5d);
+						drop = MathUtils.randWPercent(100 * mod / 5d);
 						if (drop)
 						{
-							MiscUtils.dropStack(e.entityPlayer.worldObj, new Wec3(e.entityPlayer), new ItemStack(ModItems.coins, mod, 0));
+							InventoryUtils.dropStack(e.entityPlayer.worldObj, new Wec3(e.entityPlayer), new ItemStack(ModItems.coins, mod, 0));
 						}
 					}
 				}
 			}
 		}
-		int bronze = MiscUtils.count(ep.inventory, ModItems.coins, 0);
+		int bronze = InventoryUtils.count(ep.inventory, ModItems.coins, 0);
 		Logger.info(bronze);
 		int dSilver = 0;
 		if (bronze >= 100)
 		{
 			dSilver = Math.floorDiv(bronze, 100);
 			int leftToRemove = dSilver * 100;
-			List<Integer> lbr = MiscUtils.getList(ep.inventory, ModItems.coins, 0);
+			List<Integer> lbr = InventoryUtils.getList(ep.inventory, ModItems.coins, 0);
 			for (int i = 0; leftToRemove > 0 && i < lbr.size(); i++)
 			{
 				ItemStack bris = ep.inventory.getStackInSlot(lbr.get(i));
@@ -544,14 +514,14 @@ public class SoulEvent
 				}
 			}
 		}
-		MiscUtils.dropStack(ep.worldObj, new Wec3(ep), new ItemStack(ModItems.coins, dSilver, 1));
-		int silver = MiscUtils.count(ep.inventory, ModItems.coins, 1);
+		InventoryUtils.dropStack(ep.worldObj, new Wec3(ep), new ItemStack(ModItems.coins, dSilver, 1));
+		int silver = InventoryUtils.count(ep.inventory, ModItems.coins, 1);
 		int dGold = 0;
 		if (silver >= 100)
 		{
 			dGold = Math.floorDiv(silver, 100);
 			int leftToRemove = dGold * 100;
-			List<Integer> lbr = MiscUtils.getList(ep.inventory, ModItems.coins, 1);
+			List<Integer> lbr = InventoryUtils.getList(ep.inventory, ModItems.coins, 1);
 			for (int i = 0; leftToRemove > 0 && i < lbr.size(); i++)
 			{
 				ItemStack bris = ep.inventory.getStackInSlot(lbr.get(i));
@@ -567,7 +537,60 @@ public class SoulEvent
 				}
 			}
 		}
-		MiscUtils.dropStack(ep.worldObj, new Wec3(ep), new ItemStack(ModItems.coins, dGold, 2));
+		InventoryUtils.dropStack(ep.worldObj, new Wec3(ep), new ItemStack(ModItems.coins, dGold, 2));
+	}
+
+	private float attackEntityFrom(ItemStack item, PlayerDataHandler ph, EntityLivingBase l)
+	{
+		float dmg = 0;
+		double knock = 0;
+		SoulDamageSource src = new SoulDamageSource(ph);
+		if (item != null)
+		{
+			if (item.getItem() instanceof MeleeWeapon)
+			{
+				MeleeWeapon sw = (MeleeWeapon) item.getItem();
+				if (sw.getBypassesArmor(item))
+				{
+					src.setDamageBypassesArmor();
+				}
+				dmg = WeaponManager.getWeaponMeleeDamage(ph.player, item);
+				knock = sw.knockback;
+			}
+			else
+				if (item.getItem() instanceof RangedWeapon)
+				{
+					RangedWeapon sw = (RangedWeapon) item.getItem();
+					if (sw.getBypassesArmor(item))
+					{
+						src.setDamageBypassesArmor();
+					}
+					dmg = sw.getMeleeDamage(item) * (1 + sw.getUpgradeLevel(item) * 0.05f);
+					knock = sw.knockback;
+				}
+				else
+					if (item.getItem() instanceof GameWeapon)
+					{
+						GameWeapon sw = (GameWeapon) item.getItem();
+						if (sw.getBypassesArmor(item))
+						{
+							src.setDamageBypassesArmor();
+						}
+						dmg = sw.getBaseDamage(item) * (1 + sw.getUpgradeLevel(item) * 0.05f);
+						knock = sw.knockback;
+					}
+			l.attackEntityFrom(src, dmg);
+			if (knock != 0)
+			{
+				Vec2 a = new Vec2(ph.player.posX, ph.player.posY);
+				Vec2 b = new Vec2(l.posX, l.posY);
+				Vec2 ba = b.sub(a).multiply(-1 * knock);
+				ba = ba.divide(ba.length() * ba.length() + 1E-200);
+				l.knockBack(ph.player, 0.0f, ba.x, ba.y);
+			}
+			return dmg;
+		}
+		return 0;
 	}
 
 	@SubscribeEvent
@@ -578,9 +601,9 @@ public class SoulEvent
 			EntityPlayer p = (EntityPlayer) e.entityLiving;
 			if (e.ammount >= p.getHealth())
 			{
-				if (MiscUtils.contains(p.inventory, ModItems.RessurectionStone, 0))
+				if (InventoryUtils.contains(p.inventory, ModItems.RessurectionStone, 0))
 				{
-					List<Integer> fx = MiscUtils.getList(p.inventory, ModItems.RessurectionStone, 0);
+					List<Integer> fx = InventoryUtils.getList(p.inventory, ModItems.RessurectionStone, 0);
 					for (int i = 0; i < fx.size(); i++)
 					{
 						p.inventory.getStackInSlot(fx.get(i)).setItemDamage(p.dimension == AAMConfig.dungDimId ? Math.max(12000 / fx.size(), 4500) : Math.max(6000 / fx.size(), 1500));
@@ -588,29 +611,6 @@ public class SoulEvent
 					p.heal(p.getMaxHealth());
 					e.setCanceled(true);
 				}
-				// if (MiscUtils.contains(p.inventory,
-				// ModItems.MassRessurectionStone, 0))
-				// {
-				// p.heal(p.getMaxHealth());
-				// p.setAbsorptionAmount(20);
-				// List<String> ps = PlayerDataHandler.get(p).party;
-				// for (String name : ps)
-				// {
-				// if (p.worldObj.getPlayerEntityByName(name) != null)
-				// {
-				// EntityPlayer pp = p.worldObj.getPlayerEntityByName(name);
-				// pp.heal(pp.getMaxHealth());
-				// pp.setAbsorptionAmount(20);
-				// }
-				// }
-				// p.inventory.getStackInSlot(MiscUtils.get(p.inventory,
-				// ModItems.MassRessurectionStone, 0))
-				// .setItemDamage(p.dimension == AAMConfig.dungDimId ?
-				// Math.max((1 + ps.size()) * 24000 / 7, 4500) : Math.max((1 +
-				// ps.size()) * 12000 / 7, 1500));
-				//
-				// e.setCanceled(true);
-				// }
 			}
 		}
 	}
@@ -621,11 +621,15 @@ public class SoulEvent
 		if (e.source.damageType == SoulDamageSource.id)
 		{
 			PlayerDataHandler ph = ((SoulDamageSource) e.source).ph;
-			int kp = (int) (e.entityLiving.getMaxHealth() - (e.entityLiving.getMaxHealth() / (ph.getTrait(Trait.Level) + 1)));
+			int kp = (int) (e.entityLiving.getMaxHealth() - e.entityLiving.getMaxHealth() / (ph.getTrait(Trait.Level) + 1));
 			if (ph.player.getCurrentEquippedItem() == null || ph.player.getCurrentEquippedItem().getItem() != ModItems.SoulSword)
+			{
 				ph.soulxp += kp / 4;
+			}
 			else
+			{
 				ph.soulxp += kp;
+			}
 			if (!e.entityLiving.worldObj.isRemote)
 			{
 				PlayerSyncMessage psm = new PlayerSyncMessage(ph.player);
@@ -657,11 +661,60 @@ public class SoulEvent
 		World w = event.entityLiving.worldObj;
 		List<EntityPlayer> l = w.getEntitiesWithinAABB(EntityPlayer.class, new Wec3(event.entityLiving).extendBoth(16, 16, 16));
 		if (!l.isEmpty())
+		{
 			for (EntityPlayer p : l)
 			{
 				PlayerDataHandler ph = PlayerDataHandler.get(p);
-				event.setCanceled(ph.upgLevel[SoulUpgrade.Ender.ordinal()] > 0);
+				if (ph.stype.onEnderTeleport(p, event.entityLiving))
+					event.setCanceled(true);
+				for (int i = 0; i < ph.upgLevel.length; i++)
+				{
+					if (ph.upgLevel[i] > 0 && SoulUpgrade.values()[i].onEnderTeleport(p, event.entityLiving))
+					{
+						event.setCanceled(true);
+					}
+				}
+				ItemStack is = p.getCurrentEquippedItem();
+				if (is != null)
+				{
+					if (is.getItem() instanceof GameWeapon)
+					{
+						if (((GameWeapon) is.getItem()).onEnderTeleport(p, event.entityLiving))
+							event.setCanceled(true);
+
+						for (int i = 0; i < WeaponManager.getSlotCount(is); i++)
+						{
+							WeaponUpgrade wu = WeaponManager.getUpgradeAt(is, i);
+							if (wu != null)
+							{
+								if (wu.onEnderTeleport(p, event.entityLiving))
+								{
+									event.setCanceled(true);
+								}
+							}
+						}
+					}
+				}
 			}
+		}
+	}
+
+	@SubscribeEvent(priority = EventPriority.NORMAL, receiveCanceled = true)
+	public void itemDestroy(PlayerDestroyItemEvent e)
+	{
+		ItemStack i = e.original;
+		if (i != null)
+		{
+			if (i.getItem() instanceof IUpgradableItem)
+			{
+				WeaponManager.setCompounds(i);
+				if (i.getTagCompound().getInteger("Repairs") < 2)
+				{
+					i.getTagCompound().setBoolean("Broken", true);
+					e.setCanceled(true);
+				}
+			}
+		}
 	}
 
 	@SideOnly(Side.CLIENT)

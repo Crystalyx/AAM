@@ -1,14 +1,12 @@
-package AAM.Common.Items.Artifacts;
+package aam.common.items.artifacts;
 
 import java.util.List;
 
 import com.google.common.collect.Multimap;
 
-import AAM.Client.Renderer.Item.RSwordRenderer;
-import AAM.Core.AAMCore;
-import AAM.Utils.Logger;
-import AAM.Utils.MiscUtils;
-import AAM.Utils.Wec3;
+import aam.client.renderer.item.RSwordRenderer;
+import aam.core.AAMConfig;
+import aam.utils.vectors.Wec3;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.client.Minecraft;
@@ -39,6 +37,7 @@ public class RainbowSword extends ItemSword
 	 * Called each tick as long the item is on a player inventory. Uses by maps
 	 * to check if is on a player hand and update it's contents.
 	 */
+	@Override
 	public void onUpdate(ItemStack i, World w, Entity e, int p_77663_4_, boolean inHand)
 	{
 		if (w.getWorldTime() % 100 == 1)
@@ -81,12 +80,16 @@ public class RainbowSword extends ItemSword
 									{
 										int xp = (int) Math.round(el.experienceLevel * 3.5D);
 										if (!el.worldObj.isRemote)
+										{
 											el.addExperienceLevel(-1);
+										}
 										i.getTagCompound().setInteger("Exp", i.getTagCompound().getInteger("Exp") + xp);
 									}
 									else
-										if (AAMCore.cfg.enableRemovingRSword)
+										if (AAMConfig.enableRemovingRSword)
+										{
 											el.destroyCurrentEquippedItem();
+										}
 								}
 							}
 						}
@@ -110,21 +113,25 @@ public class RainbowSword extends ItemSword
 	 * allows items to add custom lines of information to the mouseover
 	 * description
 	 */
+	@Override
 	@SideOnly(Side.CLIENT)
 	public void addInformation(ItemStack i, EntityPlayer p, List l, boolean shift)
 	{
 		if (i.hasTagCompound())
+		{
 			l.add("Currently Hold " + i.getTagCompound().getInteger("Exp") + " Expirience");
+		}
 	}
 
 	/**
 	 * Gets a map of item attribute modifiers, used by ItemSword to increase hit
 	 * damage.
 	 */
+	@Override
 	public Multimap getItemAttributeModifiers()
 	{
 		Multimap multimap = super.getItemAttributeModifiers();
-		multimap.put(SharedMonsterAttributes.attackDamage.getAttributeUnlocalizedName(), new AttributeModifier(field_111210_e, "Weapon modifier", (double) 64, 0));
+		multimap.put(SharedMonsterAttributes.attackDamage.getAttributeUnlocalizedName(), new AttributeModifier(field_111210_e, "Weapon modifier", 64, 0));
 		return multimap;
 	}
 

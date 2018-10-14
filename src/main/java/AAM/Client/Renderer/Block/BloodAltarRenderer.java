@@ -1,8 +1,8 @@
-package AAM.Client.Renderer.Block;
+package aam.client.renderer.block;
 
-import AAM.Network.ClientProxy;
-import AAM.Utils.MiscUtils;
-import AAM.Utils.Render.RenderUtils;
+import aam.network.ClientProxy;
+import aam.utils.MiscUtils;
+import aam.utils.render.RenderUtils;
 import cpw.mods.fml.client.registry.ISimpleBlockRenderingHandler;
 import net.minecraft.block.Block;
 import net.minecraft.client.renderer.RenderBlocks;
@@ -95,25 +95,21 @@ public class BloodAltarRenderer implements ISimpleBlockRenderingHandler
 		renderer.setRenderBoundsFromBlock(b);
 		renderer.renderStandardBlock(b, x, y, z);
 
-		 b.setBlockBounds(1 - ds * 3, ds * 6, ds * 2, 1 - ds * 2, ds * 13, 1 -
-		 ds * 2);
-		 renderer.setRenderBoundsFromBlock(b);
-		 renderer.renderStandardBlock(b, x, y, z);
-		
-		 b.setBlockBounds(ds * 2, ds * 7, ds * 2, ds * 3, ds * 13, 1 - ds *
-		 2);
-		 renderer.setRenderBoundsFromBlock(b);
-		 renderer.renderStandardBlock(b, x, y, z);
-		
-		 b.setBlockBounds(ds * 2, ds * 6, 1 - ds * 3, 1 - ds * 2, ds * 13, 1 -
-		 ds * 2);
-		 renderer.setRenderBoundsFromBlock(b);
-		 renderer.renderStandardBlock(b, x, y, z);
-		
-		 b.setBlockBounds(ds * 2, ds * 7, ds * 2, 1 - ds * 2, ds * 13, ds *
-		 3);
-		 renderer.setRenderBoundsFromBlock(b);
-		 renderer.renderStandardBlock(b, x, y, z);
+		b.setBlockBounds(1 - ds * 3, ds * 6, ds * 2, 1 - ds * 2, ds * 13, 1 - ds * 2);
+		renderer.setRenderBoundsFromBlock(b);
+		renderer.renderStandardBlock(b, x, y, z);
+
+		b.setBlockBounds(ds * 2, ds * 7, ds * 2, ds * 3, ds * 13, 1 - ds * 2);
+		renderer.setRenderBoundsFromBlock(b);
+		renderer.renderStandardBlock(b, x, y, z);
+
+		b.setBlockBounds(ds * 2, ds * 6, 1 - ds * 3, 1 - ds * 2, ds * 13, 1 - ds * 2);
+		renderer.setRenderBoundsFromBlock(b);
+		renderer.renderStandardBlock(b, x, y, z);
+
+		b.setBlockBounds(ds * 2, ds * 7, ds * 2, 1 - ds * 2, ds * 13, ds * 3);
+		renderer.setRenderBoundsFromBlock(b);
+		renderer.renderStandardBlock(b, x, y, z);
 
 		b.setBlockBounds(0, 0, 0, 1, 1, 1);
 		return true;

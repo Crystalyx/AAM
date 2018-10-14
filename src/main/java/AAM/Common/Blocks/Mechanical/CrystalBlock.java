@@ -1,7 +1,7 @@
-package AAM.Common.Blocks.Mechanical;
+package aam.common.blocks.mechanical;
 
-import AAM.Common.Blocks.Building.ModBlocks;
-import AAM.Common.Tiles.TECrystal;
+import aam.common.blocks.building.ModBlocks;
+import aam.common.tiles.TECrystal;
 import net.minecraft.block.BlockContainer;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;

@@ -1,20 +1,19 @@
-package AAM.Common.Items.Soul;
+package aam.common.items.soul;
 
 import java.util.List;
 import java.util.Random;
 
-import AAM.API.GameWeapon;
-import AAM.API.Interface.IExtendedReach;
-import AAM.Client.Renderer.Item.SoulRenderer;
-import AAM.Common.Items.Artifacts.CrystalBow;
-import AAM.Common.Items.Resources.SwordDye;
-import AAM.Common.Soul.Soul;
-import AAM.Common.Soul.Trait;
-import AAM.Common.Soul.WarriorType;
-import AAM.Common.Soul.WeaponType;
-import AAM.Utils.Color;
-import AAM.Utils.MiscUtils;
-import AAM.Utils.PlayerDataHandler;
+import aam.api.GameWeapon;
+import aam.api.Interface.IExtendedReach;
+import aam.common.items.artifacts.CrystalBow;
+import aam.common.items.resources.SwordDye;
+import aam.common.soul.Soul;
+import aam.common.soul.SoulWeaponType;
+import aam.common.soul.Trait;
+import aam.common.soul.WarriorType;
+import aam.utils.Color;
+import aam.utils.MathUtils;
+import aam.utils.PlayerDataHandler;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.client.Minecraft;
@@ -23,6 +22,7 @@ import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.EnumRarity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemBow;
 import net.minecraft.item.ItemStack;
@@ -30,16 +30,16 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.IIcon;
 import net.minecraft.util.MovingObjectPosition;
+import net.minecraft.util.MovingObjectPosition.MovingObjectType;
 import net.minecraft.world.World;
-import net.minecraftforge.client.MinecraftForgeClient;
 
 public class SoulSword extends GameWeapon implements IExtendedReach
 {
 
-	public SoulSword(ToolMaterial mat)
+	public SoulSword()
 	{
-		super(mat);
-		MinecraftForgeClient.registerItemRenderer(this, new SoulRenderer());
+		super("aam.soul_sword", 0, 0);
+		this.setRarity(EnumRarity.epic);
 		this.setContainerItem(this);
 		this.setHasSubtypes(true);
 	}
@@ -148,7 +148,7 @@ public class SoulSword extends GameWeapon implements IExtendedReach
 	public void onUsingTick(ItemStack stack, EntityPlayer p, int count)
 	{
 		MovingObjectPosition mop = Minecraft.getMinecraft().objectMouseOver;
-		if (mop.typeOfHit.equals(mop.typeOfHit.BLOCK))
+		if (mop.typeOfHit.equals(MovingObjectType.BLOCK))
 		{
 			AxisAlignedBB aabb = AxisAlignedBB.getBoundingBox(mop.blockX, mop.blockY + 1, mop.blockZ, mop.blockX + 1, mop.blockY + 2, mop.blockZ + 1);
 			List<EntityItem> entities = p.worldObj.getEntitiesWithinAABB(EntityItem.class, aabb);
@@ -158,38 +158,6 @@ public class SoulSword extends GameWeapon implements IExtendedReach
 				PlayerDataHandler ph = PlayerDataHandler.get(p);
 
 				EntityItem item = entities.get(0);
-				// if (item.getEntityItem().getItem() instanceof ItemSword &&
-				// !ph.swords.contains(item.getEntityItem().getItem()) &&
-				// !(item.getEntityItem().getItem() instanceof SoulSword))
-				// {
-				// Random r = new Random();
-				// if (item.getEntityItem().hasTagCompound())
-				// {
-				// if
-				// (item.getEntityItem().getTagCompound().getInteger("Consumption")
-				// >= time)
-				// {
-				// // ph.soulDamage += ((ItemSword)
-				// // item.getEntityItem().getItem()).func_150931_i() +
-				// // 4;
-				// // ph.swords.add((ItemSword)
-				// // item.getEntityItem().getItem());
-				// // item.setDead();
-				// }
-				// else
-				// {
-				// item.getEntityItem().getTagCompound().setInteger("Consumption",
-				// item.getEntityItem().getTagCompound().getInteger("Consumption")
-				// + 1);
-				// }
-				// }
-				// else
-				// {
-				// NBTTagCompound tag = new NBTTagCompound();
-				// tag.setInteger("Consumption", 0);
-				// item.getEntityItem().setTagCompound(tag);
-				// }
-				// }
 				if (item.getEntityItem().getItem() instanceof SwordDye)
 				{
 					Random r = new Random();
@@ -261,27 +229,35 @@ public class SoulSword extends GameWeapon implements IExtendedReach
 
 				IIcon sword = icon[stack.getItemDamage()];
 				if (ph.arbitur)
+				{
 					sword = arbitur[stack.getItemDamage()];
+				}
 				IIcon art = passSword[0];
-				if (WeaponType.values()[stack.getItemDamage()].warrior.equals(WarriorType.Caster))
+				if (SoulWeaponType.values()[stack.getItemDamage()].warrior.equals(WarriorType.Caster))
 				{
 					art = passStaff[0];
 				}
-				if (WeaponType.values()[stack.getItemDamage()].warrior.equals(WarriorType.Tank))
+				if (SoulWeaponType.values()[stack.getItemDamage()].warrior.equals(WarriorType.Tank))
 				{
 					art = passTank[0];
 				}
 				if (ph.art)
 				{
-					if (WeaponType.values()[stack.getItemDamage()].warrior.equals(WarriorType.Carry))
+					if (SoulWeaponType.values()[stack.getItemDamage()].warrior.equals(WarriorType.Carry))
+					{
 						art = passSword[ph.stype.ordinal()];
-					if (WeaponType.values()[stack.getItemDamage()].warrior.equals(WarriorType.Caster))
+					}
+					if (SoulWeaponType.values()[stack.getItemDamage()].warrior.equals(WarriorType.Caster))
+					{
 						art = passStaff[ph.stype.ordinal()];
-					if (WeaponType.values()[stack.getItemDamage()].warrior.equals(WarriorType.Tank))
+					}
+					if (SoulWeaponType.values()[stack.getItemDamage()].warrior.equals(WarriorType.Tank))
+					{
 						art = passTank[ph.stype.ordinal()];
+					}
 				}
-				IIcon bow = WeaponType.values()[stack.getItemDamage()].warrior.equals(WarriorType.Carry) ? CrystalBow.pass[0]
-						: (WeaponType.values()[stack.getItemDamage()].warrior.equals(WarriorType.Caster) ? CrystalBow.pass[1] : CrystalBow.pass[2]);
+				IIcon bow = SoulWeaponType.values()[stack.getItemDamage()].warrior.equals(WarriorType.Carry) ? CrystalBow.pass[0]
+						: SoulWeaponType.values()[stack.getItemDamage()].warrior.equals(WarriorType.Caster) ? CrystalBow.pass[1] : CrystalBow.pass[2];
 				switch (pass)
 				{
 				case 0:
@@ -297,11 +273,11 @@ public class SoulSword extends GameWeapon implements IExtendedReach
 		{
 			IIcon sword = icon[stack.getItemDamage()];
 			IIcon art = passSword[0];
-			if (WeaponType.values()[stack.getItemDamage()].warrior.equals(WarriorType.Caster))
+			if (SoulWeaponType.values()[stack.getItemDamage()].warrior.equals(WarriorType.Caster))
 			{
 				art = passStaff[0];
 			}
-			if (WeaponType.values()[stack.getItemDamage()].warrior.equals(WarriorType.Tank))
+			if (SoulWeaponType.values()[stack.getItemDamage()].warrior.equals(WarriorType.Tank))
 			{
 				art = passTank[0];
 			}
@@ -334,10 +310,10 @@ public class SoulSword extends GameWeapon implements IExtendedReach
 		return true;
 	}
 
-	public static IIcon[] icon = new IIcon[WeaponType.values().length];
-	public static IIcon[] arbitur = new IIcon[WeaponType.values().length];
-	public static String[] ways = new String[WeaponType.values().length];
-	public static String[] ways_arbitur = new String[WeaponType.values().length];
+	public static IIcon[] icon = new IIcon[SoulWeaponType.values().length];
+	public static IIcon[] arbitur = new IIcon[SoulWeaponType.values().length];
+	public static String[] ways = new String[SoulWeaponType.values().length];
+	public static String[] ways_arbitur = new String[SoulWeaponType.values().length];
 
 	public static IIcon[] passSword = new IIcon[Soul.values().length + 1];
 	public static IIcon[] passStaff = new IIcon[Soul.values().length + 1];
@@ -351,12 +327,12 @@ public class SoulSword extends GameWeapon implements IExtendedReach
 	{
 		nil = ir.registerIcon("aam:null");
 
-		for (int i = 0; i < WeaponType.values().length; i++)
+		for (int i = 0; i < SoulWeaponType.values().length; i++)
 		{
-			icon[i] = ir.registerIcon("aam:" + WeaponType.values()[i].texture);
-			arbitur[i] = ir.registerIcon("aam:" + WeaponType.values()[i].arbitur);
-			ways[i] = WeaponType.values()[i].texture;
-			ways_arbitur[i] = WeaponType.values()[i].arbitur;
+			icon[i] = ir.registerIcon("aam:" + SoulWeaponType.values()[i].texture);
+			arbitur[i] = ir.registerIcon("aam:" + SoulWeaponType.values()[i].arbitur);
+			ways[i] = SoulWeaponType.values()[i].texture;
+			ways_arbitur[i] = SoulWeaponType.values()[i].arbitur;
 		}
 
 		passSword[0] = ir.registerIcon("aam:soulsword/swordpasses/component_nil");
@@ -387,7 +363,7 @@ public class SoulSword extends GameWeapon implements IExtendedReach
 				return "aam." + ph.sword.toString().toLowerCase();
 			}
 		}
-		return "aam." + WeaponType.values()[i.getItemDamage()].toString().toLowerCase();
+		return "aam." + SoulWeaponType.values()[i.getItemDamage()].toString().toLowerCase();
 
 	}
 
@@ -399,7 +375,7 @@ public class SoulSword extends GameWeapon implements IExtendedReach
 	@SideOnly(Side.CLIENT)
 	public void getSubItems(Item it, CreativeTabs tab, List l)
 	{
-		for (int i = 0; i < WeaponType.values().length; i++)
+		for (int i = 0; i < SoulWeaponType.values().length; i++)
 		{
 			ItemStack is = new ItemStack(it, 1, i);
 			l.add(is);
@@ -410,6 +386,6 @@ public class SoulSword extends GameWeapon implements IExtendedReach
 	public float getReachValue(EntityPlayer p, ItemStack is)
 	{
 		PlayerDataHandler ph = PlayerDataHandler.get(p);
-		return MiscUtils.boolToNum(ph.sword.equals(WeaponType.Spear), 8, 4);
+		return MathUtils.boolToNum(ph.sword.equals(SoulWeaponType.Spear), 8, 4);
 	}
 }

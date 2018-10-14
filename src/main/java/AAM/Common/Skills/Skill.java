@@ -1,6 +1,6 @@
-package AAM.Common.Skills;
+package aam.common.skills;
 
-import AAM.Common.Soul.Soul;
+import aam.common.soul.Soul;
 import net.minecraft.util.ResourceLocation;
 
 public class Skill
@@ -12,8 +12,8 @@ public class Skill
 		this.gainLevel = gainLevel;
 		this.affinity = affinity;
 		this.act = act;
-		this.texture = text;
-		this.clientN = clientn;
+		texture = text;
+		clientN = clientn;
 	}
 
 	public Skill(String name, int level, int gainLevel, SkillAction act, ResourceLocation text, boolean clientn)
@@ -22,8 +22,8 @@ public class Skill
 		this.level = level;
 		this.gainLevel = gainLevel;
 		this.act = act;
-		this.texture = text;
-		this.clientN = clientn;
+		texture = text;
+		clientN = clientn;
 	}
 
 	public int level;

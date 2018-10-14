@@ -1,0 +1,261 @@
+package aam.client.models;
+
+import org.lwjgl.opengl.GL11;
+
+import net.minecraft.client.model.ModelBase;
+import net.minecraft.client.model.ModelRenderer;
+import net.minecraft.entity.Entity;
+
+/**
+ * Pustosh - Smashe Created using Tabula 4.1.1
+ */
+public class Wasteland extends ModelBase
+{
+	public ModelRenderer head;
+	public ModelRenderer face;
+	public ModelRenderer face1;
+	public ModelRenderer face2;
+	public ModelRenderer face3;
+	public ModelRenderer face4;
+	public ModelRenderer body;
+	public ModelRenderer body1;
+	public ModelRenderer hand1left;
+	public ModelRenderer hand1right;
+	public ModelRenderer hand2left;
+	public ModelRenderer leftblock;
+	public ModelRenderer rightblock;
+	public ModelRenderer hand2right;
+	public ModelRenderer hand3right;
+	public ModelRenderer finger1;
+	public ModelRenderer finger2;
+	public ModelRenderer finger3;
+	public ModelRenderer finger4;
+	public ModelRenderer hand3left;
+	public ModelRenderer finger5;
+	public ModelRenderer finger6;
+	public ModelRenderer finger7;
+	public ModelRenderer finger8;
+	public ModelRenderer body2;
+	public ModelRenderer foot1right;
+	public ModelRenderer foot2right;
+	public ModelRenderer footrightbase;
+	public ModelRenderer foot1rightbase;
+	public ModelRenderer foot1left;
+	public ModelRenderer foot2left;
+	public ModelRenderer footleftbase;
+	public ModelRenderer foot1leftbase;
+	public ModelRenderer tail;
+	public ModelRenderer tail1;
+	public ModelRenderer tail2;
+	public ModelRenderer bodybuilder;
+	public ModelRenderer sheia;
+
+	public Wasteland()
+	{
+		textureWidth = 128;
+		textureHeight = 64;
+		rightblock = new ModelRenderer(this, 5, 45);
+		rightblock.setRotationPoint(7.7F, 7.3F, -2.3F);
+		rightblock.addBox(0.0F, 0.0F, 0.0F, 2, 2, 2, 0.0F);
+		this.setRotateAngle(rightblock, -0.22759093446006054F, 0.4553564018453205F, 0.7285004297824331F);
+		finger1 = new ModelRenderer(this, 5, 33);
+		finger1.setRotationPoint(12.2F, 14.4F, 5.2F);
+		finger1.addBox(0.0F, 0.0F, 0.0F, 1, 5, 1, 0.0F);
+		this.setRotateAngle(finger1, 1.5025539530419183F, -0.9560913642424937F, -1.1383037381507017F);
+		tail1 = new ModelRenderer(this, 64, 26);
+		tail1.setRotationPoint(-0.8F, 19.6F, -12.1F);
+		tail1.addBox(0.0F, 0.0F, 0.0F, 2, 2, 7, 0.0F);
+		this.setRotateAngle(tail1, 0.31869712141416456F, 0.0F, 0.0F);
+		finger2 = new ModelRenderer(this, 5, 33);
+		finger2.setRotationPoint(10.4F, 14.2F, 5.6F);
+		finger2.addBox(0.0F, 0.0F, 0.0F, 1, 5, 1, 0.0F);
+		this.setRotateAngle(finger2, 1.5025539530419183F, -0.9560913642424937F, -1.1383037381507017F);
+		hand1left = new ModelRenderer(this, 46, 54);
+		hand1left.setRotationPoint(-2.5F, 4.6F, 0.0F);
+		hand1left.addBox(0.0F, 0.0F, 0.0F, 1, 8, 1, 0.0F);
+		this.setRotateAngle(hand1left, -0.36425021489121656F, 0.0F, 0.9560913642424937F);
+		footrightbase = new ModelRenderer(this, 12, 29);
+		footrightbase.setRotationPoint(-7.5F, 25.5F, -2.1F);
+		footrightbase.addBox(0.0F, 0.0F, 0.0F, 3, 1, 5, 0.0F);
+		this.setRotateAngle(footrightbase, -0.5462880558742251F, -0.091106186954104F, 0.0F);
+		finger8 = new ModelRenderer(this, 5, 33);
+		finger8.setRotationPoint(-8.8F, 13.5F, 5.7F);
+		finger8.addBox(0.0F, 0.0F, 0.0F, 1, 4, 1, 0.0F);
+		this.setRotateAngle(finger8, 1.5025539530419183F, 1.4114477660878142F, 1.1383037381507017F);
+		face4 = new ModelRenderer(this, 76, 1);
+		face4.setRotationPoint(-2.1F, 0.5F, 3.8F);
+		face4.addBox(-3.0F, -2.7F, -2.4F, 3, 1, 1, 0.0F);
+		this.setRotateAngle(face4, 0.0F, 0.0F, 1.5707963267948966F);
+		face1 = new ModelRenderer(this, 96, 6);
+		face1.setRotationPoint(0.6F, 2.9F, 3.8F);
+		face1.addBox(-3.0F, -2.7F, -2.4F, 5, 1, 1, 0.0F);
+		finger4 = new ModelRenderer(this, 5, 33);
+		finger4.setRotationPoint(9.2F, 13.4F, 4.2F);
+		finger4.addBox(0.0F, 0.0F, 0.0F, 1, 4, 1, 0.0F);
+		this.setRotateAngle(finger4, 1.5025539530419183F, -1.4114477660878142F, -1.1383037381507017F);
+		tail = new ModelRenderer(this, 35, 26);
+		tail.setRotationPoint(-1.4F, 17.6F, -7.3F);
+		tail.addBox(0.0F, 0.0F, 0.0F, 3, 3, 7, 0.0F);
+		this.setRotateAngle(tail, 0.7285004297824331F, 0.0F, 0.0F);
+		foot2left = new ModelRenderer(this, 32, 1);
+		foot2left.setRotationPoint(3.2F, 20.1F, 2.8F);
+		foot2left.addBox(0.0F, 0.0F, 0.0F, 2, 8, 2, 0.0F);
+		this.setRotateAngle(foot2left, -0.5462880558742251F, 0.136659280431156F, -0.40980330836826856F);
+		body2 = new ModelRenderer(this, 54, 1);
+		body2.setRotationPoint(-2.9F, 14.6F, -3.5F);
+		body2.addBox(0.0F, 0.0F, 0.0F, 6, 3, 5, 0.0F);
+		sheia = new ModelRenderer(this, 8, 2);
+		sheia.setRotationPoint(-1.1F, 1.6F, -0.8F);
+		sheia.addBox(0.0F, 0.0F, 0.0F, 2, 3, 2, 0.0F);
+		this.setRotateAngle(sheia, -0.136659280431156F, 0.0F, 0.0F);
+		leftblock = new ModelRenderer(this, 5, 45);
+		leftblock.setRotationPoint(-7.7F, 7.8F, -2.6F);
+		leftblock.addBox(0.0F, 0.0F, 0.0F, 2, 2, 2, 0.0F);
+		this.setRotateAngle(leftblock, -0.40980330836826856F, 0.0F, 0.9105382707654417F);
+		bodybuilder = new ModelRenderer(this, 70, 43);
+		bodybuilder.setRotationPoint(-4.0F, 4.1F, -3.3F);
+		bodybuilder.addBox(0.0F, 0.0F, 0.0F, 8, 2, 7, 0.0F);
+		this.setRotateAngle(bodybuilder, -0.136659280431156F, 0.0F, 0.0F);
+		body = new ModelRenderer(this, 1, 51);
+		body.setRotationPoint(-2.9F, 4.2F, -2.9F);
+		body.addBox(0.0F, 0.0F, 0.0F, 6, 6, 6, 0.0F);
+		this.setRotateAngle(body, -0.136659280431156F, 0.0F, 0.0F);
+		foot1right = new ModelRenderer(this, 42, 1);
+		foot1right.setRotationPoint(-2.8F, 16.3F, -1.1F);
+		foot1right.addBox(0.0F, 0.0F, 0.0F, 2, 7, 2, 0.0F);
+		this.setRotateAngle(foot1right, 0.6373942428283291F, -0.136659280431156F, 0.40980330836826856F);
+		foot2right = new ModelRenderer(this, 32, 1);
+		foot2right.setRotationPoint(-4.6F, 19.3F, 1.9F);
+		foot2right.addBox(0.0F, 0.0F, 0.0F, 2, 8, 2, 0.0F);
+		this.setRotateAngle(foot2right, -0.5462880558742251F, -0.136659280431156F, 0.40980330836826856F);
+		foot1rightbase = new ModelRenderer(this, 5, 18);
+		foot1rightbase.setRotationPoint(-7.8F, 27.9F, 0.9F);
+		foot1rightbase.addBox(0.0F, 0.0F, 0.0F, 3, 1, 3, 0.0F);
+		face3 = new ModelRenderer(this, 85, 1);
+		face3.setRotationPoint(-4.1F, 0.5F, 3.8F);
+		face3.addBox(-3.0F, -2.7F, -2.4F, 5, 1, 1, 0.0F);
+		this.setRotateAngle(face3, 0.0F, 0.0F, 1.5707963267948966F);
+		hand3left = new ModelRenderer(this, 20, 40);
+		hand3left.setRotationPoint(-11.7F, 13.4F, 3.6F);
+		hand3left.addBox(0.0F, 0.0F, 0.0F, 1, 4, 4, 0.0F);
+		this.setRotateAngle(hand3left, 1.3658946726107624F, 0.5918411493512771F, 1.0471975511965976F);
+		footleftbase = new ModelRenderer(this, 12, 29);
+		footleftbase.setRotationPoint(5.0F, 25.5F, -1.6F);
+		footleftbase.addBox(0.0F, 0.0F, 0.0F, 3, 1, 5, 0.0F);
+		this.setRotateAngle(footleftbase, -0.5462880558742251F, 0.091106186954104F, 0.0F);
+		tail2 = new ModelRenderer(this, 87, 27);
+		tail2.setRotationPoint(-0.3F, 22.7F, -16.1F);
+		tail2.addBox(0.0F, 0.0F, 0.0F, 1, 1, 7, 0.0F);
+		this.setRotateAngle(tail2, 0.5462880558742251F, 0.0F, 0.0F);
+		hand2right = new ModelRenderer(this, 52, 54);
+		hand2right.setRotationPoint(7.5F, 9.2F, -2.3F);
+		hand2right.addBox(0.0F, 0.0F, 0.0F, 1, 8, 1, 0.0F);
+		this.setRotateAngle(hand2right, 0.9560913642424937F, 0.27314402793711257F, 0.0F);
+		hand3right = new ModelRenderer(this, 20, 40);
+		hand3right.setRotationPoint(11.5F, 14.3F, 3.4F);
+		hand3right.addBox(0.0F, 0.0F, 0.0F, 1, 4, 4, 0.0F);
+		this.setRotateAngle(hand3right, 1.3658946726107624F, -0.5918411493512771F, -1.0471975511965976F);
+		finger3 = new ModelRenderer(this, 5, 33);
+		finger3.setRotationPoint(8.8F, 13.2F, 5.7F);
+		finger3.addBox(0.0F, 0.0F, 0.0F, 1, 5, 1, 0.0F);
+		this.setRotateAngle(finger3, 1.5025539530419183F, -0.9560913642424937F, -1.1383037381507017F);
+		face = new ModelRenderer(this, 99, 1);
+		face.setRotationPoint(0.6F, 0.0F, 3.8F);
+		face.addBox(-3.0F, -2.7F, -2.4F, 5, 2, 1, 0.0F);
+		head = new ModelRenderer(this, 109, 1);
+		head.setRotationPoint(0.6F, 0.0F, 0.0F);
+		head.addBox(-3.0F, -2.7F, -2.4F, 5, 5, 4, 0.0F);
+		face2 = new ModelRenderer(this, 85, 1);
+		face2.setRotationPoint(-0.1F, 0.5F, 3.8F);
+		face2.addBox(-3.0F, -2.7F, -2.4F, 5, 1, 1, 0.0F);
+		this.setRotateAngle(face2, 0.0F, 0.0F, 1.5707963267948966F);
+		hand1right = new ModelRenderer(this, 46, 54);
+		hand1right.setRotationPoint(2.0F, 5.4F, 0.0F);
+		hand1right.addBox(0.0F, 0.0F, 0.0F, 1, 8, 1, 0.0F);
+		this.setRotateAngle(hand1right, -0.36425021489121656F, 0.0F, -0.9560913642424937F);
+		foot1left = new ModelRenderer(this, 42, 1);
+		foot1left.setRotationPoint(1.4F, 17.2F, -0.7F);
+		foot1left.addBox(0.0F, 0.0F, 0.0F, 2, 7, 2, 0.0F);
+		this.setRotateAngle(foot1left, 0.6373942428283291F, 0.136659280431156F, -0.40980330836826856F);
+		foot1leftbase = new ModelRenderer(this, 5, 18);
+		foot1leftbase.setRotationPoint(5.3F, 27.9F, 0.9F);
+		foot1leftbase.addBox(0.0F, 0.0F, 0.0F, 3, 1, 3, 0.0F);
+		finger6 = new ModelRenderer(this, 5, 33);
+		finger6.setRotationPoint(-10.3F, 13.6F, 6.6F);
+		finger6.addBox(0.0F, 0.0F, 0.0F, 1, 5, 1, 0.0F);
+		this.setRotateAngle(finger6, 1.5025539530419183F, 0.9560913642424937F, 1.1383037381507017F);
+		finger7 = new ModelRenderer(this, 5, 33);
+		finger7.setRotationPoint(-8.8F, 12.6F, 6.3F);
+		finger7.addBox(0.0F, 0.0F, 0.0F, 1, 5, 1, 0.0F);
+		this.setRotateAngle(finger7, 1.5025539530419183F, 0.9560913642424937F, 1.1383037381507017F);
+		finger5 = new ModelRenderer(this, 5, 33);
+		finger5.setRotationPoint(-12.0F, 13.8F, 5.7F);
+		finger5.addBox(0.0F, 0.0F, 0.0F, 1, 5, 1, 0.0F);
+		this.setRotateAngle(finger5, 1.5025539530419183F, 0.9560913642424937F, 1.1383037381507017F);
+		hand2left = new ModelRenderer(this, 52, 54);
+		hand2left.setRotationPoint(-8.4F, 9.5F, -2.6F);
+		hand2left.addBox(0.0F, 0.0F, 0.0F, 1, 8, 1, 0.0F);
+		this.setRotateAngle(hand2left, 0.9560913642424937F, -0.27314402793711257F, 0.0F);
+		body1 = new ModelRenderer(this, 27, 51);
+		body1.setRotationPoint(-1.9F, 8.5F, -2.8F);
+		body1.addBox(0.0F, 0.0F, 0.0F, 4, 8, 4, 0.0F);
+		this.setRotateAngle(body1, -0.045553093477052F, 0.0F, 0.0F);
+	}
+
+	@Override
+	public void render(Entity entity, float f, float f1, float f2, float f3, float f4, float f5)
+	{
+		GL11.glPushMatrix();
+		GL11.glTranslated(0, -0.3, 0);
+		GL11.glRotated(180, 0, 1, 0);
+		rightblock.render(f5);
+		finger1.render(f5);
+		tail1.render(f5);
+		finger2.render(f5);
+		hand1left.render(f5);
+		footrightbase.render(f5);
+		finger8.render(f5);
+		face4.render(f5);
+		face1.render(f5);
+		finger4.render(f5);
+		tail.render(f5);
+		foot2left.render(f5);
+		body2.render(f5);
+		sheia.render(f5);
+		leftblock.render(f5);
+		bodybuilder.render(f5);
+		body.render(f5);
+		foot1right.render(f5);
+		foot2right.render(f5);
+		foot1rightbase.render(f5);
+		face3.render(f5);
+		hand3left.render(f5);
+		footleftbase.render(f5);
+		tail2.render(f5);
+		hand2right.render(f5);
+		hand3right.render(f5);
+		finger3.render(f5);
+		face.render(f5);
+		head.render(f5);
+		face2.render(f5);
+		hand1right.render(f5);
+		foot1left.render(f5);
+		foot1leftbase.render(f5);
+		finger6.render(f5);
+		finger7.render(f5);
+		finger5.render(f5);
+		hand2left.render(f5);
+		body1.render(f5);
+		GL11.glPopMatrix();
+	}
+
+	/**
+	 * This is a helper function from Tabula to set the rotation of model parts
+	 */
+	public void setRotateAngle(ModelRenderer modelRenderer, float x, float y, float z)
+	{
+		modelRenderer.rotateAngleX = x;
+		modelRenderer.rotateAngleY = y;
+		modelRenderer.rotateAngleZ = z;
+	}
+}

@@ -1,4 +1,4 @@
-package AAM.Common.Transmutations;
+package aam.common.transmutations;
 
 import net.minecraftforge.fluids.Fluid;
 
@@ -6,9 +6,9 @@ public class FluidBlood extends Fluid
 {
 	public FluidBlood()
 	{
-		super("aamblood");
+		super("aam_blood");
 		this.setDensity(1051);
-		this.viscosity = 1100;
+		viscosity = 1100;
 	}
 
 }

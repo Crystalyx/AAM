@@ -1,4 +1,4 @@
-package AAM.Common.Skills;
+package aam.common.skills;
 
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.world.World;

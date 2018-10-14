@@ -1,20 +1,20 @@
-package AAM.Common.Skills;
+package aam.common.skills;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import AAM.Common.Entity.SoulCharge;
-import AAM.Utils.MiscUtils;
-import AAM.Utils.PlayerDataHandler;
-import AAM.Utils.Wec3;
+import aam.common.entity.SoulCharge;
+import aam.utils.MathUtils;
+import aam.utils.PlayerDataHandler;
+import aam.utils.vectors.Wec3;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
 
 public class ModSkills
 {
-	public static List<SkillBase> skillbases = new ArrayList<SkillBase>();
-	public static List<Skill> skills = new ArrayList<Skill>();
+	public static List<SkillBase> skillbases = new ArrayList<>();
+	public static List<Skill> skills = new ArrayList<>();
 
 	// TODO
 	public static void load()
@@ -32,7 +32,7 @@ public class ModSkills
 						double a = Math.toRadians(i * 6);
 						SoulCharge s = new SoulCharge(p.worldObj, p);
 						s.setLife(500);
-						Wec3 look = MiscUtils.getPosBy3DAngle(a, 0, 1);
+						Wec3 look = MathUtils.getPosBy3DAngle(a, 0, 1);
 						look.ptm(s);
 						if (!p.worldObj.isRemote)
 						{
@@ -142,7 +142,9 @@ public class ModSkills
 		for (SkillBase sb : skillbases)
 		{
 			if (sb.name.equals(name))
+			{
 				return sb;
+			}
 		}
 		return null;
 	}

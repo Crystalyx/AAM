@@ -1,12 +1,12 @@
-package AAM.Common.Items.Artifacts;
+package aam.common.items.artifacts;
 
-import AAM.API.Abstract.ItemArtifact;
-import AAM.Common.Entity.SoulCharge;
-import AAM.Common.Items.Soul.Artifact;
-import AAM.Common.Items.Soul.SoulSword;
-import AAM.Common.Soul.Trait;
-import AAM.Utils.PlayerDataHandler;
-import AAM.Utils.Wec3;
+import aam.api.abstraction.ItemArtifact;
+import aam.common.entity.SoulCharge;
+import aam.common.items.soul.Artifact;
+import aam.common.items.soul.SoulSword;
+import aam.common.soul.Trait;
+import aam.utils.PlayerDataHandler;
+import aam.utils.vectors.Wec3;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
@@ -20,7 +20,7 @@ public class CrystalBow extends ItemArtifact
 	public CrystalBow()
 	{
 		super("aam.crystalbow.name", "aam.crystalbow.descr", 0);
-		this.canRepair = true;
+		canRepair = true;
 		this.setHasSubtypes(true);
 	}
 
@@ -31,7 +31,7 @@ public class CrystalBow extends ItemArtifact
 		{
 			if (i.getTagCompound().getInteger("State") < 5)
 			{
-				i.getTagCompound().setInteger("State", (i.getTagCompound().getInteger("State") + 1));
+				i.getTagCompound().setInteger("State", i.getTagCompound().getInteger("State") + 1);
 			}
 			else
 			{
@@ -60,17 +60,25 @@ public class CrystalBow extends ItemArtifact
 			if (i.hasTagCompound())
 			{
 				if (ph.art)
+				{
 					i.getTagCompound().setInteger("Art", ph.stype.ordinal());
+				}
 				else
+				{
 					i.getTagCompound().setInteger("Art", -1);
+				}
 			}
 			else
 			{
 				NBTTagCompound tag = new NBTTagCompound();
 				if (ph.art)
+				{
 					tag.setInteger("Art", ph.stype.ordinal());
+				}
 				else
+				{
 					tag.setInteger("Art", -1);
+				}
 				tag.setInteger("State", 0);
 				i.setTagCompound(tag);
 			}
@@ -114,13 +122,19 @@ public class CrystalBow extends ItemArtifact
 			if (p == 0)
 			{
 				if (i.getTagCompound().getInteger("Art") != -1)
+				{
 					return Artifact.icons[i.getTagCompound().getInteger("Art")];
+				}
 				else
+				{
 					return SoulSword.nil;
+				}
 			}
 			else
 				if (p == 1)
+				{
 					return icon[Math.floorDiv(i.getTagCompound().getInteger("State"), 2)];
+				}
 		}
 		return icon[0];
 	}

@@ -1,11 +1,11 @@
-package AAM.Client.Renderer.Tile;
+package aam.client.renderer.tile;
 
 import org.lwjgl.opengl.GL11;
 
-import AAM.Common.Items.ModItems;
-import AAM.Utils.MiscUtils;
-import AAM.Utils.PlayerDataHandler;
 import DummyCore.Utils.DrawUtils;
+import aam.common.items.ModItems;
+import aam.utils.MiscUtils;
+import aam.utils.PlayerDataHandler;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;

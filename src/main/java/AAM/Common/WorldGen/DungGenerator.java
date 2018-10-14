@@ -1,9 +1,9 @@
-package AAM.Common.WorldGen;
+package aam.common.worldgen;
 
 import java.util.Random;
 
-import AAM.Utils.Structure;
-import AAM.Utils.Structures;
+import aam.utils.Structure;
+import aam.utils.Structures;
 import cpw.mods.fml.common.IWorldGenerator;
 import net.minecraft.world.World;
 import net.minecraft.world.chunk.IChunkProvider;
@@ -23,10 +23,6 @@ public class DungGenerator implements IWorldGenerator
 				{
 					DungeonUnit unit = new DungeonUnit(base, i, j);
 					unit.able = base.getMap(i, j);
-					if (i == 0 && j == 0)
-					{
-						unit.center = Structures.soulAltar;
-					}
 					base.units[i + 5][j + 5] = unit;
 					unit.print(w);
 				}

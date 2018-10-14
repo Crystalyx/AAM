@@ -1,9 +1,9 @@
-package AAM.Common.Transmutations;
+package aam.common.transmutations;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import AAM.Utils.Color;
+import aam.utils.Color;
 
 public class Transmutation
 {
@@ -12,38 +12,32 @@ public class Transmutation
 		this.name = name;
 		for (int i = 0; i < l.length() / 4; i++)
 		{
-			this.parts.add(l.substring(i * 4, (i + 1) * 4));
+			parts.add(l.substring(i * 4, (i + 1) * 4));
 		}
 		this.action = action;
 	}
 
-	public Transmutation setTick(boolean tick)
-	{
-		this.needTick = tick;
-		return this;
-	}
-
 	public Transmutation setPrepTime(int time)
 	{
-		this.prepTime = time;
+		prepTime = time;
 		return this;
 	}
 
 	public Transmutation setPrepColor(Color prep)
 	{
-		this.prepCol = prep;
+		prepCol = prep;
 		return this;
 	}
 
 	public Transmutation setActTime(int time)
 	{
-		this.actTime = time;
+		actTime = time;
 		return this;
 	}
 
 	public Transmutation setActColor(Color act)
 	{
-		this.actCol = act;
+		actCol = act;
 		return this;
 	}
 
@@ -52,8 +46,7 @@ public class Transmutation
 	public int actTime = 10;
 	public Color prepCol = new Color(60, 40, 255);
 	public Color actCol = new Color(160, 140, 255);
-	public List<String> parts = new ArrayList<String>();
+	public List<String> parts = new ArrayList<>();
 	public TransAction action;
-	public boolean needTick = false;
 
 }

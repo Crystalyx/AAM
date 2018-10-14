@@ -1,9 +1,9 @@
-package AAM.Common.Event;
+package aam.common.event;
 
 import java.util.Collection;
 
-import AAM.Common.Potions.ModPotions;
-import AAM.Utils.PlayerDataHandler;
+import aam.common.potions.ModPotions;
+import aam.utils.PlayerDataHandler;
 import cpw.mods.fml.common.eventhandler.EventPriority;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import net.minecraft.entity.SharedMonsterAttributes;

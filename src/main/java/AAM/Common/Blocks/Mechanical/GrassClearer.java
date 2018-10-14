@@ -1,7 +1,7 @@
 /**
  * This Class Created By Lord_Crystalyx.
  */
-package AAM.Common.Blocks.Mechanical;
+package aam.common.blocks.mechanical;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockBush;
@@ -20,7 +20,7 @@ public class GrassClearer extends Block
 	{
 		super(Material.wood);
 		this.setHardness(0.5F);
-		this.setBlockName("aam.grassclearer");
+		this.setBlockName("aam.grass_clearer");
 		this.setBlockTextureName("aam:grass_hater");
 	}
 
@@ -46,7 +46,9 @@ public class GrassClearer extends Block
 			}
 		}
 		if (flag)
+		{
 			w.setBlockToAir(x, y, z);
+		}
 		return flag;
 	}
 

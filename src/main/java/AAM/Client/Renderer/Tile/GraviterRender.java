@@ -1,8 +1,8 @@
-package AAM.Client.Renderer.Tile;
+package aam.client.renderer.tile;
 
 import org.lwjgl.opengl.GL11;
 
-import AAM.Client.Model.Graviter;
+import aam.client.models.Graviter;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.RenderHelper;
 import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;

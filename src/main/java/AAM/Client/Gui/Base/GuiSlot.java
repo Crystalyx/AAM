@@ -1,8 +1,8 @@
-package AAM.Client.Gui.Base;
+package aam.client.gui.base;
 
 import org.lwjgl.opengl.GL11;
 
-import AAM.Utils.Graph;
+import aam.utils.Graph;
 
 public class GuiSlot extends GuiOBJ
 {
@@ -10,8 +10,8 @@ public class GuiSlot extends GuiOBJ
 	{
 		this.x = x;
 		this.y = y;
-		this.sizex = size;
-		this.sizey = size;
+		sizex = size;
+		sizey = size;
 		this.type = type;
 	}
 
@@ -23,21 +23,21 @@ public class GuiSlot extends GuiOBJ
 	@Override
 	public void render(int k, int l)
 	{
-		if (!this.hidden)
+		if (!hidden)
 		{
 			GL11.glPushMatrix();
 			GL11.glColor3d(1, 1, 1);
 			this.bindTexture();
-			GL11.glTranslated(k + this.x + 1, l + this.y + 1, 0);
+			GL11.glTranslated(k + x + 1, l + y + 1, 0);
 
-			Graph.drawSizedSqr(this.gui, 256, 256, 34, 34, this.sizex, this.sizey, 1, 1, 1, 1);
+			Graph.drawSizedSqr(gui, 256, 256, 34, 34, sizex, sizey, 1, 1, 1, 1);
 
 			GL11.glPopMatrix();
-			if (this.type >= 0)
+			if (type >= 0)
 			{
-				SlotType typ = ObjTypes.slots.get(this.type);
-				typ.setGui(this.gui);
-				typ.render(k, l, 10 + this.x + this.sizex / 2 - typ.sizex / 2, 10 + this.y + this.sizey / 2 - typ.sizey / 2);
+				SlotType typ = ObjTypes.slots.get(type);
+				typ.setGui(gui);
+				typ.render(k, l, 10 + x + sizex / 2 - typ.sizex / 2, 10 + y + sizey / 2 - typ.sizey / 2);
 			}
 		}
 	}

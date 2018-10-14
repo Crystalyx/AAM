@@ -1,10 +1,10 @@
-package AAM.Common.Blocks.Circles;
+package aam.common.blocks.circles;
 
-import AAM.Common.Items.ModItems;
-import AAM.Common.Tiles.TEMechanicalBase;
-import AAM.Common.Transmutations.Circle;
-import AAM.Common.Transmutations.ModCircles;
-import AAM.Utils.MiscUtils;
+import aam.common.items.ModItems;
+import aam.common.tiles.TEMechanicalBase;
+import aam.common.transmutations.Circle;
+import aam.common.transmutations.ModCircles;
+import aam.utils.InventoryUtils;
 import net.minecraft.block.BlockContainer;
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.player.EntityPlayer;
@@ -53,7 +53,7 @@ public class MechanicalBase extends BlockContainer
 				{
 					if (p.getCurrentEquippedItem().getItemDamage() == 1)
 					{
-						if (MiscUtils.contains(p.inventory, ModItems.ItemChalk))
+						if (InventoryUtils.contains(p.inventory, ModItems.ItemChalk))
 						{
 							NBTTagCompound tag = p.getCurrentEquippedItem().getTagCompound();
 
@@ -71,7 +71,9 @@ public class MechanicalBase extends BlockContainer
 									double scale = tag.getDouble("Scale_" + i);
 									Circle c = new Circle(ModCircles.getprtsr(code), scale, rev);
 									if (!te.circle.contains(c))
+									{
 										te.circle.add(c);
+									}
 								}
 							}
 						}
@@ -82,9 +84,13 @@ public class MechanicalBase extends BlockContainer
 		else
 		{
 			if (!p.isSneaking())
+			{
 				te.createCircleAbove();
+			}
 			else
+			{
 				te.circle.clear();
+			}
 		}
 		return true;
 	}

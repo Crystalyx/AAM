@@ -1,7 +1,7 @@
-package AAM.Common.Blocks.Mechanical;
+package aam.common.blocks.mechanical;
 
-import AAM.Common.Tiles.TESpellTable;
-import AAM.Core.AAMCore;
+import aam.common.tiles.TESpellTable;
+import aam.core.AAMCore;
 import net.minecraft.block.BlockContainer;
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.EntityLivingBase;
@@ -9,7 +9,6 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.MathHelper;
-import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
 
@@ -30,9 +29,10 @@ public class SpellTable extends BlockContainer
 	/**
 	 * Called when the block is placed in the world.
 	 */
+	@Override
 	public void onBlockPlacedBy(World w, int x, int y, int z, EntityLivingBase p, ItemStack p_149689_6_)
 	{
-		int l = MathHelper.floor_double((double) ((-p.rotationYaw - 45) * 4.0F / 360.0F)) & 3;
+		int l = MathHelper.floor_double((-p.rotationYaw - 45) * 4.0F / 360.0F) & 3;
 
 		w.setBlockMetadataWithNotify(x, y, z, ForgeDirection.getOrientation(l).getOpposite().flag, 2);
 	}
@@ -42,16 +42,19 @@ public class SpellTable extends BlockContainer
 	 * or not to render the shared face of two adjacent blocks and also whether
 	 * the player can attach torches, redstone wire, etc to this block.
 	 */
+	@Override
 	public boolean isOpaqueCube()
 	{
 		return false;
 	}
 
+	@Override
 	public boolean isNormalCube()
 	{
 		return false;
 	}
 
+	@Override
 	public int getRenderType()
 	{
 		return 128;

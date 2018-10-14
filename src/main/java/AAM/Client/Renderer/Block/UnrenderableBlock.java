@@ -1,6 +1,6 @@
-package AAM.Client.Renderer.Block;
+package aam.client.renderer.block;
 
-import AAM.Network.ClientProxy;
+import aam.network.ClientProxy;
 import cpw.mods.fml.client.registry.ISimpleBlockRenderingHandler;
 import net.minecraft.block.Block;
 import net.minecraft.client.renderer.RenderBlocks;

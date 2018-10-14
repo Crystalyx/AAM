@@ -1,7 +1,8 @@
-package AAM.Utils;
+package aam.utils;
 
 import java.util.List;
 
+import aam.utils.vectors.Wec3;
 import cpw.mods.fml.common.registry.GameRegistry;
 import net.minecraft.block.Block;
 import net.minecraft.nbt.NBTTagCompound;
@@ -11,14 +12,14 @@ public class Structure
 {
 	public Structure(String structure)
 	{
-		this.blocks = structure;
-		this.strtag = disparse(structure);
+		blocks = structure;
+		strtag = disparse(structure);
 	}
 
 	public Structure(NBTTagCompound structure)
 	{
-		this.strtag = structure;
-		this.blocks = parse(structure);
+		strtag = structure;
+		blocks = parse(structure);
 	}
 
 	public static NBTTagCompound disparse(String blocks)
@@ -82,19 +83,16 @@ public class Structure
 	public boolean checkStructure(World w, int x, int y, int z)
 	{
 		List<String> l = MiscUtils.unpact(blocks);
-		int sx = Integer.parseInt(l.get(0));
-		int sy = Integer.parseInt(l.get(1));
-		int sz = Integer.parseInt(l.get(2));
 
-		int tx = Integer.parseInt(l.get(3));
-		int ty = Integer.parseInt(l.get(4));
-		int tz = Integer.parseInt(l.get(5));
+		int tx = Integer.parseInt(l.get(0));
+		int ty = Integer.parseInt(l.get(1));
+		int tz = Integer.parseInt(l.get(2));
 
 		boolean ret = true;
 
 		for (int i = 0; i < (l.size() - 6) / 5; i++)
 		{
-			int j = i * 5 + 6;
+			int j = i * 5 + 3;
 
 			int cx = Integer.parseInt(l.get(j)) + x;
 			int cy = Integer.parseInt(l.get(j + 1)) + y;
@@ -125,7 +123,7 @@ public class Structure
 		List<String> l = MiscUtils.unpact(blocks);
 
 		int tx = Integer.parseInt(l.get(0));
-		int ty = Integer.parseInt(l.get(4));
+		int ty = Integer.parseInt(l.get(1));
 		int tz = Integer.parseInt(l.get(2));
 
 		boolean ret = true;
@@ -144,9 +142,18 @@ public class Structure
 			Block b = GameRegistry.findBlock(name.substring(0, name.indexOf(':')), name.substring(name.indexOf(':') + 1));
 			int data = Integer.parseInt(meta);
 
-			if (w.getBlock(cx, cy, cz) != b || (w.getBlockMetadata(cx, cy, cz) != data && data != -1))
+			if (w.getBlock(cx, cy, cz) != b || w.getBlockMetadata(cx, cy, cz) != data && data != -1)
 			{
 				ret = false;
+				// String worldBlockName =
+				// GameRegistry.findUniqueIdentifierFor(w.getBlock(cx, cy,
+				// cz)).toString();
+				// String bBlockName =
+				// GameRegistry.findUniqueIdentifierFor(b).toString();
+				// int worldMeta = w.getBlockMetadata(cx, cy, cz);
+				// Logger.warn("World Block " + worldBlockName + ":" + worldMeta
+				// + " at (" + x + ", " + y + ", " + z + ") is inequal to " +
+				// bBlockName + ":" + data);
 				break;
 			}
 		}
@@ -182,9 +189,11 @@ public class Structure
 			Block b = GameRegistry.findBlock(name.substring(0, name.indexOf(':')), name.substring(name.indexOf(':') + 1));
 			int data = Integer.parseInt(meta);
 			if (data == -1)
+			{
 				data = 0;
-
-			w.setBlock(cx, cy, cz, b, data, 2);
+			}
+			if (b != null)
+				w.setBlock(cx, cy, cz, b, data, 2);
 		}
 
 		return ret;

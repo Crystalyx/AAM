@@ -1,8 +1,8 @@
-package AAM.Client.Gui.Base;
+package aam.client.gui.base;
 
 import org.lwjgl.opengl.GL11;
 
-import AAM.Utils.Graph;
+import aam.utils.Graph;
 
 public class GuiText extends GuiOBJ
 {
@@ -24,7 +24,7 @@ public class GuiText extends GuiOBJ
 		this.sizex = sizex;
 		this.sizey = sizey;
 		this.text = text;
-		this.background = back;
+		background = back;
 	}
 
 	public void updText(String text)
@@ -37,18 +37,18 @@ public class GuiText extends GuiOBJ
 	@Override
 	public void render(int k, int l)
 	{
-		if (!this.hidden)
+		if (!hidden)
 		{
 			GL11.glPushMatrix();
 
 			this.bindTexture();
-			GL11.glTranslated(k + this.x, l + this.y, 0);
+			GL11.glTranslated(k + x, l + y, 0);
 
-			if (this.background)
+			if (background)
 			{
-				Graph.drawSizedSqr(this.gui, 256, 256, 52, 24, this.sizex, this.sizey, 204, 0, 2, 2);
+				Graph.drawSizedSqr(gui, 256, 256, 52, 24, sizex, sizey, 204, 0, 2, 2);
 			}
-			this.gui.drawString(this.gui.getFontRenderer(), this.text, 3, 3, 16777215);
+			gui.drawString(gui.getFontRenderer(), text, 3, 3, 16777215);
 			GL11.glPopMatrix();
 		}
 	}

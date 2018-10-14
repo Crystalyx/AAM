@@ -1,32 +1,19 @@
-package AAM.API;
-
-import java.util.Random;
+package aam.api;
 
 import org.lwjgl.opengl.GL11;
 
-import AAM.Utils.Color;
-import AAM.Utils.Logger;
-import AAM.Utils.MiscUtils;
+import aam.utils.Color;
 import amerifrance.guideapi.api.abstraction.CategoryAbstract;
 import amerifrance.guideapi.api.abstraction.EntryAbstract;
-import amerifrance.guideapi.api.abstraction.IRecipeRenderer;
 import amerifrance.guideapi.api.base.Book;
 import amerifrance.guideapi.api.util.GuiHelper;
 import amerifrance.guideapi.gui.GuiBase;
-import amerifrance.guideapi.pages.PageItemStack;
 import amerifrance.guideapi.pages.PageText;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
-import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
-import net.minecraft.init.Blocks;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.crafting.IRecipe;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.StatCollector;
-import net.minecraftforge.oredict.OreDictionary;
 
 public class PageItemList extends PageText
 {
@@ -43,48 +30,52 @@ public class PageItemList extends PageText
 	public void draw(Book book, CategoryAbstract category, EntryAbstract entry, int guiLeft, int guiTop, int mouseX, int mouseY, GuiBase guiBase, FontRenderer fontRenderer)
 	{
 		boolean startFlag = fontRenderer.getUnicodeFlag();
-		if (this.unicode)
+		if (unicode)
 		{
 			fontRenderer.setUnicodeFlag(true);
 		}
 
-		fontRenderer.drawString(this.draw, guiLeft + 60 + this.draw.length() / 2, guiTop + 12, Color.Black.hex, false);
-		if (this.unicode && !startFlag)
+		fontRenderer.drawString(draw, guiLeft + 60 + draw.length() / 2, guiTop + 12, Color.Black.hex, false);
+		if (unicode && !startFlag)
 		{
 			fontRenderer.setUnicodeFlag(false);
 		}
 
 	}
 
+	@Override
 	@SideOnly(Side.CLIENT)
 	public void drawExtras(Book book, CategoryAbstract category, EntryAbstract entry, int guiLeft, int guiTop, int mouseX, int mouseY, GuiBase guiBase, FontRenderer fontRenderer)
 	{
-		for (int i = 0; i < this.stack.size(); i++)
+		for (int i = 0; i < stack.size(); i++)
 		{
 			GL11.glPushMatrix();
 			GL11.glTranslated(guiLeft + 75, guiTop + 25 + 20 * i, 0);
-			if (this.stack.getTip(i).length()*8 > 90)
+			if (stack.getTip(i).length() * 8 > 90)
+			{
 				GL11.glScaled(0.55, 0.55, 0.55);
-			fontRenderer.drawSplitString(this.stack.getTip(i), 0, 0, 90, Color.Black.hex);
+			}
+			fontRenderer.drawSplitString(stack.getTip(i), 0, 0, 90, Color.Black.hex);
 
 			GL11.glPopMatrix();
 		}
-		for (int i = 0; i < this.stack.size(); i++)
+		for (int i = 0; i < stack.size(); i++)
 		{
-			if (this.stack.getStack(i) instanceof ItemStack)
+			if (stack.getStack(i) instanceof ItemStack)
 			{
-				GuiHelper.drawScaledItemStack((ItemStack) this.stack.getStack(i), guiLeft + 45, guiTop + 25 + 20 * i, 1.0F);
+				GuiHelper.drawScaledItemStack((ItemStack) stack.getStack(i), guiLeft + 45, guiTop + 25 + 20 * i, 1.0F);
 			}
 			else
-				if (this.stack.getStack(i) instanceof ItemStack[])
+				if (stack.getStack(i) instanceof ItemStack[])
 				{
-					int l = ((ItemStack[]) this.stack.getStack(i)).length;
-					int v = (int) (((Minecraft.getSystemTime() / 40d) % (l * 15)) / 15d);
-					GuiHelper.drawScaledItemStack(((ItemStack[]) this.stack.getStack(i))[v], guiLeft + 45, guiTop + 25 + 20 * i, 1.0F);
+					int l = ((ItemStack[]) stack.getStack(i)).length;
+					int v = (int) (Minecraft.getSystemTime() / 40d % (l * 15) / 15d);
+					GuiHelper.drawScaledItemStack(((ItemStack[]) stack.getStack(i))[v], guiLeft + 45, guiTop + 25 + 20 * i, 1.0F);
 				}
 		}
 	}
 
+	@Override
 	public boolean equals(Object o)
 	{
 		if (this == o)
@@ -101,9 +92,9 @@ public class PageItemList extends PageText
 				else
 				{
 					PageItemList that = (PageItemList) o;
-					if (this.stack != null)
+					if (stack != null)
 					{
-						if (!this.stack.isItemsEqual(that.stack))
+						if (!stack.isItemsEqual(that.stack))
 						{
 							return false;
 						}
@@ -123,8 +114,9 @@ public class PageItemList extends PageText
 			}
 	}
 
+	@Override
 	public int hashCode()
 	{
-		return this.stack != null ? this.stack.hashCode() : 0;
+		return stack != null ? stack.hashCode() : 0;
 	}
 }

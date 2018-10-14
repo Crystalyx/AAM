@@ -1,25 +1,17 @@
-package AAM.Common.Items.Alchemy;
+package aam.common.items.alchemy;
 
-import AAM.API.Interface.ICircleExtender;
-import AAM.Common.Entity.EntityMinium;
-import AAM.Utils.Wec3;
+import aam.common.entity.EntityMinium;
+import aam.utils.vectors.Wec3;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 
-public class MiniumShard extends Item implements ICircleExtender
+public class MiniumShard extends Item
 {
 	public MiniumShard()
 	{
 		this.setTextureName("aam:tools/minium");
-	}
-
-	@Override
-	public void onExtended(ItemStack i, EntityPlayer p, World w, Wec3 pos)
-	{
-		i.stackSize -= 1;
 	}
 
 	@Override

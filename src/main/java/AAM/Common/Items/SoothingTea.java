@@ -1,7 +1,7 @@
 /**
  * This Class Created By Lord_Crystalyx.
  */
-package AAM.Common.Items;
+package aam.common.items;
 
 import java.util.Collection;
 
@@ -22,12 +22,13 @@ public class SoothingTea extends ItemFood
 	{
 		super(2, 5F, true);
 		this.setTextureName("aam:dark_tea");
-		this.setUnlocalizedName("aam.stea");
+		this.setUnlocalizedName("aam.soothing_tea");
 		this.setAlwaysEdible();
 	}
 
 	int l = 0;
 
+	@Override
 	public void onFoodEaten(ItemStack i, World w, EntityPlayer p)
 	{
 		Collection coll = p.getActivePotionEffects();
@@ -47,6 +48,7 @@ public class SoothingTea extends ItemFood
 	/**
 	 * How long it takes to use or consume an item
 	 */
+	@Override
 	public int getMaxItemUseDuration(ItemStack p_77626_1_)
 	{
 		return 40;
@@ -56,6 +58,7 @@ public class SoothingTea extends ItemFood
 	 * returns the action that specifies what animation to play when the items
 	 * is being used
 	 */
+	@Override
 	public EnumAction getItemUseAction(ItemStack p_77661_1_)
 	{
 		return EnumAction.drink;

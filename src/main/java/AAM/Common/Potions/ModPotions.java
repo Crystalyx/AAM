@@ -1,16 +1,16 @@
-package AAM.Common.Potions;
+package aam.common.potions;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import AAM.Common.Blocks.Building.ModBlocks;
-import AAM.Core.AAMConfig;
-import AAM.Core.AAMCore;
-import AAM.Utils.Color;
-import AAM.Utils.PlayerDataHandler;
-import AAM.Utils.VectorWorld;
-import AAM.Utils.Wec3;
 import DummyCore.Utils.MiscUtils;
+import aam.common.blocks.building.ModBlocks;
+import aam.core.AAMConfig;
+import aam.utils.Color;
+import aam.utils.PlayerDataHandler;
+import aam.utils.vectors.VectorWorld;
+import aam.utils.vectors.Wec3;
+import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.potion.Potion;
@@ -20,7 +20,7 @@ import net.minecraftforge.fluids.BlockFluidClassic;
 public class ModPotions
 {
 	public static AlchemicalPotion[] pots = new AlchemicalPotion[0];
-	public static List<Concentrate> concentrates = new ArrayList<Concentrate>();
+	public static List<Concentrate> concentrates = new ArrayList<>();
 
 	private static int lastId;
 
@@ -33,21 +33,23 @@ public class ModPotions
 	public static Potion lavaResistance;
 	public static Potion poison;
 	public static Potion soul;
+	public static Potion cold;
 	// public static Potion healthincr;
 
 	public static void load()
 	{
 		MiscUtils.extendPotionArray(32);
 
-		heal = (new PotionEffects(0 + AAMCore.cfg.genericPID, false)).setPotionName("alchamagicr.heal");
-		antidote = (new PotionEffects(1 + AAMCore.cfg.genericPID, false)).setPotionName("alchamagicr.antidote");
-		flame = (new PotionEffects(2 + AAMCore.cfg.genericPID, false)).setPotionName("alchamagicr.flame");
-		flight = (new PotionEffects(3 + AAMCore.cfg.genericPID, false)).setPotionName("alchamagicr.flight");
-		ice = (new PotionEffects(4 + AAMCore.cfg.genericPID, false)).setPotionName("alchamagicr.ice");
-		invincibility = (new PotionEffects(5 + AAMCore.cfg.genericPID, false)).setPotionName("alchamagicr.invincibility");
-		lavaResistance = (new PotionEffects(6 + AAMCore.cfg.genericPID, false)).setPotionName("alchamagicr.lavaResistance");
-		poison = (new PotionEffects(7 + AAMCore.cfg.genericPID, true)).setPotionName("alchamagicr.poison");
-		soul = (new PotionEffects(8 + AAMCore.cfg.genericPID, false)).setPotionName("alchamagicr.soul");
+		heal = new PotionEffects(0 + AAMConfig.genericPID, false).setPotionName("alchamagicr.heal");
+		antidote = new PotionEffects(1 + AAMConfig.genericPID, false).setPotionName("alchamagicr.antidote");
+		flame = new PotionEffects(2 + AAMConfig.genericPID, false).setPotionName("alchamagicr.flame");
+		flight = new PotionEffects(3 + AAMConfig.genericPID, false).setPotionName("alchamagicr.flight");
+		ice = new PotionEffects(4 + AAMConfig.genericPID, false).setPotionName("alchamagicr.ice");
+		invincibility = new PotionEffects(5 + AAMConfig.genericPID, false).setPotionName("alchamagicr.invincibility");
+		lavaResistance = new PotionEffects(6 + AAMConfig.genericPID, false).setPotionName("alchamagicr.lavaResistance");
+		poison = new PotionEffects(7 + AAMConfig.genericPID, true).setPotionName("alchamagicr.poison");
+		soul = new PotionEffects(8 + AAMConfig.genericPID, false).setPotionName("alchamagicr.soul");
+		cold = new PotionEffects(9 + AAMConfig.genericPID, false).setPotionName("alchamagicr.cold").func_111184_a(SharedMonsterAttributes.movementSpeed, "7107DE5E-7CE8-4030-940E-514C1F160891", -0.15000000596046448D, 2);
 		// healthincr = (new PotionEffects(9 + AAMCore.cfg.genericPID,
 		// false)).setPotionName("alchamagicr.healthincr");
 
@@ -115,16 +117,24 @@ public class ModPotions
 							if (vw.getBlock(ijk) == Blocks.lava || vw.getBlock(ijk) == Blocks.flowing_lava)
 							{
 								if (vw.getBlockMetadata(ijk) == 0)
+								{
 									vw.setBlock(ijk, Blocks.obsidian, 0, 2);
+								}
 								else
+								{
 									vw.setBlock(ijk, Blocks.cobblestone, 0, 2);
+								}
 							}
 							if (vw.getBlock(ijk) == ModBlocks.BloodBlock)
 							{
 								if (((BlockFluidClassic) vw.getBlock(ijk)).isSourceBlock(w, pp.ix + i, pp.iy + j, pp.iz + k))
+								{
 									vw.setBlock(ijk, ModBlocks.miniumBlock, 0, 2);
+								}
 								else
+								{
 									vw.setBlock(ijk, Blocks.ice, 0, 2);
+								}
 							}
 						}
 					}
@@ -203,10 +213,10 @@ public class ModPotions
 	public static void addPotion(int duration, String name, Color color, int... ings)
 	{
 		AlchemicalPotion add;
-		List<Ingridient> ing = new ArrayList<Ingridient>();
-		for (int i = 0; i < ings.length; i++)
+		List<Ingridient> ing = new ArrayList<>();
+		for (int ing2 : ings)
 		{
-			ing.add(get(ings[i]));
+			ing.add(get(ing2));
 		}
 		add = new AlchemicalPotion(lastId + AAMConfig.genericPID, duration, lastId, ing, name, color);
 		expandArr();
@@ -217,10 +227,10 @@ public class ModPotions
 	public static void addPotion(int duration, String name, Color color, Ingridient... ings)
 	{
 		AlchemicalPotion add;
-		List<Ingridient> ing = new ArrayList<Ingridient>();
-		for (int i = 0; i < ings.length; i++)
+		List<Ingridient> ing = new ArrayList<>();
+		for (Ingridient ing2 : ings)
 		{
-			ing.add(ings[i]);
+			ing.add(ing2);
 		}
 		add = new AlchemicalPotion(lastId, duration, lastId, ing, name, color);
 		expandArr();

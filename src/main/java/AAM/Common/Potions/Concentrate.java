@@ -1,6 +1,6 @@
-package AAM.Common.Potions;
+package aam.common.potions;
 
-import AAM.Utils.Color;
+import aam.utils.Color;
 
 public class Concentrate
 {
@@ -13,7 +13,7 @@ public class Concentrate
 	{
 		this.name = name;
 		this.color = color;
-		this.action = act;
+		action = act;
 		this.potion = potion;
 	}
 

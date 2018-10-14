@@ -1,13 +1,13 @@
-package AAM.Common.Items.Debug;
+package aam.common.items.debug;
 
 import java.util.List;
 
-import AAM.Common.Blocks.Building.ModBlocks;
-import AAM.Core.AAMCore;
-import AAM.Utils.Logger;
-import AAM.Utils.Structure;
-import AAM.Utils.StructureApi;
-import AAM.Utils.Wec3;
+import aam.common.blocks.building.ModBlocks;
+import aam.core.AAMCore;
+import aam.utils.Logger;
+import aam.utils.Structure;
+import aam.utils.StructureApi;
+import aam.utils.vectors.Wec3;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.client.renderer.texture.IIconRegister;
@@ -28,7 +28,7 @@ public class BoundSphere extends Item
 {
 	public BoundSphere()
 	{
-		this.setUnlocalizedName("aam.boundsphere");
+		this.setUnlocalizedName("aam.bound_sphere");
 		this.setHasSubtypes(true);
 	}
 
@@ -40,9 +40,9 @@ public class BoundSphere extends Item
 	@Override
 	public void registerIcons(IIconRegister ir)
 	{
-		this.green = ir.registerIcon(AAMCore.modid + ":sphere_green");
-		this.red = ir.registerIcon(AAMCore.modid + ":sphere_red");
-		this.blue = ir.registerIcon(AAMCore.modid + ":sphere_blue");
+		green = ir.registerIcon(AAMCore.modid + ":sphere_green");
+		red = ir.registerIcon(AAMCore.modid + ":sphere_red");
+		blue = ir.registerIcon(AAMCore.modid + ":sphere_blue");
 	}
 
 	@Override
@@ -57,10 +57,14 @@ public class BoundSphere extends Item
 	public IIcon getIconFromDamage(int meta)
 	{
 		if (meta == 1)
-			return this.green;
+		{
+			return green;
+		}
 		if (meta == 2)
-			return this.red;
-		return this.blue;
+		{
+			return red;
+		}
+		return blue;
 	}
 
 	@Override
@@ -75,10 +79,14 @@ public class BoundSphere extends Item
 		else
 		{
 			if (i.getItemDamage() == 0)
+			{
 				i.setItemDamage(2);
+			}
 			else
 				if (i.getItemDamage() == 2)
+				{
 					i.setItemDamage(0);
+				}
 		}
 		return i;
 	}
@@ -104,8 +112,8 @@ public class BoundSphere extends Item
 				{
 					if (is.getTagCompound() != null)
 					{
-						NBTTagCompound tag = StructureApi.readStructure(w, new Wec3(x, y, z), new Wec3(is.getTagCompound().getInteger("BlockX") + 1, is.getTagCompound().getInteger("BlockY"), is.getTagCompound().getInteger("BlockZ") + 1),
-								Blocks.bedrock, ModBlocks.Bricks, ModBlocks.StructureBlock);
+						NBTTagCompound tag = StructureApi.readStructure(w, new Wec3(x, y, z), new Wec3(is.getTagCompound().getInteger("BlockX"), is.getTagCompound().getInteger("BlockY"), is.getTagCompound().getInteger("BlockZ")),
+								Blocks.bedrock, Blocks.air, ModBlocks.Bricks, ModBlocks.StructureBlock);
 						is.getTagCompound().removeTag("BlockX");
 						is.getTagCompound().removeTag("BlockY");
 						is.getTagCompound().removeTag("BlockZ");
@@ -165,7 +173,9 @@ public class BoundSphere extends Item
 				l.add("In Dimension: " + i.getTagCompound().getInteger("Dim"));
 			}
 			else
+			{
 				l.add("Not Bound");
+			}
 		}
 	}
 }

@@ -1,7 +1,7 @@
-package AAM.Client.Renderer.Block;
+package aam.client.renderer.block;
 
-import AAM.Client.Renderer.Tile.TeleporterRenderer;
-import AAM.Network.ClientProxy;
+import aam.client.renderer.tile.TeleporterRenderer;
+import aam.network.ClientProxy;
 import cpw.mods.fml.client.registry.ISimpleBlockRenderingHandler;
 import net.minecraft.block.Block;
 import net.minecraft.client.renderer.RenderBlocks;

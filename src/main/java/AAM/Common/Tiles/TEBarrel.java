@@ -1,4 +1,4 @@
-package AAM.Common.Tiles;
+package aam.common.tiles;
 
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.NetworkManager;
@@ -17,14 +17,14 @@ public class TEBarrel extends TileEntity
 	@Override
 	public void updateEntity()
 	{
-		if (this.potion.length > 0 && this.burnTime < maxBurnTime && this.volume <= 0)
+		if (potion.length > 0 && burnTime < maxBurnTime && volume <= 0)
 		{
-			this.burnTime += 1;
+			burnTime += 1;
 		}
-		if (this.burnTime >= maxBurnTime)
+		if (burnTime >= maxBurnTime)
 		{
-			this.volume = 9;
-			this.burnTime = 0;
+			volume = 9;
+			burnTime = 0;
 		}
 	}
 
@@ -33,7 +33,7 @@ public class TEBarrel extends TileEntity
 	{
 		NBTTagCompound syncData = new NBTTagCompound();
 		this.writeToNBT(syncData);
-		return new S35PacketUpdateTileEntity(this.xCoord, this.yCoord, this.zCoord, 1, syncData);
+		return new S35PacketUpdateTileEntity(xCoord, yCoord, zCoord, 1, syncData);
 	}
 
 	@Override
@@ -47,18 +47,18 @@ public class TEBarrel extends TileEntity
 	public void readFromNBT(NBTTagCompound tag)
 	{
 		super.readFromNBT(tag);
-		this.burnTime = tag.getInteger("BurnTime");
-		this.potion = tag.getIntArray("Potion");
-		this.volume = tag.getInteger("Volume");
+		burnTime = tag.getInteger("BurnTime");
+		potion = tag.getIntArray("Potion");
+		volume = tag.getInteger("Volume");
 	}
 
 	@Override
 	public void writeToNBT(NBTTagCompound tag)
 	{
 		super.writeToNBT(tag);
-		tag.setInteger("BurnTime", this.burnTime);
-		tag.setIntArray("Potion", this.potion);
-		tag.setInteger("Volume", this.volume);
+		tag.setInteger("BurnTime", burnTime);
+		tag.setIntArray("Potion", potion);
+		tag.setInteger("Volume", volume);
 
 	}
 }

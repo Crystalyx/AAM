@@ -1,4 +1,4 @@
-package AAM.API;
+package aam.api;
 
 import amerifrance.guideapi.api.abstraction.CategoryAbstract;
 import amerifrance.guideapi.api.abstraction.EntryAbstract;
@@ -18,8 +18,8 @@ public class PageIMultiRecipe extends PageText
 	public PageIMultiRecipe(String draw, IRecipe[] stack)
 	{
 		super(draw, 60);
-		this.recipes = stack;
-		this.renderer = new MultiRecipeRenderer(recipes);
+		recipes = stack;
+		renderer = new MultiRecipeRenderer(recipes);
 	}
 
 	@SideOnly(Side.CLIENT)
@@ -55,9 +55,9 @@ public class PageIMultiRecipe extends PageText
 				else
 				{
 					PageIMultiRecipe that = (PageIMultiRecipe) o;
-					if (this.recipes != null)
+					if (recipes != null)
 					{
-						if (this.recipes != that.recipes)
+						if (recipes != that.recipes)
 						{
 							return false;
 						}
@@ -80,6 +80,6 @@ public class PageIMultiRecipe extends PageText
 	@Override
 	public int hashCode()
 	{
-		return this.recipes != null ? this.recipes.hashCode() : 0;
+		return recipes != null ? recipes.hashCode() : 0;
 	}
 }

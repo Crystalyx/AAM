@@ -1,6 +1,6 @@
-package AAM.Common.Entity.Elemental;
+package aam.common.entity.elemental;
 
-import AAM.Utils.Wec3;
+import aam.utils.vectors.Wec3;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.EntityAIHurtByTarget;
 import net.minecraft.entity.ai.EntityAILookIdle;
@@ -21,23 +21,24 @@ public class Subwer extends EntityMob
 	{
 		super.onUpdate();
 
-		this.motionY *= 0.6000000238418579D;
+		motionY *= 0.6000000238418579D;
 	}
 
 	public Subwer(World w)
 	{
 		super(w);
 		this.getNavigator().setSpeed(0.5);
-		this.tasks.addTask(2, new EntityAIWander(this, 1.0D));
-		this.tasks.addTask(8, new EntityAIWander(this, 1.0D));
-		this.tasks.addTask(4, new EntityAIWatchClosest(this, EntityPlayer.class, 8.0F));
-		this.tasks.addTask(6, new EntityAILookIdle(this));
-		this.targetTasks.addTask(1, new EntityAIHurtByTarget(this, false));
-		this.targetTasks.addTask(2, new EntityAINearestAttackableTarget(this, EntityPlayer.class, 0, true));
-		this.dataWatcher.addObject(16, new Byte((byte) 0));
+		tasks.addTask(2, new EntityAIWander(this, 1.0D));
+		tasks.addTask(8, new EntityAIWander(this, 1.0D));
+		tasks.addTask(4, new EntityAIWatchClosest(this, EntityPlayer.class, 8.0F));
+		tasks.addTask(6, new EntityAILookIdle(this));
+		targetTasks.addTask(1, new EntityAIHurtByTarget(this, false));
+		targetTasks.addTask(2, new EntityAINearestAttackableTarget(this, EntityPlayer.class, 0, true));
+		dataWatcher.addObject(16, new Byte((byte) 0));
 		this.setSize(0.5F, 0.9F);
 	}
 
+	@Override
 	public void applyEntityAttributes()
 	{
 		super.applyEntityAttributes();
@@ -50,6 +51,7 @@ public class Subwer extends EntityMob
 	/**
 	 * Returns the volume for the sounds this mob makes.
 	 */
+	@Override
 	public float getSoundVolume()
 	{
 		return 0.1F;
@@ -60,31 +62,32 @@ public class Subwer extends EntityMob
 	{
 		super.updateAITasks();
 
-		if (this.spawnPosition != null && (!this.worldObj.isAirBlock((int) this.spawnPosition.x, (int) this.spawnPosition.y, (int) this.spawnPosition.z) || this.spawnPosition.y < 1))
+		if (spawnPosition != null && (!worldObj.isAirBlock((int) spawnPosition.x, (int) spawnPosition.y, (int) spawnPosition.z) || spawnPosition.y < 1))
 		{
-			this.spawnPosition = null;
+			spawnPosition = null;
 		}
 
-		if (this.spawnPosition == null || this.rand.nextInt(30) == 0 || this.spawnPosition.distanceTo(new Wec3((int) this.posX, (int) this.posY, (int) this.posZ)) < 4.0F)
+		if (spawnPosition == null || rand.nextInt(30) == 0 || spawnPosition.distanceTo(new Wec3((int) posX, (int) posY, (int) posZ)) < 4.0F)
 		{
-			this.spawnPosition = new Wec3((int) this.posX + this.rand.nextInt(7) - this.rand.nextInt(7), (int) this.posY + this.rand.nextInt(6) - 2, (int) this.posZ + this.rand.nextInt(7) - this.rand.nextInt(7));
+			spawnPosition = new Wec3((int) posX + rand.nextInt(7) - rand.nextInt(7), (int) posY + rand.nextInt(6) - 2, (int) posZ + rand.nextInt(7) - rand.nextInt(7));
 		}
 
-		double d0 = (double) this.spawnPosition.x + 0.5D - this.posX;
-		double d1 = (double) this.spawnPosition.y + 0.2D - this.posY;
-		double d2 = (double) this.spawnPosition.z + 0.5D - this.posZ;
-		this.motionX += (Math.signum(d0) * 0.5D - this.motionX) * 0.10000000149011612D;
-		this.motionY += (Math.signum(d1) * 0.699999988079071D - this.motionY) * 0.10000000149011612D;
-		this.motionZ += (Math.signum(d2) * 0.5D - this.motionZ) * 0.10000000149011612D;
-		float f = (float) (Math.atan2(this.motionZ, this.motionX) * 180.0D / Math.PI) - 90.0F;
-		float f1 = MathHelper.wrapAngleTo180_float(f - this.rotationYaw);
-		this.moveForward = 0.5F;
-		this.rotationYaw += f1;
+		double d0 = spawnPosition.x + 0.5D - posX;
+		double d1 = spawnPosition.y + 0.2D - posY;
+		double d2 = spawnPosition.z + 0.5D - posZ;
+		motionX += (Math.signum(d0) * 0.5D - motionX) * 0.10000000149011612D;
+		motionY += (Math.signum(d1) * 0.699999988079071D - motionY) * 0.10000000149011612D;
+		motionZ += (Math.signum(d2) * 0.5D - motionZ) * 0.10000000149011612D;
+		float f = (float) (Math.atan2(motionZ, motionX) * 180.0D / Math.PI) - 90.0F;
+		float f1 = MathHelper.wrapAngleTo180_float(f - rotationYaw);
+		moveForward = 0.5F;
+		rotationYaw += f1;
 	}
 
 	/**
 	 * Gets the pitch of living sounds in living entities.
 	 */
+	@Override
 	public float getSoundPitch()
 	{
 		return super.getSoundPitch() * 0.95F;
@@ -93,14 +96,16 @@ public class Subwer extends EntityMob
 	/**
 	 * Returns the sound this mob makes while it's alive.
 	 */
+	@Override
 	public String getLivingSound()
 	{
-		return this.rand.nextInt(4) != 0 ? null : "mob.bat.idle";
+		return rand.nextInt(4) != 0 ? null : "mob.bat.idle";
 	}
 
 	/**
 	 * Returns the sound this mob makes when it is hurt.
 	 */
+	@Override
 	public String getHurtSound()
 	{
 		return "mob.bat.hurt";
@@ -109,6 +114,7 @@ public class Subwer extends EntityMob
 	/**
 	 * Returns the sound this mob makes on death.
 	 */
+	@Override
 	public String getDeathSound()
 	{
 		return "mob.bat.death";
@@ -118,6 +124,7 @@ public class Subwer extends EntityMob
 	 * Returns true if this entity should push and be pushed by other entities
 	 * when colliding.
 	 */
+	@Override
 	public boolean canBePushed()
 	{
 		return false;
@@ -126,15 +133,18 @@ public class Subwer extends EntityMob
 	/**
 	 * Returns true if the newer Entity AI code should be run
 	 */
+	@Override
 	public boolean isAIEnabled()
 	{
 		return true;
 	}
 
+	@Override
 	public void fall(float p_70069_1_)
 	{
 	}
 
+	@Override
 	public void updateFallState(double p_70064_1_, boolean p_70064_3_)
 	{
 	}

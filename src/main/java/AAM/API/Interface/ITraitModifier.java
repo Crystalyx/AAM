@@ -1,9 +1,9 @@
-package AAM.API.Interface;
+package aam.api.Interface;
 
 import java.util.List;
 
-import AAM.API.TraitModifier;
-import AAM.Utils.PlayerDataHandler;
+import aam.api.TraitModifier;
+import aam.utils.PlayerDataHandler;
 import net.minecraft.entity.player.EntityPlayer;
 
 public interface ITraitModifier

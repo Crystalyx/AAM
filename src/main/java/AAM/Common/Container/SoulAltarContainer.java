@@ -1,4 +1,4 @@
-package AAM.Common.Container;
+package aam.common.container;
 
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.IInventory;
@@ -10,26 +10,26 @@ public class SoulAltarContainer extends ContainerBase
 	{
 		super(p, tile);
 
-		this.addBackground(234, 234);
+		this.addBackground(200, 200);
 		this.addText("Soul", 194, 94, 68, 10, false);
 
-		this.addSlot(0, 4, tile, 100, 10);
+		this.addSlot(0, 4, tile, 100, 26);
 
-		this.addHiddenSlot(1, tile, 100, 80, 18, 7, true);
-		this.addHiddenSlot(2, tile, 100, 56, 18, 5, true);
-		this.addHiddenSlot(3, tile, 100, 33, 18, 6, true);
+		this.addHiddenSlot(1, tile, 100, 96, 18, 7, false);
+		this.addHiddenSlot(2, tile, 100, 72, 18, 5, false);
+		this.addHiddenSlot(3, tile, 100, 49, 18, 6, false);
 
-		this.addHiddenSlot(4, tile, 10, 20, 18, 8, true);
-		this.addHiddenSlot(5, tile, 10, 45, 18, 8, true);
-		this.addHiddenSlot(6, tile, 10, 70, 18, 8, true);
+		this.addHiddenSlot(4, tile, 28, 36, 18, 8, false);
+		this.addHiddenSlot(5, tile, 28, 61, 18, 8, false);
+		this.addHiddenSlot(6, tile, 28, 86, 18, 8, false);
 
-		this.addHiddenSlot(7, tile, 190, 20, 18, 8, true);
-		this.addHiddenSlot(8, tile, 190, 45, 18, 8, true);
-		this.addHiddenSlot(9, tile, 190, 70, 18, 8, true);
+		this.addHiddenSlot(7, tile, 180, 36, 18, 8, false);
+		this.addHiddenSlot(8, tile, 180, 61, 18, 8, false);
+		this.addHiddenSlot(9, tile, 180, 86, 18, 8, false);
 
-		this.addHiddenText("Owner:", 50, -8, 140, 12, true, true);
-		this.addHiddenSlot(10, tile, 76, 68, true);
-		this.addHiddenSlot(11, tile, 124, 68, true);
+		this.addHiddenText("Owner:", 50, 12, 140, 12, true, false);
+		this.addHiddenSlot(10, tile, 76, 72, false);
+		this.addHiddenSlot(11, tile, 124, 72, false);
 
 		this.addPlayerSlots();
 	}

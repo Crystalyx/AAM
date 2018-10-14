@@ -1,4 +1,4 @@
-package AAM.Common.Blocks.Plants;
+package aam.common.blocks.plants;
 
 import java.util.List;
 
@@ -21,16 +21,18 @@ public class ShadowveilPlant extends BlockFlower
 	/**
 	 * Gets the block's texture. Args: side, meta
 	 */
+	@Override
 	@SideOnly(Side.CLIENT)
 	public IIcon getIcon(int side, int meta)
 	{
-		return this.blockIcon;
+		return blockIcon;
 	}
 
+	@Override
 	@SideOnly(Side.CLIENT)
 	public void registerBlockIcons(IIconRegister ir)
 	{
-		this.blockIcon = ir.registerIcon("aam:shadowveil");
+		blockIcon = ir.registerIcon("aam:shadowveil");
 	}
 
 	@Override

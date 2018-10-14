@@ -1,8 +1,8 @@
-package AAM.Utils;
+package aam.utils;
 
 public class TODOList
 {
-	// TODO TraitList
+	// TraitList [Done]
 
 	// TODO DungWorld
 
@@ -29,7 +29,7 @@ public class TODOList
 
 	// TODO rework soulSword : form ~V, artif ~V; skills ~N
 
-	// TODO IUpgradableItem (Silver Clock +2)
+	// IUpgradableItem (Silver Clock +2) [Done]
 
 	// work with ItemCharm and ItemArtifact [Done]
 

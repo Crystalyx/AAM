@@ -1,9 +1,9 @@
-package AAM.Common.WorldGen;
+package aam.common.worldgen;
 
 import java.util.Random;
 
-import AAM.Common.Blocks.Building.ModBlocks;
-import AAM.Utils.MiscUtils;
+import aam.common.blocks.building.ModBlocks;
+import aam.utils.MiscUtils;
 import cpw.mods.fml.common.IWorldGenerator;
 import net.minecraft.init.Blocks;
 import net.minecraft.world.World;
@@ -33,20 +33,26 @@ public class PlantWorldGen implements IWorldGenerator
 			for (int i = y - 1; i > 0; i--)
 			{
 				if (stage == 0)
+				{
 					if (w.isAirBlock(x, i, z))
 					{
 						stage = 1;
 					}
+				}
 				if (stage == 1)
+				{
 					if (!w.isAirBlock(x, i, z))
 					{
 						stage = 0;
 						y = i;
 						break;
 					}
+				}
 			}
-			if (w.doesBlockHaveSolidTopSurface(w, x, y, z))
+			if (World.doesBlockHaveSolidTopSurface(w, x, y, z))
+			{
 				w.setBlock(x, y + 1, z, ModBlocks.ShroomPlant);
+			}
 		}
 
 		if (generatorId == 2)

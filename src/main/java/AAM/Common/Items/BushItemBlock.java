@@ -1,6 +1,6 @@
-package AAM.Common.Items;
+package aam.common.items;
 
-import AAM.Common.Blocks.Plants.BerryBush;
+import aam.common.blocks.plants.BerryBush;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.block.Block;
@@ -20,11 +20,13 @@ public class BushItemBlock extends ItemBlock
 		this.setHasSubtypes(true);
 	}
 
+	@Override
 	public int getMetadata(int i)
 	{
 		return i;
 	}
 
+	@Override
 	public String getUnlocalizedName(ItemStack i)
 	{
 		return i.getItem().getUnlocalizedName() + BerryBush.names[Math.floorDiv(i.getItemDamage(), 2)];
@@ -32,13 +34,14 @@ public class BushItemBlock extends ItemBlock
 
 	IIcon[] icons = new IIcon[5];
 
+	@Override
 	@SideOnly(Side.CLIENT)
 	public void registerIcons(IIconRegister ir)
 	{
-		icons[0] = ir.registerIcon("aam:blackberrybush");
-		icons[1] = ir.registerIcon("aam:blueberrybush");
-		icons[2] = ir.registerIcon("aam:mortisbush");
-		icons[3] = ir.registerIcon("aam:raspberrybush");
+		icons[0] = ir.registerIcon("aam:blackberry_bush");
+		icons[1] = ir.registerIcon("aam:blueberry_bush");
+		icons[2] = ir.registerIcon("aam:mortis_bush");
+		icons[3] = ir.registerIcon("aam:raspberry_bush");
 		icons[4] = ir.registerIcon("aam:bush");
 
 	}
@@ -46,14 +49,19 @@ public class BushItemBlock extends ItemBlock
 	/**
 	 * Gets an icon index based on an item's damage value
 	 */
+	@Override
 	@SideOnly(Side.CLIENT)
 	public IIcon getIconFromDamage(int meta)
 	{
 		int beta = Math.floorMod(meta, 2);
 		if (beta == 1)
-			return this.icons[Math.floorDiv(meta, 2)];
+		{
+			return icons[Math.floorDiv(meta, 2)];
+		}
 		else
-			return this.icons[4];
+		{
+			return icons[4];
+		}
 	}
 
 }

@@ -1,44 +1,43 @@
-package AAM.Core;
+package aam.core;
 
 import java.awt.Color;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.lwjgl.input.Keyboard;
-
-import AAM.API.PageIMultiRecipe;
-import AAM.API.PageItemList;
-import AAM.API.StackList;
-import AAM.Client.Gui.Base.ObjTypes;
-import AAM.Commands.CommandAAMEnchant;
-import AAM.Commands.CommandAAMPotion;
-import AAM.Commands.CommandItemLevel;
-import AAM.Commands.CommandSoulDamage;
-import AAM.Commands.CommandSoulLevel;
-import AAM.Common.Blocks.Building.ModBlocks;
-import AAM.Common.Dungeon.DungeonProvider;
-import AAM.Common.Entity.ModEntities;
-import AAM.Common.Event.ClientRenderHelper;
-import AAM.Common.Event.PlayerBlockEvent;
-import AAM.Common.Event.PlayerDataEventHandler;
-import AAM.Common.Event.PotionEventHandler;
-import AAM.Common.Event.SoulEvent;
-import AAM.Common.Items.ModItems;
-import AAM.Common.Potions.Ingridients;
-import AAM.Common.Potions.ModPotions;
-import AAM.Common.Recipes.Recipes;
-import AAM.Common.Skills.ModSkills;
-import AAM.Common.Tiles.ModTiles;
-import AAM.Common.Transmutations.EnergyProvider;
-import AAM.Common.Transmutations.ModCircles;
-import AAM.Common.WorldGen.PlantWorldGen;
-import AAM.Network.ClientProxy;
-import AAM.Network.CommonProxy;
-import AAM.Network.Packages.AlchemicalDispatcher;
-import AAM.Utils.Structures;
-import AAM.Utils.TypeUtils;
 import DummyCore.Core.Core;
+import aam.api.PageIMultiRecipe;
+import aam.api.PageItemList;
+import aam.api.StackList;
+import aam.client.gui.base.ObjTypes;
+import aam.commands.CommandAAMEnchant;
+import aam.commands.CommandAAMPotion;
+import aam.commands.CommandItem;
+import aam.commands.CommandSoulDamage;
+import aam.commands.CommandSoulLevel;
+import aam.common.blocks.building.ModBlocks;
+import aam.common.dungeon.DungeonProvider;
+import aam.common.entity.ModEntities;
+import aam.common.event.ClientRenderHelper;
+import aam.common.event.PlayerBlockEvent;
+import aam.common.event.PlayerDataEventHandler;
+import aam.common.event.PotionEventHandler;
+import aam.common.event.SoulEvent;
+import aam.common.items.ModItems;
+import aam.common.potions.Ingridients;
+import aam.common.potions.ModPotions;
+import aam.common.recipes.Recipes;
+import aam.common.skills.ModSkills;
+import aam.common.tiles.ModTiles;
+import aam.common.transmutations.EnergyProvider;
+import aam.common.transmutations.ModCircles;
+import aam.common.weapon.WeaponUpgrades;
+import aam.common.weapon.anvil.AnvilRegistry;
+import aam.common.worldgen.PlantWorldGen;
+import aam.network.CommonProxy;
+import aam.network.packages.AlchemicalDispatcher;
+import aam.utils.Structures;
+import aam.utils.TypeUtils;
 import amerifrance.guideapi.api.GuideRegistry;
 import amerifrance.guideapi.api.abstraction.CategoryAbstract;
 import amerifrance.guideapi.api.abstraction.EntryAbstract;
@@ -52,7 +51,6 @@ import amerifrance.guideapi.pages.PageIRecipe;
 import amerifrance.guideapi.pages.PageText;
 import amerifrance.guideapi.pages.reciperenderers.ShapedOreRecipeRenderer;
 import amerifrance.guideapi.pages.reciperenderers.ShapelessOreRecipeRenderer;
-import cpw.mods.fml.client.registry.ClientRegistry;
 import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.Mod.EventHandler;
 import cpw.mods.fml.common.Mod.Instance;
@@ -63,7 +61,7 @@ import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import cpw.mods.fml.common.event.FMLServerStartingEvent;
 import cpw.mods.fml.common.network.NetworkRegistry;
 import cpw.mods.fml.common.registry.GameRegistry;
-import net.minecraft.client.settings.KeyBinding;
+import cpw.mods.fml.relauncher.Side;
 import net.minecraft.command.CommandHandler;
 import net.minecraft.item.ItemStack;
 import net.minecraft.server.MinecraftServer;
@@ -77,27 +75,23 @@ public class AAMCore
 {
 	public static final String modid = "aam";
 	public static final String name = "Ancient Art of Magic";
-	public static final String version = "0.2a";
-
+	public static final String version = "0.5a";
 	@Instance(AAMCore.modid)
 	public static AAMCore instance;
 
-	@SidedProxy(serverSide = "AAM.Network.CommonProxy", clientSide = "AAM.Network.ClientProxy")
+	@SidedProxy(serverSide = "aam.network.CommonProxy", clientSide = "aam.network.ClientProxy")
 	public static CommonProxy proxy;
 
 	public static AAMConfig cfg;
 	public static String cfgDir;
 
-	public static KeyBinding soul = new KeyBinding("aam.soul", Keyboard.KEY_G, "key.categories.inventory");
-	public static KeyBinding member = new KeyBinding("aam.addmember", Keyboard.KEY_H, "key.categories.inventory");
-	public static KeyBinding arts = new KeyBinding("aam.arts", Keyboard.KEY_J, "key.categories.inventory");
 	public static int dungdimid = 15;
 
 	@EventHandler
 	public void serverStart(FMLServerStartingEvent event)
 	{
 		MinecraftServer mcserver = event.getServer();
-		((CommandHandler) mcserver.getCommandManager()).registerCommand(new CommandItemLevel());
+		((CommandHandler) mcserver.getCommandManager()).registerCommand(new CommandItem());
 		((CommandHandler) mcserver.getCommandManager()).registerCommand(new CommandSoulLevel());
 		((CommandHandler) mcserver.getCommandManager()).registerCommand(new CommandSoulDamage());
 		((CommandHandler) mcserver.getCommandManager()).registerCommand(new CommandAAMEnchant());
@@ -114,19 +108,21 @@ public class AAMCore
 		cfg = new AAMConfig(cfgf);
 		cfg.load(cfgf);
 		TypeUtils.initStr();
-		AlchemicalDispatcher.registerPackets();
 
-		ClientRegistry.registerKeyBinding(soul);
-		ClientRegistry.registerKeyBinding(member);
-		ClientRegistry.registerKeyBinding(arts);
+		proxy.init();
+		AlchemicalDispatcher.registerPackets();
 
 		Core.registerModAbsolute(AAMCore.class, name, event.getModConfigurationDirectory().getAbsolutePath(), cfg, false);
 		MinecraftForge.EVENT_BUS.register(instance);
 		MinecraftForge.EVENT_BUS.register(new SoulEvent());
 		MinecraftForge.EVENT_BUS.register(new PotionEventHandler());
 		MinecraftForge.EVENT_BUS.register(new PlayerDataEventHandler());
-		MinecraftForge.EVENT_BUS.register(new ClientRenderHelper());
 		MinecraftForge.EVENT_BUS.register(new PlayerBlockEvent());
+
+		if (event.getSide().equals(Side.CLIENT))
+		{
+			MinecraftForge.EVENT_BUS.register(new ClientRenderHelper());
+		}
 
 		ModTiles.load();
 		ModBlocks.load();
@@ -134,10 +130,11 @@ public class AAMCore
 		ModEntities.load();
 		ModPotions.load();
 		EnergyProvider.load();
-
+		AnvilRegistry.load();
 		Structures.load();
 
 		Ingridients.load();
+		WeaponUpgrades.load();
 		ObjTypes.load();
 
 		DimensionManager.registerProviderType(dungdimid, DungeonProvider.class, false);
@@ -145,7 +142,6 @@ public class AAMCore
 
 		GameRegistry.registerWorldGenerator(new PlantWorldGen(), 0);
 		// GameRegistry.registerWorldGenerator(new DungGenerator(), 0);
-		ClientProxy.registerRenders();
 
 	}
 
@@ -153,8 +149,9 @@ public class AAMCore
 	public void Init(FMLInitializationEvent event)
 	{
 		if (instance == null)
+		{
 			instance = this;
-
+		}
 		ModCircles.load();
 		ModItems.load();
 		Recipes.load();
@@ -173,10 +170,10 @@ public class AAMCore
 
 	public static void buildPotionBook()
 	{
-		ArrayList<CategoryAbstract> categories = new ArrayList<CategoryAbstract>();
+		ArrayList<CategoryAbstract> categories = new ArrayList<>();
 
-		List<EntryAbstract> entries = new ArrayList<EntryAbstract>();
-		ArrayList<IPage> pbase = new ArrayList<IPage>();
+		List<EntryAbstract> entries = new ArrayList<>();
+		ArrayList<IPage> pbase = new ArrayList<>();
 		pbase.add(new PageText("aam.p1.txt1", 0));
 		pbase.add(new PageText("aam.p1.txt2", 0));
 
@@ -186,13 +183,13 @@ public class AAMCore
 		pbase.add(new PageIRecipe(Recipes.phials, new ShapedOreRecipeRenderer(Recipes.phials)));
 		entries.add(new EntryBase(pbase, "aam.p1.name"));
 
-		ArrayList<IPage> pcrush = new ArrayList<IPage>();
+		ArrayList<IPage> pcrush = new ArrayList<>();
 		pcrush.add(new PageText("aam.pc.txt1", 0));
 		pcrush.add(new PageText("aam.pc.txt2", 0));
 		pcrush.add(new PageIMultiRecipe("", Recipes.crushed_berries));
 		entries.add(new EntryBase(pcrush, "aam.pc.name"));
 
-		ArrayList<IPage> plants = new ArrayList<IPage>();
+		ArrayList<IPage> plants = new ArrayList<>();
 		plants.add(new PageText("aam.pw.txt1", 0));
 		plants.add(new PageText("aam.pw.txt2", 0));
 
@@ -209,7 +206,7 @@ public class AAMCore
 
 		for (int k = 0; k < 9; k++)
 		{
-			ArrayList<IPage> potion = new ArrayList<IPage>();
+			ArrayList<IPage> potion = new ArrayList<>();
 			potion.add(new PageText("aam.p" + (k + 2) + ".txt1", 0));
 			StackList sl = new StackList();
 

@@ -1,19 +1,19 @@
-package AAM.Common.Tiles;
+package aam.common.tiles;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import AAM.API.Abstract.StructureCore;
-import AAM.Common.Items.ModItems;
-import AAM.Common.Items.Resources.SwordDye;
-import AAM.Common.Items.Soul.Artifact;
-import AAM.Common.Soul.Soul;
-import AAM.Common.Soul.SoulUpgrade;
-import AAM.Utils.MiscUtils;
-import AAM.Utils.PlayerDataHandler;
-import AAM.Utils.Structure;
-import AAM.Utils.Structures;
-import AAM.Utils.Wec3;
+import aam.api.abstraction.StructureCore;
+import aam.common.items.ModItems;
+import aam.common.items.resources.SwordDye;
+import aam.common.items.soul.Artifact;
+import aam.common.soul.Soul;
+import aam.common.soul.SoulUpgrade;
+import aam.utils.InventoryUtils;
+import aam.utils.PlayerDataHandler;
+import aam.utils.Structure;
+import aam.utils.Structures;
+import aam.utils.vectors.Wec3;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
@@ -31,7 +31,7 @@ public class TESoulAltar extends StructureCore implements IInventory
 	public void updateEntity()
 	{
 		super.updateEntity();
-		if (this.opened)
+		if (opened)
 		{
 			if (this.getStackInSlot(0) != null)
 			{
@@ -43,9 +43,9 @@ public class TESoulAltar extends StructureCore implements IInventory
 
 						if (name != "")
 						{
-							if (this.worldObj.getPlayerEntityByName(name) != null && this.formed)
+							if (worldObj.getPlayerEntityByName(name) != null && formed)
 							{
-								EntityPlayer p = this.worldObj.getPlayerEntityByName(name);
+								EntityPlayer p = worldObj.getPlayerEntityByName(name);
 								PlayerDataHandler ph = PlayerDataHandler.get(p);
 								saveSoulItems(ph);
 								this.clearItems();
@@ -112,7 +112,7 @@ public class TESoulAltar extends StructureCore implements IInventory
 			}
 		}
 
-		this.inv[0] = ph.getSwordStack();
+		inv[0] = ph.getSwordStack();
 
 		if (ph.bow)
 		{
@@ -120,15 +120,21 @@ public class TESoulAltar extends StructureCore implements IInventory
 			if (bowis.hasTagCompound())
 			{
 				if (ph.art)
+				{
 					bowis.getTagCompound().setInteger("Art", ph.stype.ordinal());
+				}
 				else
+				{
 					bowis.getTagCompound().setInteger("Art", -1);
+				}
 			}
 			else
 			{
 				NBTTagCompound bowtag = new NBTTagCompound();
 				if (ph.art)
+				{
 					bowtag.setInteger("Art", ph.stype.ordinal());
+				}
 				bowtag.setInteger("State", 0);
 				bowis.setTagCompound(bowtag);
 			}
@@ -144,21 +150,23 @@ public class TESoulAltar extends StructureCore implements IInventory
 	@Override
 	public ItemStack getStackInSlot(int slot)
 	{
-		return this.inv[slot];
+		return inv[slot];
 	}
 
 	@Override
 	public ItemStack decrStackSize(int slot, int size)
 	{
-		ItemStack is = this.inv[slot].copy();
+		ItemStack is = inv[slot].copy();
 		is.stackSize = size;
 
-		if (this.inv[slot].stackSize - size <= 0)
+		if (inv[slot].stackSize - size <= 0)
 		{
-			this.inv[slot] = null;
+			inv[slot] = null;
 		}
 		else
-			this.inv[slot].stackSize -= size;
+		{
+			inv[slot].stackSize -= size;
+		}
 
 		if (slot == 0)
 		{
@@ -180,7 +188,7 @@ public class TESoulAltar extends StructureCore implements IInventory
 	@Override
 	public void setInventorySlotContents(int slot, ItemStack item)
 	{
-		this.inv[slot] = item;
+		inv[slot] = item;
 		if (slot != 0)
 		{
 			if (this.getStackInSlot(0) != null)
@@ -193,9 +201,9 @@ public class TESoulAltar extends StructureCore implements IInventory
 
 						if (name != "")
 						{
-							if (this.worldObj.getPlayerEntityByName(name) != null)
+							if (worldObj.getPlayerEntityByName(name) != null)
 							{
-								EntityPlayer p = this.worldObj.getPlayerEntityByName(name);
+								EntityPlayer p = worldObj.getPlayerEntityByName(name);
 								PlayerDataHandler ph = PlayerDataHandler.get(p);
 								saveSoulItems(ph);
 								clearItems();
@@ -218,9 +226,9 @@ public class TESoulAltar extends StructureCore implements IInventory
 
 						if (name != "")
 						{
-							if (this.worldObj.getPlayerEntityByName(name) != null)
+							if (worldObj.getPlayerEntityByName(name) != null)
 							{
-								EntityPlayer p = this.worldObj.getPlayerEntityByName(name);
+								EntityPlayer p = worldObj.getPlayerEntityByName(name);
 								PlayerDataHandler ph = PlayerDataHandler.get(p);
 								clearItems();
 								placeItems(ph);
@@ -244,18 +252,18 @@ public class TESoulAltar extends StructureCore implements IInventory
 	{
 		if (ph.color != -1)
 		{
-			this.inv[1] = new ItemStack(ModItems.SoulLens, 1, ph.color);
+			inv[1] = new ItemStack(ModItems.SoulLens, 1, ph.color);
 		}
 		if (ph.art)
 		{
-			this.inv[2] = new ItemStack(ModItems.Artifact, 1, ph.stype.ordinal());
+			inv[2] = new ItemStack(ModItems.Artifact, 1, ph.stype.ordinal());
 		}
 		if (ph.bow)
 		{
-			this.inv[3] = new ItemStack(ModItems.CrystalBow);
+			inv[3] = new ItemStack(ModItems.CrystalBow);
 		}
 
-		List<Integer> l = new ArrayList<Integer>();
+		List<Integer> l = new ArrayList<>();
 		for (int i = 0; i < ph.upgLevel.length; i++)
 		{
 			for (int j = 0; j < ph.upgLevel[i]; j++)
@@ -265,7 +273,7 @@ public class TESoulAltar extends StructureCore implements IInventory
 		}
 		for (int i = 0; i < Math.min(l.size(), 6); i++)
 		{
-			this.inv[4 + i] = new ItemStack(ModItems.SoulUpgradeItem, 1, l.get(i));
+			inv[4 + i] = new ItemStack(ModItems.SoulUpgradeItem, 1, l.get(i));
 		}
 
 	}
@@ -297,7 +305,7 @@ public class TESoulAltar extends StructureCore implements IInventory
 	@Override
 	public void openInventory()
 	{
-		this.opened = true;
+		opened = true;
 		if (this.getStackInSlot(0) != null)
 		{
 			if (this.getStackInSlot(0).getItem() == ModItems.SoulSword)
@@ -308,9 +316,9 @@ public class TESoulAltar extends StructureCore implements IInventory
 
 					if (name != "")
 					{
-						if (this.worldObj.getPlayerEntityByName(name) != null)
+						if (worldObj.getPlayerEntityByName(name) != null)
 						{
-							EntityPlayer p = this.worldObj.getPlayerEntityByName(name);
+							EntityPlayer p = worldObj.getPlayerEntityByName(name);
 							PlayerDataHandler ph = PlayerDataHandler.get(p);
 							placeItems(ph);
 						}
@@ -323,7 +331,7 @@ public class TESoulAltar extends StructureCore implements IInventory
 	@Override
 	public void closeInventory()
 	{
-		this.opened = false;
+		opened = false;
 		if (this.getStackInSlot(0) != null)
 		{
 			if (this.getStackInSlot(0).getItem() == ModItems.SoulSword)
@@ -334,9 +342,9 @@ public class TESoulAltar extends StructureCore implements IInventory
 
 					if (name != "")
 					{
-						if (this.worldObj.getPlayerEntityByName(name) != null)
+						if (worldObj.getPlayerEntityByName(name) != null)
 						{
-							EntityPlayer p = this.worldObj.getPlayerEntityByName(name);
+							EntityPlayer p = worldObj.getPlayerEntityByName(name);
 							PlayerDataHandler ph = PlayerDataHandler.get(p);
 							saveSoulItems(ph);
 						}
@@ -358,7 +366,7 @@ public class TESoulAltar extends StructureCore implements IInventory
 	{
 		NBTTagCompound syncData = new NBTTagCompound();
 		this.writeToNBT(syncData);
-		return new S35PacketUpdateTileEntity(this.xCoord, this.yCoord, this.zCoord, 1, syncData);
+		return new S35PacketUpdateTileEntity(xCoord, yCoord, zCoord, 1, syncData);
 	}
 
 	@Override
@@ -371,14 +379,14 @@ public class TESoulAltar extends StructureCore implements IInventory
 	public void readFromNBT(NBTTagCompound tag)
 	{
 		super.readFromNBT(tag);
-		MiscUtils.readInventory(this, tag);
+		InventoryUtils.readInventory(this, tag);
 	}
 
 	@Override
 	public void writeToNBT(NBTTagCompound tag)
 	{
 		super.writeToNBT(tag);
-		MiscUtils.saveInventory(this, tag);
+		InventoryUtils.saveInventory(this, tag);
 	}
 
 	@Override

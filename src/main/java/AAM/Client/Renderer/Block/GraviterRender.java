@@ -1,9 +1,9 @@
-package AAM.Client.Renderer.Block;
+package aam.client.renderer.block;
 
 import org.lwjgl.opengl.GL11;
 
-import AAM.Client.Model.Graviter;
-import AAM.Network.ClientProxy;
+import aam.client.models.Graviter;
+import aam.network.ClientProxy;
 import cpw.mods.fml.client.registry.ISimpleBlockRenderingHandler;
 import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;

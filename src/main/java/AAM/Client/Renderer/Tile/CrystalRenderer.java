@@ -1,12 +1,10 @@
-package AAM.Client.Renderer.Tile;
+package aam.client.renderer.tile;
 
 import org.lwjgl.opengl.GL11;
 
-import AAM.Client.Model.Crystal;
-import AAM.Client.Model.CrystalBase;
-import AAM.Utils.MiscUtils;
+import aam.client.models.Crystal;
+import aam.utils.MathUtils;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.model.ModelRenderer;
 import net.minecraft.client.renderer.RenderHelper;
 import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
 import net.minecraft.tileentity.TileEntity;
@@ -30,7 +28,7 @@ public class CrystalRenderer extends TileEntitySpecialRenderer
 
 		Crystal p = new Crystal();
 
-		double time = MiscUtils.getTimedAngle(40);
+		double time = MathUtils.getTimedAngle(40);
 
 		GL11.glScaled(0.0625, 0.0625, 0.0625);
 

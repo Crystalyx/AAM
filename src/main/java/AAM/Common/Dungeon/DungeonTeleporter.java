@@ -1,10 +1,10 @@
-package AAM.Common.Dungeon;
+package aam.common.dungeon;
 
 import java.lang.reflect.Field;
 
-import AAM.Common.Blocks.Building.ModBlocks;
-import AAM.Utils.MiscUtils;
-import AAM.Utils.Wec3;
+import aam.common.blocks.building.ModBlocks;
+import aam.utils.MathUtils;
+import aam.utils.vectors.Wec3;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.world.Teleporter;
@@ -43,7 +43,7 @@ public class DungeonTeleporter extends Teleporter
 						if (ms.getType().equals(Wec3.class))
 						{
 							Wec3 wp = (Wec3) ms.get(null);
-							e.setPosition((int) wp.x + MiscUtils.r.nextDouble() * 2, (int) wp.y + 2, (int) wp.z + MiscUtils.r.nextDouble() * 2);
+							e.setPosition((int) wp.x + MathUtils.r.nextDouble() * 2, (int) wp.y + 2, (int) wp.z + MathUtils.r.nextDouble() * 2);
 
 						}
 					}

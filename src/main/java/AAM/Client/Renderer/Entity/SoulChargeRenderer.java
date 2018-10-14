@@ -1,12 +1,12 @@
-package AAM.Client.Renderer.Entity;
+package aam.client.renderer.entity;
 
 import org.lwjgl.opengl.GL11;
 
-import AAM.Common.Entity.SoulCharge;
-import AAM.Common.Items.Soul.SoulSword;
-import AAM.Utils.Color;
-import AAM.Utils.PlayerDataHandler;
-import AAM.Utils.Render.Cube;
+import aam.common.entity.SoulCharge;
+import aam.common.items.soul.SoulSword;
+import aam.utils.Color;
+import aam.utils.PlayerDataHandler;
+import aam.utils.render.Cube;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.entity.Render;
 import net.minecraft.entity.Entity;

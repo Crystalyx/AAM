@@ -1,25 +1,21 @@
-package AAM.Client.Renderer.Tile;
+package aam.client.renderer.tile;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 
 import org.lwjgl.opengl.GL11;
 
-import AAM.Client.Model.SoulAltar;
-import AAM.Common.Items.Soul.Artifact;
-import AAM.Common.Tiles.TECrystal;
-import AAM.Common.Tiles.TESoulAltar;
-import AAM.Utils.MiscUtils;
-import AAM.Utils.Wec3;
 import DummyCore.Utils.DrawUtils;
+import aam.client.models.SoulAltar;
+import aam.common.items.soul.Artifact;
+import aam.common.tiles.TESoulAltar;
+import aam.utils.MathUtils;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.RenderHelper;
 import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ResourceLocation;
-import net.minecraftforge.common.util.ForgeDirection;
 
 public class SoulAltarRenderer extends TileEntitySpecialRenderer
 {
@@ -31,7 +27,7 @@ public class SoulAltarRenderer extends TileEntitySpecialRenderer
 		GL11.glPushMatrix();
 		RenderHelper.enableStandardItemLighting();
 
-		double s = Math.sin(Math.toRadians(MiscUtils.getTimedAngle(100))) / 8;
+		double s = Math.sin(Math.toRadians(MathUtils.getTimedAngle(100))) / 8;
 		GL11.glTranslated(x + 0.5, y + 1.5 + s, z + 0.5);
 
 		GL11.glScaled(0.5, 0.5, 0.5);
@@ -43,7 +39,7 @@ public class SoulAltarRenderer extends TileEntitySpecialRenderer
 			{
 				DrawUtils.renderItemStack_Full(t.getStackInSlot(0), 0, 0, 0, 0, 0, 0, tile.getWorldObj().getWorldTime() % 360, 0, 1, 1, 1, 0, -0.25F, 0, true);
 			}
-			List<Integer> ids = new ArrayList<Integer>();
+			List<Integer> ids = new ArrayList<>();
 			for (int i = 4; i < 10; i++)
 			{
 				if (t.getStackInSlot(i) != null)
@@ -62,7 +58,7 @@ public class SoulAltarRenderer extends TileEntitySpecialRenderer
 			float angle = (float) Math.toRadians(360F / ids.size());
 			for (int i = 0; i < ids.size(); i++)
 			{
-				double time = MiscUtils.getTimedAngle(20);
+				double time = MathUtils.getTimedAngle(20);
 				float px = (float) Math.cos(angle * i + Math.toRadians(time)) / 1.5F;
 				float pz = (float) Math.sin(angle * i + Math.toRadians(time)) / 1.5F;
 

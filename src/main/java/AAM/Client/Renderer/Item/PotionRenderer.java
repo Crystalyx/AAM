@@ -1,10 +1,10 @@
-package AAM.Client.Renderer.Item;
+package aam.client.renderer.item;
 
 import org.lwjgl.opengl.GL11;
 
-import AAM.Common.Potions.ModPotions;
-import AAM.Utils.Color;
-import AAM.Utils.Render.RenderUtils;
+import aam.common.potions.ModPotions;
+import aam.utils.Color;
+import aam.utils.render.RenderUtils;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.item.ItemStack;
@@ -44,8 +44,10 @@ public class PotionRenderer implements IItemRenderer
 		{
 			if (type == ItemRenderType.ENTITY && !item.isOnItemFrame())
 			{
-				int angle = (int) ((Minecraft.getMinecraft().getSystemTime() % 23040) / 128);
-				double append = ((double) (Minecraft.getMinecraft().getSystemTime() % 2048) / 2048);
+				Minecraft.getMinecraft();
+				int angle = (int) (Minecraft.getSystemTime() % 23040 / 128);
+				Minecraft.getMinecraft();
+				double append = (double) (Minecraft.getSystemTime() % 2048) / 2048;
 				if (append > 0.5)
 				{
 					append = 1 - append;
@@ -70,7 +72,9 @@ public class PotionRenderer implements IItemRenderer
 			Color col;
 			int id = item.getTagCompound().getInteger("PotionID");
 			if (id == Potion.nightVision.id)
+			{
 				id = 8;
+			}
 			col = ModPotions.pots[id].col;
 
 			GL11.glPushMatrix();
@@ -85,8 +89,10 @@ public class PotionRenderer implements IItemRenderer
 			{
 				if (type == ItemRenderType.ENTITY && !item.isOnItemFrame())
 				{
-					int angle = (int) ((Minecraft.getMinecraft().getSystemTime() % 23040) / 128);
-					double append = ((double) (Minecraft.getMinecraft().getSystemTime() % 2048) / 2048);
+					Minecraft.getMinecraft();
+					int angle = (int) (Minecraft.getSystemTime() % 23040 / 128);
+					Minecraft.getMinecraft();
+					double append = (double) (Minecraft.getSystemTime() % 2048) / 2048;
 					if (append > 0.5)
 					{
 						append = 1 - append;

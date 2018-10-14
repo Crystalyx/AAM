@@ -1,11 +1,15 @@
-package AAM.Network;
+package aam.network;
 
-import AAM.Common.Container.ModificationAnvilContainer;
-import AAM.Common.Container.SoulAltarContainer;
-import AAM.Common.Container.SpellTableContainer;
-import AAM.Common.Tiles.TEModificationAnvil;
-import AAM.Common.Tiles.TESoulAltar;
-import AAM.Common.Tiles.TESpellTable;
+import aam.api.PouchInventory;
+import aam.common.container.MechanistsTableContainer;
+import aam.common.container.ModificationAnvilContainer;
+import aam.common.container.PouchContainer;
+import aam.common.container.SoulAltarContainer;
+import aam.common.container.SpellTableContainer;
+import aam.common.tiles.TEMechanistsTable;
+import aam.common.tiles.TEModificationAnvil;
+import aam.common.tiles.TESoulAltar;
+import aam.common.tiles.TESpellTable;
 import cpw.mods.fml.common.network.IGuiHandler;
 import net.minecraft.client.particle.EntityFX;
 import net.minecraft.entity.player.EntityPlayer;
@@ -19,12 +23,16 @@ public class CommonProxy implements IGuiHandler
 	{
 		switch (ID)
 		{
-		case (0):
+		case 0:
 			return new SpellTableContainer(p.inventory, (TESpellTable) w.getTileEntity(x, y, z));
-		case (1):
+		case 1:
 			return new SoulAltarContainer(p.inventory, (TESoulAltar) w.getTileEntity(x, y, z));
-		case (2):
+		case 2:
 			return new ModificationAnvilContainer(p.inventory, (TEModificationAnvil) w.getTileEntity(x, y, z));
+		case 3:
+			return new PouchContainer(p.inventory, new PouchInventory(p.getCurrentEquippedItem()));
+		case 4:
+			return new MechanistsTableContainer(p.inventory, (TEMechanistsTable) w.getTileEntity(x, y, z));
 		}
 		return null;
 	}
@@ -59,5 +67,14 @@ public class CommonProxy implements IGuiHandler
 	public void getSkill()
 	{
 
+	}
+
+	public void openCircleGui(int x, int y, int z)
+	{
+
+	}
+
+	public void init()
+	{
 	}
 }

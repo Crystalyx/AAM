@@ -1,4 +1,4 @@
-package AAM.Common.Blocks.Plants;
+package aam.common.blocks.plants;
 
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
@@ -26,8 +26,8 @@ public class ModLog extends BlockRotatedPillar
 	@SideOnly(Side.CLIENT)
 	public void registerBlockIcons(IIconRegister ir)
 	{
-		this.side = ir.registerIcon("aam:" + this.texture + "_log_side");
-		this.top = ir.registerIcon("aam:" + this.texture + "_log_top");
+		side = ir.registerIcon("aam:" + texture + "_log_side");
+		top = ir.registerIcon("aam:" + texture + "_log_top");
 	}
 
 	@Override

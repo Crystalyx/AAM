@@ -1,7 +1,7 @@
-package AAM.Common.Tiles;
+package aam.common.tiles;
 
-import AAM.Common.Blocks.Building.PillarBlock;
-import AAM.Utils.Wec3;
+import aam.common.blocks.building.PillarBlock;
+import aam.utils.vectors.Wec3;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.NetworkManager;
 import net.minecraft.network.Packet;
@@ -21,9 +21,9 @@ public class TECrystal extends TileEntity
 	{
 		if (this.checkStructure())
 		{
-			if (this.worldObj.getWorldTime() % 40 == 0)
+			if (worldObj.getWorldTime() % 40 == 0)
 			{
-				this.soulValue += 1;
+				soulValue += 1;
 			}
 		}
 	}
@@ -35,7 +35,7 @@ public class TECrystal extends TileEntity
 		for (int i = 0; i < 4; i++)
 		{
 			cp = cp.add(ForgeDirection.DOWN);
-			ret = ret && (cp.getBlock(this.worldObj) instanceof PillarBlock);
+			ret = ret && cp.getBlock(worldObj) instanceof PillarBlock;
 		}
 
 		return ret;
@@ -46,7 +46,7 @@ public class TECrystal extends TileEntity
 	{
 		NBTTagCompound syncData = new NBTTagCompound();
 		this.writeToNBT(syncData);
-		return new S35PacketUpdateTileEntity(this.xCoord, this.yCoord, this.zCoord, 1, syncData);
+		return new S35PacketUpdateTileEntity(xCoord, yCoord, zCoord, 1, syncData);
 	}
 
 	@Override
@@ -60,7 +60,7 @@ public class TECrystal extends TileEntity
 	{
 		super.readFromNBT(tag);
 
-		this.soulValue = tag.getInteger("SoulValue");
+		soulValue = tag.getInteger("SoulValue");
 	}
 
 	@Override
@@ -68,7 +68,7 @@ public class TECrystal extends TileEntity
 	{
 		super.writeToNBT(tag);
 
-		tag.setInteger("SoulValue", this.soulValue);
+		tag.setInteger("SoulValue", soulValue);
 	}
 
 	@Override

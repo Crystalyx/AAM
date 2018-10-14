@@ -1,8 +1,8 @@
-package AAM.Common.Items.Alchemy;
+package aam.common.items.alchemy;
 
 import java.util.List;
 
-import AAM.Common.Potions.ModPotions;
+import aam.common.potions.ModPotions;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
@@ -16,7 +16,7 @@ public class AlchemicalBucket extends Item
 	{
 		this.setMaxStackSize(1);
 		this.setHasSubtypes(true);
-		this.setUnlocalizedName("aam.alchbucket");
+		this.setUnlocalizedName("aam.alchemical_bucket");
 	}
 
 	public IIcon empty;
@@ -25,8 +25,8 @@ public class AlchemicalBucket extends Item
 	@Override
 	public void registerIcons(IIconRegister ir)
 	{
-		this.empty = ir.registerIcon("aam:tools/bucketpot_empty");
-		this.full = ir.registerIcon("aam:tools/bucketpot_full");
+		empty = ir.registerIcon("aam:tools/bucketpot_empty");
+		full = ir.registerIcon("aam:tools/bucketpot_full");
 	}
 
 	@Override

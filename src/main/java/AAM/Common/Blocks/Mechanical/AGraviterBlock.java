@@ -1,10 +1,9 @@
-package AAM.Common.Blocks.Mechanical;
+package aam.common.blocks.mechanical;
 
-import AAM.Common.Tiles.TEAGraviter;
+import aam.common.tiles.TEAGraviter;
 import net.minecraft.block.BlockContainer;
 import net.minecraft.block.material.Material;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.world.World;
 
 /**

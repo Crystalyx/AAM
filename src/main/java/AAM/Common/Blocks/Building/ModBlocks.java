@@ -1,40 +1,41 @@
-package AAM.Common.Blocks.Building;
+package aam.common.blocks.building;
 
-import AAM.Common.Blocks.Circles.BloodAltar;
-import AAM.Common.Blocks.Circles.BloodBlock;
-import AAM.Common.Blocks.Circles.CircleBase;
-import AAM.Common.Blocks.Circles.MechanicalBase;
-import AAM.Common.Blocks.Circles.TransCircle;
-import AAM.Common.Blocks.Mechanical.Barrel;
-import AAM.Common.Blocks.Mechanical.BlockTeleporter;
-import AAM.Common.Blocks.Mechanical.Cauldron;
-import AAM.Common.Blocks.Mechanical.CreativeCauldron;
-import AAM.Common.Blocks.Mechanical.CrystalBlock;
-import AAM.Common.Blocks.Mechanical.Expander;
-import AAM.Common.Blocks.Mechanical.GrassClearer;
-import AAM.Common.Blocks.Mechanical.GraviterBlock;
-import AAM.Common.Blocks.Mechanical.ModificationAnvil;
-import AAM.Common.Blocks.Mechanical.SoulAltar;
-import AAM.Common.Blocks.Mechanical.SpellTable;
-import AAM.Common.Blocks.Plants.BerryBush;
-import AAM.Common.Blocks.Plants.BushSprout;
-import AAM.Common.Blocks.Plants.ModLeaves;
-import AAM.Common.Blocks.Plants.ModLog;
-import AAM.Common.Blocks.Plants.ModPlank;
-import AAM.Common.Blocks.Plants.ModPlank2;
-import AAM.Common.Blocks.Plants.ModSapling;
-import AAM.Common.Blocks.Plants.ShadowveilPlant;
-import AAM.Common.Blocks.Plants.ShroomPlant;
-import AAM.Common.Items.AAMItemBlock;
-import AAM.Common.Items.BushItemBlock;
-import AAM.Common.Items.BushSproutItemBlock;
-import AAM.Common.Items.ModItems;
-import AAM.Common.Tabs.AlchemyTab;
-import AAM.Common.Tabs.ArtTab;
-import AAM.Common.Tabs.MiscTab;
-import AAM.Common.Tabs.SoulTab;
-import AAM.Common.Transmutations.FluidBlood;
-import AAM.Core.AAMCore;
+import aam.common.blocks.circles.BloodAltar;
+import aam.common.blocks.circles.BloodBlock;
+import aam.common.blocks.circles.CircleBase;
+import aam.common.blocks.circles.MechanicalBase;
+import aam.common.blocks.circles.TransCircle;
+import aam.common.blocks.mechanical.Barrel;
+import aam.common.blocks.mechanical.BlockTeleporter;
+import aam.common.blocks.mechanical.Cauldron;
+import aam.common.blocks.mechanical.CreativeCauldron;
+import aam.common.blocks.mechanical.CrystalBlock;
+import aam.common.blocks.mechanical.Expander;
+import aam.common.blocks.mechanical.GrassClearer;
+import aam.common.blocks.mechanical.GraviterBlock;
+import aam.common.blocks.mechanical.MechanistsTable;
+import aam.common.blocks.mechanical.ModificationAnvil;
+import aam.common.blocks.mechanical.SoulAltar;
+import aam.common.blocks.mechanical.SpellTable;
+import aam.common.blocks.plants.BerryBush;
+import aam.common.blocks.plants.BushSprout;
+import aam.common.blocks.plants.ModLeaves;
+import aam.common.blocks.plants.ModLog;
+import aam.common.blocks.plants.ModPlank;
+import aam.common.blocks.plants.ModPlank2;
+import aam.common.blocks.plants.ModSapling;
+import aam.common.blocks.plants.ShadowveilPlant;
+import aam.common.blocks.plants.ShroomPlant;
+import aam.common.items.AAMItemBlock;
+import aam.common.items.BushItemBlock;
+import aam.common.items.BushSproutItemBlock;
+import aam.common.items.ModItems;
+import aam.common.tabs.AlchemyTab;
+import aam.common.tabs.ArtTab;
+import aam.common.tabs.MiscTab;
+import aam.common.tabs.SoulTab;
+import aam.common.transmutations.FluidBlood;
+import aam.core.AAMCore;
 import cpw.mods.fml.common.registry.GameRegistry;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
@@ -63,15 +64,15 @@ public class ModBlocks
 	// =======================Plants==========================
 	public static Block ShadowveilPlant = new ShadowveilPlant(-1).setBlockName(modid + "shadowveil");
 	public static Block ShroomPlant = new ShroomPlant().setBlockName(modid + "shroom");
-	public static Block BerryBush = new BerryBush(Material.leaves).setBlockName(modid + "berryBush");
-	public static Block BushSprout = new BushSprout(Material.leaves).setBlockName(modid + "bushSprout");
+	public static Block BerryBush = new BerryBush(Material.leaves).setBlockName(modid + "berry_bush");
+	public static Block BushSprout = new BushSprout(Material.leaves).setBlockName(modid + "bush_sprout");
 
 	// =======================Potions==========================
 	public static Block Cauldron = new Cauldron(Material.iron).setBlockName(modid + "cauldron");
 	public static Block Barrel = new Barrel().setBlockName(modid + "barrel");
 
-	public static Block CauldronCreat = new CreativeCauldron(Material.iron).setBlockName(modid + "cauldron.creative");
-	public static Block SpellTable = new SpellTable(Material.wood).setBlockName(modid + "spelltable");
+	public static Block CauldronCreat = new CreativeCauldron(Material.iron).setBlockName(modid + "cauldron_creative");
+	public static Block SpellTable = new SpellTable(Material.wood).setBlockName(modid + "spell_table");
 	public static Block ReinforcedGlass = new ReinforcedGlass(Material.glass).setBlockName(modid + "reinforced_glass");
 	public static Block SandyGlass = new SandyGlass().setBlockName(modid + "sandy_glass");
 
@@ -87,26 +88,27 @@ public class ModBlocks
 	public static Block grav = new GraviterBlock();
 
 	// =======================Alchemy===========================
-	public static Fluid blood = new FluidBlood().setUnlocalizedName("aam.blood.fluid");
+	public static Fluid blood = new FluidBlood().setUnlocalizedName(modid + "blood_fluid");
 	public static Block BloodBlock;
-	public static Block MechanicalBase = new MechanicalBase(Material.iron).setBlockName(modid + "mechbase");
+	public static Block MechanicalBase = new MechanicalBase(Material.iron).setBlockName(modid + "mechanical_base");
 	public static Block LightBlock = new LightBlock().setBlockName(modid + "light");
-	public static Block CircleBase = new CircleBase().setBlockName(modid + "circleBase");;
-	public static Block TransCircle = new TransCircle().setBlockName(modid + "transcircle");;
-	public static Block BloodAltar = new BloodAltar().setBlockName(modid + "bloodaltar");
-	public static Block miniumBlock = new TexturedBlock(Material.rock, modid + "miniumblock", "aam:minium_block", 1, 1);
+	public static Block CircleBase = new CircleBase().setBlockName(modid + "circle_base");;
+	public static Block TransCircle = new TransCircle().setBlockName(modid + "transmutation_circle");;
+	public static Block BloodAltar = new BloodAltar().setBlockName(modid + "blood_altar");
+	public static Block miniumBlock = new TexturedBlock(Material.rock, modid + "minium_block", "aam:minium_block", 1, 1);
 	public static Block miniumOre = new ModOreBlock("minium", 1, 1, ModItems.MiniumShard, 1, 2, 2);
 
 	// =======================Soul==========================
-	public static Block SoulAltar = new SoulAltar().setBlockName(modid + "soulaltar");
+	public static Block SoulAltar = new SoulAltar().setBlockName(modid + "soul_altar");
 	public static Block crystal = new CrystalBlock().setBlockName(modid + "crystal");
-	public static Block PHBlock = new URBlock().setBlockName(modid + "placeholder");
+	public static Block PHBlock = new URBlock().setBlockName(modid + "place_holder");
 	public static Block pillar = new PillarBlock().setBlockName(modid + "pillar");
-	public static Block altar_base = new AltarBase(Material.iron).setHardness(2.0F).setBlockName(modid + "abase");
-	public static Block altar_based_stairs = new AltarBasedStairs().setHardness(2.0F).setBlockName(modid + "astairs");
+	public static Block altar_base = new AltarBase(Material.iron).setHardness(2.0F).setBlockName(modid + "altar_base");
+	public static Block altar_based_stairs = new AltarBasedStairs().setHardness(2.0F).setBlockName(modid + "altar_stairs");
+	public static Block MechanistsTable = new MechanistsTable().setHardness(2.0F).setBlockName(modid + "mechaniststable");
 
 	// =======================Dungeon==========================
-	public static Block BlockTeleporter = new BlockTeleporter().setBlockName(modid + "dungteleporter");
+	public static Block BlockTeleporter = new BlockTeleporter().setBlockName(modid + "dungeon_teleporter");
 	public static Storage Bricks = (Storage) new Storage(Material.rock).setBlockName(modid + "brick");
 
 	public static void load()
@@ -146,7 +148,7 @@ public class ModBlocks
 		registerBlock(LightBlock);
 		if (FluidRegistry.registerFluid(blood))
 		{
-			BloodBlock = new BloodBlock(blood).setBlockName(modid + "bloodblock");
+			BloodBlock = new BloodBlock(blood).setBlockName(modid + "blood_block");
 			registerBlock(BloodBlock, alchemy);
 		}
 		registerBlock(BloodAltar, alchemy);
@@ -176,6 +178,7 @@ public class ModBlocks
 
 		// =======================Mechanical==========================
 		registerBlock(GClearer, misc);
+		registerBlock(MechanistsTable, misc);
 
 		// =======================OLD==========================
 		registerBlock(grav, misc);

@@ -1,6 +1,6 @@
-package AAM.Common.Blocks.Plants;
+package aam.common.blocks.plants;
 
-import AAM.Common.Blocks.Building.Storage;
+import aam.common.blocks.building.Storage;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.block.material.Material;
@@ -29,10 +29,10 @@ public class ModPlank2 extends Storage
 	@SideOnly(Side.CLIENT)
 	public void registerBlockIcons(IIconRegister ir)
 	{
-		this.icons = new IIcon[textures.length];
+		icons = new IIcon[textures.length];
 		for (int j = 0; j < icons.length; j++)
 		{
-			this.icons[j] = ir.registerIcon("aam:" + base + textures[j]);
+			icons[j] = ir.registerIcon("aam:" + base + textures[j]);
 		}
 	}
 }

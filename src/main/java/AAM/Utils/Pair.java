@@ -1,4 +1,4 @@
-package AAM.Utils;
+package aam.utils;
 
 public class Pair<K, V>
 {
@@ -9,5 +9,16 @@ public class Pair<K, V>
 	{
 		this.key = key;
 		this.value = value;
+	}
+
+	@Override
+	public boolean equals(Object obj)
+	{
+		if (obj instanceof Pair)
+		{
+			Pair p = (Pair) obj;
+			return p.key == this.key && p.value == this.value;
+		}
+		return false;
 	}
 }

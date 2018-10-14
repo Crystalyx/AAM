@@ -1,4 +1,4 @@
-package AAM.Common.Items.Resources;
+package aam.common.items.resources;
 
 import net.minecraft.item.ItemStack;
 
@@ -6,7 +6,7 @@ public class Coin extends Material
 {
 	public Coin()
 	{
-		this.maxStackSize = 100;
+		maxStackSize = 100;
 	}
 
 	/**

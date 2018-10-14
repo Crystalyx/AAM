@@ -1,6 +1,6 @@
-package AAM.Common.Skills;
+package aam.common.skills;
 
-import AAM.Common.Soul.Soul;
+import aam.common.soul.Soul;
 import net.minecraft.util.ResourceLocation;
 
 public class SkillBase
@@ -9,7 +9,7 @@ public class SkillBase
 	{
 		this.name = name;
 		this.gainLevel = gainLevel;
-		this.texture = text;
+		texture = text;
 		this.act = act;
 	}
 
@@ -17,9 +17,9 @@ public class SkillBase
 	{
 		this.name = name;
 		this.gainLevel = gainLevel;
-		this.texture = text;
+		texture = text;
 		this.act = act;
-		this.clientN = clientn;
+		clientN = clientn;
 	}
 
 	public String name;
@@ -30,11 +30,11 @@ public class SkillBase
 
 	public Skill toSkill(int level)
 	{
-		return new Skill(this.name, level, this.gainLevel, this.act, this.texture, this.clientN);
+		return new Skill(name, level, gainLevel, act, texture, clientN);
 	}
 
 	public Skill toSkill(int level, Soul affinity)
 	{
-		return new Skill(this.name, level, this.gainLevel, affinity, this.act, this.texture, this.clientN);
+		return new Skill(name, level, gainLevel, affinity, act, texture, clientN);
 	}
 }

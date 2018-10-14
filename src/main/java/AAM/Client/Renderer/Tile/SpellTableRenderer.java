@@ -1,8 +1,8 @@
-package AAM.Client.Renderer.Tile;
+package aam.client.renderer.tile;
 
 import org.lwjgl.opengl.GL11;
 
-import AAM.Client.Model.SpellTable;
+import aam.client.models.SpellTable;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.ModelBook;
 import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
@@ -30,7 +30,7 @@ public class SpellTableRenderer extends TileEntitySpecialRenderer
 
 		SpellTable model = new SpellTable();
 		model.render(null, 0.0F, 0.0F, 0.0F, 1.0F, 1.0F, 1.0F);
-		
+
 		GL11.glPopMatrix();
 
 		GL11.glPushMatrix();

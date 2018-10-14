@@ -1,9 +1,9 @@
-package AAM.Client.Renderer.Block;
+package aam.client.renderer.block;
 
-import AAM.Client.Renderer.Tile.CrystalRenderer;
-import AAM.Network.ClientProxy;
-import AAM.Utils.MiscUtils;
-import AAM.Utils.Render.RenderUtils;
+import aam.client.renderer.tile.CrystalRenderer;
+import aam.network.ClientProxy;
+import aam.utils.MiscUtils;
+import aam.utils.render.RenderUtils;
 import cpw.mods.fml.client.registry.ISimpleBlockRenderingHandler;
 import net.minecraft.block.Block;
 import net.minecraft.client.renderer.RenderBlocks;
@@ -15,6 +15,7 @@ public class CrystalItemRenderer implements ISimpleBlockRenderingHandler
 	@Override
 	public void renderInventoryBlock(Block b, int meta, int modelId, RenderBlocks renderer)
 	{
+
 		b.setBlockBounds(0.1f, 0, 0.025f, 0.9f, 0.2f, 0.975f);
 		renderer.setRenderBoundsFromBlock(b);
 		RenderUtils.drawSides(renderer, b, MiscUtils.getIconArray(b, meta), true);

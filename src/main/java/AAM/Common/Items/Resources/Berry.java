@@ -1,8 +1,8 @@
-package AAM.Common.Items.Resources;
+package aam.common.items.resources;
 
 import java.util.List;
 
-import AAM.Common.Blocks.Plants.BerryBush;
+import aam.common.blocks.plants.BerryBush;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.client.renderer.texture.IIconRegister;
@@ -67,6 +67,6 @@ public class Berry extends ItemFood
 	@SideOnly(Side.CLIENT)
 	public IIcon getIconFromDamage(int meta)
 	{
-		return this.icons[meta];
+		return icons[meta];
 	}
 }

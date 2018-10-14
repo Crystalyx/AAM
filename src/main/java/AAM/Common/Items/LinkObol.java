@@ -1,19 +1,17 @@
-package AAM.Common.Items;
+package aam.common.items;
 
 import java.util.List;
 
-import AAM.Utils.MiscUtils;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.world.World;
 
 public class LinkObol extends Item
 {
 	public LinkObol()
 	{
-		this.setTextureName("aam:linkobol");
+		this.setTextureName("aam:link_obol");
 	}
 
 	@Override

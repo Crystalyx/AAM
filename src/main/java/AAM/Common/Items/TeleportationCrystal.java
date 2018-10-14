@@ -1,8 +1,8 @@
-package AAM.Common.Items;
+package aam.common.items;
 
 import java.util.List;
 
-import AAM.Utils.MiscUtils;
+import aam.utils.InventoryUtils;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -36,7 +36,7 @@ public class TeleportationCrystal extends Item
 				p.fallDistance = 0F;
 				p.setVelocity(0, 0, 0);
 				p.setPosition(tx + 0.5, ty + 2.79, tz + 0.5);
-				MiscUtils.decrPlayerStack(p, 1);
+				InventoryUtils.decrPlayerStack(p, 1);
 			}
 		}
 		else
@@ -64,7 +64,7 @@ public class TeleportationCrystal extends Item
 				p.fallDistance = 0F;
 				p.setVelocity(0, 0, 0);
 				p.setPosition(tx, ty + 3, tz);
-				MiscUtils.decrPlayerStack(p, 1);
+				InventoryUtils.decrPlayerStack(p, 1);
 			}
 		}
 		return i;

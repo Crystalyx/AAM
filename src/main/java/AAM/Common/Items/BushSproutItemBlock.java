@@ -1,6 +1,6 @@
-package AAM.Common.Items;
+package aam.common.items;
 
-import AAM.Common.Blocks.Plants.BerryBush;
+import aam.common.blocks.plants.BerryBush;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.block.Block;
@@ -52,7 +52,7 @@ public class BushSproutItemBlock extends ItemBlock
 	public IIcon getIconFromDamage(int meta)
 	{
 		int beta = Math.floorDiv(meta, 4);
-		return this.icons[beta];
+		return icons[beta];
 	}
 
 }

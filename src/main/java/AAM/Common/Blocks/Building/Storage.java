@@ -1,4 +1,4 @@
-package AAM.Common.Blocks.Building;
+package aam.common.blocks.building;
 
 import java.util.List;
 
@@ -11,7 +11,6 @@ import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.IIcon;
-import net.minecraft.world.IBlockAccess;
 
 public class Storage extends Block
 {
@@ -24,17 +23,17 @@ public class Storage extends Block
 	public void addStorage(String texture)
 	{
 		expandArray();
-		this.textures[this.textures.length - 1] = texture;
+		textures[textures.length - 1] = texture;
 	}
 
 	public void expandArray()
 	{
-		String[] ret = new String[this.textures.length + 1];
-		for (int i = 0; i < this.textures.length; i++)
+		String[] ret = new String[textures.length + 1];
+		for (int i = 0; i < textures.length; i++)
 		{
-			ret[i] = this.textures[i];
+			ret[i] = textures[i];
 		}
-		this.textures = ret;
+		textures = ret;
 	}
 
 	public String[] textures = new String[0];
@@ -46,15 +45,19 @@ public class Storage extends Block
 	public void registerBlockIcons(IIconRegister ir)
 	{
 		icons = new IIcon[textures.length];
-		for (int k = 0; k < this.textures.length; k++)
-			this.icons[k] = ir.registerIcon("aam:" + textures[k]);
+		for (int k = 0; k < textures.length; k++)
+		{
+			icons[k] = ir.registerIcon("aam:" + textures[k]);
+		}
 	}
 
 	@Override
 	public void getSubBlocks(Item i, CreativeTabs tab, List l)
 	{
-		for (int k = 0; k < this.textures.length; k++)
+		for (int k = 0; k < textures.length; k++)
+		{
 			l.add(new ItemStack(i, 1, k));
+		}
 
 	}
 
@@ -70,7 +73,7 @@ public class Storage extends Block
 	@SideOnly(Side.CLIENT)
 	public IIcon getIconFromDamage(int meta)
 	{
-		return this.icons[meta];
+		return icons[meta];
 	}
 
 	// @SideOnly(Side.CLIENT)
@@ -82,12 +85,17 @@ public class Storage extends Block
 	/**
 	 * Gets the block's texture. Args: side, meta
 	 */
+	@Override
 	@SideOnly(Side.CLIENT)
 	public IIcon getIcon(int side, int meta)
 	{
-		if (meta < this.icons.length)
-			return this.icons[meta];
+		if (meta < icons.length)
+		{
+			return icons[meta];
+		}
 		else
+		{
 			return null;
+		}
 	}
 }

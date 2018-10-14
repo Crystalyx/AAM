@@ -1,4 +1,4 @@
-package AAM.Common.Potions;
+package aam.common.potions;
 
 public class IngridientItem
 {

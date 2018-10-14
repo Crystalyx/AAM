@@ -1,4 +1,4 @@
-package AAM.Common.Items;
+package aam.common.items;
 
 import net.minecraft.block.Block;
 import net.minecraft.item.ItemBlock;
@@ -14,18 +14,20 @@ public class AAMItemBlock extends ItemBlock
 	public AAMItemBlock(Block b)
 	{
 		super(b);
-		this.item = b;
+		item = b;
 		this.setHasSubtypes(true);
 	}
 
+	@Override
 	public int getMetadata(int i)
 	{
 		return i;
 	}
 
+	@Override
 	public String getUnlocalizedName(ItemStack i)
 	{
-		return this.item.getUnlocalizedName() + "_" + i.getItemDamage();
+		return item.getUnlocalizedName() + "_" + i.getItemDamage();
 	}
 
 }

@@ -1,10 +1,9 @@
-package AAM.Client.Gui;
+package aam.client.gui;
 
-import AAM.Client.Gui.Base.GuiBase;
-import AAM.Client.Gui.Base.GuiText;
-import AAM.Common.Container.SoulAltarContainer;
-import AAM.Common.Items.Soul.SoulSword;
-import AAM.Common.Tiles.TESoulAltar;
+import aam.client.gui.base.GuiBase;
+import aam.client.gui.base.GuiText;
+import aam.common.container.SoulAltarContainer;
+import aam.common.tiles.TESoulAltar;
 import net.minecraft.item.ItemStack;
 
 public class GuiSoulAltar extends GuiBase
@@ -20,36 +19,40 @@ public class GuiSoulAltar extends GuiBase
 	{
 		super.drawGuiContainerBackgroundLayer(f1, x, y);
 
-		boolean b = ((TESoulAltar) this.cont.tile).formed && this.cont.tile.getStackInSlot(0) != null && this.cont.tile.getStackInSlot(0).getItem() instanceof SoulSword;
+		boolean b = ((TESoulAltar) cont.tile).formed;
 
 		for (int i = 3; i < 15; i++)
 		{
-			if (i != 12)
-				this.cont.objs.get(i).setHidden(!b);
+			if (i != 13)
+			{
+				cont.objs.get(i).setHidden(!b);
+			}
 		}
-		this.cont.objs.get(13).setHidden(!b);
-		ItemStack is = this.cont.tile.getStackInSlot(0);
+		cont.objs.get(13).setHidden(!b);
+		ItemStack is = cont.tile.getStackInSlot(0);
 
-		if (this.cont.tile.getStackInSlot(0) != null)
+		if (cont.tile.getStackInSlot(0) != null)
 		{
 			if (is.hasTagCompound())
 			{
-				this.cont.objs.get(12).setHidden(false);
+				cont.objs.get(12).setHidden(false);
 
-				if (this.cont.objs.get(12) instanceof GuiText)
+				if (cont.objs.get(12) instanceof GuiText)
 				{
-					GuiText text = (GuiText) this.cont.objs.get(12);
+					GuiText text = (GuiText) cont.objs.get(12);
 					text.text = "Owner: " + is.getTagCompound().getString("Owner");
 				}
 
 			}
 			else
 			{
-				this.cont.objs.get(12).setHidden(true);
+				cont.objs.get(12).setHidden(true);
 			}
 		}
 		else
-			this.cont.objs.get(12).setHidden(true);
+		{
+			cont.objs.get(12).setHidden(true);
+		}
 	}
 
 }

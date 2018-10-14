@@ -1,12 +1,12 @@
-package AAM.Common.Entity;
+package aam.common.entity;
 
-import AAM.Common.Entity.Elemental.ElementalBoss;
-import AAM.Common.Entity.Elemental.ElementalGuard;
-import AAM.Common.Entity.Elemental.EntityBloodball;
-import AAM.Common.Entity.Elemental.Subwer;
-import AAM.Common.Entity.Elemental.WastelandCreature;
-import AAM.Common.Entity.Golem.GolemBoss;
-import AAM.Core.AAMCore;
+import aam.common.entity.elemental.ElementalBoss;
+import aam.common.entity.elemental.ElementalGuard;
+import aam.common.entity.elemental.EntityBloodball;
+import aam.common.entity.elemental.Subwer;
+import aam.common.entity.elemental.WastelandCreature;
+import aam.common.entity.golem.GolemBoss;
+import aam.core.AAMCore;
 import cpw.mods.fml.common.registry.EntityRegistry;
 import net.minecraft.entity.EntityList;
 

@@ -1,4 +1,4 @@
-package AAM.Core;
+package aam.core;
 
 import DummyCore.Utils.IDummyConfig;
 import net.minecraftforge.common.config.Configuration;
@@ -21,11 +21,11 @@ public class AAMConfig implements IDummyConfig
 	@Override
 	public void load(Configuration config)
 	{
-		genericPID = this.cfg.getInt("Potions", "genericPID", genericPID, 25, 64, null);
-		enableExpander = this.cfg.getBoolean("EasterEggs", "enableExpander", enableExpander, null);
-		enableRemovingRSword = this.cfg.getBoolean("EasterEggs", "enableRemovingRSword", enableRemovingRSword, null);
-		this.dungDimId = this.cfg.getInt("Dungeon", "dungeonID", 23, 1, 100, "Id of Dungeon Dimension");
-		this.dungDimId = this.cfg.getInt("Dungeon", "dungBiomeID", 23, 1, 100, "Id of Dungeon Biome");
+		genericPID = cfg.getInt("Potions", "genericPID", genericPID, 25, 64, null);
+		enableExpander = cfg.getBoolean("EasterEggs", "enableExpander", enableExpander, null);
+		enableRemovingRSword = cfg.getBoolean("EasterEggs", "enableRemovingRSword", enableRemovingRSword, null);
+		dungDimId = cfg.getInt("Dungeon", "dungeonID", 23, 1, 100, "Id of Dungeon Dimension");
+		dungDimId = cfg.getInt("Dungeon", "dungBiomeID", 23, 1, 100, "Id of Dungeon Biome");
 
 	}
 

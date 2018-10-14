@@ -1,10 +1,9 @@
-package AAM.Common.WorldGen;
+package aam.common.worldgen;
 
 import java.util.Random;
 
-import AAM.Common.Blocks.Building.ModBlocks;
+import aam.common.blocks.building.ModBlocks;
 import net.minecraft.block.Block;
-import net.minecraft.block.BlockSapling;
 import net.minecraft.world.World;
 import net.minecraft.world.gen.feature.WorldGenAbstractTree;
 import net.minecraftforge.common.util.ForgeDirection;
@@ -52,7 +51,7 @@ public class ModTreeGen extends WorldGenAbstractTree
 						{
 							block = w.getBlock(j1, i1, k1);
 
-							if (!(this.isReplaceable(w, j1, i1, k1) || w.getBlock(x, y, z) == ModBlocks.ModSaplings[this.type]))
+							if (!(this.isReplaceable(w, j1, i1, k1) || w.getBlock(x, y, z) == ModBlocks.ModSaplings[type]))
 							{
 								flag = false;
 							}
@@ -73,7 +72,7 @@ public class ModTreeGen extends WorldGenAbstractTree
 			{
 				Block block2 = w.getBlock(x, y - 1, z);
 
-				boolean isSoil = block2.canSustainPlant(w, x, y - 1, z, ForgeDirection.UP, (BlockSapling) ModBlocks.ModSaplings[this.type]);
+				boolean isSoil = block2.canSustainPlant(w, x, y - 1, z, ForgeDirection.UP, ModBlocks.ModSaplings[type]);
 				if (isSoil && y < 256 - l - 1)
 				{
 					block2.onPlantGrow(w, x, y - 1, z, x, y, z);

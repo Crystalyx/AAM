@@ -1,9 +1,9 @@
-package AAM.Client.Gui;
+package aam.client.gui;
 
 import org.lwjgl.input.Mouse;
 import org.lwjgl.opengl.GL11;
 
-import AAM.Utils.MiscUtils;
+import aam.utils.MathUtils;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.gui.GuiButton;
@@ -19,7 +19,7 @@ public class SwitchButton extends GuiButton
 	{
 		super(id, x, y, w, h, text);
 		this.up = up;
-		this.visible = true;
+		visible = true;
 	}
 
 	public static final ResourceLocation classSelector = new ResourceLocation("aam", "textures/hud/selectorClass.png");
@@ -28,7 +28,7 @@ public class SwitchButton extends GuiButton
 	public void drawButton(Minecraft mc, int x, int y)
 	{
 		// super.drawButton(mc, x, y);
-		if (this.visible)
+		if (visible)
 		{
 			GL11.glPushMatrix();
 			FontRenderer fontrenderer = mc.fontRenderer;
@@ -37,14 +37,14 @@ public class SwitchButton extends GuiButton
 			ScaledResolution sr = new ScaledResolution(Minecraft.getMinecraft(), Minecraft.getMinecraft().displayWidth, Minecraft.getMinecraft().displayHeight);
 			int mx = Mouse.getX() / 2;
 			int my = sr.getScaledHeight() - Mouse.getY() / 2;
-			this.field_146123_n = mx >= this.xPosition && my >= this.yPosition && mx < this.xPosition + this.width && my < this.yPosition + this.height;
-			int k = MiscUtils.boolToNum(field_146123_n);// this.getHoverState(this.field_146123_n);
+			field_146123_n = mx >= xPosition && my >= yPosition && mx < xPosition + width && my < yPosition + height;
+			int k = MathUtils.boolToNum(field_146123_n);
 			GL11.glEnable(GL11.GL_BLEND);
 			OpenGlHelper.glBlendFunc(770, 771, 1, 0);
 			GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
-			GL11.glTranslated(this.xPosition, this.yPosition, 0);
-			GL11.glScaled(0.25, 0.25, 1);
-			this.drawTexturedModalRect(0, 0, 32 * 4 * (k), MiscUtils.boolToNum(!this.up) * 32 * 4, this.width * 4, this.height * 4);
+			GL11.glTranslated(xPosition, yPosition, zLevel);
+			GL11.glScaled(0.25, 0.25, 0.25);
+			this.drawTexturedModalRect(0, 0, 32 * 4 * k, MathUtils.boolToNum(!up) * 32 * 4, width * 4, height * 4);
 			this.mouseDragged(mc, x, y);
 			int l = 14737632;
 
@@ -53,12 +53,12 @@ public class SwitchButton extends GuiButton
 				l = packedFGColour;
 			}
 			else
-				if (!this.enabled)
+				if (!enabled)
 				{
 					l = 10526880;
 				}
 				else
-					if (this.field_146123_n)
+					if (field_146123_n)
 					{
 						l = 16777120;
 					}

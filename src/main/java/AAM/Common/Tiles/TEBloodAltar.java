@@ -1,6 +1,6 @@
-package AAM.Common.Tiles;
+package aam.common.tiles;
 
-import AAM.Common.Blocks.Building.ModBlocks;
+import aam.common.blocks.building.ModBlocks;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraftforge.fluids.FluidStack;
 
@@ -22,14 +22,14 @@ public class TEBloodAltar extends TETransCircle
 	public void readFromNBT(NBTTagCompound tag)
 	{
 		super.readFromNBT(tag);
-		this.blood.amount = tag.getInteger("Blood");
+		blood.amount = tag.getInteger("Blood");
 	}
 
 	@Override
 	public void writeToNBT(NBTTagCompound tag)
 	{
 		super.writeToNBT(tag);
-		tag.setInteger("Blood", this.blood.amount);
+		tag.setInteger("Blood", blood.amount);
 
 	}
 }

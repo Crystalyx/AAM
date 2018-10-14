@@ -1,4 +1,4 @@
-package AAM.Client.Gui.Base;
+package aam.client.gui.base;
 
 import org.lwjgl.opengl.GL11;
 
@@ -18,7 +18,7 @@ public class SlotType extends ObjType
 		GL11.glTranslated(k / 2 + x / 2 - 1, l / 2 + y / 2 - 0.5, 0);
 		GL11.glScaled(0.5, 0.5, 0);
 		Minecraft.getMinecraft().getTextureManager().bindTexture(GuiOBJ.baseTexture);
-		this.gui.drawTexturedModalRect(k + x, l + y, this.px + 2, this.py + 2, this.sizex, this.sizey);
+		gui.drawTexturedModalRect(k + x, l + y, px + 2, py + 2, sizex, sizey);
 		GL11.glPopMatrix();
 	}
 

@@ -1,8 +1,9 @@
-package AAM.Common.Soul;
+package aam.common.soul;
 
-import AAM.API.Interface.ISoulUpgrade;
-import AAM.Utils.PlayerDataHandler;
+import aam.api.Interface.ISoulUpgrade;
+import aam.utils.PlayerDataHandler;
 import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.player.EntityPlayer;
 
 public enum SoulUpgrade implements ISoulUpgrade
 {
@@ -17,13 +18,13 @@ public enum SoulUpgrade implements ISoulUpgrade
 	}
 
 	@Override
-	public float getMeleeDamage(PlayerDataHandler ph, int soulLevel, float baseDamage, boolean inAttack)
+	public float getMeleeDamageBonus(PlayerDataHandler ph, int soulLevel, float baseDamage, boolean inAttack)
 	{
 		return 0;
 	}
 
 	@Override
-	public float getSpecificMeleeDamage(PlayerDataHandler ph, EntityLivingBase l, int soulLevel, float baseDamage)
+	public float getSpecificMeleeDamageBonus(PlayerDataHandler ph, EntityLivingBase l, int soulLevel, float baseDamage)
 	{
 		return 0;
 	}
@@ -35,14 +36,26 @@ public enum SoulUpgrade implements ISoulUpgrade
 	}
 
 	@Override
-	public float getRangedDamage(PlayerDataHandler ph, int level, float baseDamage, boolean inAttack)
+	public float getRangedDamageBonus(PlayerDataHandler ph, int level, float baseDamage, boolean inAttack)
 	{
 		return 0;
 	}
 
 	@Override
-	public float getSpecificRangedDamage(PlayerDataHandler ph, EntityLivingBase l, int soulLevel, float baseDamage)
+	public float getSpecificRangedDamageBonus(PlayerDataHandler ph, EntityLivingBase l, int soulLevel, float baseDamage)
 	{
 		return 0;
+	}
+
+	@Override
+	public void onAttack(EntityPlayer p, EntityLivingBase e, float damage)
+	{
+
+	}
+
+	@Override
+	public boolean onEnderTeleport(EntityPlayer p, EntityLivingBase ender)
+	{
+		return this.equals(Ender);
 	}
 }

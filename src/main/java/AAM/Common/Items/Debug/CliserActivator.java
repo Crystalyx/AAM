@@ -1,8 +1,8 @@
-package AAM.Common.Items.Debug;
+package aam.common.items.debug;
 
-import AAM.API.Interface.IStructureCore;
-import AAM.Utils.PlayerDataHandler;
-import AAM.Utils.Wec3;
+import aam.api.Interface.IStructureCore;
+import aam.utils.PlayerDataHandler;
+import aam.utils.vectors.Wec3;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;

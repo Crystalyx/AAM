@@ -1,4 +1,4 @@
-package AAM.API;
+package aam.api;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -34,15 +34,15 @@ public class MultiRecipeRenderer implements IRecipeRenderer
 	{
 		Minecraft mc = Minecraft.getMinecraft();
 		long time = mc.theWorld.getTotalWorldTime();
-		if (this.lastCycle < 0L || this.lastCycle < time - 20L)
+		if (lastCycle < 0L || lastCycle < time - 20L)
 		{
-			if (this.lastCycle > 0L)
+			if (lastCycle > 0L)
 			{
-				++this.cycleIdx;
-				this.cycleIdx = Math.max(0, this.cycleIdx);
+				++cycleIdx;
+				cycleIdx = Math.max(0, cycleIdx);
 			}
 
-			this.lastCycle = mc.theWorld.getTotalWorldTime();
+			lastCycle = mc.theWorld.getTotalWorldTime();
 		}
 
 		Minecraft.getMinecraft().getTextureManager().bindTexture(new ResourceLocation("guideapi:textures/gui/recipe_elements.png"));
@@ -51,23 +51,23 @@ public class MultiRecipeRenderer implements IRecipeRenderer
 		int outputX = 90 + guiLeft + guiBase.xSize / 7;
 		int outputY = 36 + guiTop + guiBase.xSize / 5;
 
-		int cycle = (int) ((Minecraft.getMinecraft().theWorld.getWorldTime() / 40) % this.recipes.length);
+		int cycle = (int) (Minecraft.getMinecraft().theWorld.getWorldTime() / 40 % recipes.length);
 
-		GuiHelper.drawItemStack(this.recipes[cycle].getRecipeOutput(), outputX, outputY);
+		GuiHelper.drawItemStack(recipes[cycle].getRecipeOutput(), outputX, outputY);
 		if (GuiHelper.isMouseBetween(mouseX, mouseY, outputX, outputY, 15, 15))
 		{
-			this.tooltips = GuiHelper.getTooltip(this.recipes[cycle].getRecipeOutput());
+			tooltips = GuiHelper.getTooltip(recipes[cycle].getRecipeOutput());
 		}
 		for (int y = 0; y < 3; ++y)
 		{
 			for (int x = 0; x < 3; ++x)
 			{
 				int i = 3 * y + x;
-				if (i < ((ShapelessOreRecipe) this.recipes[cycle]).getRecipeSize())
+				if (i < ((ShapelessOreRecipe) recipes[cycle]).getRecipeSize())
 				{
 					int stackX = (x + 1) * 17 + guiLeft + 29;
 					int stackY = (y + 1) * 17 + guiTop + 40;
-					Object component = ((ShapelessOreRecipe) this.recipes[cycle]).getInput().get(i);
+					Object component = ((ShapelessOreRecipe) recipes[cycle]).getInput().get(i);
 					if (component != null)
 					{
 						if (component instanceof ItemStack)
@@ -75,7 +75,7 @@ public class MultiRecipeRenderer implements IRecipeRenderer
 							GuiHelper.drawScaledItemStack((ItemStack) component, stackX, stackY, 1);
 							if (GuiHelper.isMouseBetween(mouseX, mouseY, stackX, stackY, 15, 15))
 							{
-								this.tooltips = GuiHelper.getTooltip((ItemStack) component);
+								tooltips = GuiHelper.getTooltip((ItemStack) component);
 							}
 						}
 						else
@@ -87,7 +87,7 @@ public class MultiRecipeRenderer implements IRecipeRenderer
 								GuiHelper.drawScaledItemStack(stack, stackX, stackY, 1);
 								if (GuiHelper.isMouseBetween(mouseX, mouseY, stackX, stackY, 15, 15))
 								{
-									this.tooltips = GuiHelper.getTooltip(stack);
+									tooltips = GuiHelper.getTooltip(stack);
 								}
 							}
 						}
@@ -103,8 +103,8 @@ public class MultiRecipeRenderer implements IRecipeRenderer
 
 	public int getRandomizedCycle(int index, int max)
 	{
-		this.rand.setSeed(index);
-		return (index + this.rand.nextInt(max) + this.cycleIdx) % max;
+		rand.setSeed(index);
+		return (index + rand.nextInt(max) + cycleIdx) % max;
 	}
 
 	public List tooltips = Lists.newArrayList();
@@ -112,8 +112,8 @@ public class MultiRecipeRenderer implements IRecipeRenderer
 	@Override
 	public void drawExtras(Book book, CategoryAbstract category, EntryAbstract entry, int guiLeft, int guiTop, int mouseX, int mouseY, GuiBase guiBase, FontRenderer fontRenderer)
 	{
-		guiBase.func_146283_a(this.tooltips, mouseX, mouseY);
-		this.tooltips.clear();
+		guiBase.func_146283_a(tooltips, mouseX, mouseY);
+		tooltips.clear();
 	}
 
 	public String getRecipeName()

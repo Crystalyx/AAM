@@ -1,9 +1,9 @@
-package AAM.Utils;
+package aam.utils;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import AAM.API.Interface.INBTSave;
+import aam.api.Interface.INBTSave;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 
@@ -24,7 +24,7 @@ public class NBTHelper
 
 	public static List<? extends INBTSave> loadList(NBTTagList tagl)
 	{
-		List<INBTSave> l = new ArrayList<INBTSave>();
+		List<INBTSave> l = new ArrayList<>();
 		for (int i = 0; i < tagl.tagCount(); i++)
 		{
 			NBTTagCompound tg = tagl.getCompoundTagAt(i);

@@ -1,16 +1,15 @@
-package AAM.Common.Transmutations;
+package aam.common.transmutations;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import AAM.Utils.Logger;
 import net.minecraft.block.Block;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 
 public class ItemList
 {
-	public List<ItemStack> items = new ArrayList<ItemStack>();
+	public List<ItemStack> items = new ArrayList<>();
 
 	public void add(Item i, int count)
 	{
@@ -18,7 +17,7 @@ public class ItemList
 		{
 			ItemStack ley = EnergyProvider.findIS(i).copy();
 			ley.stackSize = count;
-			this.items.add(ley);
+			items.add(ley);
 		}
 	}
 
@@ -28,7 +27,7 @@ public class ItemList
 		{
 			ItemStack ley = EnergyProvider.findIS(i, meta).copy();
 			ley.stackSize = count;
-			this.items.add(ley);
+			items.add(ley);
 		}
 	}
 
@@ -40,7 +39,7 @@ public class ItemList
 			{
 				ItemStack ley = EnergyProvider.findIS(Item.getItemFromBlock(i)).copy();
 				ley.stackSize = count;
-				this.items.add(ley);
+				items.add(ley);
 			}
 		}
 	}
@@ -51,7 +50,7 @@ public class ItemList
 		{
 			ItemStack ley = EnergyProvider.findIS(Item.getItemFromBlock(i), meta).copy();
 			ley.stackSize = count;
-			this.items.add(ley);
+			items.add(ley);
 		}
 	}
 

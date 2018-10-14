@@ -1,4 +1,4 @@
-package AAM.API.Interface;
+package aam.api.Interface;
 
 import net.minecraft.item.ItemStack;
 

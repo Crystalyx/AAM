@@ -1,9 +1,9 @@
-package AAM.Client.Renderer.Tile;
+package aam.client.renderer.tile;
 
 import org.lwjgl.opengl.GL11;
 
-import AAM.Common.Tiles.TECauldron;
-import AAM.Utils.Color;
+import aam.common.tiles.TECauldron;
+import aam.utils.Color;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
@@ -23,7 +23,7 @@ public class CauldronRenderer extends TileEntitySpecialRenderer
 			if (tile instanceof TECauldron)
 			{
 				TECauldron cauld = (TECauldron) tile;
-				double n = (((double) cauld.fluid.amount) / 2000) + 0.05;
+				double n = (double) cauld.fluid.amount / 2000 + 0.05;
 				Tessellator tess = Tessellator.instance;
 				GL11.glPushMatrix();
 				GL11.glTranslated(x, y + 1D + n, z + 1);
@@ -33,7 +33,7 @@ public class CauldronRenderer extends TileEntitySpecialRenderer
 
 				Color col = cauld.color;
 				tess.startDrawingQuads();
-				double index = (int) ((tile.getWorldObj().getWorldTime() % 1024) % 32);
+				double index = (int) (tile.getWorldObj().getWorldTime() % 1024 % 32);
 				tess.setColorRGBA(col.red, col.green, col.blue, 255);
 
 				tess.addVertexWithUV(0.125D, 0.875D, 0.125D, 0, index / 32.0);

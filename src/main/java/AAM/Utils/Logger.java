@@ -1,4 +1,4 @@
-package AAM.Utils;
+package aam.utils;
 
 import org.apache.logging.log4j.Level;
 

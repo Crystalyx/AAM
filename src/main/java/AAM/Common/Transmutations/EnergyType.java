@@ -1,4 +1,4 @@
-package AAM.Common.Transmutations;
+package aam.common.transmutations;
 
 public enum EnergyType
 {

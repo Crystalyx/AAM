@@ -1,18 +1,21 @@
-package AAM.Common.Event;
+package aam.common.event;
 
 import org.lwjgl.opengl.GL11;
 
-import AAM.Client.Renderer.Item.SoulRenderer;
-import AAM.Common.Items.ModItems;
-import AAM.Common.Soul.Trait;
-import AAM.Utils.Color;
-import AAM.Utils.MiscUtils;
-import AAM.Utils.PlayerDataHandler;
+import aam.client.renderer.item.SoulRenderer;
+import aam.common.items.ModItems;
+import aam.common.soul.Trait;
+import aam.utils.Color;
+import aam.utils.MathUtils;
+import aam.utils.PlayerDataHandler;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.entity.EntityClientPlayerMP;
 import net.minecraft.client.gui.FontRenderer;
+import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.gui.ScaledResolution;
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.client.renderer.RenderHelper;
@@ -32,6 +35,7 @@ import net.minecraftforge.client.event.RenderGameOverlayEvent;
 import net.minecraftforge.client.event.RenderGameOverlayEvent.ElementType;
 import net.minecraftforge.client.event.RenderPlayerEvent;
 
+@SideOnly(Side.CLIENT)
 public class ClientRenderHelper
 {
 	public static ResourceLocation back = new ResourceLocation("aam", "textures/hud/party_back.png");
@@ -109,7 +113,7 @@ public class ClientRenderHelper
 								tessellator.draw();
 								EntityPlayer ep = p.worldObj.getPlayerEntityByName(ph.party.get(i));
 								PlayerDataHandler eph = PlayerDataHandler.get(ep);
-								double length = 1 - (eph.getCurrentSoul() / ph.getTrait(Trait.Soul));
+								double length = 1 - eph.getCurrentSoul() / ph.getTrait(Trait.Soul);
 
 								tessellator.startDrawingQuads();
 								tessellator.addVertexWithUV(k, l + 60.0 + i * s, 0.0D, 0.5D, 1.0D - length);
@@ -127,7 +131,7 @@ public class ClientRenderHelper
 								tessellator.addVertexWithUV((double) k - 8, (double) l + 12 + i * s, 0.0D, 0.0D, 0.0D);
 								tessellator.draw();
 
-								length = 1 - (ep.getHealth() / ep.getMaxHealth());
+								length = 1 - ep.getHealth() / ep.getMaxHealth();
 
 								tessellator.startDrawingQuads();
 								tessellator.addVertexWithUV((double) k - 8, l + 60.0 + i * s, 0.0D, 0.5D, 1.0D - length);
@@ -141,13 +145,19 @@ public class ClientRenderHelper
 								Minecraft.getMinecraft().getTextureManager().bindTexture(on);
 							}
 							else
+							{
 								Minecraft.getMinecraft().getTextureManager().bindTexture(off);
+							}
 						}
 						else
+						{
 							Minecraft.getMinecraft().getTextureManager().bindTexture(off);
+						}
 					}
 					else
+					{
 						Minecraft.getMinecraft().getTextureManager().bindTexture(nul);
+					}
 
 					tessellator.startDrawingQuads();
 					tessellator.addVertexWithUV((double) k + 8, l + 60.0 + i * s, 0.0D, 0, 1);
@@ -196,7 +206,7 @@ public class ClientRenderHelper
 				t.addVertexWithUV(k, l, 0.0D, 0.0D, 0.0D);
 				t.draw();
 
-				double lgt = 1 - (ph.getCurrentSoul() / (ph.getTrait(Trait.Soul)));
+				double lgt = 1 - ph.getCurrentSoul() / ph.getTrait(Trait.Soul);
 
 				double mr = 118 / 128d;
 				double ls = 10 / 128d;
@@ -215,7 +225,7 @@ public class ClientRenderHelper
 
 				f.drawString("Soul: " + ph.getCurrentSoul() + "/" + ph.getTrait(Trait.Soul), k + 32, l + 5, new Color(255, 255, 255).hex);
 				f.drawString("Level: " + ph.getTrait(Trait.Level), k + 32, l + 15, new Color(255, 255, 255).hex);
-				f.drawString("Expirience: " + (ph.soulxp) + "/" + (100 * ph.getTrait(Trait.Level)), k + 32, l + 25, new Color(255, 255, 255).hex);
+				f.drawString("Expirience: " + ph.soulxp + "/" + 100 * ph.getTrait(Trait.Level), k + 32, l + 25, new Color(255, 255, 255).hex);
 				f.drawString("Damage: " + dam, k + 32, l + 35, new Color(255, 255, 255).hex);
 				f.drawString("Cooldown: " + ph.blockDuration, k + 32, l + 45, new Color(255, 255, 255).hex);
 
@@ -257,13 +267,13 @@ public class ClientRenderHelper
 		if (e.gui instanceof GuiContainer)
 		{
 			GuiContainer gc = (GuiContainer) e.gui;
-			if (gc.isCtrlKeyDown())
+			if (GuiScreen.isCtrlKeyDown())
 			{
 				GL11.glPushMatrix();
 				GL11.glScaled(0.5, 0.5, 0.5);
 				RenderHelper.disableStandardItemLighting();
 				ScaledResolution sr = new ScaledResolution(gc.mc, gc.mc.displayWidth, gc.mc.displayHeight);
-				int sx = 3 * (sr.getScaledWidth()) / 4;
+				int sx = 3 * sr.getScaledWidth() / 4;
 				int sy = sr.getScaledHeight() / 2;
 				GL11.glTranslated(sx, sy, 0);
 
@@ -311,7 +321,7 @@ public class ClientRenderHelper
 					EntityPlayer p = e.entityPlayer;
 					PlayerDataHandler ph = PlayerDataHandler.get(p);
 
-					int dt = MiscUtils.boolToNum(ph.arbitur) * 4;
+					int dt = MathUtils.boolToNum(ph.arbitur) * 4;
 
 					if (ph.getPermission() > 0)
 					{
@@ -347,7 +357,9 @@ public class ClientRenderHelper
 								float k = Math.min(ph.blockDuration, ph.getBowMaxCooldown()) / (float) ph.getBowMaxCooldown();
 								GL11.glTranslated(1, 0, r);
 								if (ph.getBowIndex() > 0)
+								{
 									GL11.glRotated(k * 90, 1, 1, 0);
+								}
 								GL11.glTranslated(-1, 0, -r);
 							}
 

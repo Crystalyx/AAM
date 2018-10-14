@@ -28,6 +28,14 @@ tile.aam.anvil.name=Modification Anvil
 tile.aam.reinforced_glass.name=Reinforced Glass
 tile.aam.sandy_glass.name=Sandy Glass
 
+tile.minium.name=Minium Ore
+tile.aam.blood_altar.name=Blood Altar
+tile.aam.blood_block.name=Blood Block
+tile.aam.mechanical_base.name=Mechanical Base
+tile.aam.circle_base.name=Circle Base
+tile.aam.minium_block.name=Minium Block
+
+
 aam.alchpotion.Heal.name=Healing Potion
 aam.alchpotion.Antidote.name=Antidote
 aam.alchpotion.Flame.name=Flame Potion
@@ -65,22 +73,15 @@ itemGroup.aam.soul.tab=Soul Mastery
 itemGroup.aam.alchemy.tab=Alchemy and Transmutations
 
 tile.aam.spelltable.name=Inscription table
-tile.aamcircleBase.name=CircleBase
 
-tile.aam.soulaltar.name=Soul Altar
+tile.aam.soul_altar.name=Soul Altar
 tile.aam.armoury.name=Armoury
-tile.aam.abase.name=Altar Base
-tile.aam.astairs.name=Altar Base Stairs
+tile.aam.altar_base.name=Altar Base
+tile.aam.altar_stairs.name=Altar Base Stairs
 tile.aam.pillar.name=Pillar
 tile.aam.crystal.name=Crystal
 
-tile.aam.mechbase.name=Mechanical Base
-tile.aam.bloodblock.name=Blood Block
-tile.aam.bloodaltar.name=Blood Altar
-tile.aam.miniumblock.name=Minium Block
-tile.aam.circleBase.name=Circle Base
-
-
+item.aam.catalyst.name=Forging Catalyst
 item.aam.crystaltp.name=Teleportation Crystal
 item.aam.alchpaper.name=Alchemical Paper
 item.aam.itemchalk.name=Chalk
@@ -90,6 +91,11 @@ item.aam.philostone.name=Philosophers Stone
 item.aam.bloodbucket.name=Philosophers Stone
 item.aam.obol.name=Alchemical Obol
 item.aam.alch_clock.name=Silver Clock
+item.aam.soul_upgrade_0.name=Blood Upgrade
+item.aam.soul_upgrade_1.name=Cast Upgrade
+item.aam.soul_upgrade_2.name=Moon Upgrade
+item.aam.soul_upgrade_3.name=Soul Upgrade
+item.aam.soul_upgrade_4.name=Ender Inversion Upgrade
 
 item.aam.magicwand.name=Magic Wand
 
@@ -125,8 +131,15 @@ aam.swdye.void.name=Sword Lens: Void
 aam.swdye.philo.name=Sword Lens: Philosopher
 aam.swdye.space.name=Sword Lens: Space
 
-aam.soul_sword.name=Soul Sword
-aam.excalibur.name=Excalibur
+aam.broad.name=Broad Sword
+aam.rapier.name=Rapier
+aam.saber.name=Saber
+aam.long.name=Long Sword
+aam.solarstaff.name=Solar Staff
+aam.lightstaff.name=Staff of Light
+aam.spear.name=Spear
+aam.hammer.name=Hammer
+item.aam.anvil_hammer.name=Anvil Hammer
 
 item.aam.material0.name=Attrilium Ingot
 item.aam.material1.name=Brass Ingot
@@ -144,18 +157,18 @@ item.aam.soulupg2.name=Moon Upgrade
 
 tile.aam.struct.name=Structure Block
 
-item.aam.luckycoin=Lucky coin
-item.aam.facelesscharm=Faceless Charm
-item.aam.kstone=Kings Stone
-item.aam.clocktime=Watch Of Uneven Time
+item.aam.lucky_coin=Lucky coin
+item.aam.faceless_charm=Faceless Charm
+item.aam.kings_stone=Kings Stone
+item.aam.clock_of_time=Watch Of Uneven Time
 
-item.aam.ressstone.name=Ressurection Stone
-item.aam.massressstone.name=Mass Ressurection Stone
-item.aam.boundsphere.name=Bound Sphere
+item.aam.ressurection_stone.name=Ressurection Stone
+item.aam.mass_ressurection_stone.name=Mass Ressurection Stone
+item.aam.bound_sphere.name=Bound Sphere
 item.aam.cliser.name=Cliser
-item.aam.redradio.name=Redstone Radio
-item.aam.ritebook.name=Book of Rituals
-item.aam.stea.name=Soothing Tea
+item.aam.red_radio.name=Redstone Radio
+item.aam.rite_book.name=Book of Rituals
+item.aam.soothing_tea.name=Soothing Tea
 
 aam.artifact0.name=Artifact Of Light
 aam.artifact1.name=Artifact Of Stability
@@ -167,8 +180,6 @@ aam.artifact6.name=Artifact Of Faceless
 aam.artifact7.name=Artifact Of Seven Gods
 
 item.aam.crystalbow.name=Crystal Bow
-
-item.aam.anvilhammer.name=Anvil Hammer
 
 item.aam.eheart=Elemental Heart
 aam.eheart.descr0=Heart of the Elemental

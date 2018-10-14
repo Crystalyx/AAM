@@ -1,4 +1,4 @@
-package AAM.Utils;
+package aam.utils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -88,15 +88,15 @@ public class TypeUtils
 	/**
 	 * List of Strings with letters in upper case
 	 */
-	public static List<String> alphUC = new ArrayList<String>();
+	public static List<String> alphUC = new ArrayList<>();
 	/**
 	 * List of Strings with letters in lower case
 	 */
-	public static List<String> alphLC = new ArrayList<String>();
+	public static List<String> alphLC = new ArrayList<>();
 	/**
 	 * List of Strings with numbers
 	 */
-	public static List<String> num = new ArrayList<String>();
+	public static List<String> num = new ArrayList<>();
 
 	/**
 	 * @param s
@@ -113,7 +113,9 @@ public class TypeUtils
 			{
 				String Char = s.substring(i, i + 1);
 				if (alphUC.contains(Char))
+				{
 					return i;
+				}
 			}
 		}
 		else
@@ -122,7 +124,9 @@ public class TypeUtils
 			{
 				String Char = s.substring(i, i + 1);
 				if (alphLC.contains(Char))
+				{
 					return i;
+				}
 			}
 		}
 		return -1;
@@ -145,7 +149,9 @@ public class TypeUtils
 			{
 				String Char = s.substring(i, i + 1);
 				if (alphUC.contains(Char))
+				{
 					return i;
+				}
 			}
 		}
 		else
@@ -154,7 +160,9 @@ public class TypeUtils
 			{
 				String Char = s.substring(i, i + 1);
 				if (alphLC.contains(Char))
+				{
 					return i;
+				}
 			}
 		}
 		return -1;
@@ -173,7 +181,9 @@ public class TypeUtils
 		{
 			String Char = s.substring(i, i + 1);
 			if (alphUC.contains(Char) || alphLC.contains(Char))
+			{
 				return i;
+			}
 		}
 		return -1;
 	}
@@ -189,7 +199,9 @@ public class TypeUtils
 		{
 			String Char = s.substring(i, i + 1);
 			if (alphUC.contains(Char) || alphLC.contains(Char))
+			{
 				return i;
+			}
 		}
 		return -1;
 	}
@@ -207,7 +219,9 @@ public class TypeUtils
 		{
 			String Char = s.substring(i, i + 1);
 			if (num.contains(Char))
+			{
 				return i;
+			}
 		}
 		return -1;
 	}
@@ -223,7 +237,9 @@ public class TypeUtils
 		{
 			String Char = s.substring(i, i + 1);
 			if (num.contains(Char))
+			{
 				return i;
+			}
 		}
 		return -1;
 	}
@@ -241,9 +257,13 @@ public class TypeUtils
 		{
 			String Char = s.substring(i, i + 1);
 			if (num.contains(Char))
+			{
 				lastId = i + 1;
+			}
 			else
+			{
 				return lastId;
+			}
 		}
 		return lastId;
 	}
@@ -262,9 +282,11 @@ public class TypeUtils
 		{
 			String Char = s.substring(i, i + 1);
 			if (!num.contains(Char))
-				return new Pair<Integer, Integer>(index, i);
+			{
+				return new Pair<>(index, i);
+			}
 		}
-		return new Pair<Integer, Integer>(index, -1);
+		return new Pair<>(index, -1);
 	}
 
 	/**
@@ -280,7 +302,9 @@ public class TypeUtils
 		for (int i = 0; i < num.size(); i++)
 		{
 			if (s.startsWith(num.get(i)))
+			{
 				return true;
+			}
 		}
 		return false;
 	}

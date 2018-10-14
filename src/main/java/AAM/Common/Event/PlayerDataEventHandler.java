@@ -1,9 +1,9 @@
-package AAM.Common.Event;
+package aam.common.event;
 
-import AAM.Network.Packages.AlchemicalDispatcher;
-import AAM.Network.Packages.PlayerSyncMessage;
-import AAM.Utils.Logger;
-import AAM.Utils.PlayerDataHandler;
+import aam.network.packages.AlchemicalDispatcher;
+import aam.network.packages.PlayerSyncMessage;
+import aam.utils.Logger;
+import aam.utils.PlayerDataHandler;
 import cpw.mods.fml.common.eventhandler.EventPriority;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import net.minecraft.entity.player.EntityPlayer;
@@ -61,7 +61,7 @@ public class PlayerDataEventHandler
 		if (event.entity instanceof EntityPlayerMP)
 		{
 			Logger.info("Player joined world, sending extended properties to client");
-			AlchemicalDispatcher.sendToClient(new PlayerSyncMessage((EntityPlayer) event.entity), (EntityPlayerMP) event.entity);
+			AlchemicalDispatcher.sendToClient(new PlayerSyncMessage((EntityPlayerMP) event.entity), (EntityPlayerMP) event.entity);
 		}
 	}
 

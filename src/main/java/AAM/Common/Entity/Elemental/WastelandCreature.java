@@ -1,4 +1,4 @@
-package AAM.Common.Entity.Elemental;
+package aam.common.entity.elemental;
 
 import net.minecraft.block.Block;
 import net.minecraft.entity.SharedMonsterAttributes;
@@ -21,12 +21,12 @@ public class WastelandCreature extends EntityMob
 	{
 		super(w);
 		this.getNavigator().setSpeed(1);
-		this.tasks.addTask(8, new EntityAIWander(this, 1.0D));
-		this.tasks.addTask(4, new EntityAIWatchClosest(this, EntityPlayer.class, 8.0F));
-		this.tasks.addTask(6, new EntityAILookIdle(this));
-		this.tasks.addTask(4, new EntityAIAttackOnCollide(this, EntityPlayer.class, 1.2D, false));
-		this.targetTasks.addTask(1, new EntityAIHurtByTarget(this, false));
-		this.targetTasks.addTask(2, new EntityAINearestAttackableTarget(this, EntityPlayer.class, 0, true));
+		tasks.addTask(8, new EntityAIWander(this, 1.0D));
+		tasks.addTask(4, new EntityAIWatchClosest(this, EntityPlayer.class, 8.0F));
+		tasks.addTask(6, new EntityAILookIdle(this));
+		tasks.addTask(4, new EntityAIAttackOnCollide(this, EntityPlayer.class, 1.2D, false));
+		targetTasks.addTask(1, new EntityAIHurtByTarget(this, false));
+		targetTasks.addTask(2, new EntityAINearestAttackableTarget(this, EntityPlayer.class, 0, true));
 		this.setSize(0.8F, 2F);
 	}
 
@@ -86,7 +86,7 @@ public class WastelandCreature extends EntityMob
 	protected void dropRareDrop(int p_70600_1_)
 	{
 		// TODO
-		switch (this.rand.nextInt(3))
+		switch (rand.nextInt(3))
 		{
 		case 0:
 			this.dropItem(Items.iron_ingot, 1);

@@ -1,14 +1,14 @@
-package AAM.Common.Tiles;
+package aam.common.tiles;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import AAM.Common.Items.ModItems;
-import AAM.Common.Potions.Colorer;
-import AAM.Common.Potions.IngridientItem;
-import AAM.Common.Potions.Ingridients;
-import AAM.Common.Potions.ModPotions;
-import AAM.Utils.Color;
+import aam.common.items.ModItems;
+import aam.common.potions.Colorer;
+import aam.common.potions.IngridientItem;
+import aam.common.potions.Ingridients;
+import aam.common.potions.ModPotions;
+import aam.utils.Color;
 import cpw.mods.fml.common.registry.GameRegistry;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
@@ -33,20 +33,26 @@ public class TECauldron extends TileEntity
 	@Override
 	public void updateEntity()
 	{
-		if (this.isBurning)
+		if (isBurning)
 		{
-			this.burnTime--;
-			if (this.burnTime <= 0)
-				this.isBurning = false;
-			if (this.fluid.amount > 0)
-				if (this.worldObj.rand.nextInt(7) == 1)
-					this.fluid.amount--;
+			burnTime--;
+			if (burnTime <= 0)
+			{
+				isBurning = false;
+			}
+			if (fluid.amount > 0)
+			{
+				if (worldObj.rand.nextInt(7) == 1)
+				{
+					fluid.amount--;
+				}
+			}
 		}
 
-		if (this.isBurning && this.fluid.amount > 300)
+		if (isBurning && fluid.amount > 300)
 		{
-			AxisAlignedBB aabb = AxisAlignedBB.getBoundingBox(0.0625F + this.xCoord, 0.15625F + this.yCoord, 0.0625F + this.zCoord, 0.9375F + this.xCoord, 0.8875F + this.yCoord, 0.9375F + this.zCoord);
-			List<EntityItem> entities = this.worldObj.getEntitiesWithinAABB(EntityItem.class, aabb);
+			AxisAlignedBB aabb = AxisAlignedBB.getBoundingBox(0.0625F + xCoord, 0.15625F + yCoord, 0.0625F + zCoord, 0.9375F + xCoord, 0.8875F + yCoord, 0.9375F + zCoord);
+			List<EntityItem> entities = worldObj.getEntitiesWithinAABB(EntityItem.class, aabb);
 			if (!entities.isEmpty())
 			{
 				EntityItem item = entities.get(0);
@@ -68,7 +74,9 @@ public class TECauldron extends TileEntity
 										is.getTagCompound().setInteger("Time", 1);
 									}
 									else
+									{
 										item.setDead();
+									}
 								}
 							}
 							else
@@ -92,40 +100,40 @@ public class TECauldron extends TileEntity
 		}
 		Color col = new Color(0, 136, 255);
 		Color withClrr = new Color(256, 256, 256);
-		for (int i = this.ingrs.size() - 1; i >= 0; i--)
+		for (int i = ingrs.size() - 1; i >= 0; i--)
 		{
-			col = col.add(this.ingrs.get(i).ing.color);
-			if (this.ingrs.get(i).ing instanceof Colorer)
+			col = col.add(ingrs.get(i).ing.color);
+			if (ingrs.get(i).ing instanceof Colorer)
 			{
-				withClrr = this.ingrs.get(i).ing.color;
+				withClrr = ingrs.get(i).ing.color;
 			}
 		}
 		if (withClrr.equals(Color.White))
 		{
-			this.color = col;
+			color = col;
 		}
 		else
 		{
-			this.color = withClrr;
+			color = withClrr;
 		}
-		if (this.potion.length > 0)
+		if (potion.length > 0)
 		{
-			this.color = ModPotions.pots[this.potion[0]].col;
+			color = ModPotions.pots[potion[0]].col;
 		}
 
-		if (this.isBurning)
+		if (isBurning)
 		{
-			double px = this.worldObj.rand.nextDouble() + this.xCoord;
-			double pz = this.worldObj.rand.nextDouble() + this.zCoord;
-			double py = this.worldObj.rand.nextDouble() * 0.15625F + this.yCoord;
+			double px = worldObj.rand.nextDouble() + xCoord;
+			double pz = worldObj.rand.nextDouble() + zCoord;
+			double py = worldObj.rand.nextDouble() * 0.15625F + yCoord;
 
-			this.worldObj.spawnParticle("flame", px, py, pz, 0, 0, 0);
+			worldObj.spawnParticle("flame", px, py, pz, 0, 0, 0);
 
-			px = this.worldObj.rand.nextDouble() + this.xCoord;
-			pz = this.worldObj.rand.nextDouble() + this.zCoord;
-			py = this.worldObj.rand.nextDouble() * 0.15625F + this.yCoord;
+			px = worldObj.rand.nextDouble() + xCoord;
+			pz = worldObj.rand.nextDouble() + zCoord;
+			py = worldObj.rand.nextDouble() * 0.15625F + yCoord;
 
-			this.worldObj.spawnParticle("flame", px, py, pz, 0, 0, 0);
+			worldObj.spawnParticle("flame", px, py, pz, 0, 0, 0);
 		}
 	}
 
@@ -134,7 +142,7 @@ public class TECauldron extends TileEntity
 	{
 		NBTTagCompound syncData = new NBTTagCompound();
 		this.writeToNBT(syncData);
-		return new S35PacketUpdateTileEntity(this.xCoord, this.yCoord, this.zCoord, 1, syncData);
+		return new S35PacketUpdateTileEntity(xCoord, yCoord, zCoord, 1, syncData);
 	}
 
 	@Override
@@ -147,7 +155,7 @@ public class TECauldron extends TileEntity
 	{
 		if (getItemBurnTime(is) > 0)
 		{
-			this.burnTime += getItemBurnTime(is);
+			burnTime += getItemBurnTime(is);
 		}
 		return getItemBurnTime(is);
 	}
@@ -187,17 +195,29 @@ public class TECauldron extends TileEntity
 			}
 
 			if (item instanceof ItemTool && ((ItemTool) item).getToolMaterialName().equals("WOOD"))
+			{
 				return 200;
+			}
 			if (item == Items.stick)
+			{
 				return 100;
+			}
 			if (item == Items.coal)
+			{
 				return 1600;
+			}
 			if (item == Items.lava_bucket)
+			{
 				return 20000;
+			}
 			if (item == Item.getItemFromBlock(Blocks.sapling))
+			{
 				return 100;
+			}
 			if (item == Items.blaze_rod)
+			{
 				return 2400;
+			}
 			return GameRegistry.getFuelValue(is);
 		}
 	}
@@ -207,8 +227,8 @@ public class TECauldron extends TileEntity
 		if (Ingridients.getId(is) >= 0)
 		{
 			IngridientItem id = Ingridients.getPair(is);
-			this.ingrs.add(id);
-			this.lastid += 1;
+			ingrs.add(id);
+			lastid += 1;
 			return true;
 		}
 		if (is.getItem() == ModItems.Potion)
@@ -216,7 +236,7 @@ public class TECauldron extends TileEntity
 			int id = is.getTagCompound().getInteger("PotionID");
 			int power = is.getTagCompound().getInteger("PotionAmpl");
 			int duration = is.getTagCompound().getInteger("PotionDur");
-			this.potion = new int[] { id, power, duration };
+			potion = new int[] { id, power, duration };
 			return true;
 		}
 		return false;
@@ -230,7 +250,7 @@ public class TECauldron extends TileEntity
 	 */
 	public int[] potion = new int[0];
 	public Color color = new Color(0, 136, 254);
-	public List<IngridientItem> ingrs = new ArrayList<IngridientItem>();
+	public List<IngridientItem> ingrs = new ArrayList<>();
 	public int lastid = 0;
 
 	@Override
@@ -238,14 +258,14 @@ public class TECauldron extends TileEntity
 	{
 		System.out.println("RFNBT");
 		super.readFromNBT(tag);
-		this.isBurning = tag.getBoolean("Burning");
-		this.burnTime = tag.getInteger("BurnTime");
-		this.fluid = new FluidStack(FluidRegistry.getFluid(tag.getString("Fluid")), tag.getInteger("FluidAmount"));
-		this.color = new Color(tag.getIntArray("Color"));
+		isBurning = tag.getBoolean("Burning");
+		burnTime = tag.getInteger("BurnTime");
+		fluid = new FluidStack(FluidRegistry.getFluid(tag.getString("Fluid")), tag.getInteger("FluidAmount"));
+		color = new Color(tag.getIntArray("Color"));
 		int size = tag.getInteger("IngCount");
 		for (int i = 0; i < size; i++)
 		{
-			this.ingrs.add(new IngridientItem(Ingridients.ings.get(tag.getInteger("Ing_" + i)), tag.getInteger("IngType_" + i)));
+			ingrs.add(new IngridientItem(Ingridients.ings.get(tag.getInteger("Ing_" + i)), tag.getInteger("IngType_" + i)));
 		}
 	}
 
@@ -254,16 +274,16 @@ public class TECauldron extends TileEntity
 	{
 		System.out.println("WTNBT");
 		super.writeToNBT(tag);
-		tag.setBoolean("Burning", this.isBurning);
-		tag.setInteger("BurnTime", this.burnTime);
-		tag.setString("Fluid", this.fluid.getFluid().getName());
-		tag.setInteger("FluidAmount", this.fluid.amount);
-		tag.setIntArray("Color", new int[] { this.color.red, this.color.green, this.color.blue });
-		tag.setInteger("IngCount", this.ingrs.size());
-		for (int i = 0; i < this.ingrs.size(); i++)
+		tag.setBoolean("Burning", isBurning);
+		tag.setInteger("BurnTime", burnTime);
+		tag.setString("Fluid", fluid.getFluid().getName());
+		tag.setInteger("FluidAmount", fluid.amount);
+		tag.setIntArray("Color", new int[] { color.red, color.green, color.blue });
+		tag.setInteger("IngCount", ingrs.size());
+		for (int i = 0; i < ingrs.size(); i++)
 		{
-			tag.setInteger("Ing_" + i, this.ingrs.get(i).ing.id);
-			tag.setInteger("IngType_" + i, this.ingrs.get(i).type);
+			tag.setInteger("Ing_" + i, ingrs.get(i).ing.id);
+			tag.setInteger("IngType_" + i, ingrs.get(i).type);
 		}
 
 	}

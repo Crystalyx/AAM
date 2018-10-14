@@ -1,12 +1,12 @@
 /**
  * This Class Created By Lord_Crystalyx.
  */
-package AAM.Client.Renderer.Tile;
+package aam.client.renderer.tile;
 
 import org.lwjgl.opengl.GL11;
 
-import AAM.Common.Tiles.TEModificationAnvil;
 import DummyCore.Utils.DrawUtils;
+import aam.common.tiles.TEModificationAnvil;
 import net.minecraft.client.renderer.RenderHelper;
 import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
 import net.minecraft.tileentity.TileEntity;
@@ -31,7 +31,7 @@ public class ModificationAnvilRender extends TileEntitySpecialRenderer
 			GL11.glRotated(90, 1, 0, 0);
 			GL11.glRotated(-45, 0, 0, 1);
 			DrawUtils.renderItemStack_Full(te.getStackInSlot(0), te.xCoord + 0.5f, te.yCoord + 1, te.zCoord + 0.5f, 0, 0, 0, 0, 0, 1, 1, 1, 0, 0, 0, true);
-
+			DrawUtils.renderItemStack_Full(te.getStackInSlot(4), te.xCoord + 0.5f, te.yCoord + 1.2, te.zCoord + 1f, 0, 0, 0, 0, 0, 1, 1, 1, 0, 0, 0, true);
 			GL11.glPopMatrix();
 		}
 		else

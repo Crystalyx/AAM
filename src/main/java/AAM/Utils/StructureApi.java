@@ -1,12 +1,13 @@
-package AAM.Utils;
+package aam.utils;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import aam.utils.vectors.BlockState;
+import aam.utils.vectors.Wec3;
 import cpw.mods.fml.common.registry.GameRegistry;
 import net.minecraft.block.Block;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
 
 public class StructureApi
@@ -40,10 +41,10 @@ public class StructureApi
 
 		tag.setString("Box", MiscUtils.compact((int) (t.x - s.x), (int) (t.y - s.y), (int) (t.z - s.z)));
 
-		List<Block> igs = new ArrayList<Block>();
-		for (int i = 0; i < ignore.length; i++)
+		List<Block> igs = new ArrayList<>();
+		for (Block element : ignore)
 		{
-			igs.add(ignore[i]);
+			igs.add(element);
 		}
 
 		for (int i = 0; i <= t.x - s.x; i++)
@@ -56,7 +57,7 @@ public class StructureApi
 					{
 						int meta = w.getBlockMetadata(i + (int) s.x, j + (int) s.y, k + (int) s.z);
 						String uid = GameRegistry.findUniqueIdentifierFor(w.getBlock(i + (int) s.x, j + (int) s.y, k + (int) s.z)).toString();
-						tag.setString(MiscUtils.compact(i, j, k), MiscUtils.compact((Object)uid, meta));
+						tag.setString(MiscUtils.compact(i, j, k), MiscUtils.compact((Object) uid, meta));
 					}
 				}
 			}
@@ -75,11 +76,11 @@ public class StructureApi
 		int dx = Math.floorDiv(tx, 2);
 		int dz = Math.floorDiv(tz, 2);
 
-		for (int i = 0; i <= tx+1; i++)
+		for (int i = 0; i <= tx + 1; i++)
 		{
-			for (int j = 0; j <= ty+1; j++)
+			for (int j = 0; j <= ty + 1; j++)
 			{
-				for (int k = 0; k <= tz+1; k++)
+				for (int k = 0; k <= tz + 1; k++)
 				{
 					String key = MiscUtils.compact(i, j, k);
 					if (tag.hasKey(key))

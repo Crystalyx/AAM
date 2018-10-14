@@ -1,4 +1,4 @@
-package AAM.Common.Potions;
+package aam.common.potions;
 
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.world.World;

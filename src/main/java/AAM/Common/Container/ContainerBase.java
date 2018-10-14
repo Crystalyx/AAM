@@ -1,16 +1,16 @@
-package AAM.Common.Container;
+package aam.common.container;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import AAM.Client.Gui.Base.GuiBackground;
-import AAM.Client.Gui.Base.GuiBar;
-import AAM.Client.Gui.Base.GuiOBJ;
-import AAM.Client.Gui.Base.GuiPicture;
-import AAM.Client.Gui.Base.GuiSlot;
-import AAM.Client.Gui.Base.GuiText;
-import AAM.Client.Gui.Base.GuiTooltip;
-import AAM.Utils.Color;
+import aam.client.gui.base.GuiBackground;
+import aam.client.gui.base.GuiBar;
+import aam.client.gui.base.GuiOBJ;
+import aam.client.gui.base.GuiPicture;
+import aam.client.gui.base.GuiSlot;
+import aam.client.gui.base.GuiText;
+import aam.client.gui.base.GuiTooltip;
+import aam.utils.Color;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.Container;
@@ -20,7 +20,7 @@ import net.minecraft.item.ItemStack;
 
 public class ContainerBase extends Container
 {
-	public List<GuiOBJ> objs = new ArrayList<GuiOBJ>();
+	public List<GuiOBJ> objs = new ArrayList<>();
 	public int xSize;
 	public int ySize;
 
@@ -31,7 +31,7 @@ public class ContainerBase extends Container
 	{
 		this.tile = tile;
 		this.p = p;
-		this.tile.openInventory();
+		tile.openInventory();
 	}
 
 	@Override
@@ -43,8 +43,8 @@ public class ContainerBase extends Container
 	@Override
 	public void onContainerClosed(EntityPlayer p)
 	{
+		tile.closeInventory();
 		super.onContainerClosed(p);
-		this.tile.closeInventory();
 	}
 
 	@Override
@@ -61,16 +61,24 @@ public class ContainerBase extends Container
 			if (slotIndex < p.getSizeInventory())
 			{
 				if (!this.mergeItemStack(itemStack, p.getSizeInventory(), inventorySlots.size(), false))
+				{
 					return null;
+				}
 			}
 			else
 				if (!this.mergeItemStack(itemStack, 0, p.getSizeInventory(), false))
+				{
 					return null;
+				}
 
 			if (itemStack.stackSize == 0)
+			{
 				slot.putStack(null);
+			}
 			else
+			{
 				slot.onSlotChanged();
+			}
 		}
 
 		return newItemStack;
@@ -88,7 +96,7 @@ public class ContainerBase extends Container
 		{
 			while (itemStack.stackSize > 0 && (!ascending && currentSlotIndex < slotMax || ascending && currentSlotIndex >= slotMin))
 			{
-				slot = (Slot) this.inventorySlots.get(currentSlotIndex);
+				slot = (Slot) inventorySlots.get(currentSlotIndex);
 				stackInSlot = slot.getStack();
 				if (slot.isItemValid(itemStack) && equalsIgnoreStackSize(itemStack, stackInSlot))
 				{
@@ -119,7 +127,7 @@ public class ContainerBase extends Container
 			currentSlotIndex = ascending ? slotMax - 1 : slotMin;
 			while (!ascending && currentSlotIndex < slotMax || ascending && currentSlotIndex >= slotMin)
 			{
-				slot = (Slot) this.inventorySlots.get(currentSlotIndex);
+				slot = (Slot) inventorySlots.get(currentSlotIndex);
 				stackInSlot = slot.getStack();
 				if (slot.isItemValid(itemStack) && stackInSlot == null)
 				{
@@ -174,7 +182,7 @@ public class ContainerBase extends Container
 
 	public void add(GuiOBJ obj)
 	{
-		this.objs.add(obj);
+		objs.add(obj);
 	}
 
 	// =============PICTURE==============
@@ -232,8 +240,8 @@ public class ContainerBase extends Container
 	// =============BACKGROUND==============
 	public void addBackground(int sizex, int sizey)
 	{
-		this.xSize = sizex;
-		this.ySize = sizey;
+		xSize = sizex;
+		ySize = sizey;
 		this.add(new GuiBackground(sizex, sizey));
 	}
 
@@ -335,14 +343,14 @@ public class ContainerBase extends Container
 			for (int j = 0; j < 9; j++)
 			{
 				int id = i * 9 + j;
-				this.addSlot(id, p, 11 + j * 19, 130 + i * 19);
+				this.addSlot(id, p, 32 + j * 18, 100 + i * 18);
 			}
 		}
 
 		for (int j = 0; j < 9; j++)
 		{
 			int id = j;
-			this.addSlot(id, p, 11 + j * 19, 126);
+			this.addSlot(id, p, 32 + j * 18, 104 + 18 * 4);
 		}
 	}
 

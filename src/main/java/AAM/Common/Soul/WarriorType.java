@@ -1,4 +1,4 @@
-package AAM.Common.Soul;
+package aam.common.soul;
 
 import net.minecraft.util.ResourceLocation;
 

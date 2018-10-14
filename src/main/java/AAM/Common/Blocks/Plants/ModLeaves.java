@@ -1,11 +1,11 @@
-package AAM.Common.Blocks.Plants;
+package aam.common.blocks.plants;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-import AAM.Common.Blocks.Building.ModBlocks;
-import AAM.Common.Items.ModItems;
+import aam.common.blocks.building.ModBlocks;
+import aam.common.items.ModItems;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.block.BlockLeaves;
@@ -37,8 +37,8 @@ public class ModLeaves extends BlockLeaves
 	@SideOnly(Side.CLIENT)
 	public void registerBlockIcons(IIconRegister ir)
 	{
-		this.icons = ir.registerIcon("aam:" + texture + "_leaves");
-		this.icons_opaque = ir.registerIcon("aam:" + texture + "_leaves_opaque");
+		icons = ir.registerIcon("aam:" + texture + "_leaves");
+		icons_opaque = ir.registerIcon("aam:" + texture + "_leaves_opaque");
 	}
 
 	/**
@@ -48,9 +48,13 @@ public class ModLeaves extends BlockLeaves
 	public IIcon getIconFromDamage(int meta)
 	{
 		if (Minecraft.isFancyGraphicsEnabled())
-			return this.icons;
+		{
+			return icons;
+		}
 		else
-			return this.icons_opaque;
+		{
+			return icons_opaque;
+		}
 	}
 
 	@Override
@@ -68,9 +72,13 @@ public class ModLeaves extends BlockLeaves
 	public IIcon getIcon(int side, int meta)
 	{
 		if (Minecraft.isFancyGraphicsEnabled())
-			return this.icons;
+		{
+			return icons;
+		}
 		else
-			return this.icons_opaque;
+		{
+			return icons_opaque;
+		}
 	}
 
 	@Override
@@ -98,9 +106,13 @@ public class ModLeaves extends BlockLeaves
 			}
 		}
 		if (id >= 0)
+		{
 			return Item.getItemFromBlock(ModBlocks.ModSaplings[id]);
+		}
 		else
+		{
 			return Item.getItemFromBlock(this);
+		}
 	}
 
 	@Override
@@ -118,7 +130,9 @@ public class ModLeaves extends BlockLeaves
 		}
 		float rnd = world.rand.nextFloat();
 		if (id == 0 && rnd >= 0.85)
+		{
 			al.add(new ItemStack(ModItems.Berry, (int) (1 + fortune * rnd), 4));
+		}
 		return al;
 	}
 

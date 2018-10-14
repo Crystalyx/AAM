@@ -1,9 +1,9 @@
-package AAM.Network.Packages;
+package aam.network.packages;
 
-import AAM.Core.AAMCore;
-import AAM.Network.Packages.AlchemicalPackage.AlchemicalClientPackage;
-import AAM.Network.Packages.AlchemicalPackage.AlchemicalServerPackage;
-import AAM.Utils.Logger;
+import aam.core.AAMCore;
+import aam.network.packages.AlchemicalPackage.AlchemicalClientPackage;
+import aam.network.packages.AlchemicalPackage.AlchemicalServerPackage;
+import aam.utils.Logger;
 import cpw.mods.fml.common.network.NetworkRegistry;
 import cpw.mods.fml.common.network.simpleimpl.IMessage;
 import cpw.mods.fml.common.network.simpleimpl.IMessageHandler;
@@ -28,31 +28,50 @@ public class AlchemicalDispatcher
 	 */
 	public static final void registerPackets()
 	{
-		registerMessage(PlayerSyncMessage.class);
-		registerMessage(MultiInvSyncMessage.class);
-		registerMessage(MessageExtendedReachAttack.class);
-
+		registerBoth(MessageExtendedReachAttack.class);// C-S
+		registerBoth(CircleChangePackage.class);// C->S
+		registerBoth(PlayerSyncMessage.class);// S->C
+		registerBoth(ForgingPackage.class);// S->C
+		registerBoth(ChangeWeaponPackage.class);// S->C
 	}
 
 	/**
 	 * Registers an {@link AbstractMessage} to the appropriate side(s)
 	 */
-	public static final <T extends AlchemicalPackage<T> & IMessageHandler<T, IMessage>> void registerMessage(Class<T> clazz)
+	public static final <T extends AlchemicalPackage<T> & IMessageHandler<T, IMessage>> void registerBoth(Class<T> clazz)
+	{
+		AlchemicalDispatcher.dispatcher.registerMessage(clazz, clazz, packetId, Side.CLIENT);
+		AlchemicalDispatcher.dispatcher.registerMessage(clazz, clazz, packetId++, Side.SERVER);
+	}
+
+	/**
+	 * Registers an {@link AbstractMessage} to the appropriate side(s)
+	 */
+	public static final <T extends AlchemicalPackage<T> & IMessageHandler<T, IMessage>> void registerServerMessage(Class<T> clazz)
+	{
+		if (AlchemicalServerPackage.class.isAssignableFrom(clazz))
+		{
+			AlchemicalDispatcher.dispatcher.registerMessage(clazz, clazz, packetId++, Side.SERVER);
+		}
+		else
+		{
+			Logger.error("Couldn't register Packet: " + clazz.getName());
+		}
+	}
+
+	/**
+	 * Registers an {@link AbstractMessage} to the appropriate side(s)
+	 */
+	public static final <T extends AlchemicalPackage<T> & IMessageHandler<T, IMessage>> void registerClientMessage(Class<T> clazz)
 	{
 		if (AlchemicalClientPackage.class.isAssignableFrom(clazz))
 		{
 			AlchemicalDispatcher.dispatcher.registerMessage(clazz, clazz, packetId++, Side.CLIENT);
 		}
 		else
-			if (AlchemicalServerPackage.class.isAssignableFrom(clazz))
-			{
-				AlchemicalDispatcher.dispatcher.registerMessage(clazz, clazz, packetId++, Side.SERVER);
-			}
-			else
-			{
-				AlchemicalDispatcher.dispatcher.registerMessage(clazz, clazz, packetId, Side.CLIENT);
-				AlchemicalDispatcher.dispatcher.registerMessage(clazz, clazz, packetId++, Side.SERVER);
-			}
+		{
+			Logger.error("Couldn't register Packet: " + clazz.getName());
+		}
 	}
 
 	// ========================================================//
@@ -75,9 +94,27 @@ public class AlchemicalDispatcher
 	 * Send this message to the specified player's client-side counterpart. See
 	 * {@link SimpleNetworkWrapper#sendTo(IMessage, EntityPlayerMP)}
 	 */
+	public static final void sendToAllClient(IMessage message)
+	{
+		Logger.info("S -> C");
+		AlchemicalDispatcher.dispatcher.sendToAll(message);
+	}
+
+	/**
+	 * Send this message to the specified player's client-side counterpart. See
+	 * {@link SimpleNetworkWrapper#sendTo(IMessage, EntityPlayerMP)}
+	 */
 	public static final void sendToServer(IMessage message)
 	{
 		// Logger.info("C -> S");
 		AlchemicalDispatcher.dispatcher.sendToServer(message);
+	}
+
+	/**
+	 * sends {@link PlayerSyncMessage(EntityPlayer p)}
+	 */
+	public static final void syncPlayer(EntityPlayer p)
+	{
+		AlchemicalDispatcher.sendToClient(new PlayerSyncMessage(p), p);
 	}
 }

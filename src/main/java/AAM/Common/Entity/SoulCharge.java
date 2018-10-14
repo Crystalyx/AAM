@@ -1,12 +1,12 @@
-package AAM.Common.Entity;
+package aam.common.entity;
 
 import java.util.List;
 
-import AAM.Common.Soul.SoulDamageSource;
-import AAM.Common.Soul.SoulUpgrade;
-import AAM.Common.Soul.Trait;
-import AAM.Utils.PlayerDataHandler;
-import AAM.Utils.Wec3;
+import aam.common.soul.SoulDamageSource;
+import aam.common.soul.SoulUpgrade;
+import aam.common.soul.Trait;
+import aam.utils.PlayerDataHandler;
+import aam.utils.vectors.Wec3;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
@@ -31,7 +31,7 @@ public class SoulCharge extends EntityThrowable
 		super(w, el);
 		if (el instanceof EntityPlayer)
 		{
-			this.ph = PlayerDataHandler.get((EntityPlayer) el);
+			ph = PlayerDataHandler.get((EntityPlayer) el);
 		}
 	}
 
@@ -43,8 +43,10 @@ public class SoulCharge extends EntityThrowable
 	@Override
 	protected void onImpact(MovingObjectPosition mop)
 	{
-		if (this.ph != null)
+		if (ph != null)
+		{
 			this.handleAttacks(new Wec3(mop));
+		}
 	}
 
 	public PlayerDataHandler ph;
@@ -54,14 +56,18 @@ public class SoulCharge extends EntityThrowable
 	{
 		super.onUpdate();
 
-		if (this.life >= this.maxLife)
+		if (life >= maxLife)
 		{
 			this.setDead();
 		}
 		else
-			this.life += 1;
-		if (this.ph != null)
+		{
+			life += 1;
+		}
+		if (ph != null)
+		{
 			this.handleAttacks(new Wec3(this));
+		}
 	}
 
 	int victims = 0;
@@ -69,28 +75,32 @@ public class SoulCharge extends EntityThrowable
 	public void handleAttacks(Wec3 wp)
 	{
 		float r = 0.5f * ph.upgLevel[SoulUpgrade.Cast.ordinal()];
-		List<EntityLivingBase> l = this.worldObj.getEntitiesWithinAABB(EntityLivingBase.class, wp.extend(2f + r));
-		l.remove(this.ph.player);
+		List<EntityLivingBase> l = worldObj.getEntitiesWithinAABB(EntityLivingBase.class, wp.extend(2f + r));
+		l.remove(ph.player);
 		for (EntityLivingBase e : l)
 		{
-			if (!this.effs.contains("D"))
+			if (!effs.contains("D"))
 			{
-				if (this.ph.sword.bypassesArmor)
-					e.attackEntityFrom(new SoulDamageSource(this.ph).setDamageBypassesArmor(), this.ph.getFullRangedDamageAgainst(e, true));
+				if (ph.sword.bypassesArmor)
+				{
+					e.attackEntityFrom(new SoulDamageSource(ph).setDamageBypassesArmor(), ph.getFullRangedDamageAgainst(e, true));
+				}
 				else
-					e.attackEntityFrom(new SoulDamageSource(this.ph), this.ph.getFullRangedDamageAgainst(e, true));
+				{
+					e.attackEntityFrom(new SoulDamageSource(ph), ph.getFullRangedDamageAgainst(e, true));
+				}
 			}
-			if (this.effs.contains("F"))
+			if (effs.contains("F"))
 			{
-				e.setFire((int) (this.ph.getTrait(Trait.Level) * 2));
+				e.setFire((int) (ph.getTrait(Trait.Level) * 2));
 			}
-			if (this.effs.contains("P"))
+			if (effs.contains("P"))
 			{
-				e.addPotionEffect(new PotionEffect(19, (int) (this.ph.getTrait(Trait.Level) * 2), 2));
+				e.addPotionEffect(new PotionEffect(19, (int) (ph.getTrait(Trait.Level) * 2), 2));
 			}
-			if (this.effs.contains("K"))
+			if (effs.contains("K"))
 			{
-				Wec3 vec = new Wec3(0, Math.min(Math.sqrt(this.ph.getTrait(Trait.Level)) / 3, 10), 0).add(new Wec3(this.motionX, this.motionY, this.motionZ));
+				Wec3 vec = new Wec3(0, Math.min(Math.sqrt(ph.getTrait(Trait.Level)) / 3, 10), 0).add(new Wec3(motionX, motionY, motionZ));
 				vec.ptm(e);
 			}
 			if (victims > 2)
@@ -99,7 +109,9 @@ public class SoulCharge extends EntityThrowable
 				break;
 			}
 			else
+			{
 				victims++;
+			}
 		}
 	}
 
@@ -108,7 +120,7 @@ public class SoulCharge extends EntityThrowable
 
 	public void setLife(int ticks)
 	{
-		this.maxLife = ticks;
+		maxLife = ticks;
 	}
 
 	@Override

@@ -1,14 +1,13 @@
-package AAM.Client.Renderer.Tile;
+package aam.client.renderer.tile;
 
 import org.lwjgl.opengl.GL11;
 
-import AAM.Common.Tiles.TEBloodAltar;
-import AAM.Common.Tiles.TETransCircle;
-import AAM.Common.Transmutations.Circle;
-import AAM.Utils.Logger;
-import AAM.Utils.MiscUtils;
-import AAM.Utils.Wec3;
 import DummyCore.Utils.DrawUtils;
+import aam.common.tiles.TEBloodAltar;
+import aam.common.tiles.TETransCircle;
+import aam.common.transmutations.Circle;
+import aam.utils.MiscUtils;
+import aam.utils.vectors.Wec3;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.RenderHelper;
 import net.minecraft.client.renderer.Tessellator;
@@ -36,9 +35,13 @@ public class TransCircleRenderer extends TileEntitySpecialRenderer
 		GL11.glRotated(90, 0, 1, 0);
 		GL11.glRotated(90, dir.offsetX, dir.offsetY, dir.offsetZ);
 		if (dir.offsetX != 0)
+		{
 			GL11.glRotated(90, 0, dir.offsetX, 0);
+		}
 		if (dir.offsetZ < 0)
+		{
 			GL11.glRotated(180, 0, 1, 0);
+		}
 		GL11.glTranslated(0, -0.45, 0);
 
 		if (dir.equals(ForgeDirection.DOWN))
@@ -89,13 +92,13 @@ public class TransCircleRenderer extends TileEntitySpecialRenderer
 			GL11.glTranslated(-0.5, 0.012, -0.5);
 			TEBloodAltar tb = (TEBloodAltar) tile;
 			double ds = 1 / 16d;
-			double n = (tb.blood.amount / 10_000d) * ds * 5;
+			double n = tb.blood.amount / 10_000d * ds * 5;
 			Tessellator t = Tessellator.instance;
 
 			Minecraft.getMinecraft().getTextureManager().bindTexture(new ResourceLocation("aam:textures/blocks/blood_still.png"));
 
 			t.startDrawingQuads();
-			double index = (int) ((tile.getWorldObj().getWorldTime() % 1024) % 32);
+			double index = (int) (tile.getWorldObj().getWorldTime() % 1024 % 32);
 
 			t.addVertexWithUV(ds * 3, ds * 6 + n, ds * 3, 0, index / 32.0);
 			t.addVertexWithUV(1 - ds * 3, ds * 6 + n, ds * 3, 1, index / 32.0);

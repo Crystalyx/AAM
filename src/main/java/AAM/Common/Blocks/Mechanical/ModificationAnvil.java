@@ -1,11 +1,11 @@
 /**
  * This Class Created By Lord_Crystalyx.
  */
-package AAM.Common.Blocks.Mechanical;
+package aam.common.blocks.mechanical;
 
-import AAM.Common.Tiles.TEModificationAnvil;
-import AAM.Core.AAMCore;
-import AAM.Utils.MiscUtils;
+import aam.common.tiles.TEModificationAnvil;
+import aam.core.AAMCore;
+import aam.utils.InventoryUtils;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockContainer;
 import net.minecraft.block.material.Material;
@@ -36,7 +36,7 @@ public class ModificationAnvil extends BlockContainer
 		if (w.getTileEntity(x, y, z) instanceof TEModificationAnvil)
 		{
 			TEModificationAnvil tile = (TEModificationAnvil) w.getTileEntity(x, y, z);
-			MiscUtils.dropInventory(w, x, y, z, tile);
+			InventoryUtils.dropInventory(w, x, y, z, tile);
 		}
 	}
 
@@ -59,14 +59,14 @@ public class ModificationAnvil extends BlockContainer
 	@Override
 	public void registerBlockIcons(IIconRegister ir)
 	{
-		this.side = ir.registerIcon("aam:anvil_base");
-		this.top = ir.registerIcon("aam:anvil_top");
+		side = ir.registerIcon("aam:anvil_base");
+		top = ir.registerIcon("aam:anvil_top");
 	}
 
 	@Override
 	public IIcon getIcon(int side, int meta)
 	{
-		return side == ForgeDirection.UP.ordinal() ? this.top : this.side;
+		return side == ForgeDirection.UP.ordinal() ? top : this.side;
 	}
 
 	@Override

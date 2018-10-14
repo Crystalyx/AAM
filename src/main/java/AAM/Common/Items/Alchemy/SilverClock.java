@@ -1,7 +1,7 @@
-package AAM.Common.Items.Alchemy;
+package aam.common.items.alchemy;
 
-import AAM.API.Abstract.MetaUpradableItem;
-import AAM.API.Interface.ICatalyst;
+import aam.api.Interface.ICatalyst;
+import aam.api.abstraction.MetaUpradableItem;
 import net.minecraft.item.ItemStack;
 
 public class SilverClock extends MetaUpradableItem implements ICatalyst
@@ -9,7 +9,7 @@ public class SilverClock extends MetaUpradableItem implements ICatalyst
 	public SilverClock()
 	{
 		this.setTextureName("aam:tools/clock");
-		this.setUnlocalizedName("aam_alch_clock");
+		this.setUnlocalizedName("aam.alch_clock");
 		this.setMaxStackSize(1);
 		this.setHasSubtypes(true);
 	}
@@ -30,6 +30,30 @@ public class SilverClock extends MetaUpradableItem implements ICatalyst
 	public String getItemIcon(ItemStack is)
 	{
 		return "aam:tools/clock";
+	}
+
+	@Override
+	public int getMinSlotCount(ItemStack is)
+	{
+		return 0;
+	}
+
+	@Override
+	public int getMaxSlotCount(ItemStack is)
+	{
+		return 2;
+	}
+
+	@Override
+	public int getDurability(ItemStack is)
+	{
+		return 0;
+	}
+
+	@Override
+	public int getMaxRepairCount(ItemStack is)
+	{
+		return 0;
 	}
 
 }

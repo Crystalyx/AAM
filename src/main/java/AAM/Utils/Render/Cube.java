@@ -1,4 +1,4 @@
-package AAM.Utils.Render;
+package aam.utils.render;
 
 import org.lwjgl.opengl.GL11;
 
@@ -44,12 +44,12 @@ public class Cube extends ModelBase
 	@Deprecated
 	public Cube()
 	{
-		this.textureWidth = 128;
-		this.textureHeight = 64;
+		textureWidth = 128;
+		textureHeight = 64;
 
-		this.shape = new ModelRenderer(this, 0, 0);
-		this.shape.setRotationPoint(this.offsetx, this.offsety, this.offsetz);
-		this.shape.addBox(this.px, this.py, this.pz, this.dx, this.dy, this.dz, this.scale / 16);
+		shape = new ModelRenderer(this, 0, 0);
+		shape.setRotationPoint(offsetx, offsety, offsetz);
+		shape.addBox(px, py, pz, dx, dy, dz, scale / 16);
 	}
 
 	/**
@@ -77,26 +77,26 @@ public class Cube extends ModelBase
 	 */
 	public Cube(float px, float py, float pz, int dx, int dy, int dz, float scale, int texturelength)
 	{
-		this.textureWidth = texturelength;
-		this.textureHeight = texturelength;
+		textureWidth = texturelength;
+		textureHeight = texturelength;
 
 		this.dx = dx;
 		this.dy = dy;
 		this.dz = dz;
 
-		this.scale = (float) scale / (texturelength * 4);
+		this.scale = scale / (texturelength * 4);
 
-		this.px = px - (this.dx / 2) * (this.scale);
-		this.py = py - (this.dy / 2) * (this.scale);
-		this.pz = pz - (this.dz / 2) * (this.scale);
+		this.px = px - this.dx / 2 * this.scale;
+		this.py = py - this.dy / 2 * this.scale;
+		this.pz = pz - this.dz / 2 * this.scale;
 
-		this.rotationx = px;
-		this.rotationy = py;
-		this.rotationz = pz;
+		rotationx = px;
+		rotationy = py;
+		rotationz = pz;
 
-		this.shape = new ModelRenderer(this, 0, 0);
-		this.shape.setRotationPoint(this.rotationx, this.rotationy, this.rotationz);
-		this.shape.addBox(this.px, this.py, this.pz, this.dx, this.dy, this.dz, scale);
+		shape = new ModelRenderer(this, 0, 0);
+		shape.setRotationPoint(rotationx, rotationy, rotationz);
+		shape.addBox(this.px, this.py, this.pz, this.dx, this.dy, this.dz, scale);
 
 	}
 
@@ -109,15 +109,17 @@ public class Cube extends ModelBase
 		Tessellator t = Tessellator.instance;
 
 		GL11.glPushMatrix();
-		GL11.glTranslatef(this.px, this.py + 1 * this.scale, this.pz);
+		GL11.glTranslatef(px, py + 1 * scale, pz);
 
-		GL11.glScalef(this.scale, this.scale, this.scale);
+		GL11.glScalef(scale, scale, scale);
 
-		GL11.glRotatef(this.angle, this.rotationx, this.rotationy, this.rotationz);
+		GL11.glRotatef(angle, rotationx, rotationy, rotationz);
 		if (texture != null)
+		{
 			Minecraft.getMinecraft().getTextureManager().bindTexture(texture);
+		}
 
-		this.shape.render(1.0F);
+		shape.render(1.0F);
 
 		GL11.glPopMatrix();
 	}
@@ -131,18 +133,18 @@ public class Cube extends ModelBase
 		Tessellator t = Tessellator.instance;
 
 		GL11.glPushMatrix();
-		GL11.glTranslatef(this.px, this.py - 1 / 16, this.pz);
+		GL11.glTranslatef(px, py - 1 / 16, pz);
 
-		GL11.glScalef(this.scale, this.scale, this.scale);
+		GL11.glScalef(scale, scale, scale);
 
-		GL11.glRotatef(this.angle, this.rotationx, this.rotationy, this.rotationz);
+		GL11.glRotatef(angle, rotationx, rotationy, rotationz);
 
 		if (b != null)
 		{
 			IIcon i = RenderBlocks.getInstance().getBlockIcon(b);
 			ResourceLocation text = new ResourceLocation(i.getIconName());
 		}
-		this.shape.render(1.0F);
+		shape.render(1.0F);
 
 		GL11.glPopMatrix();
 	}
@@ -161,9 +163,9 @@ public class Cube extends ModelBase
 	public void setRotation(int angle, int rotx, int roty, int rotz)
 	{
 		this.angle = angle;
-		this.rotationx = rotx;
-		this.rotationy = roty;
-		this.rotationz = rotz;
+		rotationx = rotx;
+		rotationy = roty;
+		rotationz = rotz;
 	}
 
 	/**

@@ -1,12 +1,12 @@
 
-package AAM.Common.Items.Debug;
+package aam.common.items.debug;
 
 import java.lang.reflect.Field;
 
-import AAM.Common.Blocks.Circles.TransCircle;
-import AAM.Common.Event.SoulEvent;
-import AAM.Common.Tiles.TETransCircle;
-import AAM.Utils.Logger;
+import aam.common.event.SoulEvent;
+import aam.common.tiles.TETransCircle;
+import aam.common.transmutations.CircleUtils;
+import aam.utils.Logger;
 import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
@@ -49,7 +49,7 @@ public class MagicWand extends Item
 					Class clazz = ItemBucket.class;
 					Field f = clazz.getDeclaredField("isFull");
 					f.setAccessible(true);
-					b = (Block) f.get((bs.getItem()));
+					b = (Block) f.get(bs.getItem());
 					meta = bs.getItemDamage();
 				}
 				catch (Exception e)
@@ -101,7 +101,7 @@ public class MagicWand extends Item
 			if (w.getTileEntity(x, y, z) instanceof TETransCircle)
 			{
 				TETransCircle te = (TETransCircle) w.getTileEntity(x, y, z);
-				Logger.info(TransCircle.outputCircle(te.circle));
+				Logger.info(CircleUtils.outputCircle(te.circle));
 			}
 		}
 		return true;

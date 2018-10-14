@@ -1,4 +1,4 @@
-package AAM.Common.Items.Alchemy;
+package aam.common.items.alchemy;
 
 import java.util.List;
 
@@ -13,7 +13,7 @@ public class ConcentratePhial extends Item
 	public ConcentratePhial()
 	{
 		this.setHasSubtypes(true);
-		this.setUnlocalizedName("aam.concentratephial");
+		this.setUnlocalizedName("aam.concentrate_phial");
 	}
 
 	public IIcon[] icons = new IIcon[3];

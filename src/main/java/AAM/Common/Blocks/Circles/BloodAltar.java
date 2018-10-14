@@ -1,10 +1,10 @@
-package AAM.Common.Blocks.Circles;
+package aam.common.blocks.circles;
 
 import java.util.Random;
 
-import AAM.Common.Items.ModItems;
-import AAM.Common.Tiles.TEBloodAltar;
-import AAM.Utils.MiscUtils;
+import aam.common.items.ModItems;
+import aam.common.tiles.TEBloodAltar;
+import aam.utils.InventoryUtils;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Items;
@@ -19,7 +19,7 @@ public class BloodAltar extends TransCircle
 {
 	public BloodAltar()
 	{
-		this.blacklist.add(Items.bucket);
+		blacklist.add(Items.bucket);
 		this.setBlockBounds(0, 0, 0, 1, 1, 1);
 		this.setLightLevel(1F);
 		this.setHardness(4.0f);
@@ -28,7 +28,7 @@ public class BloodAltar extends TransCircle
 	@Override
 	public AxisAlignedBB getCollisionBoundingBoxFromPool(World w, int x, int y, int z)
 	{
-		return AxisAlignedBB.getBoundingBox(x + this.minX, y + this.minY, z + this.minZ, x + this.maxX, y + this.maxY, z + this.maxZ);
+		return AxisAlignedBB.getBoundingBox(x + minX, y + minY, z + minZ, x + maxX, y + maxY, z + maxZ);
 	}
 
 	@Override
@@ -66,8 +66,8 @@ public class BloodAltar extends TransCircle
 				if (te.blood.amount >= 1000)
 				{
 					te.blood.amount -= 1000;
-					MiscUtils.decrPlayerStack(p, 1);
-					MiscUtils.addItemStack(p, new ItemStack(ModItems.BloodBucket));
+					InventoryUtils.decrPlayerStack(p, 1);
+					InventoryUtils.addItemStack(p, new ItemStack(ModItems.BloodBucket));
 					return true;
 				}
 			}
@@ -81,13 +81,13 @@ public class BloodAltar extends TransCircle
 	@Override
 	public void registerBlockIcons(IIconRegister ir)
 	{
-		this.top = ir.registerIcon("aam:altar_top");
-		this.side = ir.registerIcon("aam:altar_side");
+		top = ir.registerIcon("aam:altar_top");
+		side = ir.registerIcon("aam:altar_side");
 	}
 
 	@Override
 	public IIcon getIcon(int side, int meta)
 	{
-		return (side == 0 || side == 1) ? this.top : this.side;
+		return side == 0 || side == 1 ? top : this.side;
 	}
 }

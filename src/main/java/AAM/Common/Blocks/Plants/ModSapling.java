@@ -1,13 +1,12 @@
-package AAM.Common.Blocks.Plants;
+package aam.common.blocks.plants;
 
 import java.util.List;
 import java.util.Random;
 
-import AAM.Common.WorldGen.ModTreeGen;
+import aam.common.worldgen.ModTreeGen;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.block.BlockSapling;
-import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
@@ -38,7 +37,7 @@ public class ModSapling extends BlockSapling
 	@SideOnly(Side.CLIENT)
 	public void registerBlockIcons(IIconRegister ir)
 	{
-		this.icon = ir.registerIcon("aam:" + texture + "_sapling");
+		icon = ir.registerIcon("aam:" + texture + "_sapling");
 	}
 
 	/**
@@ -47,9 +46,10 @@ public class ModSapling extends BlockSapling
 	@SideOnly(Side.CLIENT)
 	public IIcon getIconFromDamage(int meta)
 	{
-		return this.icon;
+		return icon;
 	}
 
+	@Override
 	@SideOnly(Side.CLIENT)
 	public IIcon getIcon(IBlockAccess w, int x, int y, int z, int s)
 	{
@@ -59,10 +59,11 @@ public class ModSapling extends BlockSapling
 	/**
 	 * Gets the block's texture. Args: side, meta
 	 */
+	@Override
 	@SideOnly(Side.CLIENT)
 	public IIcon getIcon(int side, int meta)
 	{
-		return this.icon;
+		return icon;
 	}
 
 	/**
@@ -78,7 +79,7 @@ public class ModSapling extends BlockSapling
 	@Override
 	public void func_149878_d(World w, int x, int y, int z, Random r)
 	{
-		ModTreeGen gen = new ModTreeGen(this.type, true);
+		ModTreeGen gen = new ModTreeGen(type, true);
 
 		gen.generate(w, r, x, y, z);
 	}

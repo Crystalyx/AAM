@@ -1,10 +1,11 @@
-package AAM.API.Interface;
+package aam.api.Interface;
 
-import AAM.Utils.Structure;
-import AAM.Utils.Wec3;
+import aam.utils.Structure;
+import aam.utils.vectors.Wec3;
 
 /**
  * Class used to create objects that can represent Structure cores
+ * 
  * @author user
  */
 public interface IStructureCore

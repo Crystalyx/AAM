@@ -1,11 +1,11 @@
-package AAM.Common.Blocks.Mechanical;
+package aam.common.blocks.mechanical;
 
-import AAM.Common.Items.ModItems;
-import AAM.Common.Items.Alchemy.AlchemicalConcentrateItem;
-import AAM.Common.Potions.ModPotions;
-import AAM.Common.Tiles.TEBarrel;
-import AAM.Utils.Logger;
-import AAM.Utils.MiscUtils;
+import aam.common.items.ModItems;
+import aam.common.items.alchemy.AlchemicalConcentrateItem;
+import aam.common.potions.ModPotions;
+import aam.common.tiles.TEBarrel;
+import aam.utils.InventoryUtils;
+import aam.utils.Logger;
 import net.minecraft.block.BlockContainer;
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.player.EntityPlayer;
@@ -59,15 +59,15 @@ public class Barrel extends BlockContainer
 
 								if (te.volume >= volumes[i])
 								{
-									Item item = i == 0 ? ModItems.smallConcentrate : (i == 1 ? ModItems.mediumConcentrate : ModItems.bigConcentrate);
+									Item item = i == 0 ? ModItems.smallConcentrate : i == 1 ? ModItems.mediumConcentrate : ModItems.bigConcentrate;
 
 									ItemStack concentrateIs = new ItemStack(item, 1, ModPotions.getConcentrateID(te.potion[0]));
 									NBTTagCompound tag = new NBTTagCompound();
 									tag.setInteger("potionLevel", te.potion[1]);
 									tag.setInteger("Fluid", AlchemicalConcentrateItem.Volumes[i] + 1);
 									concentrateIs.setTagCompound(tag);
-									MiscUtils.dropStackToPlayer(w, x, y, z, concentrateIs, p);
-									MiscUtils.decrPlayerStack(p, 1);
+									InventoryUtils.dropStackToPlayer(w, x, y, z, concentrateIs, p);
+									InventoryUtils.decrPlayerStack(p, 1);
 									te.volume -= volumes[i];
 								}
 							}
@@ -89,7 +89,9 @@ public class Barrel extends BlockContainer
 						Logger.chat(p, "BurnTime: " + te.burnTime);
 					}
 					else
+					{
 						Logger.chat(p, "Volume: " + te.volume);
+					}
 					Logger.chat(p, "Potion: " + ModPotions.pots[te.potion[0]].name);
 					Logger.chat(p, "Power: " + (te.potion[1] + 1));
 				}

@@ -1,11 +1,12 @@
-package AAM.Common.Items.Alchemy;
+package aam.common.items.alchemy;
 
 import java.util.List;
 
-import AAM.Common.Items.ModItems;
-import AAM.Common.Potions.Concentrate;
-import AAM.Common.Potions.ModPotions;
-import AAM.Utils.MiscUtils;
+import aam.common.items.ModItems;
+import aam.common.potions.Concentrate;
+import aam.common.potions.ModPotions;
+import aam.utils.InventoryUtils;
+import aam.utils.MiscUtils;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.client.renderer.texture.IIconRegister;
@@ -34,7 +35,7 @@ public class AlchemicalConcentrateItem extends ItemFood
 		{
 			this.setMaxStackSize(1);
 		}
-		this.icon = new IIcon[Volumes[size] + 1];
+		icon = new IIcon[Volumes[size] + 1];
 	}
 
 	public static final int[] Volumes = new int[] { 0, 2, 8 };
@@ -62,9 +63,9 @@ public class AlchemicalConcentrateItem extends ItemFood
 				{
 					if (i.getTagCompound().getInteger("Fluid") <= 0)
 					{
-						MiscUtils.addItemStack(p, new ItemStack(ModItems.ConcentratePhial, 1, size));
-						MiscUtils.decrPlayerStack(p, 1);
-						if (this.size == 0)
+						InventoryUtils.addItemStack(p, new ItemStack(ModItems.ConcentratePhial, 1, size));
+						InventoryUtils.decrPlayerStack(p, 1);
+						if (size == 0)
 						{
 							if (i.stackSize > 0)
 							{
@@ -124,10 +125,10 @@ public class AlchemicalConcentrateItem extends ItemFood
 	public void registerIcons(IIconRegister ir)
 	{
 		String wp = "aam:potions/";
-		bottle = ir.registerIcon(wp + sizes[this.size] + "_concentrate");
+		bottle = ir.registerIcon(wp + sizes[size] + "_concentrate");
 		for (int i = 0; i < Volumes[size] + 1; i++)
 		{
-			String volume = sizes[this.size];
+			String volume = sizes[size];
 			icon[i] = ir.registerIcon(wp + volume + "_concentrate_offset_" + i);
 
 		}
@@ -144,10 +145,12 @@ public class AlchemicalConcentrateItem extends ItemFood
 		if (i.hasTagCompound())
 		{
 			String name = ModPotions.concentrates.get(i.getItemDamage()).name;
-			return "aam.alchconcentrate." + name + this.size;
+			return "aam.alchconcentrate." + name + size;
 		}
 		else
-			return "aam.alchconcentrate.null" + this.size;
+		{
+			return "aam.alchconcentrate.null" + size;
+		}
 	}
 
 	@Override
@@ -170,7 +173,9 @@ public class AlchemicalConcentrateItem extends ItemFood
 			return bottle;
 		}
 		else
+		{
 			return icon[0];
+		}
 	}
 
 	@Override
@@ -192,7 +197,9 @@ public class AlchemicalConcentrateItem extends ItemFood
 				return bottle;
 			}
 			else
+			{
 				return icon[volume];
+			}
 		}
 	}
 
@@ -217,7 +224,7 @@ public class AlchemicalConcentrateItem extends ItemFood
 	@Override
 	public int getMaxItemUseDuration(ItemStack is)
 	{
-		return 4 + this.size * 8;
+		return 4 + size * 8;
 	}
 
 	/**

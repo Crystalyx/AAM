@@ -1,10 +1,11 @@
-package AAM.Client.Gui.Base;
+package aam.client.gui.base;
 
 import org.lwjgl.opengl.GL11;
 
-import AAM.Utils.MiscUtils;
+import aam.utils.MathUtils;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiButton;
+import net.minecraft.client.settings.GameSettings;
 import net.minecraft.util.ResourceLocation;
 
 public class ButtonOBJ extends GuiButton
@@ -36,13 +37,15 @@ public class ButtonOBJ extends GuiButton
 	public void drawButton(Minecraft m, int mx, int my)
 	{
 		GL11.glPushMatrix();
-		GL11.glRotated(90 * this.rotation, 0, 0, 1);
+		GL11.glRotated(90 * rotation, 0, 0, 1);
 		this.bindTexture();
-		this.field_146123_n = MiscUtils.isInLimit(mx, this.xPosition, this.xPosition + this.width) && MiscUtils.isInLimit(my, this.yPosition, this.yPosition + this.height);
-		int k = this.getHoverState(this.field_146123_n);
-		if (this.disabled)
+		field_146123_n = MathUtils.isInLimit(mx, xPosition, xPosition + width) && MathUtils.isInLimit(my, yPosition, yPosition + height);
+		int k = this.getHoverState(field_146123_n);
+		if (disabled)
+		{
 			k = 0;
-		this.drawTexturedModalRect(this.xPosition, this.yPosition, 24, 196 + k * 20, this.width / 2, this.height);
+		}
+		this.drawTexturedModalRect(xPosition, yPosition, 24, 196 + k * 20, width / 2, height);
 		GL11.glPopMatrix();
 		this.mouseDragged(m, mx, my);
 	}
@@ -50,9 +53,9 @@ public class ButtonOBJ extends GuiButton
 	@Override
 	protected void mouseDragged(Minecraft m, int x, int y)
 	{
-		if (this.getHoverState(this.field_146123_n) == 2)
+		if (this.getHoverState(field_146123_n) == 2)
 		{
-			if (m.gameSettings.isKeyDown(m.gameSettings.keyBindAttack))
+			if (GameSettings.isKeyDown(m.gameSettings.keyBindAttack))
 			{
 				this.onPressed();
 			}
@@ -66,20 +69,20 @@ public class ButtonOBJ extends GuiButton
 
 	public ButtonOBJ setHidden(boolean hide)
 	{
-		this.hidden = hide;
+		hidden = hide;
 		return this;
 	}
 
 	public void setCustomTexture(String way)
 	{
-		this.CustomTexture = new ResourceLocation(way);
-		this.custText = true;
+		CustomTexture = new ResourceLocation(way);
+		custText = true;
 	}
 
 	public void setCustomTexture(String head, String way)
 	{
-		this.CustomTexture = new ResourceLocation(head, way);
-		this.custText = true;
+		CustomTexture = new ResourceLocation(head, way);
+		custText = true;
 	}
 
 	public static void setBaseTexture(String way)
@@ -94,8 +97,8 @@ public class ButtonOBJ extends GuiButton
 
 	public void disableCustomTexture()
 	{
-		this.CustomTexture = null;
-		this.custText = false;
+		CustomTexture = null;
+		custText = false;
 	}
 
 	public void reloadBaseTexture()
@@ -105,9 +108,9 @@ public class ButtonOBJ extends GuiButton
 
 	public void bindTexture()
 	{
-		if (this.custText)
+		if (custText)
 		{
-			Minecraft.getMinecraft().getTextureManager().bindTexture(this.CustomTexture);
+			Minecraft.getMinecraft().getTextureManager().bindTexture(CustomTexture);
 		}
 		else
 		{

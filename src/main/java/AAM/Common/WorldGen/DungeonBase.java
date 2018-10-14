@@ -1,11 +1,10 @@
-package AAM.Common.WorldGen;
+package aam.common.worldgen;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import AAM.Utils.Logger;
-import AAM.Utils.MiscUtils;
-import AAM.Utils.Structure;
+import aam.utils.MathUtils;
+import aam.utils.Structure;
 import net.minecraftforge.common.util.ForgeDirection;
 
 public class DungeonBase
@@ -36,12 +35,12 @@ public class DungeonBase
 		int pz = ForgeDirection.SOUTH.ordinal() - 2;
 		int nz = ForgeDirection.NORTH.ordinal() - 2;
 
-		List<Integer> l = new ArrayList<Integer>();
+		List<Integer> l = new ArrayList<>();
 		l.add(px);
 		l.add(nx);
 		l.add(pz);
 		l.add(nz);
-		l = MiscUtils.randomize(l);
+		l = MathUtils.randomize(l);
 
 		double perc = 100;
 
@@ -50,75 +49,75 @@ public class DungeonBase
 			int k = l.get(i);
 			switch (k)
 			{
-			case (3):
+			case 3:
 			{
-				if (x >= this.sx)
+				if (x >= sx)
 				{
 					ret[px] = false;
 				}
 				else
 				{
-					if (this.units[x + 1 + sx][z + sz] == null)
+					if (units[x + 1 + sx][z + sz] == null)
 					{
-						ret[px] = MiscUtils.randWPercent(perc) || (x == 0 && z == 0);
+						ret[px] = MathUtils.randWPercent(perc) || x == 0 && z == 0;
 					}
 					else
 					{
-						ret[px] = this.units[x + 1 + sx][z + sz].able[nx];
+						ret[px] = units[x + 1 + sx][z + sz].able[nx];
 					}
 				}
 			}
-			case (2):
+			case 2:
 			{
-				if (x <= -this.sx)
+				if (x <= -sx)
 				{
 					ret[nx] = false;
 				}
 				else
 				{
-					if (this.units[x - 1 + sx][z + sz] == null)
+					if (units[x - 1 + sx][z + sz] == null)
 					{
-						ret[nx] = MiscUtils.randWPercent(perc) || (x == 0 && z == 0);
+						ret[nx] = MathUtils.randWPercent(perc) || x == 0 && z == 0;
 					}
 					else
 					{
-						ret[nx] = this.units[x - 1 + sx][z + sz].able[px];
+						ret[nx] = units[x - 1 + sx][z + sz].able[px];
 					}
 				}
 			}
-			case (1):
+			case 1:
 			{
-				if (z >= this.sz)
+				if (z >= sz)
 				{
 					ret[pz] = false;
 				}
 				else
 				{
-					if (this.units[x + sx][z + 1 + sz] == null)
+					if (units[x + sx][z + 1 + sz] == null)
 					{
-						ret[pz] = MiscUtils.randWPercent(perc) || (x == 0 && z == 0);
+						ret[pz] = MathUtils.randWPercent(perc) || x == 0 && z == 0;
 					}
 					else
 					{
-						ret[pz] = this.units[x + sx][z + 1 + sz].able[nz];
+						ret[pz] = units[x + sx][z + 1 + sz].able[nz];
 					}
 				}
 			}
-			case (0):
+			case 0:
 			{
-				if (z <= -this.sz)
+				if (z <= -sz)
 				{
 					ret[nz] = false;
 				}
 				else
 				{
-					if (this.units[x + sx][z - 1 + sz] == null)
+					if (units[x + sx][z - 1 + sz] == null)
 					{
-						ret[nz] = MiscUtils.randWPercent(perc) || (x == 0 && z == 0);
+						ret[nz] = MathUtils.randWPercent(perc) || x == 0 && z == 0;
 					}
 					else
 					{
-						ret[nz] = this.units[x + sx][z - 1 + sz].able[pz];
+						ret[nz] = units[x + sx][z - 1 + sz].able[pz];
 					}
 				}
 			}

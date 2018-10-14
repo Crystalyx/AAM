@@ -1,8 +1,8 @@
-package AAM.Client.Gui.Base;
+package aam.client.gui.base;
 
 import org.lwjgl.opengl.GL11;
 
-import AAM.Utils.Graph;
+import aam.utils.Graph;
 
 public class GuiBackground extends GuiOBJ
 {
@@ -15,15 +15,15 @@ public class GuiBackground extends GuiOBJ
 	@Override
 	public void render(int k, int l)
 	{
-		this.x = 112 - this.sizex / 2;
-		this.y = 82 - this.sizey / 2;
+		x = 112 - sizex / 2;
+		y = 82 - sizey / 2;
 		GL11.glPushMatrix();
 		l += 32;
 
 		this.bindTexture();
-		GL11.glTranslated(k + this.x, l + this.y, 0);
+		GL11.glTranslated(k + x, l + y, 0);
 
-		Graph.drawSizedSqr(this.gui, 256, 256, 36, 36, this.sizex, this.sizey, 220, 220, 12, 12);
+		Graph.drawSizedSqr(gui, 256, 256, 36, 36, sizex, sizey, 220, 220, 12, 12);
 
 		GL11.glPopMatrix();
 	}

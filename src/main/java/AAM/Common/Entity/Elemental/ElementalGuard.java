@@ -1,4 +1,4 @@
-package AAM.Common.Entity.Elemental;
+package aam.common.entity.elemental;
 
 import net.minecraft.block.Block;
 import net.minecraft.entity.EntityLivingBase;
@@ -28,12 +28,12 @@ public class ElementalGuard extends EntityMob implements IRangedAttackMob
 		super(w);
 		this.setSize(1.6f, 4f);
 		this.getNavigator().setSpeed(1);
-		this.tasks.addTask(8, new EntityAIWander(this, 1.0D));
-		this.tasks.addTask(4, new EntityAIWatchClosest(this, EntityPlayer.class, 8.0F));
-		this.tasks.addTask(6, new EntityAILookIdle(this));
-		this.tasks.addTask(4, aiArrowAttack);
-		this.targetTasks.addTask(1, new EntityAIHurtByTarget(this, false));
-		this.targetTasks.addTask(2, new EntityAINearestAttackableTarget(this, EntityPlayer.class, 0, true));
+		tasks.addTask(8, new EntityAIWander(this, 1.0D));
+		tasks.addTask(4, new EntityAIWatchClosest(this, EntityPlayer.class, 8.0F));
+		tasks.addTask(6, new EntityAILookIdle(this));
+		tasks.addTask(4, aiArrowAttack);
+		targetTasks.addTask(1, new EntityAIHurtByTarget(this, false));
+		targetTasks.addTask(2, new EntityAINearestAttackableTarget(this, EntityPlayer.class, 0, true));
 
 	}
 
@@ -93,7 +93,7 @@ public class ElementalGuard extends EntityMob implements IRangedAttackMob
 	protected void dropRareDrop(int p_70600_1_)
 	{
 		// TODO
-		switch (this.rand.nextInt(3))
+		switch (rand.nextInt(3))
 		{
 		case 0:
 			this.dropItem(Items.iron_ingot, 1);
@@ -166,10 +166,10 @@ public class ElementalGuard extends EntityMob implements IRangedAttackMob
 	@Override
 	public void attackEntityWithRangedAttack(EntityLivingBase p_82196_1_, float p_82196_2_)
 	{
-		EntityBloodball ball = new EntityBloodball(this.worldObj, this, p_82196_1_, 1.6F, 14 - this.worldObj.difficultySetting.getDifficultyId() * 4);
+		EntityBloodball ball = new EntityBloodball(worldObj, this, p_82196_1_, 1.6F, 14 - worldObj.difficultySetting.getDifficultyId() * 4);
 
 		this.playSound("random.bow", 1.0F, 1.0F / (this.getRNG().nextFloat() * 0.4F + 0.8F));
-		this.worldObj.spawnEntityInWorld(ball);
+		worldObj.spawnEntityInWorld(ball);
 	}
 
 }

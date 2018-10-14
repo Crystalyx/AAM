@@ -1,7 +1,7 @@
-package AAM.Client.Gui;
+package aam.client.gui;
 
-import AAM.Client.Gui.Base.GuiBase;
-import AAM.Common.Container.SpellTableContainer;
+import aam.client.gui.base.GuiBase;
+import aam.common.container.SpellTableContainer;
 
 public class GuiSpellTable extends GuiBase
 {

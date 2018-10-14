@@ -1,10 +1,10 @@
-package AAM.Common.Blocks.Plants;
+package aam.common.blocks.plants;
 
 import java.util.List;
 import java.util.Random;
 
-import AAM.Common.Blocks.Building.ModBlocks;
-import AAM.Common.Items.ModItems;
+import aam.common.blocks.building.ModBlocks;
+import aam.common.items.ModItems;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.block.Block;
@@ -63,9 +63,11 @@ public class BushSprout extends Block implements IGrowable
 	@Override
 	public void registerBlockIcons(IIconRegister ir)
 	{
-		berries[4] = ir.registerIcon("aam:bushblock");
+		berries[4] = ir.registerIcon("aam:bush_block");
 		for (int i = 0; i < 4; i++)
+		{
 			berries[i] = ir.registerIcon("aam:" + BerryBush.names[i]);
+		}
 	}
 
 	@Override
@@ -154,7 +156,7 @@ public class BushSprout extends Block implements IGrowable
 	@SideOnly(Side.CLIENT)
 	public IIcon getIcon(int side, int meta)
 	{
-		return this.blockIcon;
+		return blockIcon;
 	}
 
 }

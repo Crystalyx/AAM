@@ -1,14 +1,14 @@
-package AAM.Common.Items.Alchemy;
+package aam.common.items.alchemy;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import AAM.Common.Blocks.Building.ModBlocks;
-import AAM.Common.Items.ModItems;
-import AAM.Common.Transmutations.Circle;
-import AAM.Common.Transmutations.ModCircles;
-import AAM.Common.Transmutations.Transmutation;
-import AAM.Utils.MiscUtils;
+import aam.common.blocks.building.ModBlocks;
+import aam.common.items.ModItems;
+import aam.common.transmutations.Circle;
+import aam.common.transmutations.ModCircles;
+import aam.common.transmutations.Transmutation;
+import aam.utils.InventoryUtils;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.player.EntityPlayer;
@@ -54,7 +54,7 @@ public class AlchPaper extends Item
 			}
 			else
 			{
-				if (MiscUtils.contains(p.inventory, ModItems.ItemChalk))
+				if (InventoryUtils.contains(p.inventory, ModItems.ItemChalk))
 				{
 					ForgeDirection fd = ForgeDirection.getOrientation(side);
 					w.setBlock(x + fd.offsetX, y + fd.offsetY, z + fd.offsetZ, ModBlocks.TransCircle, side, 2);
@@ -69,7 +69,7 @@ public class AlchPaper extends Item
 	{
 		for (Transmutation tr : ModCircles.circles)
 		{
-			if (MiscUtils.containsOnly(ModCircles.getCodeStr(l), tr.parts))
+			if (InventoryUtils.containsOnly(ModCircles.getCodeStr(l), tr.parts))
 			{
 				return tr;
 			}
@@ -80,7 +80,7 @@ public class AlchPaper extends Item
 	public List<Circle> getCircles(ItemStack is)
 	{
 		NBTTagCompound tag = is.getTagCompound();
-		List<Circle> l = new ArrayList<Circle>();
+		List<Circle> l = new ArrayList<>();
 
 		int count = tag.getInteger("Size");
 		if (count > 0)
@@ -92,7 +92,9 @@ public class AlchPaper extends Item
 				double scale = tag.getDouble("Scale_" + i);
 				Circle c = new Circle(ModCircles.getprtsr(code), scale, rev);
 				if (!l.contains(c))
+				{
 					l.add(c);
+				}
 			}
 		}
 		return l;
@@ -130,7 +132,9 @@ public class AlchPaper extends Item
 	public IIcon getIconFromDamageForRenderPass(int meta, int pass)
 	{
 		if (pass == 0 || meta == 0)
+		{
 			return icons[0];
+		}
 		return icons[1];
 	}
 }

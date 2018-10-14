@@ -1,10 +1,10 @@
-package AAM.Common.Transmutations;
+package aam.common.transmutations;
 
-import AAM.Common.Tiles.TETransCircle;
-import AAM.Common.Tiles.TETransCircle.State;
-import AAM.Utils.Color;
-import AAM.Utils.MiscUtils;
-import net.minecraft.client.Minecraft;
+import aam.common.tiles.TETransCircle;
+import aam.common.tiles.TETransCircle.State;
+import aam.utils.Color;
+import aam.utils.MathUtils;
+import aam.utils.MiscUtils;
 import net.minecraft.client.renderer.Tessellator;
 
 public class Circle
@@ -19,13 +19,10 @@ public class Circle
 	@Override
 	public boolean equals(Object a)
 	{
-		if (a != null)
+		if (a instanceof Circle)
 		{
-			if (a instanceof Circle)
-			{
-				Circle b = (Circle) a;
-				return (this.pt == b.pt) && (this.scale == b.scale) && (this.rev == b.rev);
-			}
+			Circle b = (Circle) a;
+			return pt == b.pt && scale == b.scale && rev == b.rev;
 		}
 		return false;
 	}
@@ -33,7 +30,7 @@ public class Circle
 	@Override
 	public int hashCode()
 	{
-		return ModCircles.parts.indexOf(this.pt) * 10000 + (int) (MiscUtils.round(this.scale * 10, 0)) + MiscUtils.boolToNum(this.rev, 1, 0);
+		return ModCircles.parts.indexOf(pt) * 10000 + (int) MathUtils.round(scale * 10, 0) + MathUtils.boolToNum(rev, 1, 0);
 	}
 
 	public CirclePart pt;
@@ -48,13 +45,12 @@ public class Circle
 		Tessellator t = Tessellator.instance;
 
 		t.startDrawingQuads();
-		// Logger.info(te.last.prepCol);
 		if (te.transm != null)
 		{
 			if (te.state.equals(State.active))
 			{
 				Color c = te.transm.prepCol;
-				double tm = ((time + 1) / (float) this.maxTime);
+				double tm = (time + 1) / (float) maxTime;
 				t.setColorRGBA((int) (c.red * tm + col.red * (1 - tm)), (int) (c.green * tm + col.green * (1 - tm)), (int) (c.blue * tm + col.blue * (1 - tm)), c.alpha);
 			}
 			if (te.state.equals(State.complete))
@@ -65,39 +61,23 @@ public class Circle
 		}
 		if (rev)
 		{
-			Minecraft.getMinecraft().getTextureManager().bindTexture(this.pt.blockRev);
+			MiscUtils.bindTexture(pt.blockRev);
 
 		}
 		else
 		{
-			Minecraft.getMinecraft().getTextureManager().bindTexture(this.pt.block);
+			MiscUtils.bindTexture(pt.block);
 		}
 
-		if (!this.pt.extended)
-		{
-			t.addVertexWithUV(-0.5 * this.scale, 0, -0.5 * this.scale, 0.0, 0.0);
-			t.addVertexWithUV(-0.5 * this.scale, 0, 0.5 * this.scale, 0.0, 1.0);
-			t.addVertexWithUV(0.5 * this.scale, 0, 0.5 * this.scale, 1.0, 1.0);
-			t.addVertexWithUV(0.5 * this.scale, 0, -0.5 * this.scale, 1.0, 0.0);
+		t.addVertexWithUV(-0.5 * this.scale, 0, -0.5 * this.scale, 0.0, 0.0);
+		t.addVertexWithUV(-0.5 * this.scale, 0, 0.5 * this.scale, 0.0, 1.0);
+		t.addVertexWithUV(0.5 * this.scale, 0, 0.5 * this.scale, 1.0, 1.0);
+		t.addVertexWithUV(0.5 * this.scale, 0, -0.5 * this.scale, 1.0, 0.0);
 
-			t.addVertexWithUV(0.5 * this.scale, 0, -0.5 * this.scale, 1.0, 0.0);
-			t.addVertexWithUV(0.5 * this.scale, 0, 0.5 * this.scale, 1.0, 1.0);
-			t.addVertexWithUV(-0.5 * this.scale, 0, 0.5 * this.scale, 0.0, 1.0);
-			t.addVertexWithUV(-0.5 * this.scale, 0, -0.5 * this.scale, 0.0, 0.0);
-		}
-		else
-		{
-			double ds = te.esize / 2d;
-			t.addVertexWithUV(-ds, 0, -ds, 0.0, 0.0);
-			t.addVertexWithUV(-ds, 0, ds, 0.0, 1.0);
-			t.addVertexWithUV(ds, 0, ds, 1.0, 1.0);
-			t.addVertexWithUV(ds, 0, -ds, 1.0, 0.0);
-
-			t.addVertexWithUV(ds, 0, -ds, 1.0, 0.0);
-			t.addVertexWithUV(ds, 0, ds, 1.0, 1.0);
-			t.addVertexWithUV(-ds, 0, ds, 0.0, 1.0);
-			t.addVertexWithUV(-ds, 0, -ds, 0.0, 0.0);
-		}
+		t.addVertexWithUV(0.5 * this.scale, 0, -0.5 * this.scale, 1.0, 0.0);
+		t.addVertexWithUV(0.5 * this.scale, 0, 0.5 * this.scale, 1.0, 1.0);
+		t.addVertexWithUV(-0.5 * this.scale, 0, 0.5 * this.scale, 0.0, 1.0);
+		t.addVertexWithUV(-0.5 * this.scale, 0, -0.5 * this.scale, 0.0, 0.0);
 
 		t.draw();
 	}
@@ -105,6 +85,6 @@ public class Circle
 	@Override
 	public String toString()
 	{
-		return "Name:" + this.pt.name + "; Size:" + this.scale + "; Reversed:" + this.rev;
+		return "Name:" + pt.name + "; Size:" + scale + "; Reversed:" + rev;
 	}
 }

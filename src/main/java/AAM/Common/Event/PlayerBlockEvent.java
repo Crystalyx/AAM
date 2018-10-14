@@ -1,7 +1,9 @@
-package AAM.Common.Event;
+package aam.common.event;
 
-import AAM.Common.Soul.WeaponType;
-import AAM.Utils.PlayerDataHandler;
+import aam.api.GameWeapon;
+import aam.common.soul.SoulWeaponType;
+import aam.common.weapon.WeaponManager;
+import aam.utils.PlayerDataHandler;
 import cpw.mods.fml.common.eventhandler.EventPriority;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import net.minecraft.entity.player.EntityPlayer;
@@ -19,16 +21,29 @@ public class PlayerBlockEvent
 			EntityPlayer p = (EntityPlayer) e.entityLiving;
 
 			PlayerDataHandler ph = PlayerDataHandler.get(p);
-			if (p.getItemInUse() != null && p.isBlocking() && e.source.getSourceOfDamage() != null && !ph.sword.equals(WeaponType.Hammer))
+			if (p.getItemInUse() != null && p.isBlocking() && e.source.getSourceOfDamage() != null && !ph.sword.equals(SoulWeaponType.Hammer))
 			{
-				if (p.getItemInUse().getItem() instanceof ItemSword)
+				if (p.getItemInUse().getItem() instanceof GameWeapon)
 				{
 					float dam = 0;
-					if (p.getCurrentEquippedItem().getItemDamage() - e.ammount < 0)
-						dam = e.ammount - p.getCurrentEquippedItem().getItemDamage();
-					p.getCurrentEquippedItem().damageItem(Math.round(e.ammount), p);
+					if (WeaponManager.getDamagePoints(p.getCurrentEquippedItem()) - e.ammount < 0)
+					{
+						dam = e.ammount - WeaponManager.getDamagePoints(p.getCurrentEquippedItem());
+					}
+					WeaponManager.setDamagePoints(p.getCurrentEquippedItem(), Math.round(e.ammount));
 					e.ammount = dam;
 				}
+				else
+					if (p.getItemInUse().getItem() instanceof ItemSword)
+					{
+						float dam = 0;
+						if (p.getCurrentEquippedItem().getItemDamage() - e.ammount < 0)
+						{
+							dam = e.ammount - p.getCurrentEquippedItem().getItemDamage();
+						}
+						p.getCurrentEquippedItem().damageItem(Math.round(e.ammount), p);
+						e.ammount = dam;
+					}
 			}
 		}
 		/*

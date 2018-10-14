@@ -1,7 +1,7 @@
-package AAM.Client.Renderer.Entity;
+package aam.client.renderer.entity;
 
-import AAM.Client.Model.Elemental;
-import AAM.Common.Entity.Elemental.ElementalBoss;
+import aam.client.models.Elemental;
+import aam.common.entity.elemental.ElementalBoss;
 import net.minecraft.client.renderer.entity.RenderLiving;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.boss.BossStatus;

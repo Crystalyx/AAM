@@ -1,10 +1,10 @@
-package AAM.Commands;
+package aam.commands;
 
-import AAM.API.TraitModifier;
-import AAM.Common.Soul.Trait;
-import AAM.Network.Packages.AlchemicalDispatcher;
-import AAM.Network.Packages.PlayerSyncMessage;
-import AAM.Utils.PlayerDataHandler;
+import aam.api.TraitModifier;
+import aam.common.soul.Trait;
+import aam.network.packages.AlchemicalDispatcher;
+import aam.network.packages.PlayerSyncMessage;
+import aam.utils.PlayerDataHandler;
 import net.minecraft.command.CommandBase;
 import net.minecraft.command.ICommandSender;
 import net.minecraft.entity.player.EntityPlayer;

@@ -1,7 +1,7 @@
-package AAM.Common.Items.Alchemy;
+package aam.common.items.alchemy;
 
-import AAM.Common.Blocks.Building.ModBlocks;
-import AAM.Utils.Wec3;
+import aam.common.blocks.building.ModBlocks;
+import aam.utils.vectors.Wec3;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Items;

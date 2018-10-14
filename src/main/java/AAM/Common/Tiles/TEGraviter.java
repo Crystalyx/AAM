@@ -1,4 +1,4 @@
-package AAM.Common.Tiles;
+package aam.common.tiles;
 
 import java.util.List;
 
@@ -23,20 +23,27 @@ public class TEGraviter extends TileEntity
 		super();
 	}
 
+	@Override
 	public void updateEntity()
 	{
-		double rx = this.worldObj.rand.nextDouble() * 10;
-		double ry = this.worldObj.rand.nextDouble() * 10;
-		double rz = this.worldObj.rand.nextDouble() * 10;
-		if (this.worldObj.rand.nextBoolean())
+		double rx = worldObj.rand.nextDouble() * 10;
+		double ry = worldObj.rand.nextDouble() * 10;
+		double rz = worldObj.rand.nextDouble() * 10;
+		if (worldObj.rand.nextBoolean())
+		{
 			rx *= -1;
-		if (this.worldObj.rand.nextBoolean())
+		}
+		if (worldObj.rand.nextBoolean())
+		{
 			ry *= -1;
-		if (this.worldObj.rand.nextBoolean())
+		}
+		if (worldObj.rand.nextBoolean())
+		{
 			rz *= -1;
+		}
 
 		double radius = 42;
-		List<Entity> ents = this.worldObj.getEntitiesWithinAABB(Entity.class, AxisAlignedBB.getBoundingBox(this.xCoord - radius, this.yCoord - radius, this.zCoord - radius, this.xCoord + radius, this.yCoord + radius, this.zCoord + radius));
+		List<Entity> ents = worldObj.getEntitiesWithinAABB(Entity.class, AxisAlignedBB.getBoundingBox(xCoord - radius, yCoord - radius, zCoord - radius, xCoord + radius, yCoord + radius, zCoord + radius));
 		for (Entity entl : ents)
 		{
 			if (!entl.onGround)

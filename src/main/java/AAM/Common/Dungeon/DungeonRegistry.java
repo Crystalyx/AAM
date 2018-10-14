@@ -1,6 +1,6 @@
-package AAM.Common.Dungeon;
+package aam.common.dungeon;
 
-import AAM.Utils.Wec3;
+import aam.utils.vectors.Wec3;
 
 public class DungeonRegistry
 {

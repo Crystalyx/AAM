@@ -1,4 +1,4 @@
-package AAM.Common.Dungeon;
+package aam.common.dungeon;
 
 import net.minecraft.util.ChunkCoordinates;
 import net.minecraft.world.WorldProvider;
@@ -58,7 +58,7 @@ public class DungeonProvider extends WorldProvider
 	@Override
 	public IChunkProvider createChunkGenerator()
 	{
-		return new DungeonChunkProvider(this.worldObj, this.worldObj.getSeed());
+		return new DungeonChunkProvider(worldObj, worldObj.getSeed());
 	}
 
 }

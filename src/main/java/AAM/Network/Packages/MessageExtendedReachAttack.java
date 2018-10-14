@@ -1,9 +1,9 @@
-package AAM.Network.Packages;
+package aam.network.packages;
 
 import java.io.IOException;
 
-import AAM.API.Interface.IExtendedReach;
-import AAM.Utils.Logger;
+import aam.api.Interface.IExtendedReach;
+import aam.utils.Logger;
 import cpw.mods.fml.relauncher.Side;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
@@ -26,13 +26,13 @@ public class MessageExtendedReachAttack extends AlchemicalPackage
 	@Override
 	protected void read(PacketBuffer buffer) throws IOException
 	{
-		this.entityId = buffer.readVarIntFromBuffer();
+		entityId = buffer.readVarIntFromBuffer();
 	}
 
 	@Override
 	protected void write(PacketBuffer buffer) throws IOException
 	{
-		buffer.writeVarIntToBuffer(this.entityId);
+		buffer.writeVarIntToBuffer(entityId);
 	}
 
 	@Override
@@ -42,7 +42,7 @@ public class MessageExtendedReachAttack extends AlchemicalPackage
 		{
 			// Know it will be on the server so make it thread-safe
 			final EntityPlayerMP p = (EntityPlayerMP) player;
-			Entity target = p.worldObj.getEntityByID(this.entityId);
+			Entity target = p.worldObj.getEntityByID(entityId);
 
 			if (target != null)
 			{
@@ -64,7 +64,9 @@ public class MessageExtendedReachAttack extends AlchemicalPackage
 				}
 			}
 			else
+			{
 				Logger.warn("Entity ID Broken");
+			}
 		}
 	}
 

@@ -1,17 +1,17 @@
-package AAM.Common.Blocks.Mechanical;
+package aam.common.blocks.mechanical;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-import AAM.Common.Items.ModItems;
-import AAM.Common.Potions.Booster;
-import AAM.Common.Potions.IngridientItem;
-import AAM.Common.Potions.Ingridients;
-import AAM.Common.Potions.ModPotions;
-import AAM.Common.Potions.Prolonger;
-import AAM.Common.Tiles.TECauldron;
-import AAM.Utils.Logger;
+import aam.common.items.ModItems;
+import aam.common.potions.Booster;
+import aam.common.potions.IngridientItem;
+import aam.common.potions.Ingridients;
+import aam.common.potions.ModPotions;
+import aam.common.potions.Prolonger;
+import aam.common.tiles.TECauldron;
+import aam.utils.Logger;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.block.BlockContainer;
@@ -112,14 +112,18 @@ public class Cauldron extends BlockContainer
 					if (cauld.addFuel(p.getCurrentEquippedItem()) > 0)
 					{
 						if (!p.capabilities.isCreativeMode)
+						{
 							p.inventory.mainInventory[p.inventory.currentItem].stackSize--;
+						}
 						flag = true;
 					}
 					// ==================================Fire==================================
 					if (p.getCurrentEquippedItem().getItem() == Items.flint_and_steel)
 					{
 						if (!p.capabilities.isCreativeMode)
+						{
 							p.inventory.mainInventory[p.inventory.currentItem].damageItem(1, p);
+						}
 						cauld.isBurning = cauld.burnTime > 0;
 						flag = true;
 					}
@@ -134,7 +138,9 @@ public class Cauldron extends BlockContainer
 					if (p.getCurrentEquippedItem().getItem() == Items.water_bucket)
 					{
 						if (!p.capabilities.isCreativeMode)
+						{
 							p.inventory.mainInventory[p.inventory.currentItem] = new ItemStack(Items.bucket);
+						}
 						cauld.fluid.amount = 1000;
 						flag = true;
 					}
@@ -153,7 +159,7 @@ public class Cauldron extends BlockContainer
 								}
 								tag.setIntArray("Potion", cauld.potion);
 								is.setItemDamage(1);
-								cauld.ingrs = new ArrayList<IngridientItem>();
+								cauld.ingrs = new ArrayList<>();
 								cauld.fluid.amount -= 200;
 								cauld.potion = new int[0];
 							}
@@ -162,7 +168,7 @@ public class Cauldron extends BlockContainer
 					// ==================================Potion===============================
 					if (p.getCurrentEquippedItem().getItem() == ModItems.materials && p.getCurrentEquippedItem().getItemDamage() == phialMeta)
 					{
-						if (cauld.potion != null && cauld.potion[0] != -1)
+						if (cauld.potion != null && cauld.potion.length > 0 && cauld.potion[0] != -1)
 						{
 							cauld.fluid.amount -= 300;
 							ItemStack ret = new ItemStack(ModItems.Potion, 3);
@@ -259,7 +265,9 @@ public class Cauldron extends BlockContainer
 								Logger.chat(p, is.getDisplayName() + " : " + ingi.ing.id + " : " + ingi.type);
 							}
 							if (cauld.potion.length > 0)
+							{
 								Logger.mchat(p, cauld.potion[0], cauld.potion[1], cauld.potion[2]);
+							}
 						}
 					}
 					else
@@ -269,7 +277,9 @@ public class Cauldron extends BlockContainer
 							cauld.isBurning = !cauld.isBurning;
 						}
 						else
-							cauld.ingrs = new ArrayList<IngridientItem>();
+						{
+							cauld.ingrs = new ArrayList<>();
+						}
 					}
 				}
 			}
@@ -308,14 +318,14 @@ public class Cauldron extends BlockContainer
 	@SideOnly(Side.CLIENT)
 	public void registerBlockIcons(IIconRegister ir)
 	{
-		this.top = ir.registerIcon("aam:cauldron_top");
-		this.side = ir.registerIcon("aam:cauldron_side");
+		top = ir.registerIcon("aam:cauldron_top");
+		side = ir.registerIcon("aam:cauldron_side");
 	}
 
 	@Override
 	public IIcon getIcon(int side, int meta)
 	{
-		return (side == ForgeDirection.UP.ordinal() || side == ForgeDirection.DOWN.offsetX) ? this.top : this.side;
+		return side == ForgeDirection.UP.ordinal() || side == ForgeDirection.DOWN.offsetX ? top : this.side;
 	}
 
 }

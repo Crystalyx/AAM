@@ -1,6 +1,6 @@
-package AAM.Common.Transmutations;
+package aam.common.transmutations;
 
-import AAM.Core.AAMCore;
+import aam.core.AAMCore;
 import net.minecraft.util.ResourceLocation;
 
 public class CirclePart
@@ -21,20 +21,20 @@ public class CirclePart
 	{
 		String id = AAMCore.modid;
 		this.block = new ResourceLocation(id, bw + block + ext);
-		this.item = new ResourceLocation(id, iw + block);
+		item = new ResourceLocation(id, iw + block);
 		this.name = name;
 		this.blockRev = new ResourceLocation(id, bw + blockRev + ext);
-		this.itemRev = new ResourceLocation(id, iw + blockRev);
+		itemRev = new ResourceLocation(id, iw + blockRev);
 	}
 
 	public CirclePart(String block, String name)
 	{
 		String id = AAMCore.modid;
 		this.block = new ResourceLocation(id, bw + block + ext);
-		this.item = new ResourceLocation(id, iw + block);
+		item = new ResourceLocation(id, iw + block);
 		this.name = name;
-		this.blockRev = this.block;
-		this.itemRev = this.item;
+		blockRev = this.block;
+		itemRev = item;
 	}
 
 	public CirclePart(String block, String blockRev, String name, boolean extended)
@@ -45,10 +45,10 @@ public class CirclePart
 			bw = "textures/blocks/circles/extended/part_";
 		}
 		this.block = new ResourceLocation(id, bw + block + ext);
-		this.item = new ResourceLocation(id, iw + block);
+		item = new ResourceLocation(id, iw + block);
 		this.name = name;
 		this.blockRev = new ResourceLocation(id, bw + blockRev + ext);
-		this.itemRev = new ResourceLocation(id, iw + blockRev);
+		itemRev = new ResourceLocation(id, iw + blockRev);
 		this.extended = extended;
 	}
 
@@ -60,10 +60,10 @@ public class CirclePart
 			bw = "textures/blocks/circles/extended/part_";
 		}
 		this.block = new ResourceLocation(id, bw + block + ext);
-		this.item = new ResourceLocation(id, iw + block);
+		item = new ResourceLocation(id, iw + block);
 		this.name = name;
-		this.blockRev = this.block;
-		this.itemRev = this.item;
+		blockRev = this.block;
+		itemRev = item;
 		this.extended = extended;
 	}
 }

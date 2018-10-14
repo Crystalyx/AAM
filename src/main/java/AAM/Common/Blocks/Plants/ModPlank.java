@@ -1,4 +1,4 @@
-package AAM.Common.Blocks.Plants;
+package aam.common.blocks.plants;
 
 import java.util.List;
 
@@ -30,13 +30,13 @@ public class ModPlank extends Block
 	@SideOnly(Side.CLIENT)
 	public void registerBlockIcons(IIconRegister ir)
 	{
-		this.icon = ir.registerIcon("aam:" + texture + "_plank");
+		icon = ir.registerIcon("aam:" + texture + "_plank");
 	}
 
 	@Override
 	public IIcon getIcon(int p_149691_1_, int p_149691_2_)
 	{
-		return this.icon;
+		return icon;
 	}
 
 	@Override

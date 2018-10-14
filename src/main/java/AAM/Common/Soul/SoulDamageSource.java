@@ -1,6 +1,6 @@
-package AAM.Common.Soul;
+package aam.common.soul;
 
-import AAM.Utils.PlayerDataHandler;
+import aam.utils.PlayerDataHandler;
 import net.minecraft.util.EntityDamageSource;
 
 public class SoulDamageSource extends EntityDamageSource

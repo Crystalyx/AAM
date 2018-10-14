@@ -1,12 +1,12 @@
-package AAM.Common.Tiles;
+package aam.common.tiles;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import AAM.Common.Blocks.Building.ModBlocks;
-import AAM.Common.Transmutations.Circle;
-import AAM.Common.Transmutations.ModCircles;
-import AAM.Utils.Wec3;
+import aam.common.blocks.building.ModBlocks;
+import aam.common.transmutations.Circle;
+import aam.common.transmutations.ModCircles;
+import aam.utils.vectors.Wec3;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraft.network.NetworkManager;
@@ -18,25 +18,25 @@ import net.minecraftforge.common.util.ForgeDirection;
 
 public class TEMechanicalBase extends TileEntity
 {
-	public List<Circle> circle = new ArrayList<Circle>();
+	public List<Circle> circle = new ArrayList<>();
 
 	public void createCircleAbove()
 	{
-		if (!this.circle.isEmpty())
+		if (!circle.isEmpty())
 		{
 			Wec3 cl = new Wec3(this).add(ForgeDirection.UP);
-			this.worldObj.setBlock((int) cl.x, (int) cl.y, (int) cl.z, ModBlocks.TransCircle, 1, 2);
-			TETransCircle tc = (TETransCircle) this.worldObj.getTileEntity((int) cl.x, (int) cl.y, (int) cl.z);
-			tc.circle = this.circle;
+			worldObj.setBlock((int) cl.x, (int) cl.y, (int) cl.z, ModBlocks.TransCircle, 1, 2);
+			TETransCircle tc = (TETransCircle) worldObj.getTileEntity((int) cl.x, (int) cl.y, (int) cl.z);
+			tc.circle = circle;
 		}
 	}
 
 	@Override
 	public void updateEntity()
 	{
-		if (this.worldObj.isBlockIndirectlyGettingPowered(this.xCoord, this.yCoord, this.zCoord))
+		if (worldObj.isBlockIndirectlyGettingPowered(xCoord, yCoord, zCoord))
 		{
-			if (this.worldObj.isAirBlock(this.xCoord, this.yCoord + 1, this.zCoord))
+			if (worldObj.isAirBlock(xCoord, yCoord + 1, zCoord))
 			{
 				this.createCircleAbove();
 			}
@@ -48,7 +48,7 @@ public class TEMechanicalBase extends TileEntity
 	{
 		NBTTagCompound syncData = new NBTTagCompound();
 		this.writeToNBT(syncData);
-		return new S35PacketUpdateTileEntity(this.xCoord, this.yCoord, this.zCoord, 1, syncData);
+		return new S35PacketUpdateTileEntity(xCoord, yCoord, zCoord, 1, syncData);
 	}
 
 	@Override
@@ -60,6 +60,7 @@ public class TEMechanicalBase extends TileEntity
 	/**
 	 * Reads a tile entity from NBT.
 	 */
+	@Override
 	public void readFromNBT(NBTTagCompound tag)
 	{
 		super.readFromNBT(tag);
@@ -72,24 +73,25 @@ public class TEMechanicalBase extends TileEntity
 			boolean rev = part.getBoolean("Reversed");
 			double scale = part.getDouble("Scale");
 
-			this.circle.add(new Circle(ModCircles.parts.get(id), scale, rev));
+			circle.add(new Circle(ModCircles.parts.get(id), scale, rev));
 		}
 	}
 
 	/**
 	 * Writes a tile entity to NBT.
 	 */
+	@Override
 	public void writeToNBT(NBTTagCompound tag)
 	{
 		super.writeToNBT(tag);
 		NBTTagList circles = new NBTTagList();
 
-		for (int i = 0; i < this.circle.size(); i++)
+		for (int i = 0; i < circle.size(); i++)
 		{
 			NBTTagCompound part = new NBTTagCompound();
-			part.setInteger("Part", ModCircles.parts.indexOf(this.circle.get(i).pt));
-			part.setBoolean("Reversed", this.circle.get(i).rev);
-			part.setDouble("Scale", this.circle.get(i).scale);
+			part.setInteger("Part", ModCircles.parts.indexOf(circle.get(i).pt));
+			part.setBoolean("Reversed", circle.get(i).rev);
+			part.setDouble("Scale", circle.get(i).scale);
 
 			circles.appendTag(part);
 		}
@@ -98,6 +100,6 @@ public class TEMechanicalBase extends TileEntity
 	@Override
 	public AxisAlignedBB getRenderBoundingBox()
 	{
-		return this.INFINITE_EXTENT_AABB;
+		return INFINITE_EXTENT_AABB;
 	}
 }

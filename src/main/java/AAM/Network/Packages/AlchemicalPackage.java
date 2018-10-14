@@ -1,4 +1,4 @@
-package AAM.Network.Packages;
+package aam.network.packages;
 
 import java.io.IOException;
 

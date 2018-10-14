@@ -1,4 +1,4 @@
-package AAM.Common.Tiles;
+package aam.common.tiles;
 
 import net.minecraft.tileentity.TileEntity;
 

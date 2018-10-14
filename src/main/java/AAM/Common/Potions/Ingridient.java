@@ -1,10 +1,10 @@
-package AAM.Common.Potions;
+package aam.common.potions;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import AAM.Utils.Color;
-import AAM.Utils.Pair;
+import aam.utils.Color;
+import aam.utils.Pair;
 import net.minecraft.block.Block;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -16,9 +16,9 @@ public class Ingridient
 	{
 		items.add(new Pair(i, meta));
 
-		this.color = col;
+		color = col;
 		this.id = id;
-		this.hasBetter = args.length > 0;
+		hasBetter = args.length > 0;
 
 		for (int j = 0; j < args.length; j++)
 		{
@@ -31,7 +31,9 @@ public class Ingridient
 					items.add(new Pair(ij, metaj));
 				}
 				else
+				{
 					items.add(new Pair(ij, 0));
+				}
 			}
 			else
 				if (args[j] instanceof Block)
@@ -43,7 +45,9 @@ public class Ingridient
 						items.add(new Pair(ij, metaj));
 					}
 					else
+					{
 						items.add(new Pair(ij, 0));
+					}
 				}
 				else
 					if (args[j] instanceof ItemStack)
@@ -58,9 +62,9 @@ public class Ingridient
 	{
 		items.add(new Pair(i.getItem(), i.getItemDamage()));
 
-		this.color = col;
+		color = col;
 		this.id = id;
-		this.hasBetter = args.length > 0;
+		hasBetter = args.length > 0;
 
 		for (int j = 0; j < args.length; j++)
 		{
@@ -74,7 +78,9 @@ public class Ingridient
 					j++;
 				}
 				else
+				{
 					items.add(new Pair(ij, 0));
+				}
 			}
 			else
 				if (args[j] instanceof Block)
@@ -87,7 +93,9 @@ public class Ingridient
 						j++;
 					}
 					else
+					{
 						items.add(new Pair(ij, 0));
+					}
 				}
 				else
 					if (args[j] instanceof ItemStack)
@@ -98,7 +106,7 @@ public class Ingridient
 		}
 	}
 
-	public List<Pair<Item, Integer>> items = new ArrayList<Pair<Item, Integer>>();
+	public List<Pair<Item, Integer>> items = new ArrayList<>();
 	public boolean hasBetter = false;
 	public Color color;
 	public int id;

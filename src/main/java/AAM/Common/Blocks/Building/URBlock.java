@@ -1,8 +1,8 @@
-package AAM.Common.Blocks.Building;
+package aam.common.blocks.building;
 
 import java.util.Random;
 
-import AAM.Utils.MiscUtils;
+import aam.utils.InventoryUtils;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.player.EntityPlayer;
@@ -48,7 +48,7 @@ public class URBlock extends Block
 	public void breakBlock(World w, int x, int y, int z, Block p_149749_5_, int p_149749_6_)
 	{
 		super.breakBlock(w, x, y, z, p_149749_5_, p_149749_6_);
-		MiscUtils.dropStack(w, x, y, z, new ItemStack(w.getBlock(x, y - 1, z), 1, w.getBlockMetadata(x, y - 1, z)));
+		InventoryUtils.dropStack(w, x, y, z, new ItemStack(w.getBlock(x, y - 1, z), 1, w.getBlockMetadata(x, y - 1, z)));
 		w.setBlockToAir(x, y - 1, z);
 	}
 

@@ -1,13 +1,14 @@
-package AAM.Utils.Render;
+package aam.utils.render;
 
 import org.lwjgl.opengl.GL11;
 
-import AAM.Utils.Color;
-import AAM.Utils.MiscUtils;
-import AAM.Utils.Wec3;
-import AAM.Utils.Functions.CylFunction;
-import AAM.Utils.Functions.Function;
-import AAM.Utils.Functions.SphFunction;
+import aam.utils.Color;
+import aam.utils.MathUtils;
+import aam.utils.MiscUtils;
+import aam.utils.functions.CylFunction;
+import aam.utils.functions.Function;
+import aam.utils.functions.SphFunction;
+import aam.utils.vectors.Wec3;
 import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.RenderBlocks;
@@ -36,10 +37,10 @@ public class RenderUtils
 			{
 				double r = f.count2(yaw, pitch);
 
-				Wec3 zz = MiscUtils.getPosBy3DAngle(yaw, pitch, r);
-				Wec3 zo = MiscUtils.getPosBy3DAngle(yaw, pitch + dpitch, r);
-				Wec3 oz = MiscUtils.getPosBy3DAngle(yaw + dyaw, pitch, r);
-				Wec3 oo = MiscUtils.getPosBy3DAngle(yaw + dyaw, pitch + dpitch, r);
+				Wec3 zz = MathUtils.getPosBy3DAngle(yaw, pitch, r);
+				Wec3 zo = MathUtils.getPosBy3DAngle(yaw, pitch + dpitch, r);
+				Wec3 oz = MathUtils.getPosBy3DAngle(yaw + dyaw, pitch, r);
+				Wec3 oo = MathUtils.getPosBy3DAngle(yaw + dyaw, pitch + dpitch, r);
 
 				t.addVertexWithUV(zz.x, zz.y, zz.z, dx * yaw, dy * pitch);
 				t.addVertexWithUV(oz.x, oz.y, oz.z, dx * (yaw + 1), dy * pitch);
@@ -114,10 +115,10 @@ public class RenderUtils
 			{
 				double r = f.count2(yaw, pitch);
 
-				Wec3 zz = MiscUtils.getPosBy3DAngle(yaw, pitch, r);
-				Wec3 zo = MiscUtils.getPosBy3DAngle(yaw, pitch + dpitch, r);
-				Wec3 oz = MiscUtils.getPosBy3DAngle(yaw + dyaw, pitch, r);
-				Wec3 oo = MiscUtils.getPosBy3DAngle(yaw + dyaw, pitch + dpitch, r);
+				Wec3 zz = MathUtils.getPosBy3DAngle(yaw, pitch, r);
+				Wec3 zo = MathUtils.getPosBy3DAngle(yaw, pitch + dpitch, r);
+				Wec3 oz = MathUtils.getPosBy3DAngle(yaw + dyaw, pitch, r);
+				Wec3 oo = MathUtils.getPosBy3DAngle(yaw + dyaw, pitch + dpitch, r);
 
 				t.addVertexWithUV(zz.x, zz.y, zz.z, dx * yaw, dy * pitch);
 				t.addVertexWithUV(oz.x, oz.y, oz.z, dx * (yaw + 1), dy * pitch);
@@ -245,7 +246,7 @@ public class RenderUtils
 		GL11.glPushMatrix();
 		GL11.glTranslated(x, y, z);
 		ResourceLocation txt = Minecraft.getMinecraft().getTextureManager().getResourceLocation(new ItemStack(b, 1, meta).getItemSpriteNumber());
-		Cube cub = new Cube(0, 0, 0, 64, 64, 64, (float) 1, 64);
+		Cube cub = new Cube(0, 0, 0, 64, 64, 64, 1, 64);
 		cub.render(b);
 		GL11.glPopMatrix();
 	}
@@ -254,7 +255,7 @@ public class RenderUtils
 	{
 		GL11.glPushMatrix();
 		GL11.glTranslated(x, y, z);
-		Cube cub = new Cube(0, 0, 0, sx, sy, sz, (float) scale, length);
+		Cube cub = new Cube(0, 0, 0, sx, sy, sz, scale, length);
 		cub.render(b);
 		GL11.glPopMatrix();
 	}
@@ -389,20 +390,20 @@ public class RenderUtils
 	{
 		tess.startDrawingQuads();
 		tess.setNormal(0.0F, 0.0F, 1.0F);
-		tess.addVertexWithUV(0.0D, 0.0D, 0.0D, (double) xmin, (double) ymax);
-		tess.addVertexWithUV(1.0D, 0.0D, 0.0D, (double) xmax, (double) ymax);
-		tess.addVertexWithUV(1.0D, 1.0D, 0.0D, (double) xmax, (double) ymin);
-		tess.addVertexWithUV(0.0D, 1.0D, 0.0D, (double) xmin, (double) ymin);
+		tess.addVertexWithUV(0.0D, 0.0D, 0.0D, xmin, ymax);
+		tess.addVertexWithUV(1.0D, 0.0D, 0.0D, xmax, ymax);
+		tess.addVertexWithUV(1.0D, 1.0D, 0.0D, xmax, ymin);
+		tess.addVertexWithUV(0.0D, 1.0D, 0.0D, xmin, ymin);
 		tess.draw();
 		tess.startDrawingQuads();
 		tess.setNormal(0.0F, 0.0F, -1.0F);
-		tess.addVertexWithUV(0.0D, 1.0D, (double) (0.0F - p_78439_7_), (double) xmin, (double) ymin);
-		tess.addVertexWithUV(1.0D, 1.0D, (double) (0.0F - p_78439_7_), (double) xmax, (double) ymin);
-		tess.addVertexWithUV(1.0D, 0.0D, (double) (0.0F - p_78439_7_), (double) xmax, (double) ymax);
-		tess.addVertexWithUV(0.0D, 0.0D, (double) (0.0F - p_78439_7_), (double) xmin, (double) ymax);
+		tess.addVertexWithUV(0.0D, 1.0D, 0.0F - p_78439_7_, xmin, ymin);
+		tess.addVertexWithUV(1.0D, 1.0D, 0.0F - p_78439_7_, xmax, ymin);
+		tess.addVertexWithUV(1.0D, 0.0D, 0.0F - p_78439_7_, xmax, ymax);
+		tess.addVertexWithUV(0.0D, 0.0D, 0.0F - p_78439_7_, xmin, ymax);
 		tess.draw();
-		double f5 = 0.5F * (xmin - xmax) / (double) p_78439_5_;
-		double f6 = 0.5F * (ymax - ymin) / (double) p_78439_6_;
+		double f5 = 0.5F * (xmin - xmax) / p_78439_5_;
+		double f6 = 0.5F * (ymax - ymin) / p_78439_6_;
 		tess.startDrawingQuads();
 		tess.setNormal(-1.0F, 0.0F, 0.0F);
 		int k;
@@ -413,10 +414,10 @@ public class RenderUtils
 		{
 			f7 = (double) k / (double) p_78439_5_;
 			f8 = xmin + (xmax - xmin) * f7 - f5;
-			tess.addVertexWithUV((double) f7, 0.0D, (double) (0.0F - p_78439_7_), (double) f8, (double) ymax);
-			tess.addVertexWithUV((double) f7, 0.0D, 0.0D, (double) f8, (double) ymax);
-			tess.addVertexWithUV((double) f7, 1.0D, 0.0D, (double) f8, (double) ymin);
-			tess.addVertexWithUV((double) f7, 1.0D, (double) (0.0F - p_78439_7_), (double) f8, (double) ymin);
+			tess.addVertexWithUV(f7, 0.0D, 0.0F - p_78439_7_, f8, ymax);
+			tess.addVertexWithUV(f7, 0.0D, 0.0D, f8, ymax);
+			tess.addVertexWithUV(f7, 1.0D, 0.0D, f8, ymin);
+			tess.addVertexWithUV(f7, 1.0D, 0.0F - p_78439_7_, f8, ymin);
 		}
 
 		tess.draw();
@@ -429,10 +430,10 @@ public class RenderUtils
 			f7 = (double) k / (double) p_78439_5_;
 			f8 = xmin + (xmax - xmin) * f7 - f5;
 			f9 = f7 + 1.0F / (double) p_78439_5_;
-			tess.addVertexWithUV((double) f9, 1.0D, (double) (0.0F - p_78439_7_), (double) f8, (double) ymin);
-			tess.addVertexWithUV((double) f9, 1.0D, 0.0D, (double) f8, (double) ymin);
-			tess.addVertexWithUV((double) f9, 0.0D, 0.0D, (double) f8, (double) ymax);
-			tess.addVertexWithUV((double) f9, 0.0D, (double) (0.0F - p_78439_7_), (double) f8, (double) ymax);
+			tess.addVertexWithUV(f9, 1.0D, 0.0F - p_78439_7_, f8, ymin);
+			tess.addVertexWithUV(f9, 1.0D, 0.0D, f8, ymin);
+			tess.addVertexWithUV(f9, 0.0D, 0.0D, f8, ymax);
+			tess.addVertexWithUV(f9, 0.0D, 0.0F - p_78439_7_, f8, ymax);
 		}
 
 		tess.draw();
@@ -444,10 +445,10 @@ public class RenderUtils
 			f7 = (double) k / (double) p_78439_6_;
 			f8 = ymax + (ymin - ymax) * f7 - f6;
 			f9 = f7 + 1.0F / (double) p_78439_6_;
-			tess.addVertexWithUV(0.0D, (double) f9, 0.0D, (double) xmin, (double) f8);
-			tess.addVertexWithUV(1.0D, (double) f9, 0.0D, (double) xmax, (double) f8);
-			tess.addVertexWithUV(1.0D, (double) f9, (double) (0.0F - p_78439_7_), (double) xmax, (double) f8);
-			tess.addVertexWithUV(0.0D, (double) f9, (double) (0.0F - p_78439_7_), (double) xmin, (double) f8);
+			tess.addVertexWithUV(0.0D, f9, 0.0D, xmin, f8);
+			tess.addVertexWithUV(1.0D, f9, 0.0D, xmax, f8);
+			tess.addVertexWithUV(1.0D, f9, 0.0F - p_78439_7_, xmax, f8);
+			tess.addVertexWithUV(0.0D, f9, 0.0F - p_78439_7_, xmin, f8);
 		}
 
 		tess.draw();
@@ -458,10 +459,10 @@ public class RenderUtils
 		{
 			f7 = (double) k / (double) p_78439_6_;
 			f8 = ymax + (ymin - ymax) * f7 - f6;
-			tess.addVertexWithUV(1.0D, (double) f7, 0.0D, (double) xmax, (double) f8);
-			tess.addVertexWithUV(0.0D, (double) f7, 0.0D, (double) xmin, (double) f8);
-			tess.addVertexWithUV(0.0D, (double) f7, (double) (0.0F - p_78439_7_), (double) xmin, (double) f8);
-			tess.addVertexWithUV(1.0D, (double) f7, (double) (0.0F - p_78439_7_), (double) xmax, (double) f8);
+			tess.addVertexWithUV(1.0D, f7, 0.0D, xmax, f8);
+			tess.addVertexWithUV(0.0D, f7, 0.0D, xmin, f8);
+			tess.addVertexWithUV(0.0D, f7, 0.0F - p_78439_7_, xmin, f8);
+			tess.addVertexWithUV(1.0D, f7, 0.0F - p_78439_7_, xmax, f8);
 		}
 
 		tess.draw();
@@ -475,21 +476,21 @@ public class RenderUtils
 		tess.startDrawingQuads();
 		tess.setColorRGBA(col.red, col.green, col.blue, 255);
 		tess.setNormal(0.0F, 0.0F, 1.0F);
-		tess.addVertexWithUV(0.0D, 0.0D, 0.0D, (double) xmin, (double) ymax);
-		tess.addVertexWithUV(1.0D, 0.0D, 0.0D, (double) xmax, (double) ymax);
-		tess.addVertexWithUV(1.0D, 1.0D, 0.0D, (double) xmax, (double) ymin);
-		tess.addVertexWithUV(0.0D, 1.0D, 0.0D, (double) xmin, (double) ymin);
+		tess.addVertexWithUV(0.0D, 0.0D, 0.0D, xmin, ymax);
+		tess.addVertexWithUV(1.0D, 0.0D, 0.0D, xmax, ymax);
+		tess.addVertexWithUV(1.0D, 1.0D, 0.0D, xmax, ymin);
+		tess.addVertexWithUV(0.0D, 1.0D, 0.0D, xmin, ymin);
 		tess.draw();
 		tess.startDrawingQuads();
 		tess.setColorRGBA(col.red, col.green, col.blue, 255);
 		tess.setNormal(0.0F, 0.0F, -1.0F);
-		tess.addVertexWithUV(0.0D, 1.0D, (double) (0.0F - p_78439_7_), (double) xmin, (double) ymin);
-		tess.addVertexWithUV(1.0D, 1.0D, (double) (0.0F - p_78439_7_), (double) xmax, (double) ymin);
-		tess.addVertexWithUV(1.0D, 0.0D, (double) (0.0F - p_78439_7_), (double) xmax, (double) ymax);
-		tess.addVertexWithUV(0.0D, 0.0D, (double) (0.0F - p_78439_7_), (double) xmin, (double) ymax);
+		tess.addVertexWithUV(0.0D, 1.0D, 0.0F - p_78439_7_, xmin, ymin);
+		tess.addVertexWithUV(1.0D, 1.0D, 0.0F - p_78439_7_, xmax, ymin);
+		tess.addVertexWithUV(1.0D, 0.0D, 0.0F - p_78439_7_, xmax, ymax);
+		tess.addVertexWithUV(0.0D, 0.0D, 0.0F - p_78439_7_, xmin, ymax);
 		tess.draw();
-		double f5 = 0.5F * (xmin - xmax) / (double) p_78439_5_;
-		double f6 = 0.5F * (ymax - ymin) / (double) p_78439_6_;
+		double f5 = 0.5F * (xmin - xmax) / p_78439_5_;
+		double f6 = 0.5F * (ymax - ymin) / p_78439_6_;
 		tess.startDrawingQuads();
 		tess.setColorRGBA(col.red, col.green, col.blue, 255);
 		tess.setNormal(-1.0F, 0.0F, 0.0F);
@@ -501,10 +502,10 @@ public class RenderUtils
 		{
 			f7 = (double) k / (double) p_78439_5_;
 			f8 = xmin + (xmax - xmin) * f7 - f5;
-			tess.addVertexWithUV((double) f7, 0.0D, (double) (0.0F - p_78439_7_), (double) f8, (double) ymax);
-			tess.addVertexWithUV((double) f7, 0.0D, 0.0D, (double) f8, (double) ymax);
-			tess.addVertexWithUV((double) f7, 1.0D, 0.0D, (double) f8, (double) ymin);
-			tess.addVertexWithUV((double) f7, 1.0D, (double) (0.0F - p_78439_7_), (double) f8, (double) ymin);
+			tess.addVertexWithUV(f7, 0.0D, 0.0F - p_78439_7_, f8, ymax);
+			tess.addVertexWithUV(f7, 0.0D, 0.0D, f8, ymax);
+			tess.addVertexWithUV(f7, 1.0D, 0.0D, f8, ymin);
+			tess.addVertexWithUV(f7, 1.0D, 0.0F - p_78439_7_, f8, ymin);
 		}
 		tess.draw();
 		tess.startDrawingQuads();
@@ -517,10 +518,10 @@ public class RenderUtils
 			f7 = (double) k / (double) p_78439_5_;
 			f8 = xmin + (xmax - xmin) * f7 - f5;
 			f9 = f7 + 1.0F / (double) p_78439_5_;
-			tess.addVertexWithUV((double) f9, 1.0D, (double) (0.0F - p_78439_7_), (double) f8, (double) ymin);
-			tess.addVertexWithUV((double) f9, 1.0D, 0.0D, (double) f8, (double) ymin);
-			tess.addVertexWithUV((double) f9, 0.0D, 0.0D, (double) f8, (double) ymax);
-			tess.addVertexWithUV((double) f9, 0.0D, (double) (0.0F - p_78439_7_), (double) f8, (double) ymax);
+			tess.addVertexWithUV(f9, 1.0D, 0.0F - p_78439_7_, f8, ymin);
+			tess.addVertexWithUV(f9, 1.0D, 0.0D, f8, ymin);
+			tess.addVertexWithUV(f9, 0.0D, 0.0D, f8, ymax);
+			tess.addVertexWithUV(f9, 0.0D, 0.0F - p_78439_7_, f8, ymax);
 		}
 		tess.draw();
 		tess.startDrawingQuads();
@@ -532,10 +533,10 @@ public class RenderUtils
 			f7 = (double) k / (double) p_78439_6_;
 			f8 = ymax + (ymin - ymax) * f7 - f6;
 			f9 = f7 + 1.0F / (double) p_78439_6_;
-			tess.addVertexWithUV(0.0D, (double) f9, 0.0D, (double) xmin, (double) f8);
-			tess.addVertexWithUV(1.0D, (double) f9, 0.0D, (double) xmax, (double) f8);
-			tess.addVertexWithUV(1.0D, (double) f9, (double) (0.0F - p_78439_7_), (double) xmax, (double) f8);
-			tess.addVertexWithUV(0.0D, (double) f9, (double) (0.0F - p_78439_7_), (double) xmin, (double) f8);
+			tess.addVertexWithUV(0.0D, f9, 0.0D, xmin, f8);
+			tess.addVertexWithUV(1.0D, f9, 0.0D, xmax, f8);
+			tess.addVertexWithUV(1.0D, f9, 0.0F - p_78439_7_, xmax, f8);
+			tess.addVertexWithUV(0.0D, f9, 0.0F - p_78439_7_, xmin, f8);
 		}
 		tess.draw();
 		tess.startDrawingQuads();
@@ -546,10 +547,10 @@ public class RenderUtils
 		{
 			f7 = (double) k / (double) p_78439_6_;
 			f8 = ymax + (ymin - ymax) * f7 - f6;
-			tess.addVertexWithUV(1.0D, (double) f7, 0.0D, (double) xmax, (double) f8);
-			tess.addVertexWithUV(0.0D, (double) f7, 0.0D, (double) xmin, (double) f8);
-			tess.addVertexWithUV(0.0D, (double) f7, (double) (0.0F - p_78439_7_), (double) xmin, (double) f8);
-			tess.addVertexWithUV(1.0D, (double) f7, (double) (0.0F - p_78439_7_), (double) xmax, (double) f8);
+			tess.addVertexWithUV(1.0D, f7, 0.0D, xmax, f8);
+			tess.addVertexWithUV(0.0D, f7, 0.0D, xmin, f8);
+			tess.addVertexWithUV(0.0D, f7, 0.0F - p_78439_7_, xmin, f8);
+			tess.addVertexWithUV(1.0D, f7, 0.0F - p_78439_7_, xmax, f8);
 		}
 		tess.draw();
 	}

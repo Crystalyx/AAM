@@ -1,6 +1,6 @@
-package AAM.Commands;
+package aam.commands;
 
-import AAM.Common.Items.Alchemy.AlchemicalPotionItem;
+import aam.common.items.alchemy.AlchemicalPotionItem;
 import net.minecraft.command.CommandBase;
 import net.minecraft.command.ICommandSender;
 import net.minecraft.entity.player.EntityPlayer;

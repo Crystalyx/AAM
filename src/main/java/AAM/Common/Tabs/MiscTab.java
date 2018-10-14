@@ -1,6 +1,6 @@
-package AAM.Common.Tabs;
+package aam.common.tabs;
 
-import AAM.Common.Items.ModItems;
+import aam.common.items.ModItems;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
 

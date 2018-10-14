@@ -1,6 +1,6 @@
-package AAM.Common.Tabs;
+package aam.common.tabs;
 
-import AAM.Common.Items.ModItems;
+import aam.common.items.ModItems;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
 
@@ -15,7 +15,7 @@ public class ArtTab extends CreativeTabs
 	@Override
 	public Item getTabIconItem()
 	{
-		return ModItems.ClockOfTime;
+		return ModItems.WatchOfTime;
 	}
 
 }

@@ -1,12 +1,12 @@
-package AAM.Client.Gui.Base;
+package aam.client.gui.base;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class ObjTypes
 {
-	public static List<SlotType> slots = new ArrayList<SlotType>();
-	public static List<BarType> bars = new ArrayList<BarType>();
+	public static List<SlotType> slots = new ArrayList<>();
+	public static List<BarType> bars = new ArrayList<>();
 
 	public static void load()
 	{

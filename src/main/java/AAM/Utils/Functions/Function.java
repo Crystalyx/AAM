@@ -1,4 +1,4 @@
-package AAM.Utils.Functions;
+package aam.utils.functions;
 
 import java.util.List;
 

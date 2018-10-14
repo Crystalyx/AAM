@@ -1,4 +1,4 @@
-package AAM.Client.Gui.Base;
+package aam.client.gui.base;
 
 import org.lwjgl.opengl.GL11;
 
@@ -22,7 +22,7 @@ public class BarType extends ObjType
 		int val = bar.lastValue;
 		int mval = bar.lastMaxValue;
 
-		double part = ((double) val) / ((double) mval);
+		double part = (double) val / (double) mval;
 
 		int length = 10;
 
@@ -31,12 +31,12 @@ public class BarType extends ObjType
 		int xk = k + x;
 		int yl = l + y;
 
-		Minecraft.getMinecraft().getTextureManager().bindTexture(bar.baseTexture);
+		Minecraft.getMinecraft().getTextureManager().bindTexture(GuiOBJ.baseTexture);
 
 		GL11.glScaled(0.65, 0.65, 0);
-		this.gui.drawTexturedModalRect(0, 0, this.px, this.py, this.sizex, this.sizey);
+		gui.drawTexturedModalRect(0, 0, px, py, sizex, sizey);
 
-		this.gui.drawTexturedModalRect(0, this.sizey - length, this.px, this.py + this.sizey - length, this.sizex, length);
+		gui.drawTexturedModalRect(0, sizey - length, px, py + sizey - length, sizex, length);
 
 		GL11.glPopMatrix();
 	}

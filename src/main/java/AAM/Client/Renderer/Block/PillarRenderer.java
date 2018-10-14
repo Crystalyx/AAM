@@ -1,13 +1,12 @@
-package AAM.Client.Renderer.Block;
+package aam.client.renderer.block;
 
-import AAM.Network.ClientProxy;
-import AAM.Utils.MiscUtils;
-import AAM.Utils.Render.RenderUtils;
+import aam.network.ClientProxy;
+import aam.utils.MiscUtils;
+import aam.utils.render.RenderUtils;
 import cpw.mods.fml.client.registry.ISimpleBlockRenderingHandler;
 import net.minecraft.block.Block;
 import net.minecraft.client.renderer.RenderBlocks;
 import net.minecraft.world.IBlockAccess;
-import thaumcraft.common.blocks.BlockTube;
 
 public class PillarRenderer implements ISimpleBlockRenderingHandler
 {
@@ -41,10 +40,6 @@ public class PillarRenderer implements ISimpleBlockRenderingHandler
 	@Override
 	public boolean renderWorldBlock(IBlockAccess w, int x, int y, int z, Block b, int modelId, RenderBlocks renderer)
 	{
-		b.setBlockBounds(1 / 8F, 0, 1 / 8F, 1 - 1 / 8F, 1, 1 - 1 / 8F);
-		renderer.setRenderBoundsFromBlock(b);
-		renderer.renderStandardBlock(b, x, y, z);
-
 		if (w.getBlock(x, y - 1, z) != b)
 		{
 			b.setBlockBounds(0.1f, 0, 0.025f, 0.9f, 0.2f, 0.975f);
@@ -68,6 +63,8 @@ public class PillarRenderer implements ISimpleBlockRenderingHandler
 		}
 
 		b.setBlockBounds(1 / 8F, 0, 1 / 8F, 1 - 1 / 8F, 1, 1 - 1 / 8F);
+		renderer.setRenderBoundsFromBlock(b);
+		renderer.renderStandardBlock(b, x, y, z);
 		return true;
 	}
 

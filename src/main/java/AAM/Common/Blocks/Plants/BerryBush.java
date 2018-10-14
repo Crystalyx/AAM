@@ -1,11 +1,12 @@
-package AAM.Common.Blocks.Plants;
+package aam.common.blocks.plants;
 
 import java.util.List;
 import java.util.Random;
 
-import AAM.Common.Blocks.Building.ModBlocks;
-import AAM.Common.Items.ModItems;
-import AAM.Utils.MiscUtils;
+import aam.common.blocks.building.ModBlocks;
+import aam.common.items.ModItems;
+import aam.utils.InventoryUtils;
+import aam.utils.MathUtils;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.block.Block;
@@ -59,7 +60,7 @@ public class BerryBush extends Block implements IGrowable
 		if (beta == 1)
 		{
 			ItemStack berry = new ItemStack(ModItems.Berry, (int) (Math.floorMod(w.getWorldTime(), 4) + 1), meta);
-			MiscUtils.dropStack(w, x, y, z, berry);
+			InventoryUtils.dropStack(w, x, y, z, berry);
 		}
 	}
 
@@ -86,9 +87,11 @@ public class BerryBush extends Block implements IGrowable
 	@Override
 	public void registerBlockIcons(IIconRegister ir)
 	{
-		berries[4] = ir.registerIcon("aam:bushblock");
+		berries[4] = ir.registerIcon("aam:bush_block");
 		for (int i = 0; i < 4; i++)
+		{
 			berries[i] = ir.registerIcon("aam:" + BerryBush.names[i]);
+		}
 	}
 
 	@Override
@@ -123,14 +126,18 @@ public class BerryBush extends Block implements IGrowable
 			{
 				w.setBlockMetadataWithNotify(x, y, z, meta * 2, 2);
 				ItemStack berry = new ItemStack(ModItems.Berry, (int) (Math.floorMod(w.getWorldTime(), 4) + 1), meta);
-				MiscUtils.dropStackToPlayer(w, x, y, z, berry, p);
+				InventoryUtils.dropStackToPlayer(w, x, y, z, berry, p);
 				return true;
 			}
 			else
+			{
 				return false;
+			}
 		}
 		else
+		{
 			return false;
+		}
 	}
 
 	/**
@@ -170,7 +177,7 @@ public class BerryBush extends Block implements IGrowable
 				grow(w, r, x, y, z);
 			}
 		}
-		if (MiscUtils.randWPercent(r, 20))// TODO
+		if (MathUtils.randWPercent(r, 20))// TODO
 		{
 			byte b0 = 4;
 			int l = 5;
@@ -236,7 +243,7 @@ public class BerryBush extends Block implements IGrowable
 	@SideOnly(Side.CLIENT)
 	public IIcon getIcon(int side, int meta)
 	{
-		return this.blockIcon;
+		return blockIcon;
 	}
 
 }

@@ -1,4 +1,4 @@
-package AAM.Common.Blocks.Building;
+package aam.common.blocks.building;
 
 import java.util.Random;
 
@@ -40,7 +40,7 @@ public class ModOreBlock extends BlockOre
 	@Override
 	public Item getItemDropped(int p_149650_1_, Random r, int p_149650_3_)
 	{
-		return this.drop != null ? this.drop : Item.getItemFromBlock(this);
+		return drop != null ? drop : Item.getItemFromBlock(this);
 	}
 
 	/**
@@ -49,7 +49,7 @@ public class ModOreBlock extends BlockOre
 	@Override
 	public int quantityDropped(Random r)
 	{
-		return this.count + r.nextInt(this.dcount);
+		return count + r.nextInt(dcount);
 	}
 
 	/**

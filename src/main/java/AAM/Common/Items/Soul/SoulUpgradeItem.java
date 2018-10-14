@@ -1,8 +1,8 @@
-package AAM.Common.Items.Soul;
+package aam.common.items.soul;
 
 import java.util.List;
 
-import AAM.Common.Soul.SoulUpgrade;
+import aam.common.soul.SoulUpgrade;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;

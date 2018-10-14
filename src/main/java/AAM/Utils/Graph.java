@@ -1,7 +1,10 @@
-package AAM.Utils;
+package aam.utils;
 
 import org.lwjgl.opengl.GL11;
 
+import aam.utils.vectors.AABB2;
+import aam.utils.vectors.Matrix2;
+import aam.utils.vectors.Vec2;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.renderer.Tessellator;
 
@@ -12,7 +15,9 @@ public class Graph
 	public static void colorize(Color c)
 	{
 		if (c != null)
+		{
 			GL11.glColor4d(c.red / 255d, c.green / 255d, c.blue / 255d, c.alpha / 255d);
+		}
 	}
 
 	public static void clearColor()
@@ -152,8 +157,8 @@ public class Graph
 
 		int dpx = 4;
 
-		int nu = Math.floorDiv(sizex - borderx * 2, dpx) + MiscUtils.boolToNum(Math.floorMod(sizex - borderx * 2, dpx) > 0);
-		int nv = Math.floorDiv(sizey - bordery * 2, dpx) + MiscUtils.boolToNum(Math.floorMod(sizey - bordery * 2, dpx) > 0);
+		int nu = Math.floorDiv(sizex - borderx * 2, dpx) + MathUtils.boolToNum(Math.floorMod(sizex - borderx * 2, dpx) > 0);
+		int nv = Math.floorDiv(sizey - bordery * 2, dpx) + MathUtils.boolToNum(Math.floorMod(sizey - bordery * 2, dpx) > 0);
 
 		for (int i = 0; i < nv; i++)
 		{

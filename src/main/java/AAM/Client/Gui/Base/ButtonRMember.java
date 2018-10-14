@@ -1,12 +1,11 @@
-package AAM.Client.Gui.Base;
+package aam.client.gui.base;
 
 import org.lwjgl.opengl.GL11;
 
-import AAM.Network.Packages.AlchemicalDispatcher;
-import AAM.Network.Packages.PlayerSyncMessage;
-import AAM.Utils.PlayerDataHandler;
+import aam.network.packages.AlchemicalDispatcher;
+import aam.network.packages.PlayerSyncMessage;
+import aam.utils.PlayerDataHandler;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.renderer.OpenGlHelper;
 import net.minecraft.client.renderer.Tessellator;
@@ -27,9 +26,9 @@ public class ButtonRMember extends GuiButton
 		if (super.mousePressed(mc, x, y))
 		{
 			PlayerDataHandler ph = PlayerDataHandler.get(Minecraft.getMinecraft().thePlayer);
-			if (this.id - 1 < ph.party.size())
+			if (id - 1 < ph.party.size())
 			{
-				ph.party.remove(this.id - 1);
+				ph.party.remove(id - 1);
 			}
 		}
 		AlchemicalDispatcher.sendToServer(new PlayerSyncMessage(mc.thePlayer));
@@ -41,7 +40,7 @@ public class ButtonRMember extends GuiButton
 	{
 		PlayerDataHandler ph = PlayerDataHandler.get(Minecraft.getMinecraft().thePlayer);
 
-		if (this.visible && this.id - 1 < ph.party.size())
+		if (visible && id - 1 < ph.party.size())
 		{
 			p_146112_1_.getTextureManager().bindTexture(rem);
 			GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
@@ -49,13 +48,13 @@ public class ButtonRMember extends GuiButton
 			OpenGlHelper.glBlendFunc(770, 771, 1, 0);
 			GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
 			Tessellator tessellator = Tessellator.instance;
-			int k = this.xPosition;
-			int j = this.yPosition;
+			int k = xPosition;
+			int j = yPosition;
 			tessellator.startDrawingQuads();
-			tessellator.addVertexWithUV((double) k, (double) j + this.height, 0.0D, 0.0D, 1.0D);
-			tessellator.addVertexWithUV((double) k + this.width, (double) j + this.height, 0.0D, 1D, 1.0D);
-			tessellator.addVertexWithUV((double) k + this.width, (double) j, 0.0D, 1D, 0.0D);
-			tessellator.addVertexWithUV((double) k, (double) j, 0.0D, 0.0D, 0.0D);
+			tessellator.addVertexWithUV(k, (double) j + height, 0.0D, 0.0D, 1.0D);
+			tessellator.addVertexWithUV((double) k + width, (double) j + height, 0.0D, 1D, 1.0D);
+			tessellator.addVertexWithUV((double) k + width, j, 0.0D, 1D, 0.0D);
+			tessellator.addVertexWithUV(k, j, 0.0D, 0.0D, 0.0D);
 			tessellator.draw();
 			this.mouseDragged(p_146112_1_, x, y);
 			int l = 14737632;
@@ -65,12 +64,12 @@ public class ButtonRMember extends GuiButton
 				l = packedFGColour;
 			}
 			else
-				if (!this.enabled)
+				if (!enabled)
 				{
 					l = 10526880;
 				}
 				else
-					if (this.field_146123_n)
+					if (field_146123_n)
 					{
 						l = 16777120;
 					}

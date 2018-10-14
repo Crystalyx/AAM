@@ -1,11 +1,11 @@
-package AAM.Common.Potions;
+package aam.common.potions;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import AAM.Common.Blocks.Building.ModBlocks;
-import AAM.Common.Items.ModItems;
-import AAM.Utils.Color;
+import aam.common.blocks.building.ModBlocks;
+import aam.common.items.ModItems;
+import aam.utils.Color;
 import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
@@ -14,7 +14,7 @@ import net.minecraft.item.ItemStack;
 
 public class Ingridients
 {
-	public static List<Ingridient> ings = new ArrayList<Ingridient>();
+	public static List<Ingridient> ings = new ArrayList<>();
 	public static final Ingridient spider_eye = new Ingridient(Items.spider_eye, 0, new Color(255, 199, 102), 0, Items.fermented_spider_eye, 0);
 	public static final Ingridient bone = new Ingridient(Items.bone, 0, new Color(255, 163, 171), 1);
 	public static final Ingridient ender_pearl = new Ingridient(Items.ender_pearl, 0, new Color(0, 245, 86), 2, Items.ender_eye, 0);
@@ -43,7 +43,7 @@ public class Ingridients
 	public static final Ingridient nether_wart = new Ingridient(Items.nether_wart, 0, new Color(200, 144, 47), 25);
 	public static final Ingridient feather = new Ingridient(Items.feather, 0, new Color(200, 250, 220), 26);
 	public static final Ingridient redstone = new Ingridient(Items.redstone, 0, new Color(255, 0, 0), 27);
-	public static final Ingridient berryAssorty = new Ingridient(ModItems.BerryAssort, 0, new Color(255, 0, 0), 28);
+	public static final Ingridient berryAssorty = new Ingridient(ModItems.BerryAssorty, 0, new Color(255, 0, 0), 28);
 
 	public static void load()
 	{
@@ -95,7 +95,7 @@ public class Ingridients
 
 	public static List<Ingridient> getIngredientBase(List<IngridientItem> l)
 	{
-		List<Ingridient> ret = new ArrayList<Ingridient>();
+		List<Ingridient> ret = new ArrayList<>();
 
 		for (IngridientItem ingi : l)
 		{

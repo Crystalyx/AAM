@@ -1,4 +1,4 @@
-package AAM.Common.Items.Debug;
+package aam.common.items.debug;
 
 import java.util.List;
 

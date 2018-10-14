@@ -1,8 +1,8 @@
-package AAM.Common.Items.Soul;
+package aam.common.items.soul;
 
 import java.util.List;
 
-import AAM.Common.Soul.Soul;
+import aam.common.soul.Soul;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.client.renderer.texture.IIconRegister;
@@ -27,7 +27,9 @@ public class Artifact extends Item
 	public void getSubItems(Item i, CreativeTabs tab, List l)
 	{
 		for (int k = 0; k < Soul.values().length; k++)
+		{
 			l.add(new ItemStack(i, 1, k));
+		}
 	}
 
 	public static IIcon[] icons = new IIcon[Soul.values().length];

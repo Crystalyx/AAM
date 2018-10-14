@@ -1,8 +1,8 @@
-package AAM.Common.Potions;
+package aam.common.potions;
 
 import java.util.List;
 
-import AAM.Utils.Color;
+import aam.utils.Color;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.potion.PotionEffect;
 
@@ -10,17 +10,17 @@ public class AlchemicalPotion
 {
 	public AlchemicalPotion(int pot, int duration, int id, List<Ingridient> ingrs, String name, Color col)
 	{
-		this.potion = pot;
+		potion = pot;
 		this.duration = duration;
 		this.id = id;
-		this.ingridients = ingrs;
+		ingridients = ingrs;
 		this.name = name;
 		this.col = col;
 	}
 
 	public void affectEffect(EntityLiving e, int effic)
 	{
-		PotionEffect eff = new PotionEffect(this.potion, this.duration, effic);
+		PotionEffect eff = new PotionEffect(potion, duration, effic);
 		e.addPotionEffect(eff);
 	}
 

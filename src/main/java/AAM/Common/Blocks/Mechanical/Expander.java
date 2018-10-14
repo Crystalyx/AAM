@@ -1,4 +1,4 @@
-package AAM.Common.Blocks.Mechanical;
+package aam.common.blocks.mechanical;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;

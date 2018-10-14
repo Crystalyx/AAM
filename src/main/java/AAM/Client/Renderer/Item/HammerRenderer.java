@@ -1,10 +1,9 @@
-package AAM.Client.Renderer.Item;
+package aam.client.renderer.item;
 
 import org.lwjgl.opengl.GL11;
 
-import AAM.Client.Model.Hammer;
-import AAM.Utils.MiscUtils;
-import net.minecraft.client.Minecraft;
+import aam.client.models.Hammer;
+import aam.utils.MiscUtils;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.client.IItemRenderer;
 

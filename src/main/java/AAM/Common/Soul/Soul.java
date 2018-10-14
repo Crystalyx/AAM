@@ -1,10 +1,10 @@
-package AAM.Common.Soul;
+package aam.common.soul;
 
-import AAM.API.Interface.ISoulUpgrade;
-import AAM.Utils.MiscUtils;
-import AAM.Utils.PlayerDataHandler;
-import AAM.Utils.VectorWorld;
-import AAM.Utils.Wec3;
+import aam.api.Interface.ISoulUpgrade;
+import aam.utils.MathUtils;
+import aam.utils.PlayerDataHandler;
+import aam.utils.vectors.VectorWorld;
+import aam.utils.vectors.Wec3;
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.EnumCreatureAttribute;
@@ -24,16 +24,16 @@ public enum Soul implements ISoulUpgrade
 
 	public float getFullMeleeDamage(PlayerDataHandler ph, EntityLivingBase l, int soulLevel, float baseDamage, boolean inAttack)
 	{
-		return getMeleeDamage(ph, soulLevel, baseDamage, inAttack) + getSpecificMeleeDamage(ph, l, soulLevel, baseDamage);
+		return getMeleeDamageBonus(ph, soulLevel, baseDamage, inAttack) + getSpecificMeleeDamageBonus(ph, l, soulLevel, baseDamage);
 	}
 
 	public float getFullRangedDamage(PlayerDataHandler ph, EntityLivingBase l, int soulLevel, float baseDamage, boolean inAttack)
 	{
-		return getRangedDamage(ph, soulLevel, baseDamage, inAttack) + getSpecificRangedDamage(ph, l, soulLevel, baseDamage);
+		return getRangedDamageBonus(ph, soulLevel, baseDamage, inAttack) + getSpecificRangedDamageBonus(ph, l, soulLevel, baseDamage);
 	}
 
 	@Override
-	public float getMeleeDamage(PlayerDataHandler ph, int soulLevel, float baseDamage, boolean inAttack)
+	public float getMeleeDamageBonus(PlayerDataHandler ph, int soulLevel, float baseDamage, boolean inAttack)
 	{
 		float dmg = baseDamage;
 		if (ph.art)
@@ -75,7 +75,7 @@ public enum Soul implements ISoulUpgrade
 	}
 
 	@Override
-	public float getSpecificMeleeDamage(PlayerDataHandler ph, EntityLivingBase l, int soulLevel, float baseDamage)
+	public float getSpecificMeleeDamageBonus(PlayerDataHandler ph, EntityLivingBase l, int soulLevel, float baseDamage)
 	{
 		float dmg = 0;
 		if (ph.art)
@@ -115,14 +115,16 @@ public enum Soul implements ISoulUpgrade
 		{
 			if (this.equals(Soul.Plant))
 			{
-				if (MiscUtils.randWPercent(25 + 2 * (soulLevel - 1)))
+				if (MathUtils.randWPercent(25 + 2 * (soulLevel - 1)))
+				{
 					l.addPotionEffect(new PotionEffect(Potion.poison.id, 150, 2));
+				}
 			}
 		}
 	}
 
 	@Override
-	public float getRangedDamage(PlayerDataHandler ph, int level, float baseDamage, boolean inAttack)
+	public float getRangedDamageBonus(PlayerDataHandler ph, int level, float baseDamage, boolean inAttack)
 	{
 		float dmg = baseDamage;
 		if (ph.art)
@@ -163,7 +165,7 @@ public enum Soul implements ISoulUpgrade
 	}
 
 	@Override
-	public float getSpecificRangedDamage(PlayerDataHandler ph, EntityLivingBase l, int soulLevel, float baseDamage)
+	public float getSpecificRangedDamageBonus(PlayerDataHandler ph, EntityLivingBase l, int soulLevel, float baseDamage)
 	{
 		float dmg = 0;
 		if (ph.art)
@@ -194,5 +196,17 @@ public enum Soul implements ISoulUpgrade
 			}
 		}
 		return dmg;
+	}
+
+	@Override
+	public void onAttack(EntityPlayer p, EntityLivingBase e, float damage)
+	{
+
+	}
+
+	@Override
+	public boolean onEnderTeleport(EntityPlayer p, EntityLivingBase ender)
+	{
+		return false;
 	}
 }

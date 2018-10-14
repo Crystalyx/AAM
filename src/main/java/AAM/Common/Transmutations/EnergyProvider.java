@@ -1,18 +1,18 @@
-package AAM.Common.Transmutations;
+package aam.common.transmutations;
 
-import static AAM.Common.Transmutations.EnergyType.Blood;
-import static AAM.Common.Transmutations.EnergyType.Fluid;
-import static AAM.Common.Transmutations.EnergyType.Fuel;
-import static AAM.Common.Transmutations.EnergyType.Matter;
-import static AAM.Common.Transmutations.EnergyType.Unknown;
+import static aam.common.transmutations.EnergyType.Blood;
+import static aam.common.transmutations.EnergyType.Fluid;
+import static aam.common.transmutations.EnergyType.Fuel;
+import static aam.common.transmutations.EnergyType.Matter;
+import static aam.common.transmutations.EnergyType.Unknown;
 
 import java.util.ArrayList;
 import java.util.Hashtable;
 import java.util.List;
 
-import AAM.API.Interface.IEnergyStorage;
-import AAM.Common.Blocks.Building.ModBlocks;
-import AAM.Common.Items.ModItems;
+import aam.api.Interface.IEnergyStorage;
+import aam.common.blocks.building.ModBlocks;
+import aam.common.items.ModItems;
 import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
@@ -21,9 +21,9 @@ import net.minecraft.item.ItemStack;
 
 public class EnergyProvider
 {
-	public static Hashtable<ItemStack, Double> values = new Hashtable<ItemStack, Double>();
-	public static Hashtable<ItemStack, EnergyType> types = new Hashtable<ItemStack, EnergyType>();
-	public static List<ItemStack> itemstacks = new ArrayList<ItemStack>();
+	public static Hashtable<ItemStack, Double> values = new Hashtable<>();
+	public static Hashtable<ItemStack, EnergyType> types = new Hashtable<>();
+	public static List<ItemStack> itemstacks = new ArrayList<>();
 
 	public static void load()
 	{
@@ -225,7 +225,7 @@ public class EnergyProvider
 
 	public static ItemStack findIS(Item i, int meta)
 	{
-		List<ItemStack> rml = new ArrayList<ItemStack>();
+		List<ItemStack> rml = new ArrayList<>();
 		for (ItemStack key : itemstacks)
 		{
 			if (key.stackSize <= 0 || key.getItem() == null)
@@ -245,7 +245,7 @@ public class EnergyProvider
 
 	public static ItemStack findIS(Item i)
 	{
-		List<ItemStack> rml = new ArrayList<ItemStack>();
+		List<ItemStack> rml = new ArrayList<>();
 		for (ItemStack key : itemstacks)
 		{
 			if (key.getItem() == i)
@@ -277,13 +277,15 @@ public class EnergyProvider
 	public static boolean hasEnergy(ItemStack I)
 	{
 		if (I != null)
+		{
 			return getFullEnergy(I) != 0;
+		}
 		return false;
 	}
 
 	public static boolean canStoreEnergy(ItemStack I)
 	{
-		return (I != null) && (I.getItem() instanceof IEnergyStorage);
+		return I != null && I.getItem() instanceof IEnergyStorage;
 	}
 
 	public static double getStoredEnergy(ItemStack I)

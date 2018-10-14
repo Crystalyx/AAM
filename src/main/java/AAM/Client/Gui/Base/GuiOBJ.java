@@ -1,4 +1,4 @@
-package AAM.Client.Gui.Base;
+package aam.client.gui.base;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.util.ResourceLocation;
@@ -32,20 +32,20 @@ public class GuiOBJ
 
 	public GuiOBJ setHidden(boolean hide)
 	{
-		this.hidden = hide;
+		hidden = hide;
 		return this;
 	}
 
 	public void setCustomTexture(String way)
 	{
-		this.CustomTexture = new ResourceLocation(way);
-		this.custText = true;
+		CustomTexture = new ResourceLocation(way);
+		custText = true;
 	}
 
 	public void setCustomTexture(String head, String way)
 	{
-		this.CustomTexture = new ResourceLocation(head, way);
-		this.custText = true;
+		CustomTexture = new ResourceLocation(head, way);
+		custText = true;
 	}
 
 	public static void setBaseTexture(String way)
@@ -60,8 +60,8 @@ public class GuiOBJ
 
 	public void disableCustomTexture()
 	{
-		this.CustomTexture = null;
-		this.custText = false;
+		CustomTexture = null;
+		custText = false;
 	}
 
 	public void reloadBaseTexture()
@@ -71,10 +71,11 @@ public class GuiOBJ
 
 	public void bindTexture()
 	{
-		if (this.custText)
+		if (custText)
 		{
-			Minecraft.getMinecraft().getTextureManager().bindTexture(this.CustomTexture);
-		} else
+			Minecraft.getMinecraft().getTextureManager().bindTexture(CustomTexture);
+		}
+		else
 		{
 			Minecraft.getMinecraft().getTextureManager().bindTexture(baseTexture);
 		}

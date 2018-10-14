@@ -1,4 +1,4 @@
-package AAM.API.Animation;
+package aam.api.animation;
 
 public class Animation
 {

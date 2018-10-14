@@ -1,10 +1,11 @@
-package AAM.Client.Renderer.Item;
+package aam.client.renderer.item;
 
 import org.lwjgl.opengl.GL11;
 
-import AAM.Common.Items.Alchemy.PhilosophersStone;
-import AAM.Utils.Color;
-import AAM.Utils.MiscUtils;
+import aam.common.items.alchemy.PhilosophersStone;
+import aam.utils.Color;
+import aam.utils.MathUtils;
+import aam.utils.MiscUtils;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.IItemRenderer;
@@ -47,11 +48,12 @@ public class PhiloRenderer implements IItemRenderer
 		PhilosophersStone ps = (PhilosophersStone) item.getItem();
 		double k = ps.getStoredEnergy(item) / ps.getMaxStoredEnergy(item);
 		// GL11.glColor4d(1, 0, 0, k * 0.35d + 0.5d);
-		Color phil = MiscUtils.rainbow(k * 500 + 4.5);
+		Color phil = MathUtils.rainbow(k * 500 + 4.5);
 		GL11.glColor4d(phil.red / 255d, phil.green / 255d, phil.blue / 255d, phil.alpha / 255d);
 		MiscUtils.bindTexture(new ResourceLocation("aam", "models/philo.png"));
 		model.renderAll();
 		GL11.glDisable(GL11.GL_BLEND);
+		GL11.glColor4d(1, 1, 1, 1);
 		GL11.glPopMatrix();
 	}
 }

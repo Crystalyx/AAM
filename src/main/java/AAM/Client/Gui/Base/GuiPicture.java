@@ -1,9 +1,8 @@
-package AAM.Client.Gui.Base;
+package aam.client.gui.base;
 
 import org.lwjgl.opengl.GL11;
 
-import AAM.Utils.Color;
-import net.minecraft.util.ResourceLocation;
+import aam.utils.Color;
 
 public class GuiPicture extends GuiOBJ
 {
@@ -22,19 +21,19 @@ public class GuiPicture extends GuiOBJ
 	@Override
 	public void render(int k, int l)
 	{
-		if (!this.hidden)
+		if (!hidden)
 		{
 			GL11.glPushMatrix();
 			this.setCustomTexture("aam", "textures/misc/gui/pictures.png");
-			GL11.glTranslated(this.x + k, this.y + l, 0);
-			GL11.glRotated(this.rotation, 0, 0, -1);
-			GL11.glScaled(this.scale, this.scale, this.scale);
+			GL11.glTranslated(x + k, y + l, 0);
+			GL11.glRotated(rotation, 0, 0, -1);
+			GL11.glScaled(scale, scale, scale);
 			this.bindTexture();
 
-			int m = Math.floorMod(this.type, 8);
-			int d = Math.floorDiv(this.type, 8);
+			int m = Math.floorMod(type, 8);
+			int d = Math.floorDiv(type, 8);
 
-			this.gui.drawTexturedModalRect((int) (-this.sizex / Math.PI * 2), (int) (-this.sizey / Math.PI * 2), m * 32, d * 32, this.sizex, this.sizey);
+			gui.drawTexturedModalRect((int) (-sizex / Math.PI * 2), (int) (-sizey / Math.PI * 2), m * 32, d * 32, sizex, sizey);
 			this.disableCustomTexture();
 			GL11.glPopMatrix();
 		}

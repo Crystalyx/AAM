@@ -1,11 +1,7 @@
-package AAM.Common.Blocks.Mechanical;
+package aam.common.blocks.mechanical;
 
-import AAM.API.Interface.IStructureCore;
-import AAM.Common.Tiles.TESoulAltar;
-import AAM.Core.AAMCore;
-import AAM.Utils.Structure;
-import AAM.Utils.Structures;
-import AAM.Utils.Wec3;
+import aam.common.tiles.TESoulAltar;
+import aam.core.AAMCore;
 import net.minecraft.block.BlockContainer;
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.player.EntityPlayer;
@@ -33,6 +29,7 @@ public class SoulAltar extends BlockContainer
 		return true;
 	}
 
+	@Override
 	public boolean isOpaqueCube()
 	{
 		return false;
@@ -44,6 +41,7 @@ public class SoulAltar extends BlockContainer
 		return false;
 	}
 
+	@Override
 	public int getRenderType()
 	{
 		return 131;

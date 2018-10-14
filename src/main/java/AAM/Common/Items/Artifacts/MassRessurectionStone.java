@@ -1,4 +1,4 @@
-package AAM.Common.Items.Artifacts;
+package aam.common.items.artifacts;
 
 import net.minecraft.entity.Entity;
 import net.minecraft.item.Item;
@@ -11,7 +11,7 @@ public class MassRessurectionStone extends Item
 	{
 		this.setMaxDamage(24001);
 		this.setMaxStackSize(1);
-		this.setTextureName("aam:ress_stone_red");
+		this.setTextureName("aam:mass_ressurection_stone");
 	}
 
 	@Override

@@ -1,9 +1,9 @@
-package AAM.Common.Items.Artifacts;
+package aam.common.items.artifacts;
 
 import java.util.List;
 
-import AAM.API.Abstract.ItemArtifact;
-import AAM.Utils.Wec3;
+import aam.api.abstraction.ItemArtifact;
+import aam.utils.vectors.Wec3;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
@@ -15,7 +15,7 @@ public class KingsStone extends ItemArtifact
 	public KingsStone()
 	{
 		super("aam.kstone", "aam.kstone.descr", 3);
-		this.setTextureName("aam:kstone");
+		this.setTextureName("aam:kings_stone");
 		this.setUnlocalizedName("aam.kstone");
 	}
 

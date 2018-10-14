@@ -1,6 +1,6 @@
-package AAM.Common.Blocks.Mechanical;
+package aam.common.blocks.mechanical;
 
-import AAM.Common.Tiles.TEGraviter;
+import aam.common.tiles.TEGraviter;
 import net.minecraft.block.BlockContainer;
 import net.minecraft.block.material.Material;
 import net.minecraft.tileentity.TileEntity;
@@ -26,6 +26,7 @@ public class GraviterBlock extends BlockContainer
 	 * Returns a bounding box from the pool of bounding boxes (this means this
 	 * box can change after the pool has been cleared to be reused)
 	 */
+	@Override
 	public AxisAlignedBB getCollisionBoundingBoxFromPool(World w, int x, int y, int z)
 	{
 		return AxisAlignedBB.getBoundingBox(x, y, z, x + 1, y + 1, z + 1);
@@ -37,6 +38,7 @@ public class GraviterBlock extends BlockContainer
 		return new TEGraviter();
 	}
 
+	@Override
 	public int getRenderType()
 	{
 		return 132;
@@ -47,11 +49,13 @@ public class GraviterBlock extends BlockContainer
 	 * or not to render the shared face of two adjacent blocks and also whether
 	 * the player can attach torches, redstone wire, etc to this block.
 	 */
+	@Override
 	public boolean isOpaqueCube()
 	{
 		return false;
 	}
 
+	@Override
 	public boolean isNormalCube()
 	{
 		return false;

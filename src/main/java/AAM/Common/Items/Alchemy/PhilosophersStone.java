@@ -1,15 +1,11 @@
-package AAM.Common.Items.Alchemy;
+package aam.common.items.alchemy;
 
-import AAM.API.Abstract.EnergyStorage;
-import AAM.API.Interface.ICircleExtender;
-import AAM.Client.Renderer.Item.PhiloRenderer;
-import AAM.Utils.Wec3;
-import net.minecraft.entity.player.EntityPlayer;
+import aam.api.abstraction.EnergyStorage;
+import aam.client.renderer.item.PhiloRenderer;
 import net.minecraft.item.ItemStack;
-import net.minecraft.world.World;
 import net.minecraftforge.client.MinecraftForgeClient;
 
-public class PhilosophersStone extends EnergyStorage implements ICircleExtender
+public class PhilosophersStone extends EnergyStorage
 {
 	public PhilosophersStone()
 	{
@@ -34,10 +30,5 @@ public class PhilosophersStone extends EnergyStorage implements ICircleExtender
 	public double getMaxStoredEnergy(ItemStack i)
 	{
 		return Integer.MAX_VALUE;
-	}
-
-	@Override
-	public void onExtended(ItemStack i, EntityPlayer p, World w, Wec3 pos)
-	{
 	}
 }

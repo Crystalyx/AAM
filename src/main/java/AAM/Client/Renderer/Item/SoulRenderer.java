@@ -1,15 +1,15 @@
-package AAM.Client.Renderer.Item;
+package aam.client.renderer.item;
 
 import org.lwjgl.opengl.GL11;
 
-import AAM.Common.Items.ModItems;
-import AAM.Common.Items.Artifacts.CrystalBow;
-import AAM.Common.Items.Soul.Artifact;
-import AAM.Common.Items.Soul.SoulSword;
-import AAM.Common.Soul.WarriorType;
-import AAM.Common.Soul.WeaponType;
-import AAM.Utils.PlayerDataHandler;
-import AAM.Utils.Render.RenderUtils;
+import aam.common.items.ModItems;
+import aam.common.items.artifacts.CrystalBow;
+import aam.common.items.soul.Artifact;
+import aam.common.items.soul.SoulSword;
+import aam.common.soul.SoulWeaponType;
+import aam.common.soul.WarriorType;
+import aam.utils.PlayerDataHandler;
+import aam.utils.render.RenderUtils;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.item.ItemStack;
@@ -68,20 +68,24 @@ public class SoulRenderer implements IItemRenderer
 		{
 			way = "aam:textures/items/" + SoulSword.ways[item.getItemDamage()];
 			if (ph.arbitur)
+			{
 				way = "aam:textures/items/" + SoulSword.ways_arbitur[item.getItemDamage()];
+			}
 
 			if (ph.art)
+			{
 				art = "aam:textures/items/" + Artifact.ways[ph.stype.ordinal()];
+			}
 		}
 
 		GL11.glTranslated(0, 0.125, 0);
-		if (WeaponType.values()[item.getItemDamage()].equals(WeaponType.Spear))
+		if (SoulWeaponType.values()[item.getItemDamage()].equals(SoulWeaponType.Spear))
 		{
 			GL11.glScaled(2.0, 2.0, 1.5);
 			GL11.glTranslated(-0.25, -0.25, 0);
 			GL11.glTranslated(-0.125, +0.125, 0);
 		}
-		if (WeaponType.values()[item.getItemDamage()].equals(WeaponType.Hammer))
+		if (SoulWeaponType.values()[item.getItemDamage()].equals(SoulWeaponType.Hammer))
 		{
 			GL11.glScaled(2.0, 2.0, 1.5);
 			GL11.glTranslated(-0.25, -0.25, 0);
@@ -94,14 +98,14 @@ public class SoulRenderer implements IItemRenderer
 
 		float tough = 0.05f;
 
-		if (type.equals(type.INVENTORY))
+		if (type.equals(ItemRenderType.INVENTORY))
 		{
 			tough = 0;
 		}
 
 		GL11.glScaled(0.25, 0.25, 1.0);
 		GL11.glTranslated(2.5, 0.5, 0);
-		if (WeaponType.values()[item.getItemDamage()].warrior.equals(WarriorType.Carry))
+		if (SoulWeaponType.values()[item.getItemDamage()].warrior.equals(WarriorType.Carry))
 		{
 			Minecraft.getMinecraft().getTextureManager().bindTexture(new ResourceLocation(art + ".png"));
 			RenderUtils.renderTextureIn2D(tess, 0.0F, 0.0F, 1.0F, -1.0F, 16, 16, tough);
@@ -119,7 +123,7 @@ public class SoulRenderer implements IItemRenderer
 			}
 		}
 
-		if (WeaponType.values()[item.getItemDamage()].warrior.equals(WarriorType.Tank))
+		if (SoulWeaponType.values()[item.getItemDamage()].warrior.equals(WarriorType.Tank))
 		{
 			GL11.glTranslated(-1.625, 1.625, 0);
 			if (ph.bow)
@@ -140,7 +144,7 @@ public class SoulRenderer implements IItemRenderer
 			RenderUtils.renderTextureIn2D(tess, 0.0F, 0.0F, 1.0F, -1.0F, 16, 16, tough);
 		}
 
-		if (WeaponType.values()[item.getItemDamage()].warrior.equals(WarriorType.Caster))
+		if (SoulWeaponType.values()[item.getItemDamage()].warrior.equals(WarriorType.Caster))
 		{
 			GL11.glTranslated(-2.25, 2.25, 0);
 			if (ph.bow)

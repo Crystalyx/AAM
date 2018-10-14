@@ -1,4 +1,4 @@
-package AAM.Common.Blocks.Plants;
+package aam.common.blocks.plants;
 
 import net.minecraft.block.BlockMushroom;
 

@@ -1,8 +1,8 @@
-package AAM.Network.Packages;
+package aam.network.packages;
 
 import java.io.IOException;
 
-import AAM.Utils.PlayerDataHandler;
+import aam.utils.PlayerDataHandler;
 import cpw.mods.fml.relauncher.Side;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.nbt.NBTTagCompound;

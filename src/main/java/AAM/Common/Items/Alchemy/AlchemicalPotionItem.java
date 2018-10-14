@@ -1,11 +1,11 @@
-package AAM.Common.Items.Alchemy;
+package aam.common.items.alchemy;
 
 import java.util.List;
 
-import AAM.Common.Potions.AlchemicalPotion;
-import AAM.Common.Potions.ModPotions;
-import AAM.Core.AAMCore;
-import AAM.Utils.MiscUtils;
+import aam.common.potions.AlchemicalPotion;
+import aam.common.potions.ModPotions;
+import aam.core.AAMConfig;
+import aam.utils.MiscUtils;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.client.renderer.texture.IIconRegister;
@@ -38,7 +38,7 @@ public class AlchemicalPotionItem extends ItemFood
 			int id = i.getTagCompound().getInteger("PotionID");
 			if (id < ModPotions.pots.length)
 			{
-				PotionEffect eff = new PotionEffect(AAMCore.cfg.genericPID + id, i.getTagCompound().getInteger("PotionDur"), i.getTagCompound().getInteger("PotionAmpl"));
+				PotionEffect eff = new PotionEffect(AAMConfig.genericPID + id, i.getTagCompound().getInteger("PotionDur"), i.getTagCompound().getInteger("PotionAmpl"));
 				p.addPotionEffect(eff);
 				ItemStack item = new ItemStack(i.getItem(), i.stackSize - 1);
 				item.setTagCompound(i.getTagCompound());
@@ -67,7 +67,9 @@ public class AlchemicalPotionItem extends ItemFood
 		{
 			int dur = i.getTagCompound().getInteger("PotionDur") / 20;
 			if (dur > 0)
+			{
 				l.add("Duration: " + dur + " sec");
+			}
 			else
 			{
 				l.add("Duration: Instant");
@@ -103,8 +105,8 @@ public class AlchemicalPotionItem extends ItemFood
 	@SideOnly(Side.CLIENT)
 	public void registerIcons(IIconRegister ir)
 	{
-		icon[0] = ir.registerIcon("aam:potions/emptyphial");
-		icon[1] = ir.registerIcon("aam:potions/potionoffset");
+		icon[0] = ir.registerIcon("aam:potions/empty_phial");
+		icon[1] = ir.registerIcon("aam:potions/potion_offset");
 	}
 
 	/**
@@ -122,7 +124,9 @@ public class AlchemicalPotionItem extends ItemFood
 			return "aam.alchpotion." + name;
 		}
 		else
+		{
 			return "aam.alchpotion.null";
+		}
 	}
 
 	@Override
@@ -145,7 +149,9 @@ public class AlchemicalPotionItem extends ItemFood
 			return icon[0];
 		}
 		else
+		{
 			return icon[1];
+		}
 	}
 
 	@Override
@@ -172,11 +178,11 @@ public class AlchemicalPotionItem extends ItemFood
 	@SideOnly(Side.CLIENT)
 	public void getSubItems(Item is, CreativeTabs tab, List l)
 	{
-		for (int i = 0; i < ModPotions.pots.length; i++)
+		for (AlchemicalPotion pot : ModPotions.pots)
 		{
 			NBTTagCompound tag = new NBTTagCompound();
-			tag.setInteger("PotionID", ModPotions.pots[i].id);
-			tag.setInteger("PotionDur", ModPotions.pots[i].duration);
+			tag.setInteger("PotionID", pot.id);
+			tag.setInteger("PotionDur", pot.duration);
 			tag.setInteger("PotionAmpl", 0);
 			ItemStack item = new ItemStack(is, 1, 0);
 			item.setTagCompound(tag);

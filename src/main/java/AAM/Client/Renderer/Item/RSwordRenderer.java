@@ -1,8 +1,8 @@
-package AAM.Client.Renderer.Item;
+package aam.client.renderer.item;
 
 import org.lwjgl.opengl.GL11;
 
-import AAM.Utils.Render.RenderUtils;
+import aam.utils.render.RenderUtils;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.item.ItemStack;
@@ -28,6 +28,7 @@ public class RSwordRenderer implements IItemRenderer
 	{
 		if (type == ItemRenderType.INVENTORY)
 		{
+
 			GL11.glScaled(16.0, 16.0, 16.0);
 			GL11.glRotated(180, 1.0, 0.0, 0.0);
 			GL11.glRotated(180, 0.0, 1.0, 0.0);
@@ -44,8 +45,10 @@ public class RSwordRenderer implements IItemRenderer
 			{
 				if (type == ItemRenderType.ENTITY && !item.isOnItemFrame())
 				{
-					int angle = (int) ((Minecraft.getMinecraft().getSystemTime() % 5760) / 16);
-					double append = ((double) (Minecraft.getMinecraft().getSystemTime() % 2048) / 2048);
+					Minecraft.getMinecraft();
+					int angle = (int) (Minecraft.getSystemTime() % 5760 / 16);
+					Minecraft.getMinecraft();
+					double append = (double) (Minecraft.getSystemTime() % 2048) / 2048;
 					if (append > 0.5)
 					{
 						append = 1 - append;

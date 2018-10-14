@@ -1,12 +1,12 @@
 /**
  * This Class Created By Lord_Crystalyx.
  */
-package AAM.Common.Tiles;
+package aam.common.tiles;
 
-import AAM.API.Interface.IUpgradableItem;
-import AAM.Common.Items.ModItems;
-import AAM.Utils.MiscUtils;
-import AAM.Utils.Wec3;
+import aam.api.AnvilRecipe;
+import aam.common.recipes.Recipes;
+import aam.utils.InventoryUtils;
+import aam.utils.vectors.Wec3;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
@@ -22,12 +22,12 @@ import net.minecraft.util.AxisAlignedBB;
  */
 public class TEModificationAnvil extends TileEntity implements IInventory
 {
-	public ItemStack[] inventory = new ItemStack[4];
+	public ItemStack[] inventory = new ItemStack[5];
 
 	@Override
 	public int getSizeInventory()
 	{
-		return 4;
+		return inventory.length;
 	}
 
 	public int ccount = 0;
@@ -37,7 +37,7 @@ public class TEModificationAnvil extends TileEntity implements IInventory
 	{
 		NBTTagCompound syncData = new NBTTagCompound();
 		this.writeToNBT(syncData);
-		return new S35PacketUpdateTileEntity(this.xCoord, this.yCoord, this.zCoord, 1, syncData);
+		return new S35PacketUpdateTileEntity(xCoord, yCoord, zCoord, 1, syncData);
 	}
 
 	@Override
@@ -51,103 +51,62 @@ public class TEModificationAnvil extends TileEntity implements IInventory
 
 	public void startCrafting()
 	{
-		this.isCrafting = true;
+		isCrafting = true;
 	}
 
 	@Override
 	public void updateEntity()
 	{
 		super.updateEntity();
-		if (this.getStackInSlot(0) != null && this.getStackInSlot(1) != null && this.getStackInSlot(2) != null && this.getStackInSlot(3) == null)
+		boolean hasRecipe = false;
+		for (AnvilRecipe rec : Recipes.anvilRecipes)
 		{
-			if (this.getStackInSlot(0).getItem() instanceof IUpgradableItem && this.getStackInSlot(1).getItem() == ModItems.ModificationCatalyst && this.getStackInSlot(2).getItem() == ModItems.AnvilHammer)
+			if (rec.matches(this, worldObj))
 			{
-				IUpgradableItem ui = ((IUpgradableItem) this.getStackInSlot(0).getItem());
-				int level = ui.getUpgradeLevel(this.getStackInSlot(0));
-				int maxLevel = ui.getMaxLevel(this.getStackInSlot(0));
-				int catLevel = this.getStackInSlot(1).getItemDamage();
-				int modLevel = MiscUtils.isInLimit(catLevel, 0, 4) ? 1 : (MiscUtils.isInLimit(catLevel, 5, 9) ? 2 : catLevel >= 10 ? 3 : 0);
-				if (this.getStackInSlot(0).getItem() == ModItems.SoulSword)
+				if (!isCrafting)
 				{
-					if (this.getStackInSlot(0).hasTagCompound())
-					{
-						String name = this.getStackInSlot(0).getTagCompound().getString("Owner");
-						if (this.worldObj.getPlayerEntityByName(name) == null)
-						{
-							this.isCrafting = false;
-							this.craftTime = 0;
-							return;
-						}
-					}
-					else
-					{
-						this.isCrafting = false;
-						this.craftTime = 0;
-						return;
-					}
+					isCrafting = true;
 				}
-				if (level < maxLevel && ((MiscUtils.isInLimit(level, 0, 4) && modLevel == 1) || (MiscUtils.isInLimit(level, 5, 9) && modLevel == 2) || (level >= 10 && modLevel == 3)))
+				if (craftTime >= 400)
 				{
-					if (this.craftTime <= 400)
-					{
-						this.isCrafting = true;
-						this.craftTime += 1;
-					}
-					else
-					{
-						this.isCrafting = false;
-						this.craftTime = 0;
-						ui.addUpgradeLevel(this.worldObj, this.getStackInSlot(0));
-						this.decrStackSize(1, 1);
-						this.getStackInSlot(2).setItemDamage(this.getStackInSlot(2).getItemDamage() + level + 1);
-						this.setInventorySlotContents(3, this.getStackInSlot(0));
-						this.setInventorySlotContents(0, null);
-					}
+					rec.onCrafted(this);
 				}
 				else
 				{
-					this.isCrafting = false;
-					this.craftTime = 0;
-					return;
+					craftTime += 1;
 				}
-			}
-			else
-			{
-				this.isCrafting = false;
-				this.craftTime = 0;
-				return;
+				hasRecipe = true;
 			}
 		}
-		else
+		if (!hasRecipe)
 		{
-			this.isCrafting = false;
-			this.craftTime = 0;
-			return;
+			isCrafting = false;
+			craftTime = 0;
 		}
 	}
 
 	@Override
 	public ItemStack getStackInSlot(int slot)
 	{
-		return this.inventory[slot];
+		return inventory[slot];
 	}
 
 	@Override
 	public ItemStack decrStackSize(int slot, int count)
 	{
-		if (this.inventory[slot] != null)
+		if (inventory[slot] != null)
 		{
-			if (this.inventory[slot].stackSize - count <= 0)
+			if (inventory[slot].stackSize - count <= 0)
 			{
-				ItemStack ret = this.inventory[slot];
-				this.inventory[slot] = null;
+				ItemStack ret = inventory[slot];
+				inventory[slot] = null;
 				return ret;
 			}
 			else
 			{
-				ItemStack ret = this.inventory[slot].copy();
+				ItemStack ret = inventory[slot].copy();
 				ret.stackSize = count;
-				this.inventory[slot].stackSize -= count;
+				inventory[slot].stackSize -= count;
 				return ret;
 			}
 		}
@@ -160,10 +119,10 @@ public class TEModificationAnvil extends TileEntity implements IInventory
 	@Override
 	public ItemStack getStackInSlotOnClosing(int slot)
 	{
-		if (this.inventory[slot] != null)
+		if (inventory[slot] != null)
 		{
-			ItemStack itemstack = this.inventory[slot];
-			this.inventory[slot] = null;
+			ItemStack itemstack = inventory[slot];
+			inventory[slot] = null;
 			return itemstack;
 		}
 		else
@@ -176,9 +135,15 @@ public class TEModificationAnvil extends TileEntity implements IInventory
 	public void setInventorySlotContents(int slot, ItemStack item)
 	{
 		if (item != null)
-			this.inventory[slot] = item.copy();
+		{
+			inventory[slot] = item.copy();
+		}
 		else
-			this.inventory[slot] = null;
+		{
+			inventory[slot] = null;
+		}
+		isCrafting = false;
+		craftTime = 0;
 	}
 
 	@Override
@@ -227,14 +192,14 @@ public class TEModificationAnvil extends TileEntity implements IInventory
 	public void readFromNBT(NBTTagCompound tag)
 	{
 		super.readFromNBT(tag);
-		MiscUtils.readInventory(this, tag);
+		InventoryUtils.readInventory(this, tag);
 	}
 
 	@Override
 	public void writeToNBT(NBTTagCompound tag)
 	{
 		super.writeToNBT(tag);
-		MiscUtils.saveInventory(this, tag);
+		InventoryUtils.saveInventory(this, tag);
 	}
 
 	@Override

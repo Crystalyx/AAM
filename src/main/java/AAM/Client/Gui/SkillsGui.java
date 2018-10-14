@@ -1,4 +1,4 @@
-package AAM.Client.Gui;
+package aam.client.gui;
 
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiScreen;
@@ -130,8 +130,8 @@ public class SkillsGui extends GuiScreen
 	{
 		super.initGui();
 		ScaledResolution sr = new ScaledResolution(mc, mc.displayWidth, mc.displayHeight);
-		this.x = sr.getScaledWidth() / 2;
-		this.y = sr.getScaledHeight() / 2;
+		x = sr.getScaledWidth() / 2;
+		y = sr.getScaledHeight() / 2;
 	}
 
 	@Override
