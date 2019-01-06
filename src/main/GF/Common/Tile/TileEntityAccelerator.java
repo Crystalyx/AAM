@@ -3,17 +3,16 @@
  */
 package GF.Common.Tile;
 
-import java.util.Iterator;
-import java.util.List;
-
 import com.google.common.collect.Lists;
-
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockLiquid;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.world.World;
 import net.minecraftforge.fluids.BlockFluidBase;
+
+import java.util.Iterator;
+import java.util.List;
 
 public class TileEntityAccelerator extends TileEntity
 {

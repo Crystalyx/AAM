@@ -1,12 +1,12 @@
 package aam.utils;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Random;
-
 import aam.utils.vectors.Angle3D;
 import aam.utils.vectors.Wec3;
 import net.minecraft.client.Minecraft;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Random;
 
 public class MathUtils
 {

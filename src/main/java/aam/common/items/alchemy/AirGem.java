@@ -1,7 +1,5 @@
 package aam.common.items.alchemy;
 
-import java.util.List;
-
 import aam.utils.InventoryUtils;
 import aam.utils.MiscUtils;
 import aam.utils.vectors.Wec3;
@@ -12,6 +10,8 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.IIcon;
 import net.minecraft.world.World;
+
+import java.util.List;
 
 public class AirGem extends Item
 {

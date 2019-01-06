@@ -1,7 +1,7 @@
 package aam.common.weapon;
 
 import aam.api.GameWeapon;
-import aam.api.Interface.IUpgradableItem;
+import aam.api.interfaces.IUpgradableItem;
 import aam.api.abstraction.MeleeWeapon;
 import aam.api.abstraction.RangedWeapon;
 import aam.common.items.ModItems;

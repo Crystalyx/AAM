@@ -1,0 +1,246 @@
+tile.aam.shadowveil.name=Shadowveil Flower
+tile.aam.shroom.name=Magic Shroom
+
+tile.aam.sapling_0.name=Wormwood Sapling
+tile.aam.log0.name=Wormwood Log
+tile.aam.leaves0_0.name=Wormwood Leaves
+tile.aam.plank0_0.name=Wormwood Planks
+
+tile.aam.sapling_1.name=Darkwood Sapling
+tile.aam.log1.name=Darkwood Log
+tile.aam.leaves1_0.name=Darkwood Leaves
+tile.aam.plank1_0.name=Darkwood Planks
+tile.aam.plank2_1_0.name=Darkwood Cut Planks
+tile.aam.plank2_1_1.name=Darkwood Head-Cut Planks
+
+tile.aam.dungteleporter.name=Dungeon Teleporter
+
+tile.aam.brick_0.name=Elemental Bricks
+tile.aam.brick_1.name=Cracked Elemental Bricks
+tile.aam.brick_2.name=Mossy Elemental Bricks
+tile.aam.brick_3.name=Chiseled Elemental Bricks
+
+tile.aam.graviter.name=Graviter
+tile.aam.expander.name=Expander
+tile.aam.grassclearer.name=Grass Clearer
+
+tile.aam.anvil.name=Modification Anvil
+tile.aam.reinforced_glass.name=Reinforced Glass
+tile.aam.sandy_glass.name=Sandy Glass
+
+tile.minium.name=Minium Ore
+tile.aam.blood_altar.name=Blood Altar
+tile.aam.blood_block.name=Blood Block
+tile.aam.mechanical_base.name=Mechanical Base
+tile.aam.circle_base.name=Circle Base
+tile.aam.minium_block.name=Minium Block
+
+
+aam.alchpotion.Heal.name=Healing Potion
+aam.alchpotion.Antidote.name=Antidote
+aam.alchpotion.Flame.name=Flame Potion
+aam.alchpotion.Flight.name=Flight Potion
+aam.alchpotion.Ice.name=Ice Potion
+aam.alchpotion.Invincibility.name=Invincibility Potion
+aam.alchpotion.LavaResistance.name=Lava Resistance Potion
+aam.alchpotion.Poison.name=Poison
+
+aam.coin_0.name=Bronze Coin
+aam.coin_1.name=Silver Coin
+aam.coin_2.name=Gold Coin
+aam.coin_3.name=Diamond Coin
+
+item.aam.ring_aura0.name=Void Aura Ring
+item.aam.ring_aura1.name=Fiery Aura Ring
+item.aam.ring_aura2.name=Airy Aura Ring
+item.aam.ring_aura3.name=Terra Aura Ring
+item.aam.ring_aura4.name=Watery Aura Ring
+
+tile.aam.berryBushblackberry.name=Blackberry Bush
+tile.aam.berryBushblueberry.name=Blueberry Bush
+tile.aam.berryBushmortis.name=Mortisberry Bush
+tile.aam.berryBushraspberry.name=Raspberry Bush
+tile.aam.cauldron.name=Cauldron
+tile.aam.cauldron.creative.name=Creative Cauldron
+aam.berryblackberry.name=Blackberry
+aam.berryblueberry.name=Blueberry
+aam.berrymortis.name=Mortisberry
+aam.berryraspberry.name=Raspberry
+item.aam.MortarAndPestle.name=Mortar And Pestle
+
+itemGroup.aam.misc.tab=AAM Miscalleneous
+itemGroup.aam.soul.tab=Soul Mastery
+itemGroup.aam.alchemy.tab=Alchemy and Transmutations
+
+tile.aam.spelltable.name=Inscription table
+
+tile.aam.soul_altar.name=Soul Altar
+tile.aam.armoury.name=Armoury
+tile.aam.altar_base.name=Altar Base
+tile.aam.altar_stairs.name=Altar Base Stairs
+tile.aam.pillar.name=Pillar
+tile.aam.crystal.name=Crystal
+
+item.aam.catalyst.name=Forging Catalyst
+item.aam.crystaltp.name=Teleportation Crystal
+item.aam.alchpaper.name=Alchemical Paper
+item.aam.itemchalk.name=Chalk
+item.aam.miniumshard.name=Minium Shard
+item.aam.miniumstone.name=Minium Stone
+item.aam.philostone.name=Philosophers Stone
+item.aam.bloodbucket.name=Philosophers Stone
+item.aam.obol.name=Alchemical Obol
+item.aam.alch_clock.name=Silver Clock
+item.aam.soul_upgrade_0.name=Blood Upgrade
+item.aam.soul_upgrade_1.name=Cast Upgrade
+item.aam.soul_upgrade_2.name=Moon Upgrade
+item.aam.soul_upgrade_3.name=Soul Upgrade
+item.aam.soul_upgrade_4.name=Ender Inversion Upgrade
+
+item.aam.magicwand.name=Magic Wand
+
+aam.chalk.circle_big.name=Chalk: Big Circle
+aam.chalk.circle_medium.name=Chalk: Medium Circle
+aam.chalk.circle_small.name=Chalk: Small Circle
+aam.chalk.rect_big.name=Chalk: Big Rectangle
+aam.chalk.rect_medium.name=Chalk: Medium Rectangle
+aam.chalk.rect_small.name=Chalk: Small Rectangle
+aam.chalk.triangle_big.name=Chalk: Big Triangle
+aam.chalk.triangle_medium.name=Chalk: Medium Triangle
+aam.chalk.triangle_small.name=Chalk: Small Triangle
+aam.chalk.triangles_big.name=Chalk: Big Triangles
+aam.chalk.triangles_medium.name=Chalk: Medium Triangles
+aam.chalk.triangles_small.name=Chalk: Small Triangles
+aam.chalk.flower_big.name=Chalk: Big Flower
+aam.chalk.flower_medium.name=Chalk: Medium Flower
+aam.chalk.flower_small.name=Chalk: Small Flower
+aam.chalk.troon_big.name=Chalk: Big Tree/Moon
+aam.chalk.troon_medium.name=Chalk: Medium Tree/Moon
+aam.chalk.troon_small.name=Chalk: Small Tree/Moon
+aam.chalk.shight_big.name=Chalk: Big Shield/Star
+aam.chalk.shight_medium.name=Chalk: Medium Shield/Star
+aam.chalk.shight_small.name=Chalk: Small Shield/Star
+
+aam.swdye.red.name=Sword Lens: Red
+aam.swdye.green.name=Sword Lens: Green
+aam.swdye.blue.name=Sword Lens: Blue
+aam.swdye.cyan.name=Sword Lens: Cyan
+aam.swdye.purple.name=Sword Lens: Purple
+aam.swdye.yellow.name=Sword Lens: Yellow
+aam.swdye.void.name=Sword Lens: Void
+aam.swdye.philo.name=Sword Lens: Philosopher
+aam.swdye.space.name=Sword Lens: Space
+
+aam.broad.name=Broad Sword
+aam.rapier.name=Rapier
+aam.saber.name=Saber
+aam.long.name=Long Sword
+aam.solarstaff.name=Solar Staff
+aam.lightstaff.name=Staff of Light
+aam.spear.name=Spear
+aam.hammer.name=Hammer
+item.aam.anvil_hammer.name=Anvil Hammer
+
+item.aam.material0.name=Attrilium Ingot
+item.aam.material1.name=Brass Ingot
+item.aam.material2.name=Altersteel Ingot
+item.aam.material3.name=Empty Phial
+item.aam.material4.name=Attrilium Scale
+item.aam.material5.name=Brass Scale
+item.aam.material6.name=Altersteel Scale
+item.aam.soulgem0.name=Cast Gem
+item.aam.soulgem1.name=Blood Gem
+item.aam.soulgem2.name=Moon Stone
+item.aam.soulupg1.name=Cast Upgrade
+item.aam.soulupg0.name=Blood Upgrade
+item.aam.soulupg2.name=Moon Upgrade
+
+tile.aam.struct.name=Structure Block
+
+item.aam.lucky_coin=Lucky coin
+item.aam.faceless_charm=Faceless Charm
+item.aam.kings_stone=Kings Stone
+item.aam.clock_of_time=Watch Of Uneven Time
+
+item.aam.ressurection_stone.name=Ressurection Stone
+item.aam.mass_ressurection_stone.name=Mass Ressurection Stone
+item.aam.bound_sphere.name=Bound Sphere
+item.aam.cliser.name=Cliser
+item.aam.red_radio.name=Redstone Radio
+item.aam.rite_book.name=Book of Rituals
+item.aam.soothing_tea.name=Soothing Tea
+
+aam.artifact0.name=Artifact Of Light
+aam.artifact1.name=Artifact Of Stability
+aam.artifact2.name=Artifact Of Blood
+aam.artifact3.name=Artifact Of Moonlight
+aam.artifact4.name=Artifact Of Plants
+aam.artifact5.name=Artifact Of Water
+aam.artifact6.name=Artifact Of Faceless
+aam.artifact7.name=Artifact Of Seven Gods
+
+item.aam.crystalbow.name=Crystal Bow
+
+item.aam.eheart=Elemental Heart
+aam.eheart.descr0=Heart of the Elemental
+aam.eheart.descr1=that allows you to
+aam.eheart.descr2=resist ambient surroundings 
+
+item.aam.seashard=Shard of the Sea
+aam.seashard.descr0=Shard that gives you
+aam.seashard.descr1=power of the Sea
+
+
+
+//Enchiridion
+aam.enchir.name=Ancient Art of Magic
+aam.enchir.title=Ancient Art of Magic
+aam.magic.name=Potion Brewing
+aam.alchemy.name=Alchemy and Transmutations
+aam.soul.name=Soul Mastery
+
+aam.p1.name=Bases of Potion Brewing
+aam.p1.txt1=So, You want to try yourself in potion brewing. At firts you need a cauldron. Then you need some water and fuel. To add water or fuel just use Right-Click on cauldron with item in hand. After that start fire with using flint and steel on a cauldron. Then just drop ingridients and amplifiers into the cauldron.
+aam.p1.txt2=When you think your potion is ready Right-Click the cauldron with empty phials made of reinforced glass. Potions could be expensive until you started to use amplifiers and prolongators.
+
+aam.plants.name=Magical Plants
+aam.pw.txt1=You can find lots of plants in the world. They could be either fancy and fulfil of life or dark and dead. But some of them can be used not only for decoration but for creating useful potions or magical artifacts. Some of plants you can find in the world. Some of them you must create by yoursrlf.
+aam.pw.txt2= At pages of this book you can find all the plants, their description and way of obtaining it.
+
+aam.p2.name=Healing Potion
+aam.p2.txt1=Sometimes you feel good. Sometimes you feel bad. More often bad than good. It happens at the most important moment. So to avoid ridiculous deaths you created that potion.
+
+aam.p3.name=Antidote
+aam.p3.txt1=Feel bad for a long time? Fought with spider and he bitten you? Mixed up your potions and drank Poison? That potion is for you! Just drink a drop of it and get better in an instant. 
+
+aam.p4.name=Flame Potion
+aam.p4.txt1=You created potion that converts your legs into hellfire furnaces. You start creating fire under you, so try not to stay long at one place.  
+
+aam.p5.name=Flight Potion
+aam.p5.txt1=Everybody wants to fly like a bird. But no one knows how to obtain that ability. Except you.
+
+aam.p6.name=Ice Potion
+aam.p6.txt1=That potion seems working like flame potion except it creates snow and cools lava and water under you. 
+
+aam.p7.name=Invincibility Potion
+aam.p7.txt1=Sometimes you just can't stand fighting with players or mobs because you lose valuable items and time. 
+
+aam.p8.name=Lava Resistance Potion
+aam.p8.txt1=Lava Resistance Potion is a better analog of Fire Resistance Potion, as it could be uprgaded over and over.
+
+aam.p9.name=Poison
+aam.p9.txt1=Poison is the most annoing thing except of withering. You could use poison to attack your foe until he used a poison. Because best defense is attack!
+
+aam.itemlist=Item List
+
+//==================================Commands===================================
+aam.command.level.name=aamlevel
+aam.command.level.usage=/aamlevel <set/add> [level]
+aam.command.soullevel.name=aamsoullevel
+aam.command.soullevel.usage=/aamsoullevel <set/add> <level>
+aam.command.souldamage.name=aamsouldamage
+aam.command.souldamage.usage=/aamsouldamage <set/add> <damage>
+aam.command.enchant.name=aamenchant
+aam.command.enchant.usage=/aamenchant <player> <enchantmentID> <Level>
+aam.command.potion.name=aampotion
+aam.command.potion.usage=/aampotion <duration/power/amplifier> <set/add> <value>

@@ -3,14 +3,12 @@
  */
 package GF.Registry;
 
-import java.util.Random;
-
-import AAM.Utils.MiscUtils;
-import net.minecraft.block.Block;
+import aam.Utils.MiscUtils;
+import cpw.mods.fml.common.IWorldGenerator;
 import net.minecraft.world.World;
 import net.minecraft.world.chunk.IChunkProvider;
-import net.minecraftforge.common.util.ForgeDirection;
-import cpw.mods.fml.common.IWorldGenerator;
+
+import java.util.Random;
 
 public class SandOreGenerator implements IWorldGenerator
 {

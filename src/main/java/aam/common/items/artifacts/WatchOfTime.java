@@ -1,15 +1,11 @@
 package aam.common.items.artifacts;
 
-import java.util.Iterator;
-import java.util.List;
-
-import com.google.common.collect.Lists;
-
 import aam.api.abstraction.ItemArtifact;
 import aam.common.soul.Trait;
 import aam.utils.PlayerDataHandler;
 import baubles.api.BaubleType;
 import baubles.api.IBauble;
+import com.google.common.collect.Lists;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockLiquid;
 import net.minecraft.block.IGrowable;
@@ -23,6 +19,9 @@ import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.world.World;
 import net.minecraftforge.common.IPlantable;
 import net.minecraftforge.fluids.BlockFluidBase;
+
+import java.util.Iterator;
+import java.util.List;
 
 public class WatchOfTime extends ItemArtifact implements IBauble
 {

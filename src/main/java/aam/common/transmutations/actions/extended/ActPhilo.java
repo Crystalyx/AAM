@@ -1,8 +1,5 @@
 package aam.common.transmutations.actions.extended;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import aam.common.items.ModItems;
 import aam.common.items.alchemy.PhilosophersStone;
 import aam.common.tiles.TEBloodAltar;
@@ -19,6 +16,9 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.DamageSource;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class ActPhilo extends TransAction
 {

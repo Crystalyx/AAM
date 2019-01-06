@@ -3,8 +3,6 @@
  */
 package aam.utils.vectors;
 
-import java.util.Random;
-
 import aam.utils.MathUtils;
 import net.minecraft.block.Block;
 import net.minecraft.entity.Entity;
@@ -15,6 +13,8 @@ import net.minecraft.util.MovingObjectPosition.MovingObjectType;
 import net.minecraft.util.Vec3;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
+
+import java.util.Random;
 
 /**
  * @author Lord_Crystalyx

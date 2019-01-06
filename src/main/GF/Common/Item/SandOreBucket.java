@@ -3,16 +3,15 @@
  */
 package GF.Common.Item;
 
-import java.util.List;
-
+import GF.Registry.Registry;
 import net.minecraft.creativetab.CreativeTabs;
-import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
-import GF.Registry.Registry;
+
+import java.util.List;
 
 public class SandOreBucket extends Item
 {

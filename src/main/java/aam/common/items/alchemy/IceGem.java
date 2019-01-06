@@ -1,7 +1,5 @@
 package aam.common.items.alchemy;
 
-import java.util.List;
-
 import aam.common.potions.ModPotions;
 import aam.utils.InventoryUtils;
 import aam.utils.vectors.Wec3;
@@ -14,6 +12,8 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.IIcon;
 import net.minecraft.world.World;
+
+import java.util.List;
 
 public class IceGem extends Item
 {

@@ -3,8 +3,6 @@
  */
 package GF.Common.Blocks;
 
-import java.util.Random;
-
 import GF.Common.Tile.TileEntityAccelerator;
 import GF.Registry.Registry;
 import cpw.mods.fml.relauncher.Side;
@@ -16,6 +14,8 @@ import net.minecraft.item.Item;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.IIcon;
 import net.minecraft.world.World;
+
+import java.util.Random;
 
 public class TimeAcceleratorBlock extends BlockContainer
 {

@@ -1,8 +1,5 @@
 package aam.client.gui;
 
-import org.lwjgl.input.Keyboard;
-import org.lwjgl.opengl.GL11;
-
 import aam.client.gui.base.GuiOBJ;
 import aam.common.tiles.TETransCircle;
 import aam.common.transmutations.Circle;
@@ -10,7 +7,7 @@ import aam.common.transmutations.CircleUtils;
 import aam.common.transmutations.ModCircles;
 import aam.network.packages.AlchemicalDispatcher;
 import aam.network.packages.AlchemicalPackage;
-import aam.network.packages.CircleChangePackage;
+import aam.network.CircleChangePackage;
 import aam.utils.Graph;
 import aam.utils.MiscUtils;
 import aam.utils.PlayerDataHandler;
@@ -22,6 +19,8 @@ import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.gui.ScaledResolution;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
+import org.lwjgl.input.Keyboard;
+import org.lwjgl.opengl.GL11;
 
 public class GuiAlchemicalCircle extends GuiScreen
 {

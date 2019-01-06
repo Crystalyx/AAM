@@ -1,8 +1,5 @@
 package aam.common.tiles;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import aam.common.items.weapon.anvil.WeaponPartItem;
 import aam.common.weapon.WeaponManager;
 import aam.common.weapon.anvil.WeaponPart;
@@ -15,6 +12,9 @@ import net.minecraft.network.NetworkManager;
 import net.minecraft.network.Packet;
 import net.minecraft.network.play.server.S35PacketUpdateTileEntity;
 import net.minecraft.tileentity.TileEntity;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class TEMechanistsTable extends TileEntity implements IInventory
 {

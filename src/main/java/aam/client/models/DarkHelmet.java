@@ -3,12 +3,12 @@
  */
 package aam.client.models;
 
-import java.util.ArrayList;
-
 import net.minecraft.client.model.ModelBiped;
 import net.minecraft.client.model.ModelRenderer;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLiving;
+
+import java.util.ArrayList;
 
 /**
  * @author Lord_Crystalyx Created using Tabula 4.1.1

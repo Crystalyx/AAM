@@ -3,9 +3,9 @@
  */
 package GF.Common.Item;
 
+import GF.Registry.Registry;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import GF.Registry.Registry;
 
 public class ItemDust extends Item
 {

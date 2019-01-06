@@ -1,8 +1,5 @@
 package aam.utils;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import aam.utils.vectors.VectorWorld;
 import aam.utils.vectors.Wec3;
 import net.minecraft.entity.item.EntityItem;
@@ -15,6 +12,9 @@ import net.minecraft.nbt.NBTTagList;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class InventoryUtils
 {

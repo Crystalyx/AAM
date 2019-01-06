@@ -1,6 +1,6 @@
 package aam.common.weapon;
 
-import aam.api.Interface.ISoulUpgrade;
+import aam.api.interfaces.ISoulUpgrade;
 import aam.utils.PlayerDataHandler;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;

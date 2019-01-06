@@ -1,8 +1,5 @@
 package aam.common.items.weapon;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import aam.api.GameWeapon;
 import aam.api.abstraction.MeleeWeapon;
 import aam.common.soul.SoulDamageSource;
@@ -13,6 +10,9 @@ import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.EnumRarity;
 import net.minecraft.item.ItemStack;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class BlueEyedSword extends MeleeWeapon
 {

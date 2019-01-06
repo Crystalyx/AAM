@@ -1,8 +1,5 @@
 package aam.common.transmutations.actions.extended;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import aam.common.tiles.TEBloodAltar;
 import aam.common.tiles.TETransCircle;
 import aam.common.transmutations.EnergyType;
@@ -15,6 +12,9 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.DamageSource;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class ActBlood extends TransAction
 {

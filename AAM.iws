@@ -1,0 +1,1177 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="a1269fab-6c86-4141-bda4-2536f83cae50" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/PathMod/Guitar.java" beforeDir="false" afterPath="$PROJECT_DIR$/PathMod/Guitar.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/PathMod/PathEventHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/PathMod/PathEventHandler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/GF/Client/Model/GoldPan.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/GF/Client/Model/GoldPan.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/GF/Client/Render/GoldPanRender.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/GF/Client/Render/GoldPanRender.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/GF/Client/Render/SOWPRender.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/GF/Client/Render/SOWPRender.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/GF/Common/Blocks/BlockOreSand.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/GF/Common/Blocks/BlockOreSand.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/GF/Common/Blocks/TimeAcceleratorBlock.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/GF/Common/Blocks/TimeAcceleratorBlock.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/GF/Common/Item/ItemDebugGenerator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/GF/Common/Item/ItemDebugGenerator.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/GF/Common/Item/ItemDust.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/GF/Common/Item/ItemDust.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/GF/Common/Item/ItemGoldPan.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/GF/Common/Item/ItemGoldPan.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/GF/Common/Item/SandOreBucket.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/GF/Common/Item/SandOreBucket.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/GF/Common/Tile/TileEntityAccelerator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/GF/Common/Tile/TileEntityAccelerator.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/GF/Registry/SandOreGenerator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/GF/Registry/SandOreGenerator.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/AAM/API/Animation/AnimatedModel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/aam/api/animation/AnimatedModel.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/AAM/API/Animation/Animation.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/aam/api/animation/Animation.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/AAM/API/GameWeapon.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/aam/api/GameWeapon.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/AAM/API/Interface/ICatalyst.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/aam/api/interfaces/ICatalyst.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/AAM/API/Interface/IEnergyStorage.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/aam/api/interfaces/IEnergyStorage.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/AAM/API/Interface/IExtendedReach.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/aam/api/interfaces/IExtendedReach.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/AAM/API/Interface/INBTSave.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/aam/api/interfaces/INBTSave.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/AAM/API/Interface/ISoulUpgrade.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/aam/api/interfaces/ISoulUpgrade.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/AAM/API/Interface/IStructureCore.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/aam/api/interfaces/IStructureCore.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/AAM/API/Interface/ITraitModifier.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/aam/api/interfaces/ITraitModifier.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/AAM/API/Interface/IUpgradableItem.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/aam/api/interfaces/IUpgradableItem.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/AAM/API/MultiRecipeRenderer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/aam/api/MultiRecipeRenderer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/AAM/API/PageIMultiRecipe.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/aam/api/PageIMultiRecipe.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/AAM/API/PageItemList.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/aam/api/PageItemList.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/AAM/API/StackList.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/aam/api/StackList.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/AAM/API/TraitModifier.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/aam/api/TraitModifier.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/AAM/Client/Gui/Base/BarType.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/aam/client/gui/base/BarType.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/AAM/Client/Gui/Base/ButtonOBJ.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/aam/client/gui/base/ButtonOBJ.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/AAM/Client/Gui/Base/ButtonRMember.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/aam/client/gui/base/ButtonRMember.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/AAM/Client/Gui/Base/GuiBackground.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/aam/client/gui/base/GuiBackground.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/AAM/Client/Gui/Base/GuiBar.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/aam/client/gui/base/GuiBar.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/AAM/Client/Gui/Base/GuiBase.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/aam/client/gui/base/GuiBase.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/AAM/Client/Gui/Base/GuiOBJ.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/aam/client/gui/base/GuiOBJ.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/AAM/Client/Gui/Base/GuiPicture.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/aam/client/gui/base/GuiPicture.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/AAM/Client/Gui/Base/GuiSlot.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/aam/client/gui/base/GuiSlot.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/AAM/Client/Gui/Base/GuiText.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/aam/client/gui/base/GuiText.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/AAM/Client/Gui/Base/GuiTooltip.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/aam/client/gui/base/GuiTooltip.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/AAM/Client/Gui/Base/Obj.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/aam/client/gui/base/Obj.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/AAM/Client/Gui/Base/ObjType.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/aam/client/gui/base/ObjType.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/AAM/Client/Gui/Base/ObjTypes.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/aam/client/gui/base/ObjTypes.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/AAM/Client/Gui/Base/SlotType.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/aam/client/gui/base/SlotType.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/AAM/Client/Gui/GuiModificationAnvil.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/aam/client/gui/GuiModificationAnvil.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/AAM/Client/Gui/GuiParty.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/aam/client/gui/GuiParty.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/AAM/Client/Gui/GuiSoulAltar.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/aam/client/gui/GuiSoulAltar.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/AAM/Client/Gui/GuiSpellTable.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/aam/client/gui/GuiSpellTable.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/AAM/Client/Gui/GuiTeleporter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/aam/client/gui/GuiTeleporter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/AAM/Client/Gui/SkillsGui.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/aam/client/gui/SkillsGui.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/AAM/Client/Gui/SwitchButton.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/aam/client/gui/SwitchButton.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/AAM/Client/Renderer/Block/BarrelRenderer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/aam/client/renderer/block/BarrelRenderer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/AAM/Client/Renderer/Block/BloodAltarRenderer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/aam/client/renderer/block/BloodAltarRenderer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/AAM/Client/Renderer/Block/BushRenderer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/aam/client/renderer/block/BushRenderer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/AAM/Client/Renderer/Block/BushSproutRenderer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/aam/client/renderer/block/BushSproutRenderer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/AAM/Client/Renderer/Block/CauldronItemRenderer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/aam/client/renderer/block/CauldronItemRenderer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/AAM/Client/Renderer/Block/CreativeCauldronItemRenderer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/aam/client/renderer/block/CreativeCauldronItemRenderer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/AAM/Client/Renderer/Block/CrystalItemRenderer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/aam/client/renderer/block/CrystalItemRenderer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/AAM/Client/Renderer/Block/GraviterRender.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/aam/client/renderer/block/GraviterRender.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/AAM/Client/Renderer/Block/ModificationAnvilItemRender.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/aam/client/renderer/block/ModificationAnvilItemRender.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/AAM/Client/Renderer/Block/PillarRenderer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/aam/client/renderer/block/PillarRenderer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/AAM/Client/Renderer/Block/SoulAltarItemRenderer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/aam/client/renderer/block/SoulAltarItemRenderer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/AAM/Client/Renderer/Block/SpellTableItemRenderer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/aam/client/renderer/block/SpellTableItemRenderer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/AAM/Client/Renderer/Block/TeleporterItemRenderer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/aam/client/renderer/block/TeleporterItemRenderer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/AAM/Client/Renderer/Block/UnrenderableBlock.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/aam/client/renderer/block/UnrenderableBlock.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/AAM/Client/Renderer/Entity/BloodballRenderer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/aam/client/renderer/entity/BloodballRenderer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/AAM/Client/Renderer/Entity/ElemGuardRenderer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/aam/client/renderer/entity/ElemGuardRenderer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/AAM/Client/Renderer/Entity/ElementalRenderer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/aam/client/renderer/entity/ElementalRenderer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/AAM/Client/Renderer/Entity/GolemRenderer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/aam/client/renderer/entity/GolemRenderer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/AAM/Client/Renderer/Entity/SoulChargeRenderer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/aam/client/renderer/entity/SoulChargeRenderer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/AAM/Client/Renderer/Entity/StaffChargeRenderer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/aam/client/renderer/entity/StaffChargeRenderer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/AAM/Client/Renderer/Entity/SubwerRenderer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/aam/client/renderer/entity/SubwerRenderer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/AAM/Client/Renderer/Entity/WastelandRenderer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/aam/client/renderer/entity/WastelandRenderer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/AAM/Client/Renderer/Item/HammerRenderer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/aam/client/renderer/item/HammerRenderer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/AAM/Client/Renderer/Item/PhiloRenderer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/aam/client/renderer/item/PhiloRenderer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/AAM/Client/Renderer/Item/PotionRenderer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/aam/client/renderer/item/PotionRenderer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/AAM/Client/Renderer/Item/RSwordRenderer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/aam/client/renderer/item/RSwordRenderer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/AAM/Client/Renderer/Item/SoulRenderer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/aam/client/renderer/item/SoulRenderer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/AAM/Client/Renderer/Tile/CauldronRenderer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/aam/client/renderer/tile/CauldronRenderer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/AAM/Client/Renderer/Tile/CreativeCauldronRenderer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/aam/client/renderer/tile/CreativeCauldronRenderer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/AAM/Client/Renderer/Tile/CrystalRenderer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/aam/client/renderer/tile/CrystalRenderer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/AAM/Client/Renderer/Tile/GraviterRender.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/aam/client/renderer/tile/GraviterRender.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/AAM/Client/Renderer/Tile/ModificationAnvilRender.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/aam/client/renderer/tile/ModificationAnvilRender.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/AAM/Client/Renderer/Tile/SoulAltarRenderer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/aam/client/renderer/tile/SoulAltarRenderer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/AAM/Client/Renderer/Tile/SpellTableRenderer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/aam/client/renderer/tile/SpellTableRenderer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/AAM/Client/Renderer/Tile/TeleporterRenderer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/aam/client/renderer/tile/TeleporterRenderer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/AAM/Client/Renderer/Tile/TransCircleRenderer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/aam/client/renderer/tile/TransCircleRenderer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/AAM/Commands/CommandAAMEnchant.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/aam/commands/CommandAAMEnchant.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/AAM/Commands/CommandAAMPotion.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/aam/commands/CommandAAMPotion.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/AAM/Commands/CommandSoulDamage.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/aam/commands/CommandSoulDamage.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/AAM/Commands/CommandSoulLevel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/aam/commands/CommandSoulLevel.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/AAM/Common/Blocks/Building/AltarBase.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/aam/common/blocks/building/AltarBase.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/AAM/Common/Blocks/Building/AltarBasedStairs.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/aam/common/blocks/building/AltarBasedStairs.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/AAM/Common/Blocks/Building/LightBlock.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/aam/common/blocks/building/LightBlock.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/AAM/Common/Blocks/Building/ModBlocks.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/aam/common/blocks/building/ModBlocks.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/AAM/Common/Blocks/Building/ModOreBlock.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/aam/common/blocks/building/ModOreBlock.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/AAM/Common/Blocks/Building/PillarBlock.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/aam/common/blocks/building/PillarBlock.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/AAM/Common/Blocks/Building/ReinforcedGlass.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/aam/common/blocks/building/ReinforcedGlass.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/AAM/Common/Blocks/Building/SandyGlass.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/aam/common/blocks/building/SandyGlass.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/AAM/Common/Blocks/Building/Storage.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/aam/common/blocks/building/Storage.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/AAM/Common/Blocks/Building/StructureBlock.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/aam/common/blocks/building/StructureBlock.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/AAM/Common/Blocks/Building/TexturedBlock.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/aam/common/blocks/building/TexturedBlock.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/AAM/Common/Blocks/Building/URBlock.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/aam/common/blocks/building/URBlock.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/AAM/Common/Blocks/Circles/BloodAltar.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/aam/common/blocks/circles/BloodAltar.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/AAM/Common/Blocks/Circles/BloodBlock.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/aam/common/blocks/circles/BloodBlock.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/AAM/Common/Blocks/Circles/CircleBase.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/aam/common/blocks/circles/CircleBase.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/AAM/Common/Blocks/Circles/MechanicalBase.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/aam/common/blocks/circles/MechanicalBase.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/AAM/Common/Blocks/Circles/TransCircle.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/aam/common/blocks/circles/TransCircle.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/AAM/Common/Blocks/Mechanical/AGraviterBlock.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/aam/common/blocks/mechanical/AGraviterBlock.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/AAM/Common/Blocks/Mechanical/Barrel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/aam/common/blocks/mechanical/Barrel.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/AAM/Common/Blocks/Mechanical/BlockTeleporter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/aam/common/blocks/mechanical/BlockTeleporter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/AAM/Common/Blocks/Mechanical/Cauldron.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/aam/common/blocks/mechanical/Cauldron.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/AAM/Common/Blocks/Mechanical/CreativeCauldron.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/aam/common/blocks/mechanical/CreativeCauldron.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/AAM/Common/Blocks/Mechanical/CrystalBlock.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/aam/common/blocks/mechanical/CrystalBlock.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/AAM/Common/Blocks/Mechanical/Expander.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/aam/common/blocks/mechanical/Expander.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/AAM/Common/Blocks/Mechanical/GrassClearer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/aam/common/blocks/mechanical/GrassClearer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/AAM/Common/Blocks/Mechanical/GraviterBlock.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/aam/common/blocks/mechanical/GraviterBlock.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/AAM/Common/Blocks/Mechanical/ModificationAnvil.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/aam/common/blocks/mechanical/ModificationAnvil.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/AAM/Common/Blocks/Mechanical/SoulAltar.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/aam/common/blocks/mechanical/SoulAltar.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/AAM/Common/Blocks/Mechanical/SpellTable.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/aam/common/blocks/mechanical/SpellTable.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/AAM/Common/Blocks/Plants/BerryBush.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/aam/common/blocks/plants/BerryBush.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/AAM/Common/Blocks/Plants/BushSprout.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/aam/common/blocks/plants/BushSprout.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/AAM/Common/Blocks/Plants/ModLeaves.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/aam/common/blocks/plants/ModLeaves.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/AAM/Common/Blocks/Plants/ModLog.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/aam/common/blocks/plants/ModLog.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/AAM/Common/Blocks/Plants/ModPlank.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/aam/common/blocks/plants/ModPlank.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/AAM/Common/Blocks/Plants/ModPlank2.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/aam/common/blocks/plants/ModPlank2.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/AAM/Common/Blocks/Plants/ModSapling.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/aam/common/blocks/plants/ModSapling.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/AAM/Common/Blocks/Plants/ShadowveilPlant.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/aam/common/blocks/plants/ShadowveilPlant.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/AAM/Common/Blocks/Plants/ShroomPlant.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/aam/common/blocks/plants/ShroomPlant.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/AAM/Common/Container/ContainerBase.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/aam/common/container/ContainerBase.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/AAM/Common/Container/ContainerTeleporter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/aam/common/container/ContainerTeleporter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/AAM/Common/Container/ModificationAnvilContainer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/aam/common/container/ModificationAnvilContainer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/AAM/Common/Container/SoulAltarContainer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/aam/common/container/SoulAltarContainer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/AAM/Common/Container/SpellTableContainer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/aam/common/container/SpellTableContainer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/AAM/Common/Dungeon/DungWorldGenerator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/aam/common/dungeon/DungWorldGenerator.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/AAM/Common/Dungeon/DungeonChunkProvider.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/aam/common/dungeon/DungeonChunkProvider.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/AAM/Common/Dungeon/DungeonProvider.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/aam/common/dungeon/DungeonProvider.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/AAM/Common/Dungeon/DungeonRegistry.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/aam/common/dungeon/DungeonRegistry.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/AAM/Common/Dungeon/DungeonTeleporter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/aam/common/dungeon/DungeonTeleporter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/AAM/Common/Dungeon/ElementalBiome.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/aam/common/dungeon/ElementalBiome.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/AAM/Common/Entity/Elemental/ElementalBoss.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/aam/common/entity/elemental/ElementalBoss.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/AAM/Common/Entity/Elemental/ElementalGuard.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/aam/common/entity/elemental/ElementalGuard.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/AAM/Common/Entity/Elemental/EntityBloodball.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/aam/common/entity/elemental/EntityBloodball.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/AAM/Common/Entity/Elemental/Subwer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/aam/common/entity/elemental/Subwer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/AAM/Common/Entity/Elemental/WastelandCreature.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/aam/common/entity/elemental/WastelandCreature.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/AAM/Common/Entity/EntityMinium.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/aam/common/entity/EntityMinium.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/AAM/Common/Entity/Golem/GolemBoss.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/aam/common/entity/golem/GolemBoss.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/AAM/Common/Entity/ModEntities.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/aam/common/entity/ModEntities.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/AAM/Common/Entity/SoulCharge.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/aam/common/entity/SoulCharge.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/AAM/Common/Entity/StaffCharge.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/aam/common/entity/StaffCharge.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/AAM/Common/Event/ClientRenderHelper.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/aam/common/event/ClientRenderHelper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/AAM/Common/Event/PlayerBlockEvent.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/aam/common/event/PlayerBlockEvent.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/AAM/Common/Event/PlayerDataEventHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/aam/common/event/PlayerDataEventHandler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/AAM/Common/Event/PotionEventHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/aam/common/event/PotionEventHandler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/AAM/Common/Event/SoulEvent.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/aam/common/event/SoulEvent.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/AAM/Common/Items/AAMItemBlock.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/aam/common/items/AAMItemBlock.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/AAM/Common/Items/Alchemy/AlchPaper.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/aam/common/items/alchemy/AlchPaper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/AAM/Common/Items/Alchemy/AlchemicalBucket.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/aam/common/items/alchemy/AlchemicalBucket.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/AAM/Common/Items/Alchemy/AlchemicalConcentrateItem.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/aam/common/items/alchemy/AlchemicalConcentrateItem.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/AAM/Common/Items/Alchemy/AlchemicalPotionItem.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/aam/common/items/alchemy/AlchemicalPotionItem.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/AAM/Common/Items/Alchemy/BloodBucket.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/aam/common/items/alchemy/BloodBucket.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/AAM/Common/Items/Alchemy/ChalkPattern.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/aam/common/items/alchemy/ChalkPattern.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/AAM/Common/Items/Alchemy/CircleDust.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/aam/common/items/alchemy/CircleDust.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/AAM/Common/Items/Alchemy/ConcentratePhial.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/aam/common/items/alchemy/ConcentratePhial.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/AAM/Common/Items/Alchemy/ItemChalk.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/aam/common/items/alchemy/ItemChalk.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/AAM/Common/Items/Alchemy/MiniumShard.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/aam/common/items/alchemy/MiniumShard.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/AAM/Common/Items/Alchemy/MiniumStone.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/aam/common/items/alchemy/MiniumStone.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/AAM/Common/Items/Alchemy/MortarAndPestle.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/aam/common/items/alchemy/MortarAndPestle.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/AAM/Common/Items/Alchemy/PhilosophersStone.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/aam/common/items/alchemy/PhilosophersStone.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/AAM/Common/Items/Alchemy/SilverClock.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/aam/common/items/alchemy/SilverClock.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/AAM/Common/Items/AnvilHammer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/aam/common/items/AnvilHammer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/AAM/Common/Items/Artifacts/CrystalBow.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/aam/common/items/artifacts/CrystalBow.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/AAM/Common/Items/Artifacts/ElementalHeart.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/aam/common/items/artifacts/ElementalHeart.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/AAM/Common/Items/Artifacts/FacelessCharm.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/aam/common/items/artifacts/FacelessCharm.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/AAM/Common/Items/Artifacts/KingsStone.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/aam/common/items/artifacts/KingsStone.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/AAM/Common/Items/Artifacts/LuckyCoin.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/aam/common/items/artifacts/LuckyCoin.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/AAM/Common/Items/Artifacts/MassRessurectionStone.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/aam/common/items/artifacts/MassRessurectionStone.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/AAM/Common/Items/Artifacts/RainbowSword.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/aam/common/items/artifacts/RainbowSword.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/AAM/Common/Items/Artifacts/RessurectionStone.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/aam/common/items/artifacts/RessurectionStone.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/AAM/Common/Items/Artifacts/SeaShard.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/aam/common/items/artifacts/SeaShard.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/AAM/Common/Items/BushItemBlock.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/aam/common/items/BushItemBlock.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/AAM/Common/Items/BushSproutItemBlock.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/aam/common/items/BushSproutItemBlock.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/AAM/Common/Items/Debug/BoundSphere.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/aam/common/items/debug/BoundSphere.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/AAM/Common/Items/Debug/CliserActivator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/aam/common/items/debug/CliserActivator.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/AAM/Common/Items/Debug/MagicWand.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/aam/common/items/debug/MagicWand.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/AAM/Common/Items/Debug/RedRadio.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/aam/common/items/debug/RedRadio.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/AAM/Common/Items/LinkObol.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/aam/common/items/LinkObol.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/AAM/Common/Items/ModItems.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/aam/common/items/ModItems.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/AAM/Common/Items/Resources/Berry.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/aam/common/items/resources/Berry.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/AAM/Common/Items/Resources/BerryDust.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/aam/common/items/resources/BerryDust.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/AAM/Common/Items/Resources/Coin.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/aam/common/items/resources/Coin.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/AAM/Common/Items/Resources/Material.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/aam/common/items/resources/Material.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/AAM/Common/Items/Resources/SwordDye.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/aam/common/items/resources/SwordDye.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/AAM/Common/Items/SoothingTea.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/aam/common/items/SoothingTea.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/AAM/Common/Items/Soul/Artifact.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/aam/common/items/soul/Artifact.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/AAM/Common/Items/Soul/SoulSword.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/aam/common/items/soul/SoulSword.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/AAM/Common/Items/Soul/SoulUpgradeItem.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/aam/common/items/soul/SoulUpgradeItem.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/AAM/Common/Items/StorageItemBlock.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/aam/common/items/StorageItemBlock.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/AAM/Common/Items/TeleportationCrystal.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/aam/common/items/TeleportationCrystal.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/AAM/Common/Potions/AlchemicalPotion.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/aam/common/potions/AlchemicalPotion.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/AAM/Common/Potions/Booster.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/aam/common/potions/Booster.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/AAM/Common/Potions/Colorer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/aam/common/potions/Colorer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/AAM/Common/Potions/ConcentrAction.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/aam/common/potions/ConcentrAction.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/AAM/Common/Potions/Concentrate.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/aam/common/potions/Concentrate.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/AAM/Common/Potions/Ingridient.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/aam/common/potions/Ingridient.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/AAM/Common/Potions/IngridientItem.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/aam/common/potions/IngridientItem.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/AAM/Common/Potions/Ingridients.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/aam/common/potions/Ingridients.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/AAM/Common/Potions/ModPotions.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/aam/common/potions/ModPotions.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/AAM/Common/Potions/PotionEffects.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/aam/common/potions/PotionEffects.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/AAM/Common/Potions/Prolonger.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/aam/common/potions/Prolonger.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/AAM/Common/Recipes/Recipes.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/aam/common/recipes/Recipes.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/AAM/Common/Skills/ModSkills.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/aam/common/skills/ModSkills.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/AAM/Common/Skills/Skill.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/aam/common/skills/Skill.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/AAM/Common/Skills/SkillAction.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/aam/common/skills/SkillAction.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/AAM/Common/Skills/SkillBase.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/aam/common/skills/SkillBase.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/AAM/Common/Soul/ArtifactTooltips.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/aam/common/soul/ArtifactTooltips.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/AAM/Common/Soul/Soul.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/aam/common/soul/Soul.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/AAM/Common/Soul/SoulDamageSource.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/aam/common/soul/SoulDamageSource.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/AAM/Common/Soul/SoulUpgrade.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/aam/common/soul/SoulUpgrade.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/AAM/Common/Soul/Trait.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/aam/common/soul/Trait.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/AAM/Common/Soul/TraitStack.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/aam/common/soul/TraitStack.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/AAM/Common/Soul/WarriorType.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/aam/common/soul/WarriorType.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/AAM/Common/Tabs/AlchemyTab.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/aam/common/tabs/AlchemyTab.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/AAM/Common/Tabs/ArtTab.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/aam/common/tabs/ArtTab.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/AAM/Common/Tabs/MiscTab.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/aam/common/tabs/MiscTab.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/AAM/Common/Tabs/SoulTab.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/aam/common/tabs/SoulTab.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/AAM/Common/Tiles/ModTiles.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/aam/common/tiles/ModTiles.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/AAM/Common/Tiles/TEAGraviter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/aam/common/tiles/TEAGraviter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/AAM/Common/Tiles/TEBarrel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/aam/common/tiles/TEBarrel.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/AAM/Common/Tiles/TEBloodAltar.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/aam/common/tiles/TEBloodAltar.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/AAM/Common/Tiles/TECauldron.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/aam/common/tiles/TECauldron.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/AAM/Common/Tiles/TECreativeCauldron.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/aam/common/tiles/TECreativeCauldron.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/AAM/Common/Tiles/TECrystal.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/aam/common/tiles/TECrystal.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/AAM/Common/Tiles/TEGraviter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/aam/common/tiles/TEGraviter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/AAM/Common/Tiles/TEMechanicalBase.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/aam/common/tiles/TEMechanicalBase.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/AAM/Common/Tiles/TEModificationAnvil.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/aam/common/tiles/TEModificationAnvil.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/AAM/Common/Tiles/TESoulAltar.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/aam/common/tiles/TESoulAltar.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/AAM/Common/Tiles/TESpellTable.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/aam/common/tiles/TESpellTable.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/AAM/Common/Tiles/TETeleporter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/aam/common/tiles/TETeleporter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/AAM/Common/Tiles/TETransCircle.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/aam/common/tiles/TETransCircle.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/AAM/Common/Transmutations/Circle.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/aam/common/transmutations/Circle.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/AAM/Common/Transmutations/CirclePart.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/aam/common/transmutations/CirclePart.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/AAM/Common/Transmutations/EnergyProvider.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/aam/common/transmutations/EnergyProvider.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/AAM/Common/Transmutations/EnergyType.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/aam/common/transmutations/EnergyType.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/AAM/Common/Transmutations/FluidBlood.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/aam/common/transmutations/FluidBlood.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/AAM/Common/Transmutations/ItemList.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/aam/common/transmutations/ItemList.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/AAM/Common/Transmutations/ModCircles.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/aam/common/transmutations/ModCircles.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/AAM/Common/Transmutations/TransAction.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/aam/common/transmutations/TransAction.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/AAM/Common/Transmutations/Transmutation.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/aam/common/transmutations/Transmutation.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/AAM/Common/WorldGen/DungGenerator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/aam/common/worldgen/DungGenerator.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/AAM/Common/WorldGen/DungeonBase.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/aam/common/worldgen/DungeonBase.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/AAM/Common/WorldGen/DungeonUnit.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/aam/common/worldgen/DungeonUnit.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/AAM/Common/WorldGen/ModTreeGen.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/aam/common/worldgen/ModTreeGen.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/AAM/Common/WorldGen/PlantWorldGen.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/aam/common/worldgen/PlantWorldGen.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/AAM/Core/AAMConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/aam/core/AAMConfig.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/AAM/Core/AAMCore.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/aam/core/AAMCore.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/AAM/Network/ClientProxy.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/aam/network/ClientProxy.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/AAM/Network/CommonProxy.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/aam/network/CommonProxy.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/AAM/Network/Packages/AlchemicalDispatcher.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/aam/network/packages/AlchemicalDispatcher.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/AAM/Network/Packages/AlchemicalPackage.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/aam/network/packages/AlchemicalPackage.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/AAM/Network/Packages/MessageExtendedReachAttack.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/aam/network/packages/MessageExtendedReachAttack.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/AAM/Network/Packages/PlayerSyncMessage.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/aam/network/packages/PlayerSyncMessage.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/AAM/Utils/Color.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/aam/utils/Color.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/AAM/Utils/Functions/CylFunction.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/aam/utils/functions/CylFunction.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/AAM/Utils/Functions/Function.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/aam/utils/functions/Function.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/AAM/Utils/Functions/SphFunction.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/aam/utils/functions/SphFunction.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/AAM/Utils/Graph.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/aam/utils/Graph.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/AAM/Utils/Logger.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/aam/utils/Logger.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/AAM/Utils/MiscUtils.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/aam/utils/MiscUtils.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/AAM/Utils/NBTHelper.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/aam/utils/NBTHelper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/AAM/Utils/Pair.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/aam/utils/Pair.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/AAM/Utils/PlayerDataHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/aam/utils/PlayerDataHandler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/AAM/Utils/Render/Cube.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/aam/utils/render/Cube.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/AAM/Utils/Render/RenderUtils.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/aam/utils/render/RenderUtils.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/AAM/Utils/Structure.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/aam/utils/Structure.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/AAM/Utils/StructureApi.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/aam/utils/StructureApi.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/AAM/Utils/Structures.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/aam/utils/Structures.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/AAM/Utils/TODOList.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/aam/utils/TODOList.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/AAM/Utils/TypeUtils.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/aam/utils/TypeUtils.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/aam/api/Interface/IElementalAwakable.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/aam/api/interfaces/IElementalAwakable.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/aam/api/abstraction/EnergyStorage.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/aam/api/abstraction/EnergyStorage.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/aam/api/abstraction/ItemArtifact.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/aam/api/abstraction/ItemArtifact.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/aam/api/abstraction/MetaUpradableItem.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/aam/api/abstraction/MetaUpradableItem.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/aam/api/abstraction/StructureCore.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/aam/api/abstraction/StructureCore.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/aam/client/gui/CircleButton.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/aam/client/gui/CircleButton.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/aam/client/gui/CircleRemoveButton.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/aam/client/gui/CircleRemoveButton.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/aam/client/gui/GuiAlchemicalCircle.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/aam/client/gui/GuiAlchemicalCircle.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/aam/client/gui/MechanistsTableGui.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/aam/client/gui/MechanistsTableGui.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/aam/client/models/Altar.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/aam/client/models/Altar.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/aam/client/models/Armoury.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/aam/client/models/Armoury.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/aam/client/models/Cauldron.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/aam/client/models/Cauldron.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/aam/client/models/Crystal.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/aam/client/models/Crystal.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/aam/client/models/CrystalBase.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/aam/client/models/CrystalBase.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/aam/client/models/DarkHelmet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/aam/client/models/DarkHelmet.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/aam/client/models/Elemental.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/aam/client/models/Elemental.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/aam/client/models/ElementalGuard.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/aam/client/models/ElementalGuard.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/aam/client/models/Golem.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/aam/client/models/Golem.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/aam/client/models/Graviter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/aam/client/models/Graviter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/aam/client/models/Hammer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/aam/client/models/Hammer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/aam/client/models/SoulAltar.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/aam/client/models/SoulAltar.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/aam/client/models/SpellTable.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/aam/client/models/SpellTable.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/aam/client/models/Subwer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/aam/client/models/Subwer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/aam/client/models/Wasteland.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/aam/client/models/Wasteland.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/aam/commands/CommandItem.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/aam/commands/CommandItem.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/aam/common/items/alchemy/AirGem.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/aam/common/items/alchemy/AirGem.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/aam/common/items/alchemy/EarthGem.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/aam/common/items/alchemy/EarthGem.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/aam/common/items/alchemy/FireGem.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/aam/common/items/alchemy/FireGem.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/aam/common/items/alchemy/IceGem.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/aam/common/items/alchemy/IceGem.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/aam/common/items/artifacts/WatchOfTime.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/aam/common/items/artifacts/WatchOfTime.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/aam/common/items/weapon/BlueEyedSword.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/aam/common/items/weapon/BlueEyedSword.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/aam/common/items/weapon/ModificationCatalyst.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/aam/common/items/weapon/ModificationCatalyst.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/aam/common/items/weapon/anvil/ForgingMaterialItem.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/aam/common/items/weapon/anvil/ForgingMaterialItem.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/aam/common/recipes/ModificationRecipe.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/aam/common/recipes/ModificationRecipe.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/aam/common/recipes/ToolPartFormingRecipe.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/aam/common/recipes/ToolPartFormingRecipe.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/aam/common/recipes/UpgradeRecipe.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/aam/common/recipes/UpgradeRecipe.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/aam/common/tiles/TEMechanistsTable.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/aam/common/tiles/TEMechanistsTable.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/aam/common/transmutations/CircleUtils.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/aam/common/transmutations/CircleUtils.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/aam/common/transmutations/actions/extended/ActBlood.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/aam/common/transmutations/actions/extended/ActBlood.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/aam/common/transmutations/actions/extended/ActPhilo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/aam/common/transmutations/actions/extended/ActPhilo.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/aam/common/transmutations/actions/extended/ActTransm.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/aam/common/transmutations/actions/extended/ActTransm.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/aam/common/transmutations/actions/world/ActAirPole.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/aam/common/transmutations/actions/world/ActAirPole.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/aam/common/transmutations/actions/world/ActBarrier.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/aam/common/transmutations/actions/world/ActBarrier.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/aam/common/transmutations/actions/world/ActDeath.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/aam/common/transmutations/actions/world/ActDeath.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/aam/common/weapon/UpgradeManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/aam/common/weapon/UpgradeManager.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/aam/common/weapon/WeaponManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/aam/common/weapon/WeaponManager.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/aam/common/weapon/WeaponUpgrade.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/aam/common/weapon/WeaponUpgrade.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/aam/common/weapon/WeaponUpgrades.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/aam/common/weapon/WeaponUpgrades.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/aam/common/weapon/anvil/AnvilRegistry.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/aam/common/weapon/anvil/AnvilRegistry.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/aam/network/packages/ChangeWeaponPackage.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/aam/network/ChangeWeaponPackage.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/aam/network/packages/CircleChangePackage.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/aam/network/CircleChangePackage.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/aam/network/packages/ForgingPackage.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/aam/network/ForgingPackage.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/aam/utils/InventoryUtils.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/aam/utils/InventoryUtils.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/aam/utils/MathUtils.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/aam/utils/MathUtils.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/aam/utils/forge/ItemHandlerHelper.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/aam/utils/forge/ItemHandlerHelper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/aam/utils/vectors/VectorWorld.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/aam/utils/vectors/VectorWorld.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/aam/utils/vectors/Wec3.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/aam/utils/vectors/Wec3.java" afterDir="false" />
+    </list>
+    <ignored path="$PROJECT_DIR$/.gradle/" />
+    <ignored path="$PROJECT_DIR$/build/" />
+    <ignored path="$PROJECT_DIR$/out/" />
+    <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="CreatePatchCommitExecutor">
+    <option name="PATCH_PATH" value="" />
+    <option name="REVERSE_PATCH" value="false" />
+  </component>
+  <component name="DebuggerManager">
+    <breakpoint_any converted="true">
+      <breakpoint>
+        <option name="NOTIFY_CAUGHT" value="true" />
+        <option name="NOTIFY_UNCAUGHT" value="true" />
+        <option name="ENABLED" value="false" />
+        <option name="LOG_ENABLED" value="false" />
+        <option name="LOG_EXPRESSION_ENABLED" value="false" />
+        <option name="SUSPEND_POLICY" value="SuspendAll" />
+        <option name="COUNT_FILTER_ENABLED" value="false" />
+        <option name="COUNT_FILTER" value="0" />
+        <option name="CONDITION_ENABLED" value="false" />
+        <option name="CLASS_FILTERS_ENABLED" value="false" />
+        <option name="INSTANCE_FILTERS_ENABLED" value="false" />
+        <option name="CONDITION" value="" />
+        <option name="LOG_MESSAGE" value="" />
+      </breakpoint>
+      <breakpoint>
+        <option name="NOTIFY_CAUGHT" value="true" />
+        <option name="NOTIFY_UNCAUGHT" value="true" />
+        <option name="ENABLED" value="false" />
+        <option name="LOG_ENABLED" value="false" />
+        <option name="LOG_EXPRESSION_ENABLED" value="false" />
+        <option name="SUSPEND_POLICY" value="SuspendAll" />
+        <option name="COUNT_FILTER_ENABLED" value="false" />
+        <option name="COUNT_FILTER" value="0" />
+        <option name="CONDITION_ENABLED" value="false" />
+        <option name="CLASS_FILTERS_ENABLED" value="false" />
+        <option name="INSTANCE_FILTERS_ENABLED" value="false" />
+        <option name="CONDITION" value="" />
+        <option name="LOG_MESSAGE" value="" />
+      </breakpoint>
+    </breakpoint_any>
+    <breakpoint_rules converted="true" />
+    <ui_properties converted="true" />
+  </component>
+  <component name="FileEditorManager">
+    <leaf SIDE_TABS_SIZE_LIMIT_KEY="225">
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/aam/api/abstraction/ItemArtifact.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="216">
+              <caret line="18" column="2" selection-start-line="18" selection-start-column="2" selection-end-line="18" selection-end-column="2" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/aam/common/items/artifacts/WatchOfTime.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="96">
+              <caret line="29" column="37" selection-start-line="29" selection-start-column="37" selection-end-line="29" selection-end-column="37" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/main/java/aam/common/blocks/plants/BerryBush.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="264">
+              <caret line="59" column="22" selection-start-line="59" selection-start-column="22" selection-end-line="59" selection-end-column="22" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+    </leaf>
+  </component>
+  <component name="FindInProjectRecents">
+    <findStrings>
+      <find>ItemRenderer</find>
+    </findStrings>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="IdeDocumentHistory">
+    <option name="CHANGED_PATHS">
+      <list>
+        <option value="$PROJECT_DIR$/src/main/java/aam/utils/Structure.java" />
+        <option value="$PROJECT_DIR$/src/main/java/aam/common/dungeon/DungeonTeleporter.java" />
+        <option value="$PROJECT_DIR$/src/main/java/aam/common/items/AnvilHammer.java" />
+        <option value="$PROJECT_DIR$/src/main/java/aam/common/transmutations/Transmutation.java" />
+        <option value="$PROJECT_DIR$/src/main/java/aam/common/items/ModItems.java" />
+        <option value="$PROJECT_DIR$/src/main/java/aam/core/AAMCore.java" />
+        <option value="$PROJECT_DIR$/src/main/java/aam/utils/render/RenderUtils.java" />
+        <option value="$PROJECT_DIR$/src/main/java/aam/client/renderer/tile/TransCircleRenderer.java" />
+        <option value="$PROJECT_DIR$/src/main/java/aam/common/event/SoulEvent.java" />
+        <option value="$PROJECT_DIR$/src/main/java/aam/client/renderer/tile/TeleporterRenderer.java" />
+        <option value="$PROJECT_DIR$/src/main/java/aam/client/renderer/tile/SoulAltarRenderer.java" />
+        <option value="$PROJECT_DIR$/src/main/java/aam/client/renderer/tile/ModificationAnvilRender.java" />
+        <option value="$PROJECT_DIR$/src/main/java/aam/common/blocks/plants/BerryBush.java" />
+      </list>
+    </option>
+  </component>
+  <component name="ModuleEditorState">
+    <option name="LAST_EDITED_MODULE_NAME" />
+    <option name="LAST_EDITED_TAB_NAME" />
+  </component>
+  <component name="ProjectFrameBounds" extendedState="6">
+    <option name="x" value="40" />
+    <option name="y" value="20" />
+    <option name="width" value="1316" />
+    <option name="height" value="728" />
+  </component>
+  <component name="ProjectInspectionProfilesVisibleTreeState">
+    <entry key="Project Default">
+      <profile-state />
+    </entry>
+  </component>
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectReloadState">
+    <option name="STATE" value="0" />
+  </component>
+  <component name="ProjectView">
+    <navigator proportions="" version="1">
+      <foldersAlwaysOnTop value="true" />
+    </navigator>
+    <panes>
+      <pane id="ProjectPane">
+        <subPane>
+          <expand>
+            <path>
+              <item name="AAM" type="b2602c69:ProjectViewProjectNode" />
+              <item name="AAM" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="AAM" type="b2602c69:ProjectViewProjectNode" />
+              <item name="AAM" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="AAM" type="b2602c69:ProjectViewProjectNode" />
+              <item name="AAM" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="AAM" type="b2602c69:ProjectViewProjectNode" />
+              <item name="AAM" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="AAM" type="b2602c69:ProjectViewProjectNode" />
+              <item name="AAM" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="aam" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="AAM" type="b2602c69:ProjectViewProjectNode" />
+              <item name="AAM" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="aam" type="462c0819:PsiDirectoryNode" />
+              <item name="common" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="AAM" type="b2602c69:ProjectViewProjectNode" />
+              <item name="AAM" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="aam" type="462c0819:PsiDirectoryNode" />
+              <item name="common" type="462c0819:PsiDirectoryNode" />
+              <item name="blocks" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="AAM" type="b2602c69:ProjectViewProjectNode" />
+              <item name="AAM" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="aam" type="462c0819:PsiDirectoryNode" />
+              <item name="common" type="462c0819:PsiDirectoryNode" />
+              <item name="blocks" type="462c0819:PsiDirectoryNode" />
+              <item name="plants" type="462c0819:PsiDirectoryNode" />
+            </path>
+          </expand>
+          <select />
+        </subPane>
+      </pane>
+      <pane id="PackagesPane" />
+      <pane id="Scope" />
+    </panes>
+  </component>
+  <component name="PropertiesComponent">
+    <property name="GoToClass.includeLibraries" value="false" />
+    <property name="GoToClass.toSaveIncludeLibraries" value="false" />
+    <property name="GoToFile.includeJavaFiles" value="false" />
+    <property name="MemberChooser.copyJavadoc" value="false" />
+    <property name="MemberChooser.showClasses" value="true" />
+    <property name="MemberChooser.sorted" value="false" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1546800372243" />
+    <property name="last_directory_selection" value="$PROJECT_DIR$/src/main/java/aam" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/libs/DummyCore1.13-src.jar!/" />
+    <property name="project.structure.last.edited" value="Libraries" />
+    <property name="project.structure.proportion" value="0.15" />
+    <property name="project.structure.side.proportion" value="0.2" />
+    <property name="settings.editor.selected.configurable" value="reference.projectsettings.compiler.javacompiler" />
+  </component>
+  <component name="RunDashboard">
+    <option name="ruleStates">
+      <list>
+        <RuleState>
+          <option name="name" value="ConfigurationTypeDashboardGroupingRule" />
+        </RuleState>
+        <RuleState>
+          <option name="name" value="StatusDashboardGroupingRule" />
+        </RuleState>
+      </list>
+    </option>
+  </component>
+  <component name="RunManager" selected="Application.Minecraft Client">
+    <configuration default="true" name="&lt;template&gt;" selected="false" type="WebApp">
+      <Host>localhost</Host>
+      <Port>5050</Port>
+    </configuration>
+    <configuration default="true" type="Applet">
+      <option name="POLICY_FILE" value="$APPLICATION_HOME_DIR$/bin/appletviewer.policy" />
+      <method v="2">
+        <option name="BuildArtifacts" enabled="false" />
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="Minecraft Client" type="Application" factoryName="Application">
+      <option name="MAIN_CLASS_NAME" value="GradleStart" />
+      <module name="AAM" />
+      <option name="VM_PARAMETERS" value="-Xincgc -Xmx1024M -Xms1024M" />
+      <option name="WORKING_DIRECTORY" value="file://$PROJECT_DIR$/eclipse" />
+      <RunnerSettings RunnerId="Run" />
+      <ConfigurationWrapper RunnerId="Run" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration default="false" factoryName="Application" name="Minecraft Client" type="Application">
+      <extension enabled="false" name="coverage" runner="idea" sample_coverage="true" />
+      <option name="MAIN_CLASS_NAME" value="GradleStart" />
+      <option name="VM_PARAMETERS" value="-Xincgc -Xmx1024M -Xms1024M" />
+      <option name="PROGRAM_PARAMETERS" value="" />
+      <option name="WORKING_DIRECTORY" value="file://$PROJECT_DIR$/eclipse" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" value="" />
+      <option name="ENABLE_SWING_INSPECTOR" value="false" />
+      <option name="ENV_VARIABLES" />
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <module name="AAM" />
+      <envs />
+      <RunnerSettings RunnerId="Run" />
+      <ConfigurationWrapper RunnerId="Run" />
+      <method />
+    </configuration>
+    <configuration name="Minecraft Server" type="Application" factoryName="Application">
+      <option name="MAIN_CLASS_NAME" value="GradleStartServer" />
+      <module name="AAM" />
+      <option name="VM_PARAMETERS" value="-Xincgc -Dfml.ignoreInvalidMinecraftCertificates=true" />
+      <option name="WORKING_DIRECTORY" value="file://$PROJECT_DIR$/eclipse" />
+      <RunnerSettings RunnerId="Run" />
+      <ConfigurationWrapper RunnerId="Run" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration default="false" factoryName="Application" name="Minecraft Server" type="Application">
+      <extension enabled="false" name="coverage" runner="idea" sample_coverage="true" />
+      <option name="MAIN_CLASS_NAME" value="GradleStartServer" />
+      <option name="VM_PARAMETERS" value="-Xincgc -Dfml.ignoreInvalidMinecraftCertificates=true" />
+      <option name="PROGRAM_PARAMETERS" value="" />
+      <option name="WORKING_DIRECTORY" value="file://$PROJECT_DIR$/eclipse" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" value="" />
+      <option name="ENABLE_SWING_INSPECTOR" value="false" />
+      <option name="ENV_VARIABLES" />
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <module name="AAM" />
+      <envs />
+      <RunnerSettings RunnerId="Run" />
+      <ConfigurationWrapper RunnerId="Run" />
+      <method />
+    </configuration>
+    <configuration default="true" type="Application" factoryName="Application">
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <method v="2">
+        <option name="BuildArtifacts" enabled="false" />
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration default="true" type="JUnit" factoryName="JUnit">
+      <option name="VM_PARAMETERS" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="TEST_SEARCH_SCOPE">
+        <value defaultName="moduleWithDependencies" />
+      </option>
+      <method v="2">
+        <option name="BuildArtifacts" enabled="false" />
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration default="true" type="Remote">
+      <option name="USE_SOCKET_TRANSPORT" value="true" />
+      <option name="SERVER_MODE" value="false" />
+      <option name="SHMEM_ADDRESS" value="javadebug" />
+      <option name="HOST" value="localhost" />
+      <option name="PORT" value="5005" />
+      <option name="AUTO_RESTART" value="false" />
+      <method v="2">
+        <option name="BuildArtifacts" enabled="false" />
+      </method>
+    </configuration>
+  </component>
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="a1269fab-6c86-4141-bda4-2536f83cae50" name="Default Changelist" comment="" />
+      <created>1546784896811</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1546784896811</updated>
+    </task>
+    <servers />
+  </component>
+  <component name="ToolWindowManager">
+    <frame x="26" y="0" width="1344" height="772" extended-state="6" />
+    <layout>
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.24961479" />
+      <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
+      <window_info id="Capture Tool" order="2" />
+      <window_info id="Image Layers" order="3" />
+      <window_info id="Designer" order="4" />
+      <window_info id="UI Designer" order="5" />
+      <window_info id="Favorites" order="6" side_tool="true" />
+      <window_info anchor="bottom" id="Messages" weight="0.2530303" />
+      <window_info anchor="bottom" id="Message" order="0" />
+      <window_info anchor="bottom" id="Find" order="1" weight="0.3287879" />
+      <window_info anchor="bottom" id="Run" order="2" weight="0.3287879" />
+      <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
+      <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
+      <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
+      <window_info anchor="bottom" id="TODO" order="6" />
+      <window_info anchor="bottom" id="Terminal" order="7" />
+      <window_info anchor="bottom" id="Event Log" order="8" side_tool="true" />
+      <window_info anchor="bottom" id="Version Control" order="9" />
+      <window_info anchor="right" id="Palette&#9;" order="0" />
+      <window_info anchor="right" id="Commander" internal_type="SLIDING" order="1" type="SLIDING" weight="0.4" />
+      <window_info anchor="right" id="Ant Build" order="2" weight="0.25" />
+      <window_info anchor="right" content_ui="combo" id="Hierarchy" order="3" weight="0.24961479" />
+      <window_info anchor="right" id="Palette" order="4" />
+      <window_info anchor="right" id="Palette " order="5" />
+      <window_info anchor="right" id="Maven" order="6" />
+      <window_info anchor="right" id="Theme Preview" order="7" />
+      <window_info anchor="right" id="Capture Analysis" order="8" />
+    </layout>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <option name="OFFER_MOVE_TO_ANOTHER_CHANGELIST_ON_PARTIAL_COMMIT" value="true" />
+    <option name="MAKE_NEW_CHANGELIST_ACTIVE" value="true" />
+  </component>
+  <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/src/main/java/aam/common/transmutations/EnergyProvider.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-7">
+          <caret line="17" column="13" selection-start-line="17" selection-start-column="13" selection-end-line="17" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/aam/common/transmutations/EnergyType.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-7">
+          <caret line="2" column="12" selection-start-line="2" selection-start-column="12" selection-end-line="2" selection-end-column="12" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/aam/common/transmutations/FluidBlood.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-7">
+          <caret line="4" column="13" selection-start-line="4" selection-start-column="13" selection-end-line="4" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/aam/common/transmutations/ItemList.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-7">
+          <caret line="9" column="13" selection-start-line="9" selection-start-column="13" selection-end-line="9" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/aam/common/transmutations/ModCircles.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-7">
+          <caret line="29" column="13" selection-start-line="29" selection-start-column="13" selection-end-line="29" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/aam/common/transmutations/TransAction.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-7">
+          <caret line="8" column="22" selection-start-line="8" selection-start-column="22" selection-end-line="8" selection-end-column="22" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/aam/common/transmutations/Transmutation.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="300">
+          <caret line="31" column="24" selection-start-line="31" selection-start-column="24" selection-end-line="31" selection-end-column="24" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/aam/common/items/artifacts/CrystalBow.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="48">
+          <caret line="17" column="13" selection-start-line="17" selection-start-column="13" selection-end-line="17" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/aam/common/items/artifacts/ElementalHeart.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="48">
+          <caret line="6" column="13" selection-start-line="6" selection-start-column="13" selection-end-line="6" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/aam/common/items/artifacts/FacelessCharm.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-7">
+          <caret line="6" column="13" selection-start-line="6" selection-start-column="13" selection-end-line="6" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/aam/common/items/artifacts/KingsStone.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-7">
+          <caret line="12" column="13" selection-start-line="12" selection-start-column="13" selection-end-line="12" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/aam/common/items/artifacts/LuckyCoin.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-7">
+          <caret line="6" column="13" selection-start-line="6" selection-start-column="13" selection-end-line="6" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/aam/common/items/artifacts/MassRessurectionStone.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-7">
+          <caret line="7" column="13" selection-start-line="7" selection-start-column="13" selection-end-line="7" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/aam/common/items/artifacts/RainbowSword.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-7">
+          <caret line="24" column="13" selection-start-line="24" selection-start-column="13" selection-end-line="24" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/aam/common/items/artifacts/RessurectionStone.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-7">
+          <caret line="7" column="13" selection-start-line="7" selection-start-column="13" selection-end-line="7" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/aam/common/items/artifacts/SeaShard.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="48">
+          <caret line="7" column="13" selection-start-line="7" selection-start-column="13" selection-end-line="7" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/aam/common/items/alchemy/AlchemicalBucket.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="48">
+          <caret line="12" column="13" selection-start-line="12" selection-start-column="13" selection-end-line="12" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/aam/common/items/alchemy/AlchemicalConcentrateItem.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="48">
+          <caret line="23" column="13" selection-start-line="23" selection-start-column="13" selection-end-line="23" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/aam/common/items/alchemy/AlchemicalPotionItem.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-7">
+          <caret line="23" column="13" selection-start-line="23" selection-start-column="13" selection-end-line="23" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/aam/common/items/alchemy/AlchPaper.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-7">
+          <caret line="22" column="13" selection-start-line="22" selection-start-column="13" selection-end-line="22" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/aam/common/items/alchemy/ItemChalk.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-7">
+          <caret line="18" column="13" selection-start-line="18" selection-start-column="13" selection-end-line="18" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/aam/common/items/alchemy/MiniumShard.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="48">
+          <caret line="9" column="13" selection-start-line="9" selection-start-column="13" selection-end-line="9" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/aam/common/items/debug/BoundSphere.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="84">
+          <caret line="26" column="13" selection-start-line="26" selection-start-column="13" selection-end-line="26" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/aam/common/items/debug/CliserActivator.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="48">
+          <caret line="10" column="13" selection-start-line="10" selection-start-column="13" selection-end-line="10" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/aam/common/items/debug/RedRadio.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="48">
+          <caret line="10" column="13" selection-start-line="10" selection-start-column="13" selection-end-line="10" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/aam/common/items/debug/MagicWand.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="12">
+          <caret line="19" column="13" selection-start-line="19" selection-start-column="13" selection-end-line="19" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/aam/common/items/alchemy/ConcentratePhial.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="48">
+          <caret line="10" column="13" selection-start-line="10" selection-start-column="13" selection-end-line="10" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/aam/common/items/alchemy/CircleDust.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="48">
+          <caret line="4" column="13" selection-start-line="4" selection-start-column="13" selection-end-line="4" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/aam/common/items/alchemy/ChalkPattern.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="12">
+          <caret line="24" column="13" selection-start-line="24" selection-start-column="13" selection-end-line="24" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/aam/common/items/alchemy/BloodBucket.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="48">
+          <caret line="14" column="13" selection-start-line="14" selection-start-column="13" selection-end-line="14" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/aam/common/items/ModItems.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="485">
+          <caret line="272" column="30" lean-forward="true" selection-start-line="272" selection-start-column="30" selection-end-line="272" selection-end-column="30" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/aam/api/interfaces/IElementalAwakable.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="84">
+          <caret line="8" column="16" lean-forward="true" selection-start-line="8" selection-start-column="16" selection-end-line="8" selection-end-column="16" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/aam/common/recipes/ModificationRecipe.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="156">
+          <caret line="30" column="53" selection-start-line="30" selection-start-column="53" selection-end-line="30" selection-end-column="53" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/aam/network/ClientProxy.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1380">
+          <caret line="147" column="13" selection-start-line="147" selection-start-column="13" selection-end-line="147" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$PROJECT_DIR$/libs/DummyCore-2.0.1710.0A.jar!/DummyCore/Core/CoreInitialiser.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="236">
+          <caret line="90" column="31" selection-start-line="90" selection-start-column="31" selection-end-line="90" selection-end-column="31" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$PROJECT_DIR$/libs/DummyCore1.13-src.jar!/DummyCore/Utils/MiscUtils.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="48">
+          <caret line="58" column="13" selection-start-line="58" selection-start-column="13" selection-end-line="58" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/aam/core/AAMCore.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="12">
+          <caret line="1" lean-forward="true" selection-start-line="1" selection-end-line="1" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/aam/utils/MiscUtils.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-6823">
+          <caret line="31" column="27" selection-start-line="31" selection-start-column="27" selection-end-line="31" selection-end-column="27" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/aam/utils/render/RenderUtils.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="317">
+          <caret line="782" column="25" lean-forward="true" selection-start-line="782" selection-start-column="25" selection-end-line="782" selection-end-column="25" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/aam/client/renderer/tile/TransCircleRenderer.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="12">
+          <caret line="1" lean-forward="true" selection-start-line="1" selection-end-line="1" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/aam/common/event/SoulEvent.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="12">
+          <caret line="1" lean-forward="true" selection-start-line="1" selection-end-line="1" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/aam/client/renderer/tile/TeleporterRenderer.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="12">
+          <caret line="1" lean-forward="true" selection-start-line="1" selection-end-line="1" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/aam/client/renderer/tile/SoulAltarRenderer.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="12">
+          <caret line="1" lean-forward="true" selection-start-line="1" selection-end-line="1" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/aam/client/renderer/tile/ModificationAnvilRender.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="24">
+          <caret line="4" lean-forward="true" selection-start-line="4" selection-end-line="4" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/aam/common/potions/ModPotions.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="48">
+          <caret line="19" column="13" selection-start-line="19" selection-start-column="13" selection-end-line="19" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$PROJECT_DIR$/libs/Baubles-1.7.10-1.0.1.10-src.jar!/baubles/api/BaublesApi.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="48">
+          <caret line="7" column="13" selection-start-line="7" selection-start-column="13" selection-end-line="7" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$PROJECT_DIR$/libs/Baubles-1.7.10-1.0.1.10-src.jar!/baubles/common/items/ItemRing.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="60">
+          <caret line="25" column="27" lean-forward="true" selection-start-line="25" selection-start-column="27" selection-end-line="25" selection-end-column="27" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$PROJECT_DIR$/libs/Baubles-1.7.10-1.0.1.10.jar!/baubles/common/items/ItemRing.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="169">
+          <caret line="42" column="41" lean-forward="true" selection-start-line="42" selection-start-column="41" selection-end-line="42" selection-end-column="41" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/aam/api/abstraction/ItemArtifact.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="216">
+          <caret line="18" column="2" selection-start-line="18" selection-start-column="2" selection-end-line="18" selection-end-column="2" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/aam/common/items/artifacts/WatchOfTime.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="96">
+          <caret line="29" column="37" selection-start-line="29" selection-start-column="37" selection-end-line="29" selection-end-column="37" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/aam/common/blocks/plants/BerryBush.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="264">
+          <caret line="59" column="22" selection-start-line="59" selection-start-column="22" selection-end-line="59" selection-end-column="22" />
+        </state>
+      </provider>
+    </entry>
+  </component>
+  <component name="masterDetails">
+    <states>
+      <state key="ArtifactsStructureConfigurable.UI">
+        <settings>
+          <artifact-editor />
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+      <state key="FacetStructureConfigurable.UI">
+        <settings>
+          <last-edited>No facets are configured</last-edited>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+      <state key="GlobalLibrariesConfigurable.UI">
+        <settings>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+      <state key="JdkListConfigurable.UI">
+        <settings>
+          <last-edited>1.8</last-edited>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+      <state key="ModuleStructureConfigurable.UI">
+        <settings>
+          <last-edited>AAM</last-edited>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+                <option value="0.6" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+      <state key="ProjectLibrariesConfigurable.UI">
+        <settings>
+          <last-edited>Baubles-1.7.10-1.0.1.10-src</last-edited>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+    </states>
+  </component>
+</project>

@@ -3,15 +3,13 @@
  */
 package GF.Client.Render;
 
+import GF.Client.Model.GoldPan;
+import GF.Registry.Registry;
 import net.minecraft.client.Minecraft;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.IItemRenderer;
-
 import org.lwjgl.opengl.GL11;
-
-import GF.Client.Model.GoldPan;
-import GF.Registry.Registry;
 
 public class GoldPanRender implements IItemRenderer {
 

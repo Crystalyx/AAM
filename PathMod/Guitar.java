@@ -1,8 +1,5 @@
 package PathMod;
 
-import java.lang.reflect.Field;
-import java.util.List;
-
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.passive.EntityAnimal;
 import net.minecraft.entity.player.EntityPlayer;
@@ -11,6 +8,9 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.world.World;
+
+import java.lang.reflect.Field;
+import java.util.List;
 
 public class Guitar extends Item
 {

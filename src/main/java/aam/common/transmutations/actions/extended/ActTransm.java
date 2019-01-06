@@ -1,9 +1,5 @@
 package aam.common.transmutations.actions.extended;
 
-import java.util.List;
-import java.util.Optional;
-import java.util.stream.Stream;
-
 import aam.common.items.ModItems;
 import aam.common.items.alchemy.PhilosophersStone;
 import aam.common.tiles.TETransCircle;
@@ -19,6 +15,10 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
+
+import java.util.List;
+import java.util.Optional;
+import java.util.stream.Stream;
 
 public class ActTransm extends TransAction
 {

@@ -3,14 +3,13 @@
  */
 package GF.Client.Render;
 
-import org.lwjgl.opengl.GL11;
-
 import GF.Client.Model.SOWPModel;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ResourceLocation;
+import org.lwjgl.opengl.GL11;
 
 public class SOWPRender extends TileEntitySpecialRenderer
 {

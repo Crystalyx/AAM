@@ -1,7 +1,7 @@
 package aam.commands;
 
 import aam.api.GameWeapon;
-import aam.api.Interface.IUpgradableItem;
+import aam.api.interfaces.IUpgradableItem;
 import aam.common.weapon.WeaponManager;
 import aam.network.packages.AlchemicalDispatcher;
 import aam.network.packages.PlayerSyncMessage;

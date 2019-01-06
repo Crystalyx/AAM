@@ -1,6 +1,6 @@
 package aam.api.abstraction;
 
-import aam.api.Interface.IUpgradableItem;
+import aam.api.interfaces.IUpgradableItem;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;

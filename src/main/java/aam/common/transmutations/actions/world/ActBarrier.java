@@ -1,9 +1,5 @@
 package aam.common.transmutations.actions.world;
 
-import java.util.List;
-
-import org.lwjgl.opengl.GL11;
-
 import aam.common.tiles.TETransCircle;
 import aam.common.transmutations.TransAction;
 import aam.utils.MathUtils;
@@ -15,6 +11,9 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
+import org.lwjgl.opengl.GL11;
+
+import java.util.List;
 
 public class ActBarrier extends TransAction
 {

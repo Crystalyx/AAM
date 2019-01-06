@@ -1,6 +1,6 @@
 package aam.common.weapon;
 
-import aam.api.Interface.IUpgradableItem;
+import aam.api.interfaces.IUpgradableItem;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;

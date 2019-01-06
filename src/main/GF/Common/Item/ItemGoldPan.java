@@ -3,13 +3,11 @@
  */
 package GF.Common.Item;
 
-import java.util.List;
-
-import net.minecraft.entity.Entity;
+import GF.Client.Render.GoldPanRender;
+import GF.Registry.Registry;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.init.Blocks;
-import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
@@ -19,9 +17,6 @@ import net.minecraft.util.Vec3;
 import net.minecraft.world.World;
 import net.minecraftforge.client.IItemRenderer;
 import net.minecraftforge.client.MinecraftForgeClient;
-import thaumcraft.client.fx.bolt.FXLightningBolt;
-import GF.Client.Render.GoldPanRender;
-import GF.Registry.Registry;
 
 public class ItemGoldPan extends Item 
 {

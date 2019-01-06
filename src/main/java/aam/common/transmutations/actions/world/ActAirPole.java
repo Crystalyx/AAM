@@ -1,7 +1,5 @@
 package aam.common.transmutations.actions.world;
 
-import java.util.ArrayList;
-
 import aam.common.blocks.building.ModBlocks;
 import aam.common.tiles.TETransCircle;
 import aam.common.transmutations.EnergyProvider;
@@ -17,6 +15,8 @@ import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
+
+import java.util.ArrayList;
 
 public class ActAirPole extends TransAction
 {

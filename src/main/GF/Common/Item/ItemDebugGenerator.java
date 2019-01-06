@@ -3,23 +3,13 @@
  */
 package GF.Common.Item;
 
-import AAM.Common.Items.ModItems;
-import AAM.Common.Tiles.TETransCircle;
-import AAM.Common.Transmutations.ModCircles;
-import AAM.Common.Transmutations.TransAction;
-import AAM.Utils.BlockState;
-import AAM.Utils.MiscUtils;
-import AAM.Utils.WorldPos;
 import GF.Registry.Registry;
 import GF.Registry.SandOreGenerator;
-import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ChatComponentText;
 import net.minecraft.world.World;
-import net.minecraftforge.common.util.ForgeDirection;
 
 public class ItemDebugGenerator extends Item
 {

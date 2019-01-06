@@ -1,12 +1,12 @@
 package PathMod;
 
-import java.util.Random;
-
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.event.entity.player.AttackEntityEvent;
+
+import java.util.Random;
 
 public class PathEventHandler
 {

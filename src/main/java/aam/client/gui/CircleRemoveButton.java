@@ -1,8 +1,5 @@
 package aam.client.gui;
 
-import org.lwjgl.input.Mouse;
-import org.lwjgl.opengl.GL11;
-
 import aam.client.gui.base.GuiOBJ;
 import aam.common.transmutations.Circle;
 import aam.utils.MathUtils;
@@ -13,6 +10,8 @@ import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.ScaledResolution;
 import net.minecraft.client.renderer.OpenGlHelper;
 import net.minecraft.client.renderer.Tessellator;
+import org.lwjgl.input.Mouse;
+import org.lwjgl.opengl.GL11;
 
 public class CircleRemoveButton extends GuiButton
 {

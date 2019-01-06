@@ -1,7 +1,5 @@
 package aam.api.abstraction;
 
-import java.util.List;
-
 import DummyCore.Utils.MiscUtils;
 import aam.utils.PlayerDataHandler;
 import net.minecraft.entity.EntityLivingBase;
@@ -11,6 +9,8 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumChatFormatting;
 import net.minecraft.util.StatCollector;
+
+import java.util.List;
 
 /**
  * Base class for any art that will be added

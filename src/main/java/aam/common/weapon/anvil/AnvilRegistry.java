@@ -1,12 +1,12 @@
 package aam.common.weapon.anvil;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-
 import aam.common.items.ModItems;
 import aam.common.items.weapon.anvil.WeaponPartItem;
 import net.minecraft.item.EnumRarity;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 
 public class AnvilRegistry
 {

@@ -1,6 +1,6 @@
 package aam.api.abstraction;
 
-import aam.api.Interface.IStructureCore;
+import aam.api.interfaces.IStructureCore;
 import aam.utils.vectors.Wec3;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;

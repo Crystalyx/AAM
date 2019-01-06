@@ -1,8 +1,5 @@
 package aam.common.items.weapon.anvil;
 
-import java.util.HashSet;
-import java.util.List;
-
 import aam.common.weapon.anvil.ForgingMaterial;
 import net.minecraft.block.Block;
 import net.minecraft.entity.EntityLivingBase;
@@ -10,6 +7,9 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.ItemTool;
 import net.minecraft.world.World;
+
+import java.util.HashSet;
+import java.util.List;
 
 public class ForgingMaterialItem extends ItemTool
 {

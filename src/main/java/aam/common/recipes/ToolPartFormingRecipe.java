@@ -1,8 +1,5 @@
 package aam.common.recipes;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import aam.api.AnvilRecipe;
 import aam.common.items.ModItems;
 import aam.common.items.weapon.anvil.ForgingMaterialItem;
@@ -12,6 +9,9 @@ import aam.common.weapon.anvil.WeaponPart;
 import aam.utils.MathUtils;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class ToolPartFormingRecipe extends AnvilRecipe
 {

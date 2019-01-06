@@ -1,7 +1,7 @@
 package aam.common.recipes;
 
 import aam.api.AnvilRecipe;
-import aam.api.Interface.IUpgradableItem;
+import aam.api.interfaces.IUpgradableItem;
 import aam.common.items.ModItems;
 import aam.common.tiles.TEModificationAnvil;
 import aam.utils.MathUtils;
