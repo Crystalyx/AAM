@@ -1,6 +1,6 @@
 package aam.common.items.soul;
 
-import aam.api.GameWeapon;
+import aam.api.abstraction.GameWeapon;
 import aam.api.interfaces.IExtendedReach;
 import aam.common.items.artifacts.CrystalBow;
 import aam.common.items.resources.SwordDye;
@@ -9,6 +9,7 @@ import aam.common.soul.SoulWeaponType;
 import aam.common.soul.Trait;
 import aam.common.soul.WarriorType;
 import aam.utils.Color;
+import aam.utils.EnumRarity;
 import aam.utils.MathUtils;
 import aam.utils.PlayerDataHandler;
 import cpw.mods.fml.relauncher.Side;
@@ -19,7 +20,6 @@ import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.item.EnumRarity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemBow;
 import net.minecraft.item.ItemStack;
@@ -39,7 +39,7 @@ public class SoulSword extends GameWeapon implements IExtendedReach
 	public SoulSword()
 	{
 		super("aam.soul_sword", 0, 0);
-		this.setRarity(EnumRarity.epic);
+		this.rarity = EnumRarity.Epic;
 		this.setContainerItem(this);
 		this.setHasSubtypes(true);
 	}
@@ -138,7 +138,7 @@ public class SoulSword extends GameWeapon implements IExtendedReach
 	 * 
 	 * @param stack
 	 *            The Item being used
-	 * @param player
+	 * @param p
 	 *            The Player using the item
 	 * @param count
 	 *            The amount of time in tick the item has been used for
@@ -360,7 +360,7 @@ public class SoulSword extends GameWeapon implements IExtendedReach
 			if (Minecraft.getMinecraft().theWorld.getPlayerEntityByName(i.getTagCompound().getString("Owner")) != null)
 			{
 				PlayerDataHandler ph = PlayerDataHandler.get(Minecraft.getMinecraft().theWorld.getPlayerEntityByName(i.getTagCompound().getString("Owner")));
-				return "aam." + ph.sword.toString().toLowerCase();
+				return "aam." + ph.swordType.toString().toLowerCase();
 			}
 		}
 		return "aam." + SoulWeaponType.values()[i.getItemDamage()].toString().toLowerCase();
@@ -368,7 +368,7 @@ public class SoulSword extends GameWeapon implements IExtendedReach
 	}
 
 	/**
-	 * returns a list of items with the same ID, but different meta (eg: dye
+	 * returns a list of items with the same ID, but different repairItemMeta (eg: dye
 	 * returns 16 items)
 	 */
 	@Override
@@ -386,6 +386,6 @@ public class SoulSword extends GameWeapon implements IExtendedReach
 	public float getReachValue(EntityPlayer p, ItemStack is)
 	{
 		PlayerDataHandler ph = PlayerDataHandler.get(p);
-		return MathUtils.boolToNum(ph.sword.equals(SoulWeaponType.Spear), 8, 4);
+		return MathUtils.boolToNum(ph.swordType.equals(SoulWeaponType.Spear), 8, 4);
 	}
 }

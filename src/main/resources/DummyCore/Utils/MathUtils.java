@@ -11,12 +11,12 @@ import java.util.Random;
  */
 public class MathUtils {
 	/**
-	 * Used to get the size of a texture in pixels using current values. Very useful in any kind of progress bars in GUI
+	 * Used to get the size of a textureName in pixels using current values. Very useful in any kind of progress bars in GUI
 	 * @version From DummyCore 1.0
 	 * @param current - the current value
 	 * @param max - the maximum value
-	 * @param textureSize - the maximum texture size
-	 * @return Percentage-based int. For example, if the textureSize is 50, current is 100 and max is 200 this will return 25 - that is 50% of your texture size.
+	 * @param textureSize - the maximum textureName size
+	 * @return Percentage-based int. For example, if the textureSize is 50, current is 100 and max is 200 this will return 25 - that is 50% of your textureName size.
 	 */
 	public static int pixelatedTextureSize(int current, int max, int textureSize)
 	{

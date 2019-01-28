@@ -85,7 +85,7 @@ public class StaffCharge extends EntityThrowable
 		{
 			if (!effs.contains("D"))
 			{
-				if (ph.sword.bypassesArmor)
+				if (ph.swordType.bypassesArmor)
 				{
 					e.attackEntityFrom(new SoulDamageSource(ph).setDamageBypassesArmor(), dmg);
 				}

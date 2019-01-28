@@ -22,7 +22,7 @@ public class ActDeath extends TransAction
 	@Override
 	public boolean actTick(World w, Wec3 tile, TETransCircle te, EntityPlayer p, int time, double potency, ForgeDirection dir)
 	{
-		int n = (int) potency * (6 - 2 * size);
+		int n = (int) (potency+1) * (6 - 2 * size);
 
 		int maxTime = (2 * n + 1) * (2 * n + 1);
 
@@ -30,9 +30,9 @@ public class ActDeath extends TransAction
 		{
 			// if (MathUtils.randWPercent(w.rand, 10))
 			int id = w.rand.nextInt(maxTime);
-			int x = Math.floorDiv(id, (2 * n + 1)) - n;
-			int z = Math.floorMod(id, (2 * n + 1)) - n;
-			int y = MiscUtils.getLowerHighBlock(w, tile.add(new Wec3(x, 0, z)), tile.iy + n - 1);
+			int x = Math.floorDiv(i, (2 * n + 1)) - n;
+			int z = Math.floorMod(i, (2 * n + 1)) - n;
+			int y = MiscUtils.getLowerHighBlock(w, tile.add(new Wec3(x, tile.y+n, z)), tile.iy - n);
 
 			Block b = w.getBlock((int) tile.x + x, (int) tile.y + y, (int) tile.z + z);
 			if (b instanceof IGrowable && b != Blocks.grass || b instanceof BlockBush || b instanceof BlockLeavesBase || b instanceof IShearable)

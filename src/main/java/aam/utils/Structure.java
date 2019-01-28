@@ -90,7 +90,7 @@ public class Structure
 
 		boolean ret = true;
 
-		for (int i = 0; i < (l.size() - 6) / 5; i++)
+		for (int i = 0; i < (l.size() - 3) / 5; i++)
 		{
 			int j = i * 5 + 3;
 

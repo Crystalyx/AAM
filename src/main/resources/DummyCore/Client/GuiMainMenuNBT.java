@@ -55,9 +55,9 @@ public class GuiMainMenuNBT extends GuiMainMenu implements IMainMenu{
 	public ArrayList<Integer> overlayTimeList = new ArrayList<Integer>();
 	public ArrayList<ResourceLocation> music = new ArrayList<ResourceLocation>();
 	//-1 - invalid
-	//0 - default texture scaled to the size
+	//0 - default textureName scaled to the size
 	//1 - 6 images(panorama)
-	//2 - 1 texture rendered across the screen
+	//2 - 1 textureName rendered across the screen
 	//3 - n textures with frame times
 	//4 - 2 swapping textures
 	//5 - gif image(unfinished)

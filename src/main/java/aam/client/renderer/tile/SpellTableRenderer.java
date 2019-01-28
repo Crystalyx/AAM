@@ -10,7 +10,7 @@ import org.lwjgl.opengl.GL11;
 
 public class SpellTableRenderer extends TileEntitySpecialRenderer
 {
-	public static final ResourceLocation texture = new ResourceLocation("aam", "textures/misc/SpellTable-texture.png");
+	public static final ResourceLocation texture = new ResourceLocation("aam", "textures/misc/SpellTable-textureName.png");
 	public static final ResourceLocation book = new ResourceLocation("textures/entity/enchanting_table_book.png");
 
 	@Override

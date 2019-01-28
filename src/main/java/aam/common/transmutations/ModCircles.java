@@ -286,7 +286,7 @@ public class ModCircles
 
 	/**
 	 * List of Strings like: "minecraft:stone|1", where first part(before "|")
-	 * is a blockname and second part(after "|") is a block meta. "-1" meta is
+	 * is a blockname and second part(after "|") is a block repairItemMeta. "-1" repairItemMeta is
 	 * for any metablock
 	 */
 	public static List<String> allowedblocks = new ArrayList<>();

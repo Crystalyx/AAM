@@ -87,8 +87,6 @@ public class Cauldron extends BlockContainer
 		return new TECauldron();
 	}
 
-	public static final int phialMeta = 3;
-
 	/**
 	 * Called upon block activation (right click on the block.)
 	 */
@@ -162,7 +160,7 @@ public class Cauldron extends BlockContainer
 						}
 					}
 					// ==================================Potion===============================
-					if (p.getCurrentEquippedItem().getItem() == ModItems.materials && p.getCurrentEquippedItem().getItemDamage() == phialMeta)
+					if (p.getCurrentEquippedItem().getItem() == ModItems.emptyPhial)
 					{
 						if (cauld.potion != null && cauld.potion.length > 0 && cauld.potion[0] != -1)
 						{

@@ -174,7 +174,7 @@ public class InventoryUtils
 	 * @param ic
 	 * @param is
 	 * @param meta
-	 * @return If inventory contains ItemStack(item=is,itemDamage =meta)
+	 * @return If inventory contains ItemStack(item=is,itemDamage =repairItemMeta)
 	 */
 	public static boolean contains(IInventory ic, Item is, int meta)
 	{
@@ -218,7 +218,7 @@ public class InventoryUtils
 	 * @param ic
 	 * @param is
 	 * @param meta
-	 * @return count of ItemStacks(item=is,itemDamage =meta)
+	 * @return count of ItemStacks(item=is,itemDamage =repairItemMeta)
 	 */
 	public static int count(IInventory ic, Item is, int meta)
 	{
@@ -281,7 +281,7 @@ public class InventoryUtils
 	 * @param ic
 	 * @param is
 	 * @param meta
-	 * @return firts slot id of ItemStack(item=is,itemDamage =meta)
+	 * @return firts slot id of ItemStack(item=is,itemDamage =repairItemMeta)
 	 */
 	public static int get(IInventory ic, Item is, int meta)
 	{
@@ -311,7 +311,7 @@ public class InventoryUtils
 	 * @param ic
 	 * @param is
 	 * @param meta
-	 * @return all slots id of ItemStacks(item=is,itemDamage =meta)
+	 * @return all slots id of ItemStacks(item=is,itemDamage =repairItemMeta)
 	 */
 	public static List<Integer> getList(IInventory ic, Item is, int meta)
 	{
@@ -336,7 +336,7 @@ public class InventoryUtils
 	 * @param ic
 	 * @param is
 	 * @param meta
-	 * @return ItemStack(item=is,itemDamage =meta)
+	 * @return ItemStack(item=is,itemDamage =repairItemMeta)
 	 */
 	public static ItemStack getStack(IInventory ic, Item is, int meta)
 	{

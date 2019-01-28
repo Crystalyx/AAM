@@ -57,7 +57,7 @@ public class ModSapling extends BlockSapling
 	}
 
 	/**
-	 * Gets the block's texture. Args: side, meta
+	 * Gets the block's textureName. Args: side, repairItemMeta
 	 */
 	@Override
 	@SideOnly(Side.CLIENT)
@@ -67,7 +67,7 @@ public class ModSapling extends BlockSapling
 	}
 
 	/**
-	 * returns a list of blocks with the same ID, but different meta (eg: wood
+	 * returns a list of blocks with the same ID, but different repairItemMeta (eg: wood
 	 * returns 4 blocks)
 	 */
 	@Override

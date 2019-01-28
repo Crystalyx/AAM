@@ -1,6 +1,7 @@
 package aam.common.event;
 
-import aam.api.GameWeapon;
+import aam.api.abstraction.GameWeapon;
+import aam.api.abstraction.Sheath;
 import aam.api.interfaces.IExtendedReach;
 import aam.api.interfaces.IUpgradableItem;
 import aam.api.abstraction.MeleeWeapon;
@@ -9,7 +10,6 @@ import aam.common.blocks.building.ModBlocks;
 import aam.common.entity.SoulCharge;
 import aam.common.entity.StaffCharge;
 import aam.common.items.ModItems;
-import aam.common.items.artifacts.LuckyCoin;
 import aam.common.items.soul.SoulSword;
 import aam.common.soul.*;
 import aam.common.transmutations.EnergyProvider;
@@ -22,13 +22,11 @@ import aam.network.packages.AlchemicalDispatcher;
 import aam.network.packages.MessageExtendedReachAttack;
 import aam.network.packages.PlayerSyncMessage;
 import aam.utils.InventoryUtils;
-import aam.utils.Logger;
 import aam.utils.MathUtils;
 import aam.utils.PlayerDataHandler;
 import aam.utils.vectors.Vec2;
 import aam.utils.vectors.VectorWorld;
 import aam.utils.vectors.Wec3;
-import baubles.api.BaublesApi;
 import cpw.mods.fml.client.FMLClientHandler;
 import cpw.mods.fml.common.eventhandler.Event.Result;
 import cpw.mods.fml.common.eventhandler.EventPriority;
@@ -45,6 +43,7 @@ import net.minecraft.entity.ai.attributes.AttributeModifier;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.EnumChatFormatting;
 import net.minecraft.util.MovingObjectPosition;
@@ -105,6 +104,63 @@ public class SoulEvent
 			if (ClientProxy.member.getIsKeyPressed() && FMLClientHandler.instance().getClient().inGameHasFocus)
 			{
 				AAMCore.proxy.addMember();
+			}
+			if (ClientProxy.equip.getIsKeyPressed() && FMLClientHandler.instance().getClient().inGameHasFocus)
+			{
+				ItemStack item = p.getCurrentEquippedItem();
+				if (!p.isSneaking())
+				{
+					if (item != null && item.getItem() instanceof MeleeWeapon && ph.sword == null)
+					{
+						WeaponManager.assertHasNBT(item);
+						if (!item.getTagCompound().hasKey("EquipCD"))
+						{
+							ph.sword = item;
+							p.setCurrentItemOrArmor(0, null);
+							item.getTagCompound().setInteger("EquipCD", 5);
+						}
+					}
+					if (item == null && ph.sword != null)
+					{
+						WeaponManager.assertHasNBT(ph.sword);
+						if (!ph.sword.getTagCompound().hasKey("EquipCD"))
+						{
+							p.setCurrentItemOrArmor(0, ph.sword);
+							ph.sword.getTagCompound().setInteger("EquipCD", 5);
+							ph.sword = null;
+						}
+					}
+
+					if (item != null && item.getItem() instanceof Sheath && ph.sheath == null)
+					{
+						ph.sheath = item;
+						p.setCurrentItemOrArmor(0, null);
+					}
+				} else
+				{
+					if (item == null && ph.sword != null)
+					{
+						WeaponManager.assertHasNBT(ph.sword);
+						if (!ph.sword.getTagCompound().hasKey("EquipCD"))
+						{
+							p.setCurrentItemOrArmor(0, ph.sword);
+							ph.sword.getTagCompound().setInteger("EquipCD", 5);
+							ph.sword = null;
+						}
+					} else if (item == null && ph.sheath != null)
+					{
+						p.setCurrentItemOrArmor(0, ph.sheath);
+						ph.sheath = null;
+					}
+				}
+			}
+			if(ph.sword != null)
+			{
+				ph.sword.getItem().onUpdate(ph.sword,p.worldObj,p,ph.sword.getItemDamage(),false);
+			}
+			if(ph.sheath != null)
+			{
+				ph.sheath.getItem().onUpdate(ph.sheath,p.worldObj,p,ph.sheath.getItemDamage(),false);
 			}
 			if (Minecraft.getMinecraft().objectMouseOver != null)
 			{
@@ -201,25 +257,26 @@ public class SoulEvent
 				if (!name.equals(""))
 				{
 					PlayerDataHandler ph = PlayerDataHandler.get(e.entityPlayer.worldObj.getPlayerEntityByName(name));
-
-					e.toolTip.add(EnumChatFormatting.DARK_AQUA + "Owner: " + name);
-
-					e.toolTip.add(EnumChatFormatting.BLUE + "+" + ph.getFullMeleeDamage(false) + "" + EnumChatFormatting.DARK_PURPLE + " soul Damage");
-					if (ph.getBowIndex() > 0)
+					if(ph != null)
 					{
-						e.toolTip.add(EnumChatFormatting.BLUE + "+" + ph.getFullRangedDamage(false) + "" + EnumChatFormatting.DARK_PURPLE + " Ranged soul Damage");
-					}
+						e.toolTip.add(EnumChatFormatting.DARK_AQUA + "Owner: " + name);
 
-					if (ph.sword.equals(SoulWeaponType.Spear))
-					{
-						e.toolTip.add(EnumChatFormatting.BLUE + "+4 Reach Distance");
-					}
-					if (ph.art)
-					{
-						e.toolTip.add("Additional:");
-						ArtifactTooltips.addToTooltip(ph.stype, ph.player, (int) ph.getTrait(Trait.Level), e.toolTip);
-					}
+						e.toolTip.add(EnumChatFormatting.BLUE + "+" + ph.getFullMeleeDamage(false) + "" + EnumChatFormatting.DARK_PURPLE + " soul Damage");
+						if (ph.getBowIndex() > 0)
+						{
+							e.toolTip.add(EnumChatFormatting.BLUE + "+" + ph.getFullRangedDamage(false) + "" + EnumChatFormatting.DARK_PURPLE + " Ranged soul Damage");
+						}
 
+						if (ph.swordType.equals(SoulWeaponType.Spear))
+						{
+							e.toolTip.add(EnumChatFormatting.BLUE + "+4 Reach Distance");
+						}
+						if (ph.art)
+						{
+							e.toolTip.add("Additional:");
+							ArtifactTooltips.addToTooltip(ph.stype, ph.player, (int) ph.getTrait(Trait.Level), e.toolTip);
+						}
+					}
 				}
 				else
 				{
@@ -341,7 +398,7 @@ public class SoulEvent
 					if (is.hasTagCompound())
 					{
 						SoulDamageSource src = new SoulDamageSource(phI);
-						if (phI.sword.bypassesArmor)
+						if (phI.swordType.bypassesArmor)
 						{
 							src.setDamageBypassesArmor();
 						}
@@ -365,8 +422,7 @@ public class SoulEvent
 								if (phI.upgLevel[i] > 0)
 									SoulUpgrade.values()[i].onAttack(ep, l, dmg);
 							}
-						}
-						else
+						} else
 						{
 							e.target.attackEntityFrom(src, 5.0F);
 						}
@@ -401,8 +457,7 @@ public class SoulEvent
 						{
 							e.setCanceled(true);
 							return;
-						}
-						else
+						} else
 						{
 							if (!l.isDead)
 							{
@@ -413,8 +468,7 @@ public class SoulEvent
 								if (WeaponManager.getRepairs(weaponStack) < WeaponManager.getMaxRepairs(weaponStack))
 								{
 									WeaponManager.setBroken(weaponStack, true);
-								}
-								else
+								} else
 								{
 									ep.destroyCurrentEquippedItem();
 								}
@@ -450,88 +504,7 @@ public class SoulEvent
 				attackEntityFrom(e.entityPlayer.getCurrentEquippedItem(), ph, l);
 
 			}
-
-			int mod = 1;
-			if (BaublesApi.getBaubles(e.entityPlayer).getStackInSlot(0) != null)
-			{
-				if (BaublesApi.getBaubles(e.entityPlayer).getStackInSlot(0).getItem() instanceof LuckyCoin)
-				{
-					mod += 2;
-				}
-
-			}
-			if (MathUtils.randWPercent(75d))
-			{
-				boolean drop = MathUtils.randWPercent(100 * mod / 50d);
-				if (drop)
-				{
-					InventoryUtils.dropStack(e.entityPlayer.worldObj, new Wec3(e.entityPlayer), new ItemStack(ModItems.coins, 1, 2));
-				}
-				else
-				{
-					drop = MathUtils.randWPercent(100 * mod / 15d);
-					if (drop)
-					{
-						InventoryUtils.dropStack(e.entityPlayer.worldObj, new Wec3(e.entityPlayer), new ItemStack(ModItems.coins, 1, 1));
-					}
-					else
-					{
-						drop = MathUtils.randWPercent(100 * mod / 5d);
-						if (drop)
-						{
-							InventoryUtils.dropStack(e.entityPlayer.worldObj, new Wec3(e.entityPlayer), new ItemStack(ModItems.coins, mod, 0));
-						}
-					}
-				}
-			}
 		}
-		int bronze = InventoryUtils.count(ep.inventory, ModItems.coins, 0);
-		Logger.info(bronze);
-		int dSilver = 0;
-		if (bronze >= 100)
-		{
-			dSilver = Math.floorDiv(bronze, 100);
-			int leftToRemove = dSilver * 100;
-			List<Integer> lbr = InventoryUtils.getList(ep.inventory, ModItems.coins, 0);
-			for (int i = 0; leftToRemove > 0 && i < lbr.size(); i++)
-			{
-				ItemStack bris = ep.inventory.getStackInSlot(lbr.get(i));
-				if (bris.stackSize <= leftToRemove)
-				{
-					leftToRemove -= bris.stackSize;
-					ep.inventory.setInventorySlotContents(lbr.get(i), null);
-				}
-				else
-				{
-					bris.stackSize -= leftToRemove;
-					leftToRemove = 0;
-				}
-			}
-		}
-		InventoryUtils.dropStack(ep.worldObj, new Wec3(ep), new ItemStack(ModItems.coins, dSilver, 1));
-		int silver = InventoryUtils.count(ep.inventory, ModItems.coins, 1);
-		int dGold = 0;
-		if (silver >= 100)
-		{
-			dGold = Math.floorDiv(silver, 100);
-			int leftToRemove = dGold * 100;
-			List<Integer> lbr = InventoryUtils.getList(ep.inventory, ModItems.coins, 1);
-			for (int i = 0; leftToRemove > 0 && i < lbr.size(); i++)
-			{
-				ItemStack bris = ep.inventory.getStackInSlot(lbr.get(i));
-				if (bris.stackSize <= leftToRemove)
-				{
-					leftToRemove -= bris.stackSize;
-					ep.inventory.setInventorySlotContents(lbr.get(i), null);
-				}
-				else
-				{
-					bris.stackSize -= leftToRemove;
-					leftToRemove = 0;
-				}
-			}
-		}
-		InventoryUtils.dropStack(ep.worldObj, new Wec3(ep), new ItemStack(ModItems.coins, dGold, 2));
 	}
 
 	private float attackEntityFrom(ItemStack item, PlayerDataHandler ph, EntityLivingBase l)
@@ -544,7 +517,7 @@ public class SoulEvent
 			if (item.getItem() instanceof MeleeWeapon)
 			{
 				MeleeWeapon sw = (MeleeWeapon) item.getItem();
-				if (sw.getBypassesArmor(item))
+				if (sw.bypassesArmor)
 				{
 					src.setDamageBypassesArmor();
 				}
@@ -555,7 +528,7 @@ public class SoulEvent
 				if (item.getItem() instanceof RangedWeapon)
 				{
 					RangedWeapon sw = (RangedWeapon) item.getItem();
-					if (sw.getBypassesArmor(item))
+					if (sw.bypassesArmor)
 					{
 						src.setDamageBypassesArmor();
 					}
@@ -566,11 +539,11 @@ public class SoulEvent
 					if (item.getItem() instanceof GameWeapon)
 					{
 						GameWeapon sw = (GameWeapon) item.getItem();
-						if (sw.getBypassesArmor(item))
+						if (sw.bypassesArmor)
 						{
 							src.setDamageBypassesArmor();
 						}
-						dmg = sw.getBaseDamage(item) * (1 + sw.getUpgradeLevel(item) * 0.05f);
+						dmg = sw.baseDamage * (1 + sw.getUpgradeLevel(item) * 0.05f);
 						knock = sw.knockback;
 					}
 			l.attackEntityFrom(src, dmg);

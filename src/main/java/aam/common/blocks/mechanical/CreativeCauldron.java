@@ -105,7 +105,7 @@ public class CreativeCauldron extends BlockContainer
 						flag = true;
 					}
 					// ==================================Potion===============================
-					if (p.getCurrentEquippedItem().getItem() == ModItems.materials && p.getCurrentEquippedItem().getItemDamage() == Cauldron.phialMeta)
+					if (p.getCurrentEquippedItem().getItem() == ModItems.emptyPhial)
 					{
 						int id = 0;
 						boolean brewed = false;

@@ -110,7 +110,7 @@ public class MiscUtils
 	}
 
 	/**
-	 * Short Bind texture method
+	 * Short Bind textureName method
 	 * 
 	 * @param mod
 	 * @param texture
@@ -131,29 +131,27 @@ public class MiscUtils
 	}
 
 	/**
-	 * Short Bind texture method
-	 * 
-	 * @param mod
+	 * Short Bind textureName method
+	 *
 	 * @param texture
 	 */
 	@SideOnly(Side.CLIENT)
-	public static void bindTexture(ResourceLocation text)
+	public static void bindTexture(ResourceLocation texture)
 	{
-		if (res.containsKey(text.getResourcePath()))
+		if (res.containsKey(texture.getResourcePath()))
 		{
-			Minecraft.getMinecraft().getTextureManager().bindTexture(res.get(text.getResourcePath()));
+			Minecraft.getMinecraft().getTextureManager().bindTexture(res.get(texture.getResourcePath()));
 		}
 		else
 		{
-			res.put(text.getResourcePath(), text);
-			Minecraft.getMinecraft().getTextureManager().bindTexture(text);
+			res.put(texture.getResourcePath(), texture);
+			Minecraft.getMinecraft().getTextureManager().bindTexture(texture);
 		}
 	}
 
 	/**
-	 * Short Bind texture method
-	 * 
-	 * @param mod
+	 * Short Bind textureName method
+	 *
 	 * @param texture
 	 */
 	@SideOnly(Side.CLIENT)
@@ -366,9 +364,7 @@ public class MiscUtils
 	}
 
 	/**
-	 * @param i
-	 * @param j
-	 * @param k
+	 * @param c
 	 * @return hex representation of color
 	 */
 	public static int rgbToHex(Color c)
@@ -439,9 +435,7 @@ public class MiscUtils
 	 * WorldPos method
 	 * 
 	 * @param w
-	 * @param x
-	 * @param y
-	 * @param z
+	 * @param p
 	 * @return y-coord of highest block at (x,z) block-pole starting from y
 	 */
 	public static int getLowerHighBlock(World w, Wec3 p)
@@ -463,9 +457,7 @@ public class MiscUtils
 	 * WorldPos method
 	 * 
 	 * @param w
-	 * @param x
-	 * @param y
-	 * @param z
+	 * @param p
 	 * @return y-coord of highest block at (x,z) block-pole starting from y
 	 *         downto y-down
 	 */

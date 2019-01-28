@@ -27,16 +27,17 @@ import org.lwjgl.input.Keyboard;
 
 public class ClientProxy extends CommonProxy
 {
-	public static KeyBinding soul = new KeyBinding("aam.soul", Keyboard.KEY_G, "key.categories.inventory");
-	public static KeyBinding member = new KeyBinding("aam.addmember", Keyboard.KEY_H, "key.categories.inventory");
-	public static KeyBinding arts = new KeyBinding("aam.arts", Keyboard.KEY_J, "key.categories.inventory");
+	public static KeyBinding soul = new KeyBinding("aam.soul", Keyboard.KEY_G, "aam.soul_sword");
+	public static KeyBinding member = new KeyBinding("aam.addmember", Keyboard.KEY_H, "aam.member");
+	//public static KeyBinding arts = new KeyBinding("aam.arts", Keyboard.KEY_J, "key.categories.inventory");
+	public static KeyBinding equip = new KeyBinding("aam.equip", Keyboard.KEY_J, "aam.equip");
 
 	@Override
 	public void init()
 	{
 		ClientRegistry.registerKeyBinding(soul);
 		ClientRegistry.registerKeyBinding(member);
-		ClientRegistry.registerKeyBinding(arts);
+		ClientRegistry.registerKeyBinding(equip);
 		registerRenders();
 	}
 
@@ -53,8 +54,6 @@ public class ClientProxy extends CommonProxy
 			return new GuiModificationAnvil(new ModificationAnvilContainer(p.inventory, (TEModificationAnvil) w.getTileEntity(x, y, z)));
 		case 3:
 			return new GuiPouch(new PouchContainer(p.inventory, new PouchInventory(p.getCurrentEquippedItem())));
-		case 4:
-			return new MechanistsTableGui(new MechanistsTableContainer(p.inventory, (TEMechanistsTable) w.getTileEntity(x, y, z)));
 		}
 		return null;
 

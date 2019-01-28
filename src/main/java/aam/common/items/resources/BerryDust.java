@@ -19,7 +19,7 @@ public class BerryDust extends Item
 	}
 
 	/**
-	 * returns a list of items with the same ID, but different meta (eg: dye
+	 * returns a list of items with the same ID, but different repairItemMeta (eg: dye
 	 * returns 16 items)
 	 */
 	@Override

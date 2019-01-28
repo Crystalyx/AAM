@@ -31,7 +31,7 @@ public class DrawUtils {
 	public static Hashtable<String,ResourceLocation> locTable = new Hashtable<String,ResourceLocation>();
 	
 	/**
-	 * Used to bind texture from the mod. First string is the mod id, and the second is the texture path.
+	 * Used to bind textureName from the mod. First string is the mod id, and the second is the textureName path.
 	 * @version From DummyCore 2.0
 	 * @param mod - the in-code modname. always use small letters!
 	 * @param texture - path to your thexture.

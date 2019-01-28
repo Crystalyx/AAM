@@ -113,7 +113,7 @@ public class BoundSphere extends Item
 					if (is.getTagCompound() != null)
 					{
 						NBTTagCompound tag = StructureApi.readStructure(w, new Wec3(x, y, z), new Wec3(is.getTagCompound().getInteger("BlockX"), is.getTagCompound().getInteger("BlockY"), is.getTagCompound().getInteger("BlockZ")),
-								Blocks.bedrock, Blocks.air, ModBlocks.Bricks, ModBlocks.StructureBlock);
+								Blocks.bedrock, Blocks.air, ModBlocks.StructureBlock);
 						is.getTagCompound().removeTag("BlockX");
 						is.getTagCompound().removeTag("BlockY");
 						is.getTagCompound().removeTag("BlockZ");

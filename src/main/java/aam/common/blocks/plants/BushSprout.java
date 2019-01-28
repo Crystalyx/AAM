@@ -45,7 +45,7 @@ public class BushSprout extends Block implements IGrowable
 	}
 
 	/**
-	 * returns a list of blocks with the same ID, but different meta (eg: wood
+	 * returns a list of blocks with the same ID, but different repairItemMeta (eg: wood
 	 * returns 4 blocks)
 	 */
 	@Override
@@ -150,7 +150,7 @@ public class BushSprout extends Block implements IGrowable
 	}
 
 	/**
-	 * Gets the block's texture. Args: side, meta
+	 * Gets the block's textureName. Args: side, repairItemMeta
 	 */
 	@Override
 	@SideOnly(Side.CLIENT)

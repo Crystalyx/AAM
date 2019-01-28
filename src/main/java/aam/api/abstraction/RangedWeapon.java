@@ -1,17 +1,16 @@
 package aam.api.abstraction;
 
-import aam.api.GameWeapon;
 import aam.common.weapon.WeaponManager;
 import net.minecraft.item.ItemStack;
 
 public class RangedWeapon extends GameWeapon
 {
-	private int meleeDmg = 3;
-	private int rangedDmg = 7;
-	private int soulConsumed = 2;
-	private int cd = 20;
+	public float meleeDmg = 3;
+	public float rangedDmg = 7;
+	public int soulConsumed = 2;
+	public int cd = 20;
 
-	public RangedWeapon(String name, int meleeDmg, int rangedDmg, int soulConsumed, int minSlots, int maxSlots)
+	public RangedWeapon(String name, float meleeDmg, float rangedDmg, int soulConsumed, int minSlots, int maxSlots)
 	{
 		super(name, minSlots, maxSlots);
 		this.meleeDmg = meleeDmg;
@@ -30,12 +29,12 @@ public class RangedWeapon extends GameWeapon
 		return cd;
 	}
 
-	public int getMeleeDamage(ItemStack is)
+	public float getMeleeDamage(ItemStack is)
 	{
 		return meleeDmg;
 	}
 
-	public int getRangedDamage(ItemStack is)
+	public float getRangedDamage(ItemStack is)
 	{
 		return rangedDmg;
 	}

@@ -1,6 +1,6 @@
 package aam.common.event;
 
-import aam.api.GameWeapon;
+import aam.api.abstraction.GameWeapon;
 import aam.common.soul.SoulWeaponType;
 import aam.common.weapon.WeaponManager;
 import aam.utils.PlayerDataHandler;
@@ -21,7 +21,7 @@ public class PlayerBlockEvent
 			EntityPlayer p = (EntityPlayer) e.entityLiving;
 
 			PlayerDataHandler ph = PlayerDataHandler.get(p);
-			if (p.getItemInUse() != null && p.isBlocking() && e.source.getSourceOfDamage() != null && !ph.sword.equals(SoulWeaponType.Hammer))
+			if (p.getItemInUse() != null && p.isBlocking() && e.source.getSourceOfDamage() != null && !ph.swordType.equals(SoulWeaponType.Hammer))
 			{
 				if (p.getItemInUse().getItem() instanceof GameWeapon)
 				{

@@ -19,7 +19,7 @@ public class ShadowveilPlant extends BlockFlower
 	}
 
 	/**
-	 * Gets the block's texture. Args: side, meta
+	 * Gets the block's textureName. Args: side, repairItemMeta
 	 */
 	@Override
 	@SideOnly(Side.CLIENT)

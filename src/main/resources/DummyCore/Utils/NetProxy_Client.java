@@ -83,7 +83,7 @@ public class NetProxy_Client extends NetProxy_Server{
 			}
 			catch(Exception e)
 			{
-				Notifier.notifyError("DummyCore was sadly unable to remove missing texture errors :(");
+				Notifier.notifyError("DummyCore was sadly unable to remove missing textureName errors :(");
 			}
 		}
 		MainMenuRegistry.registerMenuConfigs();
@@ -150,11 +150,11 @@ public class NetProxy_Client extends NetProxy_Server{
 				if(!canAccess)
 					brokenTextures.setAccessible(false);
 				
-				Notifier.notifyWarn("DummyCore has removed all possible texture errors the FML could output to the console!");
+				Notifier.notifyWarn("DummyCore has removed all possible textureName errors the FML could output to the console!");
 			}
 			catch(Exception e)
 			{
-				Notifier.notifyError("DummyCore was sadly unable to remove missing texture errors :(");
+				Notifier.notifyError("DummyCore was sadly unable to remove missing textureName errors :(");
 				e.printStackTrace();
 			}
 		}

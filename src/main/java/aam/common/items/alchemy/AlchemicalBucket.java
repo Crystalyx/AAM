@@ -43,11 +43,11 @@ public class AlchemicalBucket extends Item
 		{
 			NBTTagCompound tag = is.getTagCompound();
 			int[] pot = tag.getIntArray("Potion");
-			if (pot.length > 0)
+			if (pot != null && pot.length == 3)
 			{
-				l.add("Potion: " + ModPotions.pots[pot[0]]);
-				l.add("Power: " + ModPotions.pots[pot[1]]);
-				l.add("Duration: " + ModPotions.pots[pot[2]]);
+				l.add("Potion: " + ModPotions.pots[pot[0]].name);
+				l.add("Power: " + pot[1]);
+				l.add("Duration: " + pot[2]);
 			}
 		}
 	}

@@ -14,10 +14,10 @@ public class ObjTypes
 		addSlotType(1, 0, 72, 32);// arrows out
 		addSlotType(2, 0, 108, 32);// bucket empty
 		addSlotType(3, 0, 144, 32);// bucket water
-		addSlotType(4, 0, 180, 32);// sword
+		addSlotType(4, 0, 180, 32);// swordType
 		addSlotType(5, 0, 216, 32);// artifact
 		addSlotType(6, 36, 216, 32);// crystal bow
-		addSlotType(7, 36, 180, 32);// sword dye
+		addSlotType(7, 36, 180, 32);// swordType dye
 		addSlotType(8, 36, 144, 32);// upgrade
 		addSlotType(9, 36, 108, 32);// hammer
 		addSlotType(10, 36, 72, 32);// catalyst

@@ -14,7 +14,7 @@ import org.lwjgl.opengl.GL11;
 public class SOWPRender extends TileEntitySpecialRenderer
 {
 	SOWPModel model = new SOWPModel();
-	ResourceLocation text = new ResourceLocation("goldflushing:textures/misc/SOWPModel-texture.png");
+	ResourceLocation text = new ResourceLocation("goldflushing:textures/misc/SOWPModel-textureName.png");
 	@Override
 	public void renderTileEntityAt(TileEntity tile, double x, double y, double z, float f)
 	{

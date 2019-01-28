@@ -46,8 +46,8 @@ public class CustomTXTConfig {
 			pw.println("#This is not really a fix though...");
 			pw.println("#If this breaks your game - turn this option to false");
 			pw.println("fixS0FSpawnMobPacketCrash=true");
-			pw.println("#Insert a simple call in FML's texture loader?");
-			pw.println("#This enables the disabling texture errors feature of DummyCore");
+			pw.println("#Insert a simple call in FML's textureName loader?");
+			pw.println("#This enables the disabling textureName errors feature of DummyCore");
 			pw.println("#You can set this to false if ASM crashes you");
 			pw.println("insertDCCallInTextureLoader=true");
 			pw.flush();

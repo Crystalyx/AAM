@@ -27,7 +27,7 @@ public class ModificationRecipe extends AnvilRecipe
 		{
 			return false;
 		}
-		Pair<Item, Integer> pair = new Pair(upg.getItem(), upg.getItemDamage());
+		Pair<Item, Integer> pair = new Pair<Item, Integer>(upg.getItem(), upg.getItemDamage());
 		b = b && WeaponUpgrades.upgrades.stream().anyMatch(wu -> wu.item == pair.key && wu.meta == pair.value);
 		b = b && ic.getStackInSlot(0).getItem() instanceof IUpgradableItem;
 		b = b && ic.getStackInSlot(1).getItem() == ModItems.ModificationCatalyst;

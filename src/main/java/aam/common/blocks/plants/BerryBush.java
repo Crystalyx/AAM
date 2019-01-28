@@ -24,7 +24,8 @@ import java.util.Random;
 public class BerryBush extends Block implements IGrowable
 {
 
-	public static String[] names = new String[] { "blackberry", "blueberry", "mortis", "raspberry", "wormwoodberry" };
+	public static String[] names = new String[]
+	{ "blackberry", "blueberry", "mortis", "raspberry", "wormwoodberry" };
 
 	public BerryBush(Material mat)
 	{
@@ -35,8 +36,7 @@ public class BerryBush extends Block implements IGrowable
 	}
 
 	/**
-	 * Determines the damage on the item the block drops. Used in cloth and
-	 * wood.
+	 * Determines the damage on the item the block drops. Used in cloth and wood.
 	 */
 	@Override
 	public int damageDropped(int meta)
@@ -59,13 +59,13 @@ public class BerryBush extends Block implements IGrowable
 
 		if (beta == 1)
 		{
-			ItemStack berry = new ItemStack(ModItems.Berry, w.rand.nextInt(4)+ 1, meta);
+			ItemStack berry = new ItemStack(ModItems.Berry, w.rand.nextInt(4) + 1, meta);
 			InventoryUtils.dropStack(w, x, y, z, berry);
 		}
 	}
 
 	/**
-	 * returns a list of blocks with the same ID, but different meta (eg: wood
+	 * returns a list of blocks with the same ID, but different repairItemMeta (eg: wood
 	 * returns 4 blocks)
 	 */
 	@Override
@@ -101,9 +101,9 @@ public class BerryBush extends Block implements IGrowable
 	}
 
 	/**
-	 * Is this block (a) opaque and (b) a full 1m cube? This determines whether
-	 * or not to render the shared face of two adjacent blocks and also whether
-	 * the player can attach torches, redstone wire, etc to this block.
+	 * Is this block (a) opaque and (b) a full 1m cube? This determines whether or
+	 * not to render the shared face of two adjacent blocks and also whether the
+	 * player can attach torches, redstone wire, etc to this block.
 	 */
 	@Override
 	public boolean isOpaqueCube()
@@ -128,13 +128,11 @@ public class BerryBush extends Block implements IGrowable
 				ItemStack berry = new ItemStack(ModItems.Berry, (int) (Math.floorMod(w.getWorldTime(), 4) + 1), meta);
 				InventoryUtils.dropStackToPlayer(w, x, y, z, berry, p);
 				return true;
-			}
-			else
+			} else
 			{
 				return false;
 			}
-		}
-		else
+		} else
 		{
 			return false;
 		}
@@ -237,7 +235,7 @@ public class BerryBush extends Block implements IGrowable
 	}
 
 	/**
-	 * Gets the block's texture. Args: side, meta
+	 * Gets the block's textureName. Args: side, repairItemMeta
 	 */
 	@Override
 	@SideOnly(Side.CLIENT)

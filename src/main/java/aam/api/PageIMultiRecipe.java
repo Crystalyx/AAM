@@ -44,37 +44,31 @@ public class PageIMultiRecipe extends PageText
 		if (this == o)
 		{
 			return true;
-		}
-		else
-			if (o != null && this.getClass() == o.getClass())
+		} else if (o != null && this.getClass() == o.getClass())
+		{
+			if (!super.equals(o))
 			{
-				if (!super.equals(o))
+				return false;
+			} else
+			{
+				PageIMultiRecipe that = (PageIMultiRecipe) o;
+				if (recipes != null)
+				{
+					if (recipes != that.recipes)
+					{
+						return false;
+					}
+				} else if (that.recipes != null)
 				{
 					return false;
 				}
-				else
-				{
-					PageIMultiRecipe that = (PageIMultiRecipe) o;
-					if (recipes != null)
-					{
-						if (recipes != that.recipes)
-						{
-							return false;
-						}
-					}
-					else
-						if (that.recipes != null)
-						{
-							return false;
-						}
 
-					return true;
-				}
+				return true;
 			}
-			else
-			{
-				return false;
-			}
+		} else
+		{
+			return false;
+		}
 	}
 
 	@Override

@@ -15,59 +15,11 @@ public class TypeUtils
 
 	public static void initAlphabet()
 	{
-		alphUC.add("A");
-		alphUC.add("B");
-		alphUC.add("C");
-		alphUC.add("D");
-		alphUC.add("E");
-		alphUC.add("F");
-		alphUC.add("G");
-		alphUC.add("H");
-		alphUC.add("I");
-		alphUC.add("J");
-		alphUC.add("K");
-		alphUC.add("L");
-		alphUC.add("M");
-		alphUC.add("N");
-		alphUC.add("O");
-		alphUC.add("P");
-		alphUC.add("Q");
-		alphUC.add("R");
-		alphUC.add("S");
-		alphUC.add("T");
-		alphUC.add("U");
-		alphUC.add("V");
-		alphUC.add("W");
-		alphUC.add("X");
-		alphUC.add("Y");
-		alphUC.add("Z");
+		for(char i='A';i<='Z';i++)
+		alphUC.add(i+"");
 
-		alphLC.add("a");
-		alphLC.add("b");
-		alphLC.add("c");
-		alphLC.add("d");
-		alphLC.add("e");
-		alphLC.add("f");
-		alphLC.add("g");
-		alphLC.add("h");
-		alphLC.add("i");
-		alphLC.add("j");
-		alphLC.add("k");
-		alphLC.add("l");
-		alphLC.add("m");
-		alphLC.add("n");
-		alphLC.add("o");
-		alphLC.add("p");
-		alphLC.add("q");
-		alphLC.add("r");
-		alphLC.add("s");
-		alphLC.add("t");
-		alphLC.add("u");
-		alphLC.add("v");
-		alphLC.add("w");
-		alphLC.add("x");
-		alphLC.add("y");
-		alphLC.add("z");
+		for(char i='a';i<='a';i++)
+			alphUC.add(i+"");
 	}
 
 	public static void initNum()
@@ -293,8 +245,6 @@ public class TypeUtils
 	 * 
 	 * @param s
 	 *            String
-	 * @param index
-	 *            start index
 	 * @return last index of number
 	 */
 	public static boolean startWithInt(String s)

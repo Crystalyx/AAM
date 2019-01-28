@@ -11,7 +11,7 @@ import org.lwjgl.opengl.GL11;
 
 public class CauldronRenderer extends TileEntitySpecialRenderer
 {
-	public static final ResourceLocation texture = new ResourceLocation("aam:textures/misc/Cauldron-texture.png");
+	public static final ResourceLocation texture = new ResourceLocation("aam:textures/misc/Cauldron-textureName.png");
 	public static final ResourceLocation fluid = new ResourceLocation("aam:textures/misc/fluid.png");
 
 	@Override

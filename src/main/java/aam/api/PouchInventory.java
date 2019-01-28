@@ -18,7 +18,7 @@ public class PouchInventory extends ItemStackHandler implements IInventory
 		if (pouch.hasTagCompound())
 			super.deserializeNBT(pouch.getTagCompound());
 		this.pouch = pouch;
-		// this.markDirty();
+		this.markDirty();
 	}
 
 	@Override
@@ -75,9 +75,9 @@ public class PouchInventory extends ItemStackHandler implements IInventory
 	@Override
 	public void markDirty()
 	{
-		Logger.info("before " + this.pouch.getTagCompound().toString());
+		Logger.info("before " + this.pouch.getTagCompound());
 		this.pouch.setTagCompound(super.serializeNBT());
-		Logger.info("after " + this.pouch.getTagCompound().toString());
+		Logger.info("after " + this.pouch.getTagCompound());
 	}
 
 	@Override

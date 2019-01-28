@@ -28,8 +28,6 @@ public class Recipes
 	public static AnvilRecipe infusion;
 	public static AnvilRecipe upgrade;
 	public static AnvilRecipe philoMerge;
-	public static AnvilRecipe partForming;
-	public static AnvilRecipe materialMerge;
 
 	public static List<AnvilRecipe> anvilRecipes = new ArrayList<>();
 
@@ -40,16 +38,12 @@ public class Recipes
 		infusion = new InfusionRecipe();
 		upgrade = new UpgradeRecipe();
 		philoMerge = new PhiloMerge();
-		partForming = new ToolPartFormingRecipe();
-		materialMerge = new MaterialMergeRecipe();
 
 		anvilRecipes.add(modification);
 		anvilRecipes.add(repair);
 		anvilRecipes.add(infusion);
 		anvilRecipes.add(upgrade);
 		anvilRecipes.add(philoMerge);
-		anvilRecipes.add(materialMerge);
-		anvilRecipes.add(partForming);
 
 		phials = new ShapedOreRecipe(new ItemStack(ModItems.materials, 3, 3), "gpg", "aga", 'g', ModBlocks.ReinforcedGlass, 'p', Items.paper);
 		GameRegistry.addRecipe(phials);

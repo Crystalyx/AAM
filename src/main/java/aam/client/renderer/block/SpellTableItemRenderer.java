@@ -26,7 +26,7 @@ public class SpellTableItemRenderer implements ISimpleBlockRenderingHandler
 		int meta = 0;
 		GL11.glRotated(meta * 90, 0, 1, 0);
 
-		ResourceLocation texture = new ResourceLocation("aam", "textures/misc/SpellTable-texture.png");
+		ResourceLocation texture = new ResourceLocation("aam", "textures/misc/SpellTable-textureName.png");
 		Minecraft.getMinecraft().getTextureManager().bindTexture(texture);
 
 		SpellTable model = new SpellTable();

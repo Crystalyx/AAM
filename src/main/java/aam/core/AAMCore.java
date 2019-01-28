@@ -1,5 +1,6 @@
 package aam.core;
 
+import DummyCore.Core.Core;
 import aam.api.PageIMultiRecipe;
 import aam.api.PageItemList;
 import aam.api.StackList;
@@ -18,7 +19,6 @@ import aam.common.tiles.ModTiles;
 import aam.common.transmutations.EnergyProvider;
 import aam.common.transmutations.ModCircles;
 import aam.common.weapon.WeaponUpgrades;
-import aam.common.weapon.anvil.AnvilRegistry;
 import aam.common.worldgen.PlantWorldGen;
 import aam.network.CommonProxy;
 import aam.network.packages.AlchemicalDispatcher;
@@ -103,7 +103,7 @@ public class AAMCore
 		proxy.init();
 		AlchemicalDispatcher.registerPackets();
 
-		//Core.registerModAbsolute(AAMCore.class, name, event.getModConfigurationDirectory().getAbsolutePath(), cfg, false);
+		Core.registerModAbsolute(AAMCore.class, name, event.getModConfigurationDirectory().getAbsolutePath(), cfg, false);
 		MinecraftForge.EVENT_BUS.register(instance);
 		MinecraftForge.EVENT_BUS.register(new SoulEvent());
 		MinecraftForge.EVENT_BUS.register(new PotionEventHandler());
@@ -121,7 +121,6 @@ public class AAMCore
 		ModEntities.load();
 		ModPotions.load();
 		EnergyProvider.load();
-		AnvilRegistry.load();
 		Structures.load();
 
 		Ingridients.load();

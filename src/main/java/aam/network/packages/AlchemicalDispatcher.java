@@ -1,9 +1,7 @@
 package aam.network.packages;
 
 import aam.core.AAMCore;
-import aam.network.ChangeWeaponPackage;
 import aam.network.CircleChangePackage;
-import aam.network.ForgingPackage;
 import aam.network.packages.AlchemicalPackage.AlchemicalClientPackage;
 import aam.network.packages.AlchemicalPackage.AlchemicalServerPackage;
 import aam.utils.Logger;
@@ -34,8 +32,6 @@ public class AlchemicalDispatcher
 		registerBoth(MessageExtendedReachAttack.class);// C-S
 		registerBoth(CircleChangePackage.class);// C->S
 		registerBoth(PlayerSyncMessage.class);// S->C
-		registerBoth(ForgingPackage.class);// S->C
-		registerBoth(ChangeWeaponPackage.class);// S->C
 	}
 
 	/**

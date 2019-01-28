@@ -160,15 +160,15 @@ public class GuiParty extends GuiScreen
 		if (b.id == 9)
 		{
 			PlayerDataHandler ph = PlayerDataHandler.get(Minecraft.getMinecraft().thePlayer);
-			int id = MathUtils.cycle(ph.sword.ordinal() + 1, 0, SoulWeaponType.values().length - 1);
-			ph.sword = SoulWeaponType.values()[id];
+			int id = MathUtils.cycle(ph.swordType.ordinal() + 1, 0, SoulWeaponType.values().length - 1);
+			ph.swordType = SoulWeaponType.values()[id];
 			AlchemicalDispatcher.sendToServer(new PlayerSyncMessage(mc.thePlayer));
 		}
 		if (b.id == 10)
 		{
 			PlayerDataHandler ph = PlayerDataHandler.get(Minecraft.getMinecraft().thePlayer);
-			int id = MathUtils.cycle(ph.sword.ordinal() - 1, 0, SoulWeaponType.values().length - 1);
-			ph.sword = SoulWeaponType.values()[id];
+			int id = MathUtils.cycle(ph.swordType.ordinal() - 1, 0, SoulWeaponType.values().length - 1);
+			ph.swordType = SoulWeaponType.values()[id];
 			AlchemicalDispatcher.sendToServer(new PlayerSyncMessage(mc.thePlayer));
 		}
 	}
@@ -239,7 +239,7 @@ public class GuiParty extends GuiScreen
 		GL11.glPushMatrix();
 		GL11.glTranslated(dPad - 4, dPad + 88, 0);
 		GL11.glColor4d(1, 1, 1, 1);
-		MiscUtils.bindTexture("aam:textures/items/" + ph.sword.texture + ".png");
+		MiscUtils.bindTexture("aam:textures/items/" + ph.swordType.texture + ".png");
 
 		tessellator.startDrawingQuads();
 		tessellator.addVertexWithUV(0 - t, s + l, 0.0D, 0.0D, 1.0D);
@@ -263,7 +263,7 @@ public class GuiParty extends GuiScreen
 		GL11.glPushMatrix();
 		GL11.glTranslated(ps - t + dPad * 2, s / 2 + 3 * l / 2, 0);
 		GL11.glScaled(2, 2, 2);
-		f.drawString(ph.sword.toString(), 0, 0, 0xFFFFFF);
+		f.drawString(ph.swordType.toString(), 0, 0, 0xFFFFFF);
 		GL11.glPopMatrix();
 
 		GL11.glPopMatrix();

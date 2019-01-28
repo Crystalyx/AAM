@@ -82,7 +82,6 @@ public class ModBlocks
 	public static Block pillar = new PillarBlock().setBlockName(modid + "pillar");
 	public static Block altar_base = new AltarBase(Material.iron).setHardness(2.0F).setBlockName(modid + "altar_base");
 	public static Block altar_based_stairs = new AltarBasedStairs().setHardness(2.0F).setBlockName(modid + "altar_stairs");
-	public static Block MechanistsTable = new MechanistsTable().setHardness(2.0F).setBlockName(modid + "mechaniststable");
 
 	// =======================dungeon==========================
 	public static Block BlockTeleporter = new BlockTeleporter().setBlockName(modid + "dungeon_teleporter");
@@ -155,7 +154,6 @@ public class ModBlocks
 
 		// =======================Mechanical==========================
 		registerBlock(GClearer, misc);
-		registerBlock(MechanistsTable, misc);
 
 		// =======================OLD==========================
 		registerBlock(grav, misc);

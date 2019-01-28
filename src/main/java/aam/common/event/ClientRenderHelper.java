@@ -1,11 +1,17 @@
 package aam.common.event;
 
+import aam.api.abstraction.MeleeWeapon;
+import aam.api.abstraction.WearType;
 import aam.client.renderer.item.SoulRenderer;
 import aam.common.items.ModItems;
+import aam.common.items.sheaths.SheathRegistry;
 import aam.common.soul.Trait;
+import aam.common.weapon.WeaponManager;
 import aam.utils.Color;
+import aam.utils.Logger;
 import aam.utils.MathUtils;
 import aam.utils.PlayerDataHandler;
+import aam.utils.render.RenderUtils;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
@@ -222,7 +228,7 @@ public class ClientRenderHelper
 				String dam = dm + "";
 				dam = dam.substring(0, dam.indexOf(".") + 2);
 
-				f.drawString("soul: " + ph.getCurrentSoul() + "/" + ph.getTrait(Trait.Soul), k + 32, l + 5, new Color(255, 255, 255).hex);
+				f.drawString("Soul: " + ph.getCurrentSoul() + "/" + ph.getTrait(Trait.Soul), k + 32, l + 5, new Color(255, 255, 255).hex);
 				f.drawString("Level: " + ph.getTrait(Trait.Level), k + 32, l + 15, new Color(255, 255, 255).hex);
 				f.drawString("Expirience: " + ph.soulxp + "/" + 100 * ph.getTrait(Trait.Level), k + 32, l + 25, new Color(255, 255, 255).hex);
 				f.drawString("Damage: " + dam, k + 32, l + 35, new Color(255, 255, 255).hex);
@@ -278,7 +284,6 @@ public class ClientRenderHelper
 
 				for (int i = 0; i < gc.inventorySlots.getInventory().size(); i++)
 				{
-
 					Slot s = gc.inventorySlots.getSlot(i);
 					int x = s.xDisplayPosition * 2;
 					int y = s.yDisplayPosition * 2;
@@ -301,15 +306,16 @@ public class ClientRenderHelper
 	@SubscribeEvent
 	public void modelrender(EntityViewRenderEvent e)
 	{
-		if (Minecraft.getMinecraft().renderViewEntity instanceof EntityPlayer)
+
+		if (e.entity instanceof EntityPlayer)
 		{
-			EntityPlayer p = (EntityPlayer) Minecraft.getMinecraft().renderViewEntity;
+			EntityPlayer player = (EntityPlayer) e.entity;
 
 		}
 	}
 
 	@SubscribeEvent
-	public void render(RenderPlayerEvent.Pre e)
+	public void render(RenderPlayerEvent.Post e)
 	{
 		if (e.entityPlayer.worldObj.isRemote)
 		{
@@ -324,7 +330,7 @@ public class ClientRenderHelper
 
 					if (ph.getPermission() > 0)
 					{
-						int meta = ph.sword.ordinal();
+						int meta = ph.swordType.ordinal();
 						ph.soulTag.setString("Owner", p.getGameProfile().getName());
 						ItemStack sword = new ItemStack(ModItems.SoulSword, 1, meta);
 						sword.setTagCompound(PlayerDataHandler.get(p).soulTag);
@@ -370,6 +376,61 @@ public class ClientRenderHelper
 					}
 				}
 			}
+			{
+				EntityPlayer p = e.entityPlayer;
+				PlayerDataHandler ph = PlayerDataHandler.get(p);
+				ph.wearType = WearType.Side;
+				GL11.glPushMatrix();
+				RenderHelper.enableStandardItemLighting();
+
+				if (ph.wearType.equals(WearType.Side))
+				{
+					//TRUE BODY ROTATION ANGLE
+					float angle = interpolateRotation(p.prevRenderYawOffset, p.renderYawOffset, 0.5f);
+					GL11.glRotated(angle, 0, -1, 0);
+					GL11.glRotated(90, 0, 1, 0);
+					GL11.glRotated(180, 0, 0, 1);
+					GL11.glTranslated(0, 0, 0.25);
+					GL11.glTranslated(0, 1, 0);
+					GL11.glScaled(1.5, 1.5, 1.5);
+					if (ph.sword != null)
+					{
+						GL11.glPushMatrix();
+						RenderUtils.renderItemStack_Full(ph.sword, 0, 0, 0, 0, 0,
+								0, 0, 0, 1, 1, 1, 0,
+								0, 0, true);
+						GL11.glPopMatrix();
+					}
+					if (ph.sheath != null)
+					{
+						GL11.glPushMatrix();
+						RenderUtils.renderItemStack_Full(ph.sheath, 0, 0, 0, 0, 0,
+								0, 0, 0, 1, 1, 1, 0,
+								0, 0, true);
+						GL11.glPopMatrix();
+					}
+				}
+				RenderHelper.disableStandardItemLighting();
+				GL11.glPopMatrix();
+			}
 		}
+	}
+	/**
+	 * Returns a rotation angle that is inbetween two other rotation angles. par1 and par2 are the angles between which
+	 * to interpolate, par3 is probably a float between 0.0 and 1.0 that tells us where "between" the two angles we are.
+	 * Example: par1 = 30, par2 = 50, par3 = 0.5, then return = 40
+	 */
+	public float interpolateRotation(float _a, float _b, float _factor)
+	{
+		float f3;
+
+		for (f3 = _b - _a; f3 < -180.0F; f3 += 360.0F);
+
+		while (f3 >= 180.0F)
+		{
+			f3 -= 360.0F;
+		}
+
+		return _a + _factor * f3;
 	}
 }

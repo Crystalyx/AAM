@@ -1,6 +1,7 @@
 package aam.utils;
 
 import aam.api.TraitModifier;
+import aam.api.abstraction.WearType;
 import aam.common.items.ModItems;
 import aam.common.soul.*;
 import aam.common.weapon.WeaponManager;
@@ -37,6 +38,9 @@ public class PlayerDataHandler implements IExtendedEntityProperties
 	public String addMember = "";
 
 	public TraitStack[] traits = new TraitStack[Trait.values().length];
+	public ItemStack sheath = null;
+	public ItemStack sword = null;
+	public WearType wearType = WearType.Side;
 
 	public boolean lastTickBlocked = false;
 
@@ -48,7 +52,7 @@ public class PlayerDataHandler implements IExtendedEntityProperties
 	public int color = -1;
 	public boolean bow = false;
 	public Soul stype = Soul.Normal;
-	public SoulWeaponType sword = SoulWeaponType.Broad;
+	public SoulWeaponType swordType = SoulWeaponType.Broad;
 	public WarriorType warrior = WarriorType.NotSelected;
 	public boolean art;
 	public boolean arbitur;
@@ -79,7 +83,9 @@ public class PlayerDataHandler implements IExtendedEntityProperties
 	 */
 	public static final PlayerDataHandler get(EntityPlayer player)
 	{
-		return (PlayerDataHandler) player.getExtendedProperties(ExtendedDataId);
+		if (player != null)
+			return (PlayerDataHandler) player.getExtendedProperties(ExtendedDataId);
+		return null;
 	}
 
 	/**
@@ -101,7 +107,7 @@ public class PlayerDataHandler implements IExtendedEntityProperties
 		bow = props.bow;
 		color = props.color;
 		stype = props.stype;
-		sword = props.sword;
+		swordType = props.swordType;
 		warrior = props.warrior;
 		soulxp = props.soulxp;
 		upgLevel = props.upgLevel;
@@ -110,7 +116,9 @@ public class PlayerDataHandler implements IExtendedEntityProperties
 		arbitur = props.arbitur;
 		art = props.art;
 		blockDuration = props.blockDuration;
-
+		sword = props.sword;
+		sheath = props.sheath;
+		wearType = props.wearType;
 	}
 
 	public void clearProperties(boolean construct)
@@ -133,7 +141,7 @@ public class PlayerDataHandler implements IExtendedEntityProperties
 		bow = false;
 		color = -1;
 		stype = Soul.Normal;
-		sword = SoulWeaponType.Broad;
+		swordType = SoulWeaponType.Broad;
 		warrior = WarriorType.NotSelected;
 		if (this.getPermission() > 0)
 		{
@@ -149,8 +157,12 @@ public class PlayerDataHandler implements IExtendedEntityProperties
 		addMember = "";
 		arbitur = false;
 		art = false;
-		this.setTraitBase(Trait.MeleeDamage, sword.baseDamage);
-		this.setTraitBase(Trait.RangedDamage, sword.baseDamage);
+		this.setTraitBase(Trait.MeleeDamage, swordType.baseDamage);
+		this.setTraitBase(Trait.RangedDamage, swordType.baseDamage);
+
+		sword = null;
+		sheath = null;
+		wearType = WearType.Side;
 	}
 
 	@Override
@@ -190,7 +202,7 @@ public class PlayerDataHandler implements IExtendedEntityProperties
 		tag.setBoolean("Bow", bow);
 		tag.setInteger("PartType", color);
 		tag.setString("Owner", player.getGameProfile().getName());
-		tag.setInteger("SwordType", sword.ordinal());
+		tag.setInteger("SwordType", swordType.ordinal());
 		tag.setInteger("WarriorType", warrior.ordinal());
 
 		for (int j = 0; j < upgLevel.length; j++)
@@ -202,6 +214,20 @@ public class PlayerDataHandler implements IExtendedEntityProperties
 		tag.setBoolean("Art", art);
 		tag.setInteger("Cooldown", blockDuration);
 
+		if(sword != null)
+		{
+			NBTTagCompound swordTag = new NBTTagCompound();
+			sword.writeToNBT(swordTag);
+			tag.setTag("Sword", swordTag);
+		}
+
+		if(sheath != null)
+		{
+			NBTTagCompound sheathTag = new NBTTagCompound();
+			sheath.writeToNBT(sheathTag);
+			tag.setTag("Sheath", sheathTag);
+		}
+		tag.setInteger("WearType",wearType.ordinal());
 		// Finally, set the tag with our unique identifier:
 		compound.setTag(ExtendedDataId, tag);
 	}
@@ -244,7 +270,7 @@ public class PlayerDataHandler implements IExtendedEntityProperties
 		}
 		bow = tag.getBoolean("Bow");
 		color = tag.getInteger("PartType");
-		sword = SoulWeaponType.values()[tag.getInteger("SwordType")];
+		swordType = SoulWeaponType.values()[tag.getInteger("SwordType")];
 		warrior = WarriorType.values()[tag.getInteger("WarriorType")];
 
 		for (int j = 0; j < upgLevel.length; j++)
@@ -257,8 +283,20 @@ public class PlayerDataHandler implements IExtendedEntityProperties
 		art = tag.getBoolean("Art");
 		blockDuration = tag.getInteger("Cooldown");
 
-		this.setTraitBase(Trait.MeleeDamage, sword.baseDamage);
-		this.setTraitBase(Trait.RangedDamage, sword.baseDamage);
+		if (tag.hasKey("Sword"))
+		{
+			NBTTagCompound swordTag = tag.getCompoundTag("Sword");
+			sword = ItemStack.loadItemStackFromNBT(swordTag);
+		}
+		if (tag.hasKey("Sheath"))
+		{
+			NBTTagCompound sheathTag = tag.getCompoundTag("Sheath");
+			sheath = ItemStack.loadItemStackFromNBT(sheathTag);
+		}
+		wearType = WearType.values()[tag.getInteger("WearType")];
+
+		this.setTraitBase(Trait.MeleeDamage, swordType.baseDamage);
+		this.setTraitBase(Trait.RangedDamage, swordType.baseDamage);
 	}
 
 	public float getTrait(Trait t)
@@ -348,7 +386,7 @@ public class PlayerDataHandler implements IExtendedEntityProperties
 		{
 			// Either you have a not hammer as weapon or you have 1
 			// soulCharge
-			if (player.getCurrentEquippedItem().getItem() == ModItems.SoulSword && !sword.equals(SoulWeaponType.Hammer) || WeaponManager.isRanged(player.getCurrentEquippedItem()) || player.worldObj.getWorldTime() % 2 != 0
+			if (player.getCurrentEquippedItem().getItem() == ModItems.SoulSword && !swordType.equals(SoulWeaponType.Hammer) || WeaponManager.isRanged(player.getCurrentEquippedItem()) || player.worldObj.getWorldTime() % 2 != 0
 					|| this.consumeSoul(1))
 			{
 				blockDuration += 1;
@@ -367,8 +405,8 @@ public class PlayerDataHandler implements IExtendedEntityProperties
 				blockDuration--;
 			}
 
-		this.setTraitBase(Trait.MeleeDamage, sword.baseDamage);
-		this.setTraitBase(Trait.RangedDamage, sword.baseDamage);
+		this.setTraitBase(Trait.MeleeDamage, swordType.baseDamage);
+		this.setTraitBase(Trait.RangedDamage, swordType.baseDamage);
 		// checking levelup (maxSoul is equal to needed xp)
 		if (soulxp >= this.getTrait(Trait.Soul) && soulxp != 0)
 		{
@@ -516,12 +554,11 @@ public class PlayerDataHandler implements IExtendedEntityProperties
 	}
 
 	/**
-	 * @param w
-	 * @return functional Itemstack for soul sword
+	 * @return functional Itemstack for soul swordType
 	 */
 	public ItemStack getSwordStack()
 	{
-		int meta = sword.ordinal();
+		int meta = swordType.ordinal();
 		soulTag.setString("Owner", player.getGameProfile().getName());
 		ItemStack sword = new ItemStack(ModItems.SoulSword, 1, meta);
 		sword.setTagCompound(soulTag);
@@ -531,25 +568,25 @@ public class PlayerDataHandler implements IExtendedEntityProperties
 
 	public float getFullMeleeDamage(boolean inAttack)
 	{
-		float m = (float) (sword.equals(SoulWeaponType.Hammer) ? 1 + 1 / (Math.exp(-(blockDuration - 160) / 10) + 1) : 1);
+		float m = (float) (swordType.equals(SoulWeaponType.Hammer) ? 1 + 1 / (Math.exp(-(blockDuration - 160) / 10) + 1) : 1);
 		return (stype.getMeleeDamageBonus(this, (int) this.getTrait(Trait.Level), this.getTrait(Trait.MeleeDamage), inAttack) + getUpgMeleeDamage()) * (this.getTrait(Trait.WeaponLevel) * 0.05f + 1) * m;
 	}
 
 	public float getFullMeleeDamageAgainst(EntityLivingBase l, boolean inAttack)
 	{
-		float m = (float) (sword.equals(SoulWeaponType.Hammer) ? 1 + 1 / (Math.exp(-(blockDuration - 160) / 10) + 1) : 1);
+		float m = (float) (swordType.equals(SoulWeaponType.Hammer) ? 1 + 1 / (Math.exp(-(blockDuration - 160) / 10) + 1) : 1);
 		return (stype.getFullMeleeDamage(this, l, (int) this.getTrait(Trait.Level), this.getTrait(Trait.MeleeDamage), inAttack) + getUpgMeleeDamageAgainst(l)) * (this.getTrait(Trait.WeaponLevel) * 0.05f + 1) * m;
 	}
 
 	public float getFullRangedDamage(boolean inAttack)
 	{
-		float m = (float) (sword.equals(SoulWeaponType.Hammer) ? 1 + 1 / (Math.exp(-(blockDuration - 160) / 10) + 1) : 1);
+		float m = (float) (swordType.equals(SoulWeaponType.Hammer) ? 1 + 1 / (Math.exp(-(blockDuration - 160) / 10) + 1) : 1);
 		return (stype.getRangedDamageBonus(this, (int) this.getTrait(Trait.Level), this.getTrait(Trait.RangedDamage), inAttack) + getUpgRangedDamage()) * (this.getTrait(Trait.WeaponLevel) * 0.05f + 1) * m;
 	}
 
 	public float getFullRangedDamageAgainst(EntityLivingBase l, boolean inAttack)
 	{
-		float m = (float) (sword.equals(SoulWeaponType.Hammer) ? 1 + 1 / (Math.exp(-(blockDuration - 160) / 10) + 1) : 1);
+		float m = (float) (swordType.equals(SoulWeaponType.Hammer) ? 1 + 1 / (Math.exp(-(blockDuration - 160) / 10) + 1) : 1);
 		return (stype.getFullRangedDamage(this, l, (int) this.getTrait(Trait.Level), this.getTrait(Trait.RangedDamage), inAttack) + getUpgRangedDamageAgainst(l)) * (this.getTrait(Trait.WeaponLevel) * 0.05f + 1) * m;
 	}
 
@@ -614,7 +651,7 @@ public class PlayerDataHandler implements IExtendedEntityProperties
 	{
 		int bow = 0;
 		bow += MathUtils.boolToNum(this.bow, 1, 0);
-		bow += MathUtils.boolToNum(sword.warrior.equals(WarriorType.Caster), 1, 0);
+		bow += MathUtils.boolToNum(swordType.warrior.equals(WarriorType.Caster), 1, 0);
 		return bow;
 	}
 

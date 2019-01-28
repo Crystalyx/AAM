@@ -63,14 +63,12 @@ public class PageItemList extends PageText
 			if (stack.getStack(i) instanceof ItemStack)
 			{
 				GuiHelper.drawScaledItemStack((ItemStack) stack.getStack(i), guiLeft + 45, guiTop + 25 + 20 * i, 1.0F);
+			} else if (stack.getStack(i) instanceof ItemStack[])
+			{
+				int l = ((ItemStack[]) stack.getStack(i)).length;
+				int v = (int) (Minecraft.getSystemTime() / 40d % (l * 15) / 15d);
+				GuiHelper.drawScaledItemStack(((ItemStack[]) stack.getStack(i))[v], guiLeft + 45, guiTop + 25 + 20 * i, 1.0F);
 			}
-			else
-				if (stack.getStack(i) instanceof ItemStack[])
-				{
-					int l = ((ItemStack[]) stack.getStack(i)).length;
-					int v = (int) (Minecraft.getSystemTime() / 40d % (l * 15) / 15d);
-					GuiHelper.drawScaledItemStack(((ItemStack[]) stack.getStack(i))[v], guiLeft + 45, guiTop + 25 + 20 * i, 1.0F);
-				}
 		}
 	}
 
@@ -80,37 +78,31 @@ public class PageItemList extends PageText
 		if (this == o)
 		{
 			return true;
-		}
-		else
-			if (o != null && this.getClass() == o.getClass())
+		} else if (o != null && this.getClass() == o.getClass())
+		{
+			if (!super.equals(o))
 			{
-				if (!super.equals(o))
+				return false;
+			} else
+			{
+				PageItemList that = (PageItemList) o;
+				if (stack != null)
+				{
+					if (!stack.isItemsEqual(that.stack))
+					{
+						return false;
+					}
+				} else if (that.stack != null)
 				{
 					return false;
 				}
-				else
-				{
-					PageItemList that = (PageItemList) o;
-					if (stack != null)
-					{
-						if (!stack.isItemsEqual(that.stack))
-						{
-							return false;
-						}
-					}
-					else
-						if (that.stack != null)
-						{
-							return false;
-						}
 
-					return true;
-				}
+				return true;
 			}
-			else
-			{
-				return false;
-			}
+		} else
+		{
+			return false;
+		}
 	}
 
 	@Override

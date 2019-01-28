@@ -39,19 +39,18 @@ public class StructureApi
 			t.z = dc;
 		}
 
-		tag.setString("Box", MiscUtils.compact((int) (t.x - s.x), (int) (t.y - s.y), (int) (t.z - s.z)));
-
+		tag.setString("Box", MiscUtils.compact((int) (t.x - s.x + 1), (int) (t.y - s.y + 1), (int) (t.z - s.z + 1)));
 		List<Block> igs = new ArrayList<>();
 		for (Block element : ignore)
 		{
 			igs.add(element);
 		}
 
-		for (int i = 0; i <= t.x - s.x; i++)
+		for (int i = 0; i <= t.x - s.x + 1; i++)
 		{
-			for (int j = 0; j <= t.y - s.y; j++)
+			for (int j = 0; j <= t.y - s.y + 1; j++)
 			{
-				for (int k = 0; k <= t.z - s.z; k++)
+				for (int k = 0; k <= t.z - s.z + 1; k++)
 				{
 					if (!igs.contains(w.getBlock(i + (int) s.x, j + (int) s.y, k + (int) s.z)))
 					{
@@ -73,14 +72,11 @@ public class StructureApi
 		int ty = (int) Double.parseDouble(l.get(1));
 		int tz = (int) Double.parseDouble(l.get(2));
 
-		int dx = Math.floorDiv(tx, 2);
-		int dz = Math.floorDiv(tz, 2);
-
-		for (int i = 0; i <= tx + 1; i++)
+		for (int i = 0; i <= tx; i++)
 		{
-			for (int j = 0; j <= ty + 1; j++)
+			for (int j = 0; j <= ty; j++)
 			{
-				for (int k = 0; k <= tz + 1; k++)
+				for (int k = 0; k <= tz; k++)
 				{
 					String key = MiscUtils.compact(i, j, k);
 					if (tag.hasKey(key))
@@ -92,10 +88,9 @@ public class StructureApi
 							String mod = uid.substring(0, uid.indexOf(':'));
 							String block = uid.substring(uid.indexOf(':') + 1);
 							int meta = Integer.parseInt(b.get(1));
-							BlockState bs = new BlockState(GameRegistry.findBlock(mod, block), i + x - dx, j + y, k + z - dz, meta);
+							BlockState bs = new BlockState(GameRegistry.findBlock(mod, block), i + x, j + y, k + z, meta);
 							bs.print(w);
-						}
-						catch (Exception e)
+						} catch (Exception e)
 						{
 							Logger.error("Err");
 						}

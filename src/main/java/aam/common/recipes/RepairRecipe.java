@@ -1,7 +1,7 @@
 package aam.common.recipes;
 
 import aam.api.AnvilRecipe;
-import aam.api.GameWeapon;
+import aam.api.abstraction.GameWeapon;
 import aam.common.items.ModItems;
 import aam.common.tiles.TEModificationAnvil;
 import aam.common.weapon.WeaponManager;
@@ -41,7 +41,7 @@ public class RepairRecipe extends AnvilRecipe
 		}
 		GameWeapon gw = (GameWeapon) ic.getStackInSlot(0).getItem();
 		Pair<Item, Integer> upgPair = new Pair(upg.getItem(), upg.getItemDamage());
-		Pair<Item, Integer> repPair = new Pair(gw.repairItem, gw.meta);
+		Pair<Item, Integer> repPair = new Pair(gw.repairItem, gw.repairItemMeta);
 		if (upgPair.equals(repPair))
 		{
 			return true;

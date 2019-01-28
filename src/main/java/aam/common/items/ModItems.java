@@ -1,50 +1,75 @@
 package aam.common.items;
 
-import aam.api.GameWeapon;
-import aam.api.abstraction.MeleeWeapon;
-import aam.api.abstraction.RangedWeapon;
-import aam.common.blocks.building.ModBlocks;
-import aam.common.items.alchemy.*;
-import aam.common.items.artifacts.*;
-import aam.common.items.debug.*;
-import aam.common.items.pouches.LeatherPouch;
-import aam.common.items.resources.*;
-import aam.common.items.soul.Artifact;
-import aam.common.items.soul.SoulSword;
-import aam.common.items.soul.SoulUpgradeItem;
-import aam.common.items.weapon.BlueEyedSword;
-import aam.common.items.weapon.EnderBroadsword;
-import aam.common.items.weapon.KingsSword;
-import aam.common.items.weapon.ModificationCatalyst;
-import aam.common.items.weapon.anvil.ForgedMeleeWeapon;
-import aam.common.items.weapon.anvil.ForgedRangedWeapon;
-import aam.common.items.weapon.anvil.ForgingMaterialItem;
-import aam.common.items.weapon.anvil.WeaponPartItem;
-import aam.common.tabs.MeleeTab;
-import aam.common.tabs.RangedTab;
-import aam.common.weapon.anvil.AnvilRegistry;
-import aam.common.weapon.anvil.ForgingMaterial;
-import aam.core.AAMCore;
-import cpw.mods.fml.common.registry.GameRegistry;
-import net.minecraft.creativetab.CreativeTabs;
-import net.minecraft.init.Items;
-import net.minecraft.item.EnumRarity;
-import net.minecraft.item.Item;
-import net.minecraft.util.EnumChatFormatting;
-import net.minecraftforge.common.util.EnumHelper;
-
 import java.util.ArrayList;
 import java.util.List;
 
-public class ModItems {
+import aam.api.abstraction.GameWeapon;
+import aam.api.abstraction.MeleeWeapon;
+import aam.api.abstraction.RangedWeapon;
+import aam.api.abstraction.Sheath;
+import aam.api.fluent.PreparedMeleeWeapon;
+import aam.api.fluent.PreparedRangedWeapon;
+import aam.common.blocks.building.ModBlocks;
+import aam.common.items.alchemy.AirGem;
+import aam.common.items.alchemy.AlchPaper;
+import aam.common.items.alchemy.AlchemicalBucket;
+import aam.common.items.alchemy.AlchemicalConcentrateItem;
+import aam.common.items.alchemy.AlchemicalPotionItem;
+import aam.common.items.alchemy.BloodBucket;
+import aam.common.items.alchemy.ConcentratePhial;
+import aam.common.items.alchemy.EarthGem;
+import aam.common.items.alchemy.FireGem;
+import aam.common.items.alchemy.IceGem;
+import aam.common.items.alchemy.ItemChalk;
+import aam.common.items.alchemy.MiniumShard;
+import aam.common.items.alchemy.MiniumStone;
+import aam.common.items.alchemy.MortarAndPestle;
+import aam.common.items.alchemy.PhilosophersStone;
+import aam.common.items.alchemy.SilverClock;
+import aam.common.items.artifacts.CrystalBow;
+import aam.common.items.artifacts.ElementalHeart;
+import aam.common.items.artifacts.FacelessCharm;
+import aam.common.items.artifacts.KingsStone;
+import aam.common.items.artifacts.LuckyCoin;
+import aam.common.items.artifacts.MassRessurectionStone;
+import aam.common.items.artifacts.RessurectionStone;
+import aam.common.items.artifacts.SeaShard;
+import aam.common.items.artifacts.WatchOfTime;
+import aam.common.items.debug.BoundSphere;
+import aam.common.items.debug.CliserActivator;
+import aam.common.items.debug.MagicWand;
+import aam.common.items.debug.RedRadio;
+import aam.common.items.debug.RiteBook;
+import aam.common.items.pouches.LeatherPouch;
+import aam.common.items.resources.Berry;
+import aam.common.items.resources.BerryDust;
+import aam.common.items.resources.Coin;
+import aam.common.items.resources.Material;
+import aam.common.items.resources.SwordDye;
+import aam.common.items.sheaths.*;
+import aam.common.items.soul.Artifact;
+import aam.common.items.soul.SoulSword;
+import aam.common.items.soul.SoulUpgradeItem;
+import aam.common.items.weapon.*;
+import aam.common.tabs.MeleeTab;
+import aam.common.tabs.RangedTab;
+import aam.core.AAMCore;
+import static aam.utils.EnumRarity.*;
+import cpw.mods.fml.common.registry.GameRegistry;
+import net.minecraft.creativetab.CreativeTabs;
+import net.minecraft.item.Item;
+import net.minecraftforge.common.util.EnumHelper;
+
+public class ModItems
+{
     static AAMCore core = AAMCore.instance;
-    static String idn = AAMCore.modid + ".";
-    static CreativeTabs alchemy = ModBlocks.alchemy;
-    static CreativeTabs soul = ModBlocks.soul;
-    static CreativeTabs misc = ModBlocks.misc;
-    static CreativeTabs arts = ModBlocks.arts;
-    static CreativeTabs meleetab = new MeleeTab();
-    static CreativeTabs rangedtab = new RangedTab();
+    public static String idn = AAMCore.modid + ".";
+    public static CreativeTabs alchemy = ModBlocks.alchemy;
+    public static CreativeTabs soul = ModBlocks.soul;
+    public static CreativeTabs misc = ModBlocks.misc;
+    public static CreativeTabs arts = ModBlocks.arts;
+    public static CreativeTabs meleetab = new MeleeTab();
+    public static CreativeTabs rangedtab = new RangedTab();
 
     // =======================RogueWorld===========================
     public static Item RiteBook = new RiteBook();
@@ -109,24 +134,24 @@ public class ModItems {
     public static MeleeWeapon KingsSword = new KingsSword();
     public static MeleeWeapon EnderBroadsword = new EnderBroadsword();
     public static MeleeWeapon BlueEyedSword = new BlueEyedSword();
-    public static MeleeWeapon ForgedMeleeWeapon = new ForgedMeleeWeapon();
-    public static RangedWeapon ForgedRangedWeapon = new ForgedRangedWeapon();
+    public static MeleeWeapon CommonBastardSwords = new CommonBastardSword();
+    public static MeleeWeapon UncommonBastardSword = new UncommonBastardSword();
+    public static MeleeWeapon RareBastardSword = new RareBastardSword();
+    public static MeleeWeapon UniqueBastardSword = new UniqueBastardSword();
+    public static Sheath CommonBastardSheath = new CommonBastardSheath();
+    public static Sheath UncommonBastardSheath= new UncommonBastardSheath();
+    public static Sheath RareBastardSheath = new RareBastardSheath();
+    public static Sheath UniqueBastardSheath = new UniqueBastardSheath();
     public static Item flux = new Item().setUnlocalizedName(idn + "flux").setTextureName("aam:flux");
+    public static Item emptyPhial = new Item().setUnlocalizedName(idn + "empty_phial").setTextureName("aam:/potions/empty_phial");
 
     public static List<GameWeapon> miscWeapon = new ArrayList<>();
     public static List<MeleeWeapon> melee = new ArrayList<>();
     public static List<RangedWeapon> ranged = new ArrayList<>();
-    public static List<WeaponPartItem> parts = new ArrayList<>();
-    public static List<ForgingMaterialItem> toolMaterials = new ArrayList<>();
 
-    public static final EnumRarity blood = EnumHelper.addRarity("Blood", EnumChatFormatting.DARK_RED, "Blood");
-
-    public static void load() {
+    public static void load()
+    {
         // =======================potions===========================
-        registerItem(Berry, misc);
-        registerItem(BerryDust, misc);
-        registerItem(MortarAndPestle, misc);
-        registerItem(Potion, misc);
 
         // =======================Artifacts===========================
         // registerItem(RainbowSword, misc);
@@ -153,6 +178,14 @@ public class ModItems {
         registerItem(RedRadio, misc);
 
         // =======================Alchemy===========================
+        registerItem(Berry, alchemy);
+        registerItem(BerryDust, alchemy);
+        registerItem(MortarAndPestle, alchemy);
+        registerItem(emptyPhial, alchemy);
+        registerItem(Potion, alchemy);
+        registerItem(smallConcentrate, alchemy);
+        registerItem(mediumConcentrate, alchemy);
+        registerItem(bigConcentrate, alchemy);
         registerItem(TeleportationCrystal, alchemy);
         registerItem(AlchPaper, alchemy);
         registerItem(ItemChalk, alchemy);
@@ -162,9 +195,6 @@ public class ModItems {
         registerItem(BloodBucket, alchemy);
         registerItem(LinkObol, alchemy);
         registerItem(SilverClock, alchemy);
-        registerItem(smallConcentrate, alchemy);
-        registerItem(mediumConcentrate, alchemy);
-        registerItem(bigConcentrate, alchemy);
         registerItem(BerryAssorty, alchemy);
         registerItem(AlchemicalBucket, alchemy);
         registerItem(ConcentratePhial, alchemy);
@@ -177,13 +207,13 @@ public class ModItems {
         registerItem(LeatherPouch, soul);
         registerItem(SoulLens, soul);
         registerItem(SoulSword, soul);
-        materials.addMaterial("atrillium_ingot");
-        materials.addMaterial("brass_ingot");
-        materials.addMaterial("altersteel_ingot");
-        materials.addMaterial("potions/empty_phial");
-        materials.addMaterial("atrillium_scale");
-        materials.addMaterial("brass_scale");
-        materials.addMaterial("altersteel_scale");
+        materials.addMaterial("atrillium_ingot");//0
+        materials.addMaterial("altersteel_ingot");//1
+        materials.addMaterial("brass_ingot");//2
+        materials.addMaterial("antibrass_ingot");//3
+        materials.addMaterial("mithril_ingot");//4
+        materials.addMaterial("quantum_steel_ingot");//5
+        materials.addMaterial("steel_ingot");//6
 
         registerItem(materials, soul);
         registerItem(Artifact, soul);
@@ -197,81 +227,114 @@ public class ModItems {
         registerItem(RiteBook, misc);
         registerItem(STea, misc);
 
-        for (WeaponPartItem pt : parts) {
-            registerItem(pt, soul);
-        }
-        for (ForgingMaterial mat : AnvilRegistry.materials) {
-            ForgingMaterialItem fmi = new ForgingMaterialItem(mat);
-            toolMaterials.add(fmi);
-            registerItem(fmi, soul);
-        }
-
-        registerItem(ForgedMeleeWeapon, null);
-        registerItem(ForgedRangedWeapon, null);
-
-        registerMeleeFully("aam.item.sword.blood", 8, false, EnumRarity.rare, "aam:sword/blood", 4000, 3, 1, 3, ModItems.MiniumShard, 0);
-        registerMeleeFully("aam.item.sword.brass", 17, false, EnumRarity.uncommon, "aam:sword/brass", 3000, 3, 0, 2, Items.gold_ingot, 0);
-        registerRangedFully("aam.item.staff.blood", 6, 12, 8, false, EnumRarity.rare, "aam:staff/blood", 4000, 3, 1, 3, ModItems.MiniumShard, 0);
+        PreparedMeleeWeapon.newInstance()
+                .withName("sword.blood")
+                .withBaseDamage(8)
+                .withRarity(Rare)
+                .withTexture("aam:sword/blood")
+                .withDurability(2000)
+                .withSlotsRanged(1, 3)
+                .withRepairItem(ModItems.MiniumShard, 0).
+                register();
+        PreparedMeleeWeapon.newInstance()
+                .withName("sword.brass")
+                .withBaseDamage(17)
+                .withRarity(Uncommon)
+                .withTexture("aam:sword/brass")
+                .withDurability(600)
+                .withSlotsRanged(0, 2)
+                .withRepairItem(materials, 2)
+                .register();
+        PreparedRangedWeapon.newInstance()
+                .withName("staff.blood")
+                .withMeleeDamage(6)
+                .withRangedDamage(12)
+                .withSoulConsumed(8)
+                .withRarity(Rare)
+                .withTexture("aam:staff/blood")
+                .withDurability(2000)
+                .withSlotsRanged(1, 3)
+                .withRepairItem(ModItems.MiniumShard, 0);
 
         // Leaders set
-        registerMeleeFully("aam.item.sword.leader.broad", 32, false, blood, "aam:sword/leader_broadsword", 8000, 3, 0, 3, ModItems.MiniumShard, 0);
-        registerMeleeFully("aam.item.sword.leader.rapier", 28, true, blood, "aam:sword/leader_rapier", 8000, 3, 0, 3, ModItems.MiniumShard, 0);
-        registerMeleeFully("aam.item.spear.leader.spear", 28, true, blood, "aam:tank/leader_spear", 8000, 3, 0, 3, ModItems.MiniumShard, 0).setReach(8);
-        registerMeleeFully("aam.item.axe.leader.battleaxe", 32, false, blood, "aam:tank/leader_axe", 8000, 3, 0, 3, ModItems.MiniumShard, 0).setReach(8);
-        registerRangedFully("aam.item.staff.leader.wand", 17, 28, 8, true, blood, "aam:staff/leader_wand", 8000, 3, 0, 3, ModItems.MiniumShard, 0);
-        registerRangedFully("aam.item.staff.leader.staff", 20, 32, 8, false, blood, "aam:staff/leader_staff", 8000, 3, 0, 3, ModItems.MiniumShard, 0);
+        PreparedMeleeWeapon leadersMeleeBase = PreparedMeleeWeapon.newInstance()
+                .withRarity(Rare)
+                .withDurability(3000)
+                .withSlotsRanged(0, 3)
+                .withRepairItem(ModItems.MiniumShard, 0);
+
+        leadersMeleeBase.withTexture("aam:sword/leader_broadsword")
+                .withName("sword.leader.broad")
+                .withBaseDamage(32)
+                .register();
+        leadersMeleeBase.withTexture("aam:tank/leader_axe")
+                .withName("swordType.leader.battleaxe")
+                .asHammer(true)
+                .withReach(4)
+                .register();
+        leadersMeleeBase.withTexture("aam:sword/leader_rapier")
+                .setBypassesArmor()
+                .asHammer(false)
+                .withName("sword.leader.rapier")
+                .withBaseDamage(28)
+                .register();
+        leadersMeleeBase.withTexture("aam:tank/leader_spear")
+                .withName("spear.leader.spear")
+                .withReach(8)
+                .register();
+
+        PreparedRangedWeapon leadersRangedBase = PreparedRangedWeapon.newInstance()
+                .withRarity(Rare)
+                .withDurability(3000)
+                .withSlotsRanged(0, 3)
+                .withRepairItem(ModItems.MiniumShard, 0);
+        leadersRangedBase.withTexture("aam:staff/leader_staff")
+                .withName("staff.leader.staff")
+                .withMeleeDamage(20)
+                .withRangedDamage(32)
+                .register();
+        leadersRangedBase.withTexture("aam:staff/leader_wand")
+                .withName("staff.leader.wand")
+                .withMeleeDamage(17)
+                .withRangedDamage(28)
+                .setBypassesArmor()
+                .register();
         // Leaders end
 
         registerGameWeapon(KingsSword, meleetab);
         registerGameWeapon(EnderBroadsword, meleetab);
         registerGameWeapon(BlueEyedSword, meleetab);
 
+        registerGameWeapon(CommonBastardSwords, meleetab);
+        registerGameWeapon(UncommonBastardSword, meleetab);
+        registerGameWeapon(RareBastardSword, meleetab);
+        registerGameWeapon(UniqueBastardSword, meleetab);
+
+        registerItem(CommonBastardSheath, meleetab);
+        registerItem(UncommonBastardSheath, meleetab);
+        registerItem(RareBastardSheath, meleetab);
+        registerItem(UniqueBastardSheath, meleetab);
+        SheathRegistry.registerSheath(CommonBastardSheath);
+        SheathRegistry.registerSheath(UncommonBastardSheath);
+        SheathRegistry.registerSheath(RareBastardSheath);
+        SheathRegistry.registerSheath(UniqueBastardSheath);
     }
 
-    public static RangedWeapon registerRangedFully(String name, int meleeDmg, int rangedDmg, int soulConsumed, boolean bypassesArmor, EnumRarity rarity, String texture, int durability, int repairs, int minSlots, int maxSlots,
-                                                   Item repairItem, int meta) {
-        RangedWeapon ms = new RangedWeapon(name, meleeDmg, rangedDmg, soulConsumed, minSlots, maxSlots);
-        ms.setBypassesArmor(bypassesArmor).setRarity(rarity).setTexture(texture).setDurability(durability).setRepairs(repairs).setRepairItem(repairItem, meta);
-        ranged.add(ms);
-        registerItem(ms, rangedtab);
-        return ms;
-    }
-
-    public static RangedWeapon registerRanged(String name, int meleeDmg, int rangedDmg, int soulConsumed, int cd, int minSlots, int maxSlots) {
-        RangedWeapon ms = new RangedWeapon(name, meleeDmg, rangedDmg, soulConsumed, minSlots, maxSlots);
-        ranged.add(ms);
-        registerItem(ms, rangedtab);
-        return ms;
-    }
-
-    public static MeleeWeapon registerMeleeFully(String name, int baseDmg, boolean bypassesArmor, EnumRarity rarity, String texture, int durability, int repairs, int minSlots, int maxSlots, Item repairItem, int meta) {
-        MeleeWeapon ms = new MeleeWeapon(name, minSlots, maxSlots);
-        ms.setBaseDmg(null, baseDmg).setBypassesArmor(bypassesArmor).setRarity(rarity).setTexture(texture).setDurability(durability).setRepairs(repairs).setRepairItem(repairItem, meta);
-        melee.add(ms);
-        registerItem(ms, meleetab);
-        return ms;
-    }
-
-    public static MeleeWeapon registerMeleeFully(String name, int minSlots, int maxSlots) {
-        MeleeWeapon ms = new MeleeWeapon(name, minSlots, maxSlots);
-        melee.add(ms);
-        registerItem(ms, meleetab);
-        return ms;
-    }
-
-    public static GameWeapon registerGameWeapon(GameWeapon weap, CreativeTabs tab) {
+    public static GameWeapon registerGameWeapon(GameWeapon weap, CreativeTabs tab)
+    {
         miscWeapon.add(weap);
         registerItem(weap, tab);
         return weap;
     }
 
-    public static void registerItem(Item i) {
+    public static void registerItem(Item i)
+    {
         GameRegistry.registerItem(i, i.getUnlocalizedName());
     }
 
-    public static void registerItem(Item i, CreativeTabs tab) {
+    public static void registerItem(Item i, CreativeTabs tab)
+    {
         i.setCreativeTab(tab);
         GameRegistry.registerItem(i, i.getUnlocalizedName());
     }
-
 }

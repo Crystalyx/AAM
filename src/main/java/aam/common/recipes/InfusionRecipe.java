@@ -1,7 +1,7 @@
 package aam.common.recipes;
 
 import aam.api.AnvilRecipe;
-import aam.api.GameWeapon;
+import aam.api.abstraction.GameWeapon;
 import aam.common.items.ModItems;
 import aam.common.tiles.TEModificationAnvil;
 import aam.common.weapon.WeaponManager;
@@ -34,16 +34,7 @@ public class InfusionRecipe extends AnvilRecipe
 			return false;
 		}
 		GameWeapon base = (GameWeapon) ic.getStackInSlot(0).getItem();
-		GameWeapon upg = (GameWeapon) ic.getStackInSlot(4).getItem();
 		int baseLevel = base.getUpgradeLevel(ic.getStackInSlot(0));
-		int baseRarity = base.rarity.ordinal();
-		int upgLevel = upg.getUpgradeLevel(ic.getStackInSlot(4));
-		int upgRarity = upg.rarity.ordinal();
-		int upgValue = upgRarity - baseRarity + upgLevel / 2 + baseLevel;
-		if (upgLevel == 0 && baseLevel == 0 && base == upg)
-		{
-			upgValue += 1;
-		}
 		b = b && baseLevel < base.getMaxLevel(ic.getStackInSlot(0));
 		return b;
 	}
@@ -71,7 +62,7 @@ public class InfusionRecipe extends AnvilRecipe
 		upgValue = MathUtils.limit(upgValue, 0, base.getMaxLevel(ic.getStackInSlot(0)));
 		base.setUpgradeLevel(ic.getWorldObj(), ic.getStackInSlot(0), upgValue);
 
-		if (base.repairItem == upg.repairItem && base.meta == upg.meta)
+		if (base.repairItem == upg.repairItem && base.repairItemMeta == upg.repairItemMeta)
 		{
 			WeaponManager.repair(ic.getStackInSlot(0));
 		}

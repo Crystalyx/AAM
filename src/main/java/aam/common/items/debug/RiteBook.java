@@ -7,8 +7,6 @@ import aam.common.event.SoulEvent;
 import aam.common.soul.SoulWeaponType;
 import aam.common.soul.Trait;
 import aam.common.transmutations.ModCircles;
-import aam.common.weapon.WeaponManager;
-import aam.utils.InventoryUtils;
 import aam.utils.MathUtils;
 import aam.utils.MiscUtils;
 import aam.utils.PlayerDataHandler;
@@ -41,7 +39,7 @@ public class RiteBook extends Item
 		switch (f)
 		{
 		case 0:
-			ph.sword = SoulWeaponType.values()[MathUtils.cycle(ph.sword.ordinal() + 1, 0, SoulWeaponType.values().length - 1)];
+			ph.swordType = SoulWeaponType.values()[MathUtils.cycle(ph.swordType.ordinal() + 1, 0, SoulWeaponType.values().length - 1)];
 			break;
 		case 1:
 			ph.arbitur = !ph.arbitur;
@@ -68,9 +66,6 @@ public class RiteBook extends Item
 		case 5:
 			ModCircles.reloadCircles();
 			break;
-		case 6:
-			ItemStack weapon = WeaponManager.createMeleeWeapon("test", new int[] { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15 });
-			InventoryUtils.addItemStack(p, weapon);
 		}
 		SoulEvent.callSwordRecreation(ph);
 		return i;

@@ -76,10 +76,9 @@ public class MultiRecipeRenderer implements IRecipeRenderer
 							{
 								tooltips = GuiHelper.getTooltip((ItemStack) component);
 							}
-						}
-						else
+						} else
 						{
-							ArrayList list = (ArrayList) component;
+							ArrayList<?> list = (ArrayList<?>) component;
 							if (!list.isEmpty())
 							{
 								ItemStack stack = (ItemStack) list.get(this.getRandomizedCycle(x + y * 3, list.size()));
@@ -106,7 +105,7 @@ public class MultiRecipeRenderer implements IRecipeRenderer
 		return (index + rand.nextInt(max) + cycleIdx) % max;
 	}
 
-	public List tooltips = Lists.newArrayList();
+	public List<?> tooltips = Lists.newArrayList();
 
 	@Override
 	public void drawExtras(Book book, CategoryAbstract category, EntryAbstract entry, int guiLeft, int guiTop, int mouseX, int mouseY, GuiBase guiBase, FontRenderer fontRenderer)

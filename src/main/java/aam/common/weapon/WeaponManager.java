@@ -1,12 +1,9 @@
 package aam.common.weapon;
 
-import aam.api.GameWeapon;
+import aam.api.abstraction.GameWeapon;
 import aam.api.interfaces.IUpgradableItem;
 import aam.api.abstraction.MeleeWeapon;
 import aam.api.abstraction.RangedWeapon;
-import aam.common.items.ModItems;
-import aam.common.items.weapon.anvil.ForgedMeleeWeapon;
-import aam.common.items.weapon.anvil.ForgedRangedWeapon;
 import aam.utils.MathUtils;
 import aam.utils.PlayerDataHandler;
 import net.minecraft.entity.EntityLivingBase;
@@ -38,8 +35,7 @@ public class WeaponManager
 		if (i.hasTagCompound())
 		{
 			i.getTagCompound().setInteger("SlotCount", count);
-		}
-		else
+		} else
 		{
 			NBTTagCompound tag = new NBTTagCompound();
 			tag.setInteger("SlotCount", count);
@@ -49,11 +45,12 @@ public class WeaponManager
 
 	public static void assertHasNBT(ItemStack i)
 	{
-		if (!i.hasTagCompound())
-		{
-			NBTTagCompound tag = new NBTTagCompound();
-			i.setTagCompound(tag);
-		}
+		if(i != null)
+			if (!i.hasTagCompound())
+			{
+				NBTTagCompound tag = new NBTTagCompound();
+				i.setTagCompound(tag);
+			}
 	}
 
 	public static int getSlotCount(ItemStack i)
@@ -65,8 +62,7 @@ public class WeaponManager
 				if (i.hasTagCompound())
 				{
 					return i.getTagCompound().getInteger("SlotCount");
-				}
-				else
+				} else
 				{
 					NBTTagCompound tag = new NBTTagCompound();
 					IUpgradableItem weap = (IUpgradableItem) i.getItem();
@@ -111,8 +107,7 @@ public class WeaponManager
 						setSlotCount(i, slot + 1);
 					}
 					i.getTagCompound().setInteger("UpgSlot_" + slot, WeaponUpgrades.upgrades.indexOf(up) + 1);
-				}
-				else
+				} else
 				{
 					NBTTagCompound tag = new NBTTagCompound();
 					IUpgradableItem weap = (IUpgradableItem) i.getItem();
@@ -144,8 +139,7 @@ public class WeaponManager
 						setSlotCount(i, slotCount + 1);
 					}
 					i.getTagCompound().setInteger("UpgSlot_" + slot, WeaponUpgrades.upgrades.indexOf(up) + 1);
-				}
-				else
+				} else
 				{
 					NBTTagCompound tag = new NBTTagCompound();
 					IUpgradableItem weap = (IUpgradableItem) i.getItem();
@@ -193,8 +187,7 @@ public class WeaponManager
 		if (i.hasTagCompound())
 		{
 			i.getTagCompound().setInteger("Damage", count);
-		}
-		else
+		} else
 		{
 			NBTTagCompound tag = new NBTTagCompound();
 			tag.setInteger("Damage", count);
@@ -207,8 +200,7 @@ public class WeaponManager
 		if (i.hasTagCompound())
 		{
 			i.getTagCompound().setInteger("Damage", count + getDamagePoints(i));
-		}
-		else
+		} else
 		{
 			NBTTagCompound tag = new NBTTagCompound();
 			tag.setInteger("Damage", count + getDamagePoints(i));
@@ -221,8 +213,7 @@ public class WeaponManager
 		if (i.hasTagCompound())
 		{
 			return i.getTagCompound().getInteger("Damage");
-		}
-		else
+		} else
 		{
 			return 0;
 		}
@@ -326,14 +317,14 @@ public class WeaponManager
 		PlayerDataHandler ph = PlayerDataHandler.get(p);
 		if (item instanceof GameWeapon)
 		{
-			float meleeBonus = ((GameWeapon) item).getMeleeDamageBonus(ph, getUpgradeLevel(i), ((GameWeapon) item).getBaseDamage(i), false);
+			float meleeBonus = ((GameWeapon) item).getMeleeDamageBonus(ph, getUpgradeLevel(i), ((GameWeapon) item).baseDamage, false);
 
 			if (item instanceof MeleeWeapon)
 			{
 				float m = 1;
 				if (((MeleeWeapon) item).isHammer)
 					m = (float) (1 + 1 / (Math.exp(-(ph.blockDuration - 160) / 10) + 1));
-				return ((MeleeWeapon) item).getBaseDamage(i) * m + meleeBonus;
+				return ((MeleeWeapon) item).baseDamage * m + meleeBonus;
 			}
 			if (item instanceof RangedWeapon)
 			{
@@ -341,28 +332,6 @@ public class WeaponManager
 			}
 		}
 		return 0;
-	}
-
-	public static ItemStack createMeleeWeapon(String name, int[] parts)
-	{
-		ItemStack is = new ItemStack(ModItems.ForgedMeleeWeapon);
-		assertHasNBT(is);
-		is.getTagCompound().setIntArray("Parts", parts);
-		is.getTagCompound().setString("AnvilName", name);
-		ForgedMeleeWeapon.recountValues(is);
-		recreateSlots(is);
-		return is;
-	}
-
-	public static ItemStack createRangedWeapon(String name, int[] parts)
-	{
-		ItemStack is = new ItemStack(ModItems.ForgedRangedWeapon);
-		assertHasNBT(is);
-		is.getTagCompound().setIntArray("Parts", parts);
-		is.getTagCompound().setString("AnvilName", name);
-		ForgedRangedWeapon.recountValues(is);
-		recreateSlots(is);
-		return is;
 	}
 
 	public static float getSpecificWeaponMeleeDamage(EntityPlayer p, EntityLivingBase l, ItemStack i)
@@ -375,7 +344,7 @@ public class WeaponManager
 		PlayerDataHandler ph = PlayerDataHandler.get(p);
 		if (item instanceof GameWeapon)
 		{
-			return ((GameWeapon) item).getSpecificMeleeDamageBonus(ph, l, ((GameWeapon) item).getUpgradeLevel(i), ((GameWeapon) item).getBaseDamage(i));
+			return ((GameWeapon) item).getSpecificMeleeDamageBonus(ph, l, ((GameWeapon) item).getUpgradeLevel(i), ((GameWeapon) item).baseDamage);
 		}
 		return 0;
 	}
@@ -398,8 +367,7 @@ public class WeaponManager
 						}
 					}
 					return empty;
-				}
-				else
+				} else
 				{
 					NBTTagCompound tag = new NBTTagCompound();
 					IUpgradableItem weap = (IUpgradableItem) i.getItem();

@@ -2,7 +2,6 @@ package aam.network;
 
 import aam.api.PouchInventory;
 import aam.common.container.*;
-import aam.common.tiles.TEMechanistsTable;
 import aam.common.tiles.TEModificationAnvil;
 import aam.common.tiles.TESoulAltar;
 import aam.common.tiles.TESpellTable;
@@ -27,8 +26,6 @@ public class CommonProxy implements IGuiHandler
 			return new ModificationAnvilContainer(p.inventory, (TEModificationAnvil) w.getTileEntity(x, y, z));
 		case 3:
 			return new PouchContainer(p.inventory, new PouchInventory(p.getCurrentEquippedItem()));
-		case 4:
-			return new MechanistsTableContainer(p.inventory, (TEMechanistsTable) w.getTileEntity(x, y, z));
 		}
 		return null;
 	}

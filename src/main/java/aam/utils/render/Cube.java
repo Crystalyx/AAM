@@ -101,7 +101,7 @@ public class Cube extends ModelBase
 
 	/**
 	 * @param texture
-	 *            texture
+	 *            textureName
 	 */
 	public void render(ResourceLocation texture)
 	{

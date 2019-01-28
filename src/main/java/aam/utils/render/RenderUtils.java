@@ -397,7 +397,7 @@ public class RenderUtils
 	}
 
 	/**
-	 * Renders an item held in hand as a 2D texture with thickness
+	 * Renders an item held in hand as a 2D textureName with thickness
 	 */
 	public static void renderTextureIn2D(Tessellator tess, double xmin, double ymin, double ymax, double xmax, int p_78439_5_, int p_78439_6_, double p_78439_7_)
 	{
@@ -482,7 +482,7 @@ public class RenderUtils
 	}
 
 	/**
-	 * Renders an item held in hand as a 2D texture with thickness
+	 * Renders an item held in hand as a 2D textureName with thickness
 	 */
 	public static void renderTextureIn2DwithColor(Tessellator tess, double xmin, double ymin, double ymax, double xmax, int p_78439_5_, int p_78439_6_, double p_78439_7_, Color col)
 	{
